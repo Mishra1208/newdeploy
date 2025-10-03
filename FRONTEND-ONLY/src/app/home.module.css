@@ -1,0 +1,330 @@
+.page{ padding-bottom:80px }
+.section{ padding:64px 0 }
+.hero{ padding:88px 0 }
+.container{ max-width:1280px; margin:0 auto; padding:0 20px }
+.kicker{ color:var(--accent); font-weight:800; margin:0 0 8px }
+.title{ font-size:64px; line-height:1.1; margin:0 0 16px; font-weight:800; letter-spacing:-.02em }
+.titleDark{ color:#111827 }
+.subtitle{ color:var(--ink-dim); max-width:55ch; margin:0 0 16px }
+
+/* CTA row + buttons */
+.ctaRow{ display:flex; gap:12px; margin:12px 0 8px }
+.btnLg{ padding:14px 18px; font-size:16px }
+.btnGhost{
+  appearance:none; border:1px solid rgba(15,23,42,.12);
+  background:transparent; color:var(--ink);
+  padding:12px 16px; border-radius:9999px; font-weight:700;
+  text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+}
+[data-theme="dark"] .btnGhost{ border-color:rgba(255,255,255,.18); color:#fff }
+.btnGhost:hover{ background:rgba(15,23,42,.04) }
+[data-theme="dark"] .btnGhost:hover{ background:rgba(255,255,255,.06) }
+
+.heroGrid{ display:grid; align-items:center; gap:36px; grid-template-columns: 1fr }
+@media (max-width:980px){ .heroGrid{ grid-template-columns:1fr } }
+
+.search{ display:flex; gap:12px; align-items:center; padding:10px 12px; background:var(--panel); border-radius:9999px;
+  box-shadow:var(--ring), var(--shadow-lg); max-width:720px }
+.searchIcon{ width:22px; height:22px; opacity:.55; margin-left:6px }
+.searchInput{ flex:1; border:0; outline:0; font:inherit; color:var(--ink); padding:8px 6px; background:transparent }
+.btnPrimary{ appearance:none; border:0; outline:0; cursor:pointer; padding:10px 16px; border-radius:9999px; font-weight:700;
+  color:#fff; background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow:0 10px 30px rgba(109,40,217,.25); text-decoration:none; display:inline-flex; align-items:center; gap:8px }
+.btnPrimary:hover{ filter:brightness(.98) }
+[data-theme="dark"] .btnPrimary{ box-shadow:0 14px 40px rgba(34,211,238,.22) }
+
+/* Rotating line */
+.rotatorRow{ display:flex; align-items:baseline; gap:16px; margin-top: clamp(88px, 10vw, 120px) }
+.ctaPrefix{ color:var(--ink); font-weight:800 }
+.ctaPrefixLarge{ font-size: clamp(28px, 3.2vw, 44px); line-height:1.05; letter-spacing:.5px; text-shadow:0 1px 0 rgba(255,255,255,.25) }
+.rotatorChip{
+  font-size:clamp(14px,1.2vw,18px); padding:10px 16px; border-radius:9999px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff;
+  box-shadow:0 10px 30px rgba(109,40,217,.25)
+}
+
+/* “How it works” mini strip */
+.steps{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px; max-width:760px
+}
+.steps li{
+  display:flex; align-items:center; gap:10px; padding:12px 14px;
+  border-radius:12px; background:var(--panel); box-shadow:var(--ring), var(--shadow-sm);
+  color:var(--ink)
+}
+.steps li span{
+  width:26px; height:26px; border-radius:999px; display:inline-grid; place-items:center;
+  font-weight:800; font-size:12px; color:#fff;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2))
+}
+@media (max-width:980px){ .steps{ grid-template-columns:1fr } }
+
+/* Stronger, more “premium” paragraph */
+.calCopy{
+  max-width:420px; font-size:16.5px; line-height:1.55; font-weight:600; color:var(--ink);
+  margin-right:24px; border-left:4px solid var(--accent); padding-left:14px
+}
+[data-theme="dark"] .calCopy{ color:#e7e9ee; opacity:.95; border-color:var(--accent-2) }
+
+/* Widget docking + responsive scaling */
+.calDock{ --cal-scale:1; transform:translateZ(0) }
+.calDock > *{ transform:scale(var(--cal-scale)); transform-origin:top right }
+@media (min-width:1280px){ .calDock{ --cal-scale:1.15 } }
+@media (min-width:1440px){ .calDock{ --cal-scale:1.25 } }
+@media (min-width:1680px){ .calDock{ --cal-scale:1.35 } }
+
+.hero{ padding:88px 0; padding-bottom: clamp(200px, 20vw, 340px) }
+
+/* Mobile/tablet */
+@media (max-width:980px){
+  .hero{ padding-bottom:56px }
+  .calRow{ position:static; right:auto; top:auto; margin-top:24px; flex-direction:column; align-items:flex-start; gap:10px }
+  .calCopy{ max-width:520px }
+  .calDock{ --cal-scale:1 }
+  .calDock > *{ transform:none }
+}
+
+/* Cards, footer, etc. (unchanged) */
+.cardsGrid3{ display:grid; gap:18px; grid-template-columns:repeat(3,1fr) }
+@media (max-width:980px){ .cardsGrid3{ grid-template-columns:1fr } }
+.valueIconDot{ width:10px; height:10px; border-radius:999px; background:#a78bfa; box-shadow:0 0 0 6px rgba(167,139,250,.15); margin-bottom:8px }
+.bodyMuted{ color:var(--ink-dim) }
+.rowBetween{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px }
+.cards{ display:grid; gap:14px; grid-template-columns:repeat(3,1fr) }
+@media (max-width:980px){ .cards{ grid-template-columns:1fr } }
+.aboutGrid{ display:grid; gap:24px; grid-template-columns: 1.2fr .8fr }
+@media (max-width:980px){ .aboutGrid{ grid-template-columns:1fr } }
+.aboutArt{ height:220px; border-radius:var(--radius-lg); background:linear-gradient(135deg,#f5f3ff,#fdf2f8); box-shadow:var(--shadow-lg) }
+.newsletterBand{ margin:56px 0 0; background: radial-gradient(1200px 200px at 50% 0, rgba(147,51,234,.10), transparent 60%); padding:42px 0 }
+.newsletterInner{ display:flex; align-items:center; justify-content:space-between; gap:18px }
+.newsCopy{ color:var(--ink-dim); margin:4px 0 0 }
+.newsForm{ display:flex; gap:10px; background:var(--panel); padding:8px; border-radius:9999px; box-shadow:var(--ring), var(--shadow-lg) }
+.newsInput{ border:0; outline:0; padding:10px 12px; font:inherit; min-width:260px }
+.btnGlass{ border:0; padding:10px 16px; border-radius:999px; font-weight:700; color:#fff;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2)) }
+.footer{ margin-top:44px; padding:90px 0; border-top:1px solid rgba(15,23,42,.06); box-shadow:0 -10px 30px rgba(15,23,42,.06); background:black; color:white }
+.containerGrid4{ display:grid; gap:18px; grid-template-columns:repeat(4,1fr) }
+@media (max-width:980px){ .containerGrid4{ grid-template-columns:1fr 1fr } }
+.footerBrand{ font-weight:800 }
+.footerMuted{ color:var(--ink-dim) }
+.footerHead{ font-weight:700; margin-bottom:6px }
+.footerList{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
+.footerLink{ color:var(--ink-dim); text-decoration:none }
+.footerLink:hover{ color:var(--ink) }
+.footerBottom{ text-align:center; margin-top:16px; color:var(--ink-dim) }
+.h2{ font-size:28px; line-height:1.2; margin:0 0 12px }
+
+
+/* Rotating line */
+.rotatorRow{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  margin-top: clamp(20%, 9vw, 12px);
+}
+
+/* --- Docked copy + widget row (IN FLOW, spans container) --- */
+.calRow{
+  display: grid;
+  grid-template-columns: 1fr auto;  /* copy hugs left edge, widget on the right */
+  align-items: start;
+  gap: 24px;
+  margin-top: clamp(56px, 7.5vw, 120px);                 /* space under the hero grid */
+}
+
+.calCopy{
+  /* keep the left accent + spacing you already had */
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+  margin: 0;
+
+  /* bigger, fluid type + comfortable measure */
+  font-size: clamp(23px, 1.15vw, 22px);
+  line-height: 1.6;
+  font-weight: 650;
+
+  /* width by characters keeps it readable as size grows */
+  max-width: 56ch;
+  color: var(--ink);
+}
+
+[data-theme="dark"] .calCopy{
+  color:#e7e9ee;
+  opacity:.95;
+  border-color:var(--accent-2);
+}
+.calCopy strong { font-weight: 1000; }
+.calRow { margin-top: 56px; }  /* was 42px */
+
+
+.calDock{
+  /* keep to the right, don’t shrink, allow visual scale */
+  --cal-scale: 1;
+  flex-shrink: 0;
+  transform: translateZ(0);
+}
+.calDock > *{
+  transform: scale(var(--cal-scale));
+  transform-origin: top right;
+}
+
+@media (min-width:1280px){ .calDock{ --cal-scale: 1.10 } }
+@media (min-width:1440px){ .calDock{ --cal-scale: 1.20 } }
+@media (min-width:1680px){ .calDock{ --cal-scale: 1.30 } }
+
+/* Section padding: no giant bottom padding now that calRow isn’t absolute */
+.hero{
+  padding: 88px 0 64px;
+}
+
+/* Mobile/tablet: stack copy over widget */
+@media (max-width:980px){
+  .calRow{
+    grid-template-columns: 1fr;     /* stack */
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .calCopy{ max-width: 100% }
+  .calDock{ --cal-scale: 1 }
+  .calDock > *{ transform: none }
+}
+
+.footer { position: relative; }
+.footer::before{
+  content:""; position:absolute; left:0; right:0; top:-36px; height:36px;
+  background: radial-gradient(800px 60px at 50% 100%, rgba(147,51,234,.10), transparent 70%);
+  pointer-events:none;
+}
+
+
+/* ===== Animated hero showcase ===== */
+.showcase{
+  position: relative;
+  height: clamp(260px, 32vw, 380px);
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  /* subtle lift + tilt on hover */
+  transform: translateZ(0);
+  transition: transform .35s ease, box-shadow .35s ease;
+  box-shadow: var(--ring), 0 20px 60px rgba(15,23,42,.10);
+}
+.showcase:hover{
+  transform: perspective(900px) rotateX(.75deg) rotateY(-1deg) translateY(-1px);
+  box-shadow: var(--ring), 0 30px 90px rgba(15,23,42,.16);
+}
+
+/* inner: where slides live */
+.showcaseInner{
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* Slides (Next Image ‘fill’) */
+.slide{
+  object-fit: cover !important;
+  opacity: 0;
+  animation: fadeCycle 18s infinite ease-in-out, kenburns 18s infinite linear;
+  animation-delay: calc(var(--idx) * 6s), calc(var(--idx) * 6s);
+  transform-origin: center;
+}
+
+/* index offsets */
+.s1{ --idx: 0 }
+.s2{ --idx: 1 }
+.s3{ --idx: 2 }
+
+/* Soft gradient “frame” glow under the card */
+.showcaseGlow{
+  position:absolute; inset:-14%;
+  background: radial-gradient(50% 40% at 70% 20%, rgba(147,51,234,.18), transparent 60%),
+              radial-gradient(50% 40% at 20% 90%, rgba(34,211,238,.20), transparent 65%);
+  filter: blur(28px);
+  z-index:-1;
+}
+
+/* Quick shine sweep on hover */
+.showcaseShine{
+  pointer-events:none;
+  position:absolute; inset:0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.28) 50%, transparent 65%);
+  transform: translateX(-140%);
+  opacity: 0;
+}
+.showcase:hover .showcaseShine{
+  animation: shineSweep 1.1s ease-out forwards;
+}
+
+/* Keyframes */
+@keyframes fadeCycle{
+  /* 0-6% fade in, hold ~21%, fade out by 33%, then idle */
+  0%   { opacity: 0 }
+  6%   { opacity: 1 }
+  27%  { opacity: 1 }
+  33%  { opacity: 0 }
+  100% { opacity: 0 }
+}
+@keyframes kenburns{
+  0%   { transform: scale(1.06) translate3d(0, 0, 0) }
+  100% { transform: scale(1.14) translate3d(2%, -2%, 0) }
+}
+@keyframes shineSweep{
+  0%   { transform: translateX(-140%); opacity:.0 }
+  20%  { opacity:.35 }
+  100% { transform: translateX(140%); opacity:0 }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .slide{ animation: none; opacity: 1 }
+  .showcase:hover{ transform:none; box-shadow: var(--ring), 0 20px 60px rgba(15,23,42,.10) }
+  .showcaseShine{ display:none }
+}
+
+/* Make sure the two-column grid still works nicely */
+.heroGrid{
+  display:grid; align-items:start; gap:36px;
+  grid-template-columns: 1.2fr .8fr;
+}
+.heroLeft{ grid-column: 1; }
+.showcaseGlow{ opacity: .6; filter: blur(22px); }
+
+@media (max-width:980px){
+  .heroGrid{ grid-template-columns:1fr }
+  .showcase{ grid-column: 1; justify-self: stretch; opacity: .9 }
+}
+
+/* Right column container: sits in col 2, full width of the rail */
+.rightRail{
+  grid-column: 2;
+  justify-self: end;
+  align-self: start;
+  display: grid;
+  gap: 12px;
+  width: clamp(260px, 28vw, 520px);
+}
+
+/* Let the slideshow fill the rail width, slightly softened */
+.showcase{ width: 100%; opacity: .9; }
+[data-theme="dark"] .showcase{ opacity: .88; }
+
+/* Row for the note under the calendar */
+.noteRow{
+  margin-top: clamp(80px, 8vw, 200px);   /* nice breathing room below calRow */
+  max-width: 640px;                     /* aligns visually with left content */
+}
+
+/* Right column container: sits in col 2, full width of the rail */
+.rightRail{
+  grid-column: 2;
+  justify-self: end;
+  align-self: start;
+  display: grid;
+  gap: 12px;
+  width: clamp(260px, 28vw, 520px);
+}
+
+/* Let the slideshow fill the rail width, slightly softened */
+.showcase{ width: 100%; opacity: .9; }
+[data-theme="dark"] .showcase{ opacity: .88; }
