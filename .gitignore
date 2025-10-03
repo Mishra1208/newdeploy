@@ -1,0 +1,19 @@
+cat > .gitignore <<'EOF'
+# Node
+**/node_modules
+**/.pnp
+**/dist
+**/build
+**/.next
+# Env
+.env
+.env.*.local
+**/.env
+**/.env.local
+# Logs
+**/npm-debug.log*
+**/yarn-error.log*
+# OS/editor
+.DS_Store
+*.swp
+EOF
