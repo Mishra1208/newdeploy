@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./about.module.css";
 import Profile from "@/components/Profile";
 import AnimatedBeamDemo from "@/components/widgets/AnimatedBeamDemo";
+import ClaraSection from "@/components/ClaraSection";
 
 // Fancy display/body fonts (zero CLS, no <link> tags needed)
 import { Space_Grotesk, Inter } from "next/font/google";
@@ -14,31 +15,31 @@ const TEAM = [
   {
     name: "Narendra Mishra",
     role: "Founder & Dev",
-    avatar: "/team/profile1.jpg",
+    avatar: "/team/narendra.JPG",
     links: {
-      github: "https://github.com/your-handle",
-      instagram: "https://instagram.com/your-handle",
-      linkedin: "https://linkedin.com/in/your-handle",
+      github: "https://github.com/Mishra1208",
+      instagram: "https://www.instagram.com/nar.endra_mis.hra?igsh=MWUyOWx0NHFxbm1sMg==",
+      linkedin: "https://www.linkedin.com/in/narendra-mishra-3a0136240/",
     },
   },
   {
     name: "Aryan Kotecha",
     role: "Backend",
-    avatar: "/team/profile1.jpg",
+    avatar: "/team/aryan.JPG",
     links: {
-      github: "https://github.com/your-handle",
-      instagram: "https://instagram.com/your-handle",
-      linkedin: "https://linkedin.com/in/your-handle",
+      github: "https://github.com/aryann2212",
+      instagram: "https://www.instagram.com/aryann.__.__?igsh=ZDJiNGJzY2syaDNu",
+      linkedin: "https://www.linkedin.com/in/aryankotecha/",
     },
   },
   {
     name: "Neelendra Mishra",
     role: "Design",
-    avatar: "/team/profile1.jpg",
+    avatar: "/team/neelendra.jpeg",
     links: {
-      github: "https://github.com/your-handle",
-      instagram: "https://instagram.com/your-handle",
-      linkedin: "https://linkedin.com/in/your-handle",
+      github: "https://github.com/Neelendra-Mishra",
+      instagram: "https://www.instagram.com/neelendra_mish.ra?igsh=Y3I5ZXE4ZG02eWY0",
+      linkedin: "https://www.linkedin.com/in/neelendra-mishra-031045229/",
     },
   },
 ];
@@ -122,9 +123,15 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Meet Clara */}
+        <ClaraSection
+            styles={styles}
+            displayClass={display.className}
+            stacked/>
+
       {/* Team */}
       <section className={styles.section}>
-        <h2 className={styles.h2}>Team</h2>
+        <h2 className={styles.h2}>Team and Collaborators</h2>
         <div className={styles.teamGrid}>
           {TEAM.map((m) => (
             <Profile key={m.name} name={m.name} role={m.role} avatar={m.avatar} links={m.links} />
@@ -132,7 +139,7 @@ export default function AboutPage() {
         </div>
 
         <p className="body" style={{ marginTop: 10 }}>
-          Want to contribute? <a className="link" href="mailto:hello@conuplanner.app">Email us</a>.
+          Want to contribute? <a className="link" href="mailto:mishranarendra1208@gmail.com">Email us</a>.
         </p>
       </section>
     </main>

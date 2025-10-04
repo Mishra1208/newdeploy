@@ -214,3 +214,58 @@
   color: #e7e9ee;
   opacity: 0.95;
 }
+
+
+/*clara*/
+
+/* --- Clara section layout --- */
+.claraGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* default was two columns */
+  gap: 24px;
+  align-items: start;
+}
+
+/* Force single column (stacked) */
+.claraStack {
+  grid-template-columns: 1fr !important;
+}
+
+/* Make the video span the full row when stacked */
+.videoFull {
+  grid-column: 1 / -1;
+}
+
+.claraCard {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px hsl(0 0% 0% / 0.06);
+}
+
+.claraH3 { margin: 0 0 8px 0; }
+.claraList { margin: 0 0 10px 18px; }
+
+.claraVideoWrap { border-radius: 16px; }
+.claraVideo {
+  width: 50%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  outline: none;
+}
+.caption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+/* about.module.css (or ClaraSection.module.css) */
+.video{
+  width:100%;
+  max-width:960px;
+  aspect-ratio:16/9;
+  border-radius:16px;
+  background:#000;      /* prevents white flash behind poster */
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  object-fit:cover;
+}
