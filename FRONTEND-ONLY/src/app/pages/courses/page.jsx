@@ -62,6 +62,7 @@ export default function CoursesPage() {
   const [subjects, setSubjects] = useState(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]); // default until loaded
   const [selectedKeys, setSelectedKeys] = useState(new Set());
   const [toast, setToast] = useState(null); // { text, kind: "ok"|"warn" }
+  const [visibleCount, setVisibleCount] = useState(50); // Pagination limit
 
   const refreshSelectedFromStorage = () => {
     const list = loadList();
@@ -130,6 +131,7 @@ export default function CoursesPage() {
       const res = await fetchCourses(f);
       if (!alive) return;
       setData(Array.isArray(res) ? res : []);
+      setVisibleCount(50);
       setLoading(false);
     })();
     return () => {
@@ -177,62 +179,76 @@ export default function CoursesPage() {
       ) : data.length === 0 ? (
         <p className="body">No results. Try adjusting filters.</p>
       ) : (
-        <div className="cards grid">
-          <div className={styles.grid}>
-            {data.map((c) => {
-              const k = courseKey(c);
-              const isSelected = selectedKeys.has(k);
+        <>
+          <div className="cards grid">
+            <div className={styles.grid}>
+              {data.slice(0, visibleCount).map((c) => {
+                const k = courseKey(c);
+                const isSelected = selectedKeys.has(k);
 
-              const anchorId = `${safeUpper(c?.subject)}-${safeUpper(c?.catalogue)}`;
-              const descHref = `/pages/courses/descriptions#${anchorId}`;
+                const anchorId = `${safeUpper(c?.subject)}-${safeUpper(c?.catalogue)}`;
+                const descHref = `/pages/courses/descriptions#${anchorId}`;
 
-              return (
-                <div key={k} className={`card ${isSelected ? styles.cardSelected : ""}`} style={{
-                  display: "flex", flexDirection: "column", gap: "12px", padding: "24px"
-                }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <div className="courseCode" style={{
-                      background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
-                      WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
-                      fontWeight: "800", fontSize: "14px", letterSpacing: "0.05em"
-                    }}>
-                      {c?.subject} {c?.catalogue}
-                    </div>
-                    {isSelected && <div style={{ color: "#22c55e", fontSize: "12px", fontWeight: "700" }}>ADDED</div>}
-                  </div>
-
-                  <div className={`cardTitle ${isSelected ? styles.cardTitleAdded : ""}`} style={{
-                    fontSize: "18px", fontWeight: "700", lineHeight: "1.3", margin: "4px 0"
+                return (
+                  <div key={k} className={`card ${isSelected ? styles.cardSelected : ""}`} style={{
+                    display: "flex", flexDirection: "column", gap: "12px", padding: "24px"
                   }}>
-                    {c?.title}
-                  </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                      <div className="courseCode" style={{
+                        background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
+                        WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+                        fontWeight: "800", fontSize: "14px", letterSpacing: "0.05em"
+                      }}>
+                        {c?.subject} {c?.catalogue}
+                      </div>
+                      {isSelected && <div style={{ color: "#22c55e", fontSize: "12px", fontWeight: "700" }}>ADDED</div>}
+                    </div>
 
-                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                    <span className={styles.tag}>{(c?.credits ?? "-")} cr</span>
-                    {c?.session && <span className={styles.tag}>{c.session}</span>}
-                    {c?.term && <span className={styles.tag}>{c.term}</span>}
-                  </div>
+                    <div className={`cardTitle ${isSelected ? styles.cardTitleAdded : ""}`} style={{
+                      fontSize: "18px", fontWeight: "700", lineHeight: "1.3", margin: "4px 0"
+                    }}>
+                      {c?.title}
+                    </div>
 
-                  <div style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <AddButton onAdd={() => addToPlanner(c)} />
-                    <div style={{ display: "flex", gap: "4px" }}>
-                      <a className={styles.ghostBtn} href={descHref}>
-                        Details
-                      </a>
-                      <a
-                        className={styles.ghostBtn}
-                        href={`/pages/tree?code=${c.subject}-${c.catalogue}`}
-                        title="View Prerequisite Tree"
-                      >
-                        Tree ↗
-                      </a>
+                    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                      <span className={styles.tag}>{(c?.credits ?? "-")} cr</span>
+                      {c?.session && <span className={styles.tag}>{c.session}</span>}
+                      {c?.term && <span className={styles.tag}>{c.term}</span>}
+                    </div>
+
+                    <div style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <AddButton onAdd={() => addToPlanner(c)} />
+                      <div style={{ display: "flex", gap: "4px" }}>
+                        <a className={styles.ghostBtn} href={descHref}>
+                          Details
+                        </a>
+                        <a
+                          className={styles.ghostBtn}
+                          href={`/pages/tree?code=${c.subject}-${c.catalogue}`}
+                          title="View Prerequisite Tree"
+                        >
+                          Tree ↗
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+
+          {visibleCount < data.length && (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "40px", paddingBottom: "40px" }}>
+              <button
+                onClick={() => setVisibleCount(prev => prev + 50)}
+                className={styles.applyBtn} // Reusing the nice pill button style
+                style={{ minWidth: "200px" }}
+              >
+                Load More ({data.length - visibleCount} remaining)
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {toast && (
