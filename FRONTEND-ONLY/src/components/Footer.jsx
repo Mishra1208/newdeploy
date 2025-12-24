@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Footer(){
+export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -13,6 +13,8 @@ export default function Footer(){
           <ul className="footer-list">
             <li><Link href="/pages/courses" className="footer-link">Courses</Link></li>
             <li><Link href="/pages/planner" className="footer-link">Planner</Link></li>
+            <li><Link href="/pages/tree" className="footer-link">Prerequisite Tree</Link></li>
+            <li><Link href="/pages/gpa" className="footer-link">GPA Calc</Link></li>
           </ul>
         </div>
         <div>

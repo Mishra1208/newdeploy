@@ -20,12 +20,12 @@ const loadList = () => {
 const saveList = (arr) => {
   try {
     localStorage.setItem(KEY, JSON.stringify(arr));
-  } catch {}
+  } catch { }
 };
 
 function courseKey(c) {
   const subj = safeUpper(c?.subject);
-  const cat  = safeUpper(c?.catalogue);
+  const cat = safeUpper(c?.catalogue);
   const term = safeUpper(c?.term) || "TERMLESS";
   return `${subj}-${cat}-${term}`;
 }
@@ -46,7 +46,7 @@ function dedupeByOffering(list) {
 function broadcastPlannerChange() {
   try {
     window.dispatchEvent(new Event("planner:update"));
-  } catch {}
+  } catch { }
 }
 
 /* -------------------------------- page ----------------------------------- */
@@ -54,8 +54,9 @@ export default function PlannerPage() {
   const [items, setItems] = useState([]);
   const [exporting, setExporting] = useState(false);
 
+  // Load and refresh logic (same as before)
   const refresh = () => {
-    const raw   = loadList();
+    const raw = loadList();
     const clean = dedupeByOffering(raw);
     if (clean.length !== raw.length) saveList(clean);
     setItems(clean);
@@ -63,15 +64,12 @@ export default function PlannerPage() {
 
   useEffect(() => {
     refresh();
-
     const onStorage = (e) => { if (!e || e.key === KEY) refresh(); };
     const onPlannerUpdate = () => refresh();
     const onVisible = () => { if (!document.hidden) refresh(); };
-
     window.addEventListener("storage", onStorage);
     window.addEventListener("planner:update", onPlannerUpdate);
     document.addEventListener("visibilitychange", onVisible);
-
     return () => {
       window.removeEventListener("storage", onStorage);
       window.removeEventListener("planner:update", onPlannerUpdate);
@@ -87,6 +85,14 @@ export default function PlannerPage() {
     broadcastPlannerChange();
   }
 
+  async function handleClearAll() {
+    if (window.confirm("Are you sure you want to remove all courses from your planner?")) {
+      saveList([]);
+      setItems([]);
+      broadcastPlannerChange();
+    }
+  }
+
   async function handleExport() {
     try {
       setExporting(true);
@@ -96,63 +102,125 @@ export default function PlannerPage() {
     }
   }
 
+  // Group by Term
+  const byTerm = { Fall: [], Winter: [], Summer: [], Others: [] };
+  let totalCredits = 0;
+
+  items.forEach(c => {
+    const cr = parseFloat(c.credits) || 0;
+    totalCredits += cr;
+
+    // Normalize term
+    const t = (c.term || "").trim();
+    if (/Fall/i.test(t)) byTerm.Fall.push(c);
+    else if (/Winter/i.test(t)) byTerm.Winter.push(c);
+    else if (/Summer/i.test(t)) byTerm.Summer.push(c);
+    else byTerm.Others.push(c);
+  });
+
+  const termOrder = ["Fall", "Winter", "Summer", "Others"];
+
   return (
-    <main className="container" style={{ paddingTop: 16 }}>
-      <h1 className="h2">Planner</h1>
-
-      <div className="card" style={{ borderRadius: "var(--radius)", overflow: "hidden" }}>
-        <div className={styles.toolbar}>
-          <div style={{ fontWeight: 800 }}>Your Planner</div>
-
+    <main className={styles.wrap}>
+      <header className={styles.head}>
+        <div>
+          <h1 className="h2" style={{ marginBottom: 4 }}>My Planner</h1>
+          <p className={styles.subtitle}>Build your perfect schedule</p>
+        </div>
+        <div className={styles.actions}>
+          <button
+            className={styles.ghostBtn}
+            onClick={handleClearAll}
+            disabled={!items.length}
+          >
+            Clear All
+          </button>
           <button
             className={styles.exportBtn}
             onClick={handleExport}
             disabled={!items.length || exporting}
-            aria-busy={exporting ? "true" : "false"}
           >
             {exporting ? "Preparing…" : "Download Excel"}
           </button>
         </div>
+      </header>
 
+      {/* Overview Stats */}
+      <div className={styles.statsRow}>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Total Credits</div>
+          <div className={styles.statValue}>{totalCredits.toFixed(1)}</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Courses</div>
+          <div className={styles.statValue}>{items.length}</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Active Terms</div>
+          <div className={styles.statValue}>{Object.values(byTerm).filter(arr => 'length' in arr && arr.length > 0).length}</div>
+        </div>
+      </div>
+
+      {/* Board Layout */}
+      <div className={styles.board}>
         {items.length === 0 ? (
-          <div className="body">No courses yet. Add from the Courses page.</div>
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>📅</div>
+            <h3>Your planner is empty</h3>
+            <p>Go to the Courses page to add some classes!</p>
+          </div>
         ) : (
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 12 }}>
-            {items.map((c) => (
-              <li
-                key={courseKey(c)}
-                className="card"
-                style={{
-                  padding: 12,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div>
-                  <div style={{ fontWeight: 700 }}>
-                    {c?.subject} {c?.catalogue} — {c?.title}
-                  </div>
-                  <div className="cardMeta">
-                    {(c?.credits ?? "-")} cr {c?.session ? `• ${c.session}` : ""} {c?.term ? `• ${c.term}` : ""}
-                  </div>
+          termOrder.map(termKey => {
+            const list = byTerm[termKey];
+            if (list.length === 0 && termKey === "Others") return null; // hide others if empty
+
+            // Calc credits per term
+            const termCreds = list.reduce((acc, c) => acc + (parseFloat(c.credits) || 0), 0);
+
+            // Determine status
+            let statusLabel = "N/A";
+            let statusColor = "var(--ink-dim)";
+            if (termCreds >= 15) { statusLabel = "Heavy Load"; statusColor = "#a78bfa"; }
+            else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
+            else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
+
+            return (
+              <div key={termKey} className={styles.column}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <h3 className={styles.colTitle} style={{ margin: 0 }}>
+                    {termKey} <span className={styles.countBadge}>{list.length}</span>
+                  </h3>
+                  {list.length > 0 && <span style={{
+                    fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
+                    letterSpacing: '0.05em', color: statusColor,
+                    background: 'rgba(255,255,255,0.05)', padding: '4px 8px', borderRadius: 6
+                  }}>
+                    {statusLabel}
+                  </span>}
                 </div>
 
-                <button
-                  onClick={() => removeOffering(c)}
-                  className="addBtn"
-                  style={{
-                    background: "linear-gradient(90deg,#ef4444,#f97316)",
-                    padding: "6px 12px",
-                    borderRadius: 9999,
-                    fontWeight: 700,
-                  }}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
+                <div className={styles.colList}>
+                  {list.length === 0 ? (
+                    <div className={styles.emptySlot}>No courses</div>
+                  ) : (
+                    list.map(c => (
+                      <div key={courseKey(c)} className={styles.card}>
+                        <div className={styles.cardHead}>
+                          <span className={styles.code}>{c.subject} {c.catalogue}</span>
+                          <span className={styles.credits}>{c.credits} cr</span>
+                        </div>
+                        <div className={styles.cardTitle}>{c.title}</div>
+                        {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
+                        <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
+                          Remove
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )
+          })
         )}
       </div>
     </main>

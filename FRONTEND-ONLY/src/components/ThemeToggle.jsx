@@ -2,19 +2,22 @@
 import { useEffect, useState } from "react";
 
 function readTheme() {
-  // 1) localStorage  2) cookie  3) current DOM  4) system
+  if (typeof window === "undefined") return "light";
+  // 1) DOM (truth) 2) localStorage 3) cookie 4) system
+  const dom = document.documentElement.getAttribute("data-theme");
+  if (dom === "dark" || dom === "light") return dom;
+
   try {
     const ls = localStorage.getItem("theme");
     if (ls === "dark" || ls === "light") return ls;
-  } catch {}
+  } catch { }
+
   try {
     const m = document.cookie.match(/(?:^|; )theme=(dark|light)/);
-    if (m && (m[1] === "dark" || m[1] === "light")) return m[1];
-  } catch {}
-  const dom = document.documentElement.dataset.theme;
-  if (dom === "dark" || dom === "light") return dom;
-  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-  return prefersDark ? "dark" : "light";
+    if (m && m[1]) return m[1];
+  } catch { }
+
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 function applyTheme(next) {
@@ -23,10 +26,10 @@ function applyTheme(next) {
   root.style.colorScheme = next;
 
   // persist everywhere (cookie must be site-wide so SSR sees it on any route)
-  try { localStorage.setItem("theme", next); } catch {}
+  try { localStorage.setItem("theme", next); } catch { }
   try {
     document.cookie = `theme=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
-  } catch {}
+  } catch { }
 }
 
 export default function ThemeToggle() {

@@ -12,15 +12,16 @@ export const metadata = {
   description: "Plan your Concordia courses with clarity.",
 };
 
-export default function RootLayout({ children }) {
-  const themeCookie = cookies().get("theme")?.value;
+export default async function RootLayout({ children }) {
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get("theme")?.value;
   const initialTheme = themeCookie === "dark" ? "dark" : "light";
 
   return (
     <html lang="en" data-theme={initialTheme} suppressHydrationWarning>
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
           rel="stylesheet"
         />
         {/* Prevents first-paint flash; prefers cookie -> system.
@@ -52,6 +53,7 @@ export default function RootLayout({ children }) {
               <li><NavLink href="/">Home</NavLink></li>
               <li><NavLink href="/pages/courses">Courses</NavLink></li>
               <li><NavLink href="/pages/planner">Planner</NavLink></li>
+              <li><NavLink href="/pages/gpa">GPA</NavLink></li>
               <li><NavLink href="/about">About</NavLink></li>
               <li><ThemeToggle /></li>
             </ul>
@@ -60,7 +62,7 @@ export default function RootLayout({ children }) {
 
         <main className="site-main">{children}</main>
         <Footer />
-      <ChatWidget />
+        <ChatWidget />
       </body>
     </html>
   );

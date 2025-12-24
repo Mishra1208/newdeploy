@@ -138,6 +138,40 @@ export default async function HomePage() {
           <div className={styles.noteRow}>
             <Notes />
           </div>
+
+          {/* Tree Feature Showcase */}
+          <div className={styles.treeSection}>
+            <div className={styles.treeContent}>
+              <h2 className={styles.treeTitle}>Visual Prerequisite Network</h2>
+              <p className={styles.treeCopy}>
+                Stop guessing. See exactly how your courses connect. Our <strong>interactive tree</strong> maps out every prerequisite, helping you spot bottlenecks before they happen.
+              </p>
+              <Link href="/pages/tree" className={`${styles.btnPrimary} ${styles.btnPulse}`}>
+                Explore the Tree ↗
+              </Link>
+            </div>
+
+            {/* Animated Decoration */}
+            <div className={styles.treeVisual}>
+              <div className={styles.node} style={{ top: '20%', left: '50%' }} />
+              <div className={styles.node} style={{ top: '50%', left: '30%' }} />
+              <div className={styles.node} style={{ top: '50%', left: '70%' }} />
+              <div className={styles.node} style={{ top: '80%', left: '20%' }} />
+              <div className={styles.node} style={{ top: '80%', left: '50%' }} />
+              <div className={styles.node} style={{ top: '80%', left: '80%' }} />
+
+              {/* Connecting Lines */}
+              <svg className={styles.treeLines} viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M50 20 L30 50" className={styles.line} />
+                <path d="M50 20 L70 50" className={styles.line} />
+                <path d="M30 50 L20 80" className={styles.line} />
+                <path d="M30 50 L50 80" className={styles.line} />
+                <path d="M70 50 L80 80" className={styles.line} />
+              </svg>
+            </div>
+          </div>
+
+
         </div>
       </section>
     </main>

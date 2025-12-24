@@ -22,7 +22,7 @@ const loadList = () => {
 const saveList = (arr) => {
   try {
     localStorage.setItem(KEY, JSON.stringify(arr));
-  } catch {}
+  } catch { }
 };
 
 function courseKey(c) {
@@ -48,7 +48,7 @@ function dedupeByOffering(list) {
 function broadcastPlannerChange() {
   try {
     window.dispatchEvent(new Event("planner:update"));
-  } catch {}
+  } catch { }
 }
 
 /* -------------------------------- component ------------------------------- */
@@ -115,13 +115,7 @@ export default function CoursesPage() {
     (async () => {
       const list = await fetchSubjects();
       if (!alive) return;
-      // Keep only the 7 engineering subjects you want (and sort them nicely)
-      const allow = new Set(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
-      const filtered = list.filter((s) => allow.has(s));
-      const ordered = ["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"].filter((s) =>
-        filtered.includes(s)
-      );
-      setSubjects(ordered.length ? ordered : ["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
+      setSubjects(list);
     })();
     return () => {
       alive = false;
@@ -193,26 +187,46 @@ export default function CoursesPage() {
               const descHref = `/pages/courses/descriptions#${anchorId}`;
 
               return (
-                <div key={k} className={`card ${isSelected ? styles.cardSelected : ""}`}>
-                  <div className="courseCode">
-                    <strong>
+                <div key={k} className={`card ${isSelected ? styles.cardSelected : ""}`} style={{
+                  display: "flex", flexDirection: "column", gap: "12px", padding: "24px"
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <div className="courseCode" style={{
+                      background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
+                      WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+                      fontWeight: "800", fontSize: "14px", letterSpacing: "0.05em"
+                    }}>
                       {c?.subject} {c?.catalogue}
-                    </strong>
+                    </div>
+                    {isSelected && <div style={{ color: "#22c55e", fontSize: "12px", fontWeight: "700" }}>ADDED</div>}
                   </div>
 
-                  <div className={`cardTitle ${isSelected ? styles.cardTitleAdded : ""}`}>
+                  <div className={`cardTitle ${isSelected ? styles.cardTitleAdded : ""}`} style={{
+                    fontSize: "18px", fontWeight: "700", lineHeight: "1.3", margin: "4px 0"
+                  }}>
                     {c?.title}
                   </div>
 
-                  <div className="cardMeta">
-                    {(c?.credits ?? "-")} cr {c?.session ? `• ${c.session}` : ""} {c?.term ? `• ${c.term}` : ""}
+                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                    <span className={styles.tag}>{(c?.credits ?? "-")} cr</span>
+                    {c?.session && <span className={styles.tag}>{c.session}</span>}
+                    {c?.term && <span className={styles.tag}>{c.term}</span>}
                   </div>
 
-                  <div className={styles.actions}>
+                  <div style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <AddButton onAdd={() => addToPlanner(c)} />
-                    <a className={styles.ghostBtn} href={descHref}>
-                      Get Description
-                    </a>
+                    <div style={{ display: "flex", gap: "4px" }}>
+                      <a className={styles.ghostBtn} href={descHref}>
+                        Details
+                      </a>
+                      <a
+                        className={styles.ghostBtn}
+                        href={`/pages/tree?code=${c.subject}-${c.catalogue}`}
+                        title="View Prerequisite Tree"
+                      >
+                        Tree ↗
+                      </a>
+                    </div>
                   </div>
                 </div>
               );

@@ -149,8 +149,9 @@ export default function DescriptionsPage() {
             });
           }
 
-          const ALLOW = new Set(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
-          if (!ALLOW.has(subject)) return null;
+          // No subject restriction
+          // const ALLOW = new Set(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
+          // if (!ALLOW.has(subject)) return null;
           if (!subject || !catalogue || !title) return null;
 
           return {
@@ -254,6 +255,26 @@ export default function DescriptionsPage() {
                 </span>
                 <span className={styles.name}>{r.title}</span>
                 {creditsLabel && <span className={styles.credits}>{creditsLabel}</span>}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `/pages/tree?code=${r.subject}-${r.catalogue}`;
+                  }}
+                  style={{
+                    marginLeft: 'auto',
+                    padding: '4px 8px',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    borderRadius: 4,
+                    border: 'none',
+                    background: '#e2e8f0',
+                    color: '#0f172a',
+                    cursor: 'pointer'
+                  }}
+                  title="View Prerequisite Tree"
+                >
+                  Tech Tree ↗
+                </button>
               </summary>
 
               <div className={styles.body}>

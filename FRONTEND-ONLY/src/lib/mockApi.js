@@ -35,14 +35,13 @@ async function ensureLoaded() {
     LOAD_PROMISE = (async () => {
       const res = await fetch("/courses_merged.csv", { cache: "no-store" });
       const text = await res.text();
+      // 3. Load Courses
       const { data: rows } = Papa.parse(text, { header: true, skipEmptyLines: true });
 
-      const ALLOW = new Set(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
-
+      // No restriction on subjects anymore
       DATA = rows
         .map((r) => {
           const subject = (pick(r, ["subject", "Subject", "SUBJECT"]) || "").toUpperCase();
-          if (!ALLOW.has(subject)) return null;
 
           const catalogue = String(
             pick(r, ["catalogue", "Catalogue", "catalog", "catalogue_number", "number"]) ?? ""
@@ -55,12 +54,12 @@ async function ensureLoaded() {
           const termRaw = pick(r, ["term", "Term", "semester", "Semester"]) || "";
           const term = normalizeTerm(termRaw);
 
-          const session = pick(r, ["session", "Session", "format"]) || "13W";
+          const session = pick(r, ["session", "Session", "format"]) || "";
           const credits = parseCredits(
             pick(r, ["credits", "Credits", "course_credit", "course_credits", "course_cre", "course_cr"])
           );
 
-          if (!subject || !catalogue || !title) return null;
+          if (!subject || !catalogue) return null;
 
           return {
             course_id: `${subject}-${catalogue}`,
@@ -70,6 +69,7 @@ async function ensureLoaded() {
             credits: Number.isFinite(credits) ? credits : 0,
             term,                 // "Fall" | "Winter" | "Summer" | ""
             session: String(session).trim(),
+            prereqdescription: pick(r, ["prereqdescription", "PrereqDescription", "Prerequisite", "prerequisite"]) || ""
           };
         })
         .filter(Boolean);
@@ -84,8 +84,7 @@ async function ensureLoaded() {
 export async function fetchSubjects() {
   const data = await ensureLoaded();
   const have = new Set(data.map((d) => d.subject));
-  const ORDER = ["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"];
-  return ORDER.filter((s) => have.has(s));
+  return Array.from(have).sort();
 }
 
 export async function fetchCourses(opts = {}) {
