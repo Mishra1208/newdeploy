@@ -20,7 +20,7 @@
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.16",
-    "next": "15.5.3",
+    "next": "^16.1.1",
     "papaparse": "^5.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -29,6 +29,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "eslint": "^9",
-    "eslint-config-next": "15.5.3"
+    "eslint-config-next": "^16.1.1"
   }
 }
