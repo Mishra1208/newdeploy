@@ -1,127 +1,249 @@
-/* about.module.css */
+/* about.module.css - Daydream Aesthetic Overhaul */
+
 .page {
-  padding: 48px 0 72px
+  padding: 80px 0 120px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* --- Hero --- */
+/* ================= Hero / Glass Island ================= */
+.heroSection {
+  position: relative;
+  margin-bottom: 80px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animated background blobs for the hero */
+.heroSection::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.05) 50%, transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
 .kicker {
-  letter-spacing: .12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 800;
-  font-size: 12px;
-  margin: 0 0 8px;
-  color: var(--accent);
+  font-size: 13px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .title {
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.1;
-  margin: 0 0 16px;
-  letter-spacing: -0.02em;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05;
+  margin: 0 0 24px;
+  letter-spacing: -0.03em;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--ink), var(--ink-dim));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--ink);
+  position: relative;
+  z-index: 2;
 }
 
 :global([data-theme="dark"]) .title {
-  background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #f472b6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 10px rgba(167, 139, 250, 0.3));
+  text-shadow: 0 0 40px rgba(167, 139, 250, 0.2);
+}
+
+/* The Glass Island Container */
+.glassIsland {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 40px;
+  border-radius: 32px;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  max-width: 800px;
+  margin: 0 auto;
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glassIsland:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 30px 60px -15px rgba(139, 92, 246, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .glassIsland {
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .lead {
-  font-size: clamp(18px, 2vw, 20px);
+  font-size: 20px;
   line-height: 1.6;
   color: var(--ink-dim);
-  margin: 0 0 24px;
-  max-width: 65ch;
+  margin-bottom: 32px;
   font-weight: 500;
 }
 
 /* --- Chips --- */
 .chips {
   display: flex;
+  justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 12px 0 32px;
+  margin: 0;
   list-style: none;
   padding: 0;
 }
 
 .chip {
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 99px;
   font-weight: 700;
   font-size: 13px;
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--ink-dim);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s;
+}
+
+.chip:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 :global([data-theme="dark"]) .chip {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
   color: #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Sections --- */
+/* --- Narrative Text --- */
+.bodyWide {
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 60px auto;
+  max-width: 700px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.note {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* --- Beam Container --- */
 .section {
-  margin-top: 64px;
+  margin-top: 100px;
 }
 
+.section :global(.beamWrap) {
+  margin: 0 auto;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+}
+
+:global([data-theme="dark"]) .section :global(.beamWrap) {
+  background: #000;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Grid & Holographic Cards --- */
 .h2 {
-  font-size: 28px;
-  margin: 0 0 24px;
+  font-size: 32px;
+  margin: 0 0 40px;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
-/* --- Grid --- */
 .grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width:980px) {
-  .grid {
-    grid-template-columns: 1fr
-  }
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-:global([data-theme="dark"]) .card {
-  background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  border-color: var(--accent);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
 }
 
-:global([data-theme="dark"]) .card:hover {
-  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.15);
+.card:hover::after {
+  transform: translateX(100%);
+}
+
+:global([data-theme="dark"]) .card {
+  background: rgba(30, 41, 59, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .card h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
+  margin: 0 0 12px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--ink);
 }
@@ -132,113 +254,41 @@
 
 .muted {
   color: var(--ink-dim);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* --- Team --- */
 .teamGrid {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-@media (max-width:768px) {
-  .teamGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Team is handled by Profile component, but we can target generic containers if needed */
-
-/* --- Beam & Extras --- */
-.section :global(.beamWrap) {
-  margin: 24px 0;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.bodyWide {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--ink);
-  margin: 24px 0;
-  opacity: 0.9;
-}
-
-.note {
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 14px;
-  display: block;
-  margin-top: 8px;
-}
-
-/* Clara Video & Section Styles (Matches ClaraSection.jsx) */
+/* --- Clara Styles --- */
 .claraGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
-/* Stacked layout (About page) */
 .claraStack {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.claraCard {
-  margin-bottom: 24px;
-}
-
-.claraH3 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--ink);
-}
-
-:global([data-theme="dark"]) .claraH3 {
-  color: #fff;
-}
-
-.claraList {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink-dim);
-}
-
-.claraList li {
-  margin-bottom: 8px;
-  padding-left: 2px;
-}
-
-.claraList strong {
-  color: var(--ink);
-}
-
-:global([data-theme="dark"]) .claraList strong {
-  color: #e2e8f0;
-}
-
 .claraVideoWrap {
   width: 100%;
   position: relative;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   background: #000;
   margin: 0 auto;
-}
-
-.videoFull {
-  max-width: 960px;
-  /* Constrain the huge video */
+  border: 4px solid rgba(255, 255, 255, 0.2);
 }
 
 .claraVideo {
@@ -247,4 +297,59 @@
   display: block;
   aspect-ratio: 16/9;
   object-fit: cover;
+}
+
+.claraH3 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--ink);
+}
+
+:global([data-theme="dark"]) .claraH3 {
+  color: #fff;
+}
+
+.claraList {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-dim);
+  margin-bottom: 40px;
+}
+
+.claraList li {
+  margin-bottom: 12px;
+}
+
+/* --- Parallax Blobs --- */
+.parallaxBlob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.blob1 {
+  width: 500px;
+  height: 500px;
+  background: rgba(139, 92, 246, 0.2);
+  top: 10%;
+  left: -100px;
+}
+
+.blob2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(236, 72, 153, 0.15);
+  top: 40%;
+  right: -50px;
+}
+
+.blob3 {
+  width: 600px;
+  height: 600px;
+  background: rgba(56, 189, 248, 0.15);
+  bottom: 10%;
+  left: 20%;
 }

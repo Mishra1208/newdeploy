@@ -1,13 +1,399 @@
+/* --- GLOBAL & UTILS --- */
 .page {
-  padding-bottom: 80px
+  padding-bottom: 80px;
+  overflow-x: hidden;
+  background: var(--background);
+  position: relative;
+  min-height: 100vh;
 }
 
-.section {
-  padding: 64px 0
+/* --- PRECISION GRID BACKGROUND --- */
+.gridBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Fine engineering grid pattern */
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(100, 116, 139, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100, 116, 139, 0.06) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 80%);
+  z-index: 0;
+  pointer-events: none;
 }
 
+[data-theme="dark"] .gridBackground {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* --- HERO SECTION --- */
 .hero {
-  padding: 88px 0
+  position: relative;
+  padding: 140px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Badge: "Engineering" style */
+.proBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-dim);
+  margin-bottom: 32px;
+}
+
+[data-theme="dark"] .proBadge {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.heroCentered {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+/* --- COMMAND PALETTE (SEARCH) --- */
+.omnibarContainer {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  margin: 40px auto 0;
+}
+
+.commandPalette {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 16px 20px 16px 50px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.commandPalette:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 4px rgba(167, 139, 250, 0.15),
+    0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .commandPalette {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.4;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+/* --- FEATURE SHOWCASE (BENTO Grid) --- */
+.bentoSection {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  grid-auto-rows: minmax(300px, auto);
+}
+
+.featureCard {
+  background: var(--panel);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s;
+}
+
+[data-theme="dark"] .featureCard {
+  background: rgba(30, 41, 59, 0.4);
+  /* Darker, more technical */
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.featureCard:hover {
+  border-color: var(--accent);
+}
+
+.cardContent {
+  padding: 24px;
+  z-index: 10;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.cardDesc {
+  font-size: 14px;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+
+/* --- MOCKUP VISUALS --- */
+.mockupContainer {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.02);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  display: grid;
+  place-items: center;
+}
+
+/* Tech Tree Mockup */
+.treeGraph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.treeNode {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+}
+
+.treeLine {
+  position: absolute;
+  height: 2px;
+  background: rgba(167, 139, 250, 0.2);
+  transform-origin: left center;
+}
+
+/* Planner Mockup */
+.plannerGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  width: 80%;
+  opacity: 0.8;
+}
+
+.plannerBlock {
+  height: 30px;
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.15);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+/* GPA Gauge Mockup */
+.gaugeContainer {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.gaugeArch {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 12px solid rgba(236, 72, 153, 0.1);
+  border-top-color: var(--accent-pink);
+  transform: rotate(-45deg);
+  /* Animated via inline style usually */
+}
+
+.gaugeValue {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* Span utilities */
+.colSpan2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .colSpan2 {
+    grid-column: auto;
+  }
+}
+
+/* --- ANIMATIONS --- */
+
+/* Tree Animations */
+.treeLine {
+  position: absolute;
+  height: 2px;
+  background: rgba(167, 139, 250, 0.2);
+  transform-origin: left center;
+  animation: drawLine 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+.treeNode {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+  transform: scale(0);
+}
+
+@keyframes drawLine {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+  /* Width is set inline, animation reveals it */
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Planner Animations */
+.plannerBlock {
+  height: 30px;
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.15);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  opacity: 0;
+  animation: cascade 0.6s ease-out forwards;
+}
+
+@keyframes cascade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gauge Animations */
+.gaugeArch {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 12px solid rgba(236, 72, 153, 0.1);
+  border-top-color: var(--accent-pink);
+  transform: rotate(-45deg);
+  position: relative;
+}
+
+.gaugeArch::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 50%;
+  border: 12px solid transparent;
+  border-top-color: var(--accent-pink);
+  transform: rotate(-135deg);
+  /* Start empty */
+  animation: fillGauge 1.5s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+@keyframes fillGauge {
+  0% {
+    transform: rotate(-135deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.gaugeValue {
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 .container {
@@ -294,6 +680,76 @@
 }
 
 /* Cards, footer, etc. (unchanged) */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  /* Two rows */
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.bentoCard {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    inset 0 0 20px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bentoCard:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px -5px rgba(167, 139, 250, 0.15),
+    0 8px 10px -6px rgba(167, 139, 250, 0.1);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+
+
+/* Span classes for Bento */
+.span2 {
+  grid-column: span 2;
+}
+
+.span4 {
+  grid-column: span 4;
+}
+
+@media (max-width: 980px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .span2,
+  .span4 {
+    grid-column: auto;
+  }
+}
+
+/* Glassmorphism Surface Override */
+.glassSurface {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .glassSurface {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .cardsGrid3 {
   display: grid;
   gap: 18px;
@@ -1022,4 +1478,98 @@
     height: 240px;
     width: 100%;
   }
+}
+
+/* Manifesto Cards - Premium Horizontal Layout */
+.manifestoCard {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .manifestoCard {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.manifestoCard:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.manifestoCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.manifestoCard p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+[data-theme="dark"] .manifestoCard p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gradientLink {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(90deg, #a78bfa, #22d3ee);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.3s ease;
+}
+
+.gradientLink:hover {
+  background-size: 100% 2px;
+}
+
+.coolLink {
+  position: relative;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0 4px;
+  transition: all 0.2s ease;
+  background: linear-gradient(90deg, #a78bfa, #22d3ee);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+
+.coolLink:hover {
+  background-size: 100% 2px;
+  color: #22d3ee;
+}
+
+[data-theme="dark"] .coolLink {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .coolLink:hover {
+  color: #22d3ee;
 }

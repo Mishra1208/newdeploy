@@ -180,6 +180,7 @@
 }
 
 /* Shimmer/Gloss Effect */
+/* Shimmer/Gloss Effect */
 .grid> :global(.card)::before {
   content: "";
   position: absolute;
@@ -189,8 +190,8 @@
   height: 100%;
   background: linear-gradient(90deg,
       transparent,
-      rgba(255, 255, 255, 0.2),
-      /* Gloss line */
+      rgba(139, 92, 246, 0.15),
+      /* Pearlescent Violet Shimmer */
       transparent);
   transform: skewX(-25deg);
   pointer-events: none;
@@ -328,5 +329,399 @@
 
 :global([data-theme="dark"]) .ghostBtn:hover {
   background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* ================= Catalog / Netflix View ================= */
+.catalogView {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 60px;
+}
+
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.categoryTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  padding-left: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+:global([data-theme="dark"]) .categoryTitle {
+  color: #fff;
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.categoryRow {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 8px 24px 8px;
+  /* Bottom padding for hover effects/shadows */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.categoryRow::-webkit-scrollbar {
+  height: 6px;
+}
+
+.categoryRow::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.categoryRow::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 99px;
+}
+
+.categoryRow::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Ensure empty space at end of scroll */
+.categoryRow::after {
+  content: "";
+  min-width: 24px;
+  height: 1px;
+}
+
+.deptSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.deptHeader {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-left: 8px;
+}
+
+.deptTitle {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.deptLine {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3), transparent);
+  border-radius: 99px;
+}
+
+:global([data-theme="dark"]) .deptTitle {
+  color: #fff;
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+/* ================= Dept Tabs (Premium Glass) ================= */
+.deptTabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 99px;
+  /* Floating bar look */
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+  width: fit-content;
+}
+
+:global([data-theme="dark"]) .deptTabs {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ================= Spotlight Hero (Netflix Style) ================= */
+.spotlightHero {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  color: #fff;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.spotlightContent {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.spotlightBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.spotlightTitle {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.spotlightDesc {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Abstract Background Pattern */
+.spotlightBg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(139, 92, 246, 0.4) 0%, transparent 50%);
+  opacity: 0.8;
+}
+
+/* ================= Vibe Tags (Smart Badges) ================= */
+.vibeTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.vibeCode {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.vibeMath {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.vibeTeam {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.vibeTheory {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Dark Mode Vibes */
+:global([data-theme="dark"]) .vibeCode {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+}
+
+:global([data-theme="dark"]) .vibeMath {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+:global([data-theme="dark"]) .vibeTeam {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+:global([data-theme="dark"]) .vibeTheory {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+/* ================= Pop Animation ================= */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animPop {
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.deptTab {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 10px 24px;
+  border-radius: 99px;
+  font-family: var(--font-outfit);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-dim);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.deptTab:hover {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.deptTabActive {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  transform: scale(1.05);
+}
+
+.deptTabActive:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 25px rgba(139, 92, 246, 0.5);
+}
+
+/* Dark Mode Adjustments */
+:global([data-theme="dark"]) .deptTab {
+  color: #94a3b8;
+}
+
+:global([data-theme="dark"]) .deptTab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+:global([data-theme="dark"]) .deptTabActive {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+/* ================= Floating Backpack Widget ================= */
+.floatingBackpack {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 99px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: floatIn 0.5s ease-out;
+}
+
+.floatingBackpack:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: #fff;
+  box-shadow:
+    0 25px 60px rgba(139, 92, 246, 0.25),
+    0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.backpackIcon {
+  font-size: 20px;
+}
+
+.backpackText {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.backpackCount {
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+:global([data-theme="dark"]) .floatingBackpack {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .floatingBackpack:hover {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(139, 92, 246, 0.4);
+}
+
+:global([data-theme="dark"]) .backpackText {
   color: #fff;
 }

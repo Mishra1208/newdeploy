@@ -13,7 +13,7 @@ function AnimatedBeam({
   mode = "flash",       // "flash" | "dash" – default flash
   speed = 2.4,          // seconds for one full pass
   dot = 0.06,           // dot size as fraction of path length (0.02–0.12 looks good)
- }) {
+}) {
   const [d, setD] = React.useState("");
   const [size, setSize] = React.useState({ w: 0, h: 0 });
 
@@ -25,9 +25,9 @@ function AnimatedBeam({
     const br = b.getBoundingClientRect();
 
     const ax = ar.left - cb.left + ar.width / 2;
-    const ay = ar.top  - cb.top  + ar.height / 2;
+    const ay = ar.top - cb.top + ar.height / 2;
     const bx = br.left - cb.left + br.width / 2;
-    const by = br.top  - cb.top  + br.height / 2 + endYOffset;
+    const by = br.top - cb.top + br.height / 2 + endYOffset;
 
     const mx = (ax + bx) / 2;
     const my = (ay + by) / 2 + curvature;
@@ -36,7 +36,7 @@ function AnimatedBeam({
     setSize({ w: cb.width, h: cb.height });
   }, [containerRef, fromRef, toRef, curvature, endYOffset]);
 
-    // REPLACE your useLayoutEffect with this:
+  // REPLACE your useLayoutEffect with this:
   React.useEffect(() => {
     const on = () => compute();
 
@@ -81,9 +81,9 @@ function AnimatedBeam({
     <svg className={classes.svg} width={size.w} height={size.h} viewBox={`0 0 ${size.w} ${size.h}`}>
       <defs>
         <linearGradient id="beamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stopColor="#8b5cf6" />
-          <stop offset="50%"  stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#ec4899" />
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="50%" stopColor="#f472b6" />
+          <stop offset="100%" stopColor="#38bdf8" />
         </linearGradient>
         <filter id="beamGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="blur" />
@@ -106,7 +106,7 @@ function AnimatedBeam({
         fill="none"
         filter="url(#beamGlow)"
         strokeDasharray="8 10"
-        style={{ animation: `${reverse ? "beamDashRev" : "beamDash"} 3s linear infinite` }}
+        style={{ animation: `${reverse ? "beamDashRev" : "beamDash"} 3.5s linear infinite` }}
       />
       <style>{`
         @keyframes beamDash { from { stroke-dashoffset: 0 } to { stroke-dashoffset: -200 } }
@@ -158,14 +158,14 @@ export default function AnimatedBeamDemo() {
 
       {/* beams */}
       {/* beams */}
-<AnimatedBeam containerRef={containerRef} fromRef={div1Ref} toRef={div4Ref} curvature={-90} endYOffset={-10} />
-<AnimatedBeam containerRef={containerRef} fromRef={div2Ref} toRef={div4Ref} />
-<AnimatedBeam containerRef={containerRef} fromRef={div3Ref} toRef={div4Ref} curvature={90} endYOffset={10} />
+      <AnimatedBeam containerRef={containerRef} fromRef={div1Ref} toRef={div4Ref} curvature={-90} endYOffset={-10} />
+      <AnimatedBeam containerRef={containerRef} fromRef={div2Ref} toRef={div4Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={div3Ref} toRef={div4Ref} curvature={90} endYOffset={10} />
 
-{/* RIGHT SIDE — remove `reverse` so they also flow toward the center */}
-<AnimatedBeam containerRef={containerRef} fromRef={div5Ref} toRef={div4Ref} curvature={-90} endYOffset={-10} />
-<AnimatedBeam containerRef={containerRef} fromRef={div6Ref} toRef={div4Ref} />
-<AnimatedBeam containerRef={containerRef} fromRef={div7Ref} toRef={div4Ref} curvature={90} endYOffset={10} />
+      {/* RIGHT SIDE — remove `reverse` so they also flow toward the center */}
+      <AnimatedBeam containerRef={containerRef} fromRef={div5Ref} toRef={div4Ref} curvature={-90} endYOffset={-10} />
+      <AnimatedBeam containerRef={containerRef} fromRef={div6Ref} toRef={div4Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={div7Ref} toRef={div4Ref} curvature={90} endYOffset={10} />
 
     </div>
   );
@@ -178,12 +178,12 @@ const Icon = ({ src, alt }) => (
 
 const Icons = {
   // pick whatever files you prefer from /public/brands
-  notion:      () => <Icon src="/brands/concordia.png"  alt="Notion" />,
-  openai:      () => <Icon src="/brands/log.png"       alt="OpenAI" />,      // center icon; swap if you add an OpenAI SVG
-  googleDrive: () => <Icon src="/brands/gg.svg"     alt="Google Drive" />,
-  whatsapp:    () => <Icon src="/brands/fb.png"   alt="WhatsApp" />,
-  googleDocs:  () => <Icon src="/brands/calc.png"  alt="Google Docs" />,
-  zapier:      () => <Icon src="/brands/red.png"    alt="Zapier" />,
-  messenger:   () => <Icon src="/brands/rate1.png"        alt="Messenger" />,
+  notion: () => <Icon src="/brands/concordia.png" alt="Notion" />,
+  openai: () => <Icon src="/brands/log.png" alt="OpenAI" />,      // center icon; swap if you add an OpenAI SVG
+  googleDrive: () => <Icon src="/brands/gg.svg" alt="Google Drive" />,
+  whatsapp: () => <Icon src="/brands/fb.png" alt="WhatsApp" />,
+  googleDocs: () => <Icon src="/brands/calc.png" alt="Google Docs" />,
+  zapier: () => <Icon src="/brands/red.png" alt="Zapier" />,
+  messenger: () => <Icon src="/brands/rate1.png" alt="Messenger" />,
 };
 

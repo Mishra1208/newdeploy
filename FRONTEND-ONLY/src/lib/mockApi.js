@@ -33,48 +33,61 @@ async function ensureLoaded() {
   if (DATA.length) return DATA;
   if (!LOAD_PROMISE) {
     LOAD_PROMISE = (async () => {
-      const res = await fetch("/courses_merged.csv", { cache: "no-store" });
+      // 1. Fetch with default caching (allows browser disk cache)
+      const res = await fetch("/courses_merged.csv");
       const text = await res.text();
-      // 3. Load Courses
-      const { data: rows } = Papa.parse(text, { header: true, skipEmptyLines: true });
 
-      // No restriction on subjects anymore
-      DATA = rows
-        .map((r) => {
-          const subject = (pick(r, ["subject", "Subject", "SUBJECT"]) || "").toUpperCase();
+      // 2. Parse off-main-thread using PapaParse worker
+      return new Promise((resolve, reject) => {
+        Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          worker: true, // Offload to worker thread
+          complete: (results) => {
+            const rows = results.data;
+            // 3. Transform data (still happens on main thread callback, but lighter)
+            DATA = rows
+              .map((r) => {
+                const subject = (pick(r, ["subject", "Subject", "SUBJECT"]) || "").toUpperCase();
 
-          const catalogue = String(
-            pick(r, ["catalogue", "Catalogue", "catalog", "catalogue_number", "number"]) ?? ""
-          ).trim();
+                const catalogue = String(
+                  pick(r, ["catalogue", "Catalogue", "catalog", "catalogue_number", "number"]) ?? ""
+                ).trim();
 
-          const title =
-            pick(r, ["title", "Title", "course_title", "course_name"]) || "";
+                const title =
+                  pick(r, ["title", "Title", "course_title", "course_name"]) || "";
 
-          // Normalize term to season
-          const termRaw = pick(r, ["term", "Term", "semester", "Semester"]) || "";
-          const term = normalizeTerm(termRaw);
+                // Normalize term to season
+                const termRaw = pick(r, ["term", "Term", "semester", "Semester"]) || "";
+                const term = normalizeTerm(termRaw);
 
-          const session = pick(r, ["session", "Session", "format"]) || "";
-          const credits = parseCredits(
-            pick(r, ["credits", "Credits", "course_credit", "course_credits", "course_cre", "course_cr"])
-          );
+                const session = pick(r, ["session", "Session", "format"]) || "";
+                const credits = parseCredits(
+                  pick(r, ["credits", "Credits", "course_credit", "course_credits", "course_cre", "course_cr"])
+                );
 
-          if (!subject || !catalogue) return null;
+                if (!subject || !catalogue) return null;
 
-          return {
-            course_id: `${subject}-${catalogue}`,
-            subject,
-            catalogue,
-            title: String(title).trim(),
-            credits: Number.isFinite(credits) ? credits : 0,
-            term,                 // "Fall" | "Winter" | "Summer" | ""
-            session: String(session).trim(),
-            prereqdescription: pick(r, ["prereqdescription", "PrereqDescription", "Prerequisite", "prerequisite"]) || ""
-          };
-        })
-        .filter(Boolean);
+                return {
+                  course_id: `${subject}-${catalogue}`,
+                  subject,
+                  catalogue,
+                  title: String(title).trim(),
+                  credits: Number.isFinite(credits) ? credits : 0,
+                  term,                 // "Fall" | "Winter" | "Summer" | ""
+                  session: String(session).trim(),
+                  prereqdescription: pick(r, ["prereqdescription", "PrereqDescription", "Prerequisite", "prerequisite"]) || ""
+                };
+              })
+              .filter(Boolean);
 
-      return DATA;
+            resolve(DATA);
+          },
+          error: (err) => {
+            reject(err);
+          }
+        });
+      });
     })();
   }
   return LOAD_PROMISE;

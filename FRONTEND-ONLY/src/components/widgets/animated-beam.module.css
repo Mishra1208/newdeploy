@@ -5,11 +5,16 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  overflow: visible;  /* let beams overflow instead of clipping */
-  padding: 0;         /* remove padding around */
-  background: none;   /* remove white card bg */
-  border: none;       /* remove border */
-  box-shadow: none;   /* remove shadow */
+  overflow: visible;
+  /* let beams overflow instead of clipping */
+  padding: 0;
+  /* remove padding around */
+  background: none;
+  /* remove white card bg */
+  border: none;
+  /* remove border */
+  box-shadow: none;
+  /* remove shadow */
 }
 
 .grid {
@@ -25,9 +30,11 @@
 .row {
   display: flex;
   align-items: center;
-  justify-content: space-between;/* icons go to far left/right */
+  justify-content: space-between;
+  /* icons go to far left/right */
   width: 100%;
 }
+
 
 .circle {
   z-index: 10;
@@ -37,19 +44,49 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: 2px solid rgba(0,0,0,0.06);
-  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
   padding: 12px;
-  box-shadow: 0 6px 30px -18px rgba(0,0,0,0.6);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.circle:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .centerCircle {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 0 30px rgba(139, 92, 246, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+  animation: pulseHub 4s ease-in-out infinite;
+}
+
+@keyframes pulseHub {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(236, 72, 153, 0.3);
+  }
 }
 
 .svg {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 1;
+  /* Ensure beams are below the circles (z-index 10) */
 }

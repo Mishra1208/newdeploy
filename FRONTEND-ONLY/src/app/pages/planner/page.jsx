@@ -54,7 +54,11 @@ export default function PlannerPage() {
   const [items, setItems] = useState([]);
   const [exporting, setExporting] = useState(false);
 
-  // Load and refresh logic (same as before)
+  // Drag & Drop State
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [dragOverTerm, setDragOverTerm] = useState(null);
+
+  // Load and refresh logic
   const refresh = () => {
     const raw = loadList();
     const clean = dedupeByOffering(raw);
@@ -83,6 +87,67 @@ export default function PlannerPage() {
     saveList(next);
     setItems(next);
     broadcastPlannerChange();
+  }
+
+  // --- Drag & Drop Handlers ---
+
+  function handleDragStart(e, course) {
+    setDraggedItem(course);
+    e.dataTransfer.effectAllowed = "move";
+    // Set transparent drag image or use default
+    e.dataTransfer.setData("text/plain", JSON.stringify(course));
+    // Optional: Add a class for styling
+  }
+
+  function handleDragOver(e, term) {
+    e.preventDefault(); // Necessary to allow dropping
+    e.dataTransfer.dropEffect = "move";
+    if (dragOverTerm !== term) {
+      setDragOverTerm(term);
+    }
+  }
+
+  function handleDragLeave(e) {
+    // Basic clearing. Ideally check if leaving the specific drop zone.
+    // For simplicity, we clear dragOverTerm on Drop or DragEnd
+  }
+
+  function handleDrop(e, targetTerm) {
+    e.preventDefault();
+    setDragOverTerm(null);
+
+    if (!draggedItem) return;
+
+    // Logic: Remove old instance, add new instance with updated term
+    const oldKey = courseKey(draggedItem);
+
+    // Create new object
+    const newItem = { ...draggedItem, term: targetTerm };
+    const newKey = courseKey(newItem);
+
+    // Filter out old instance
+    const others = items.filter(it => courseKey(it) !== oldKey);
+
+    // Check if duplicate in target term (optional, but good practice)
+    const exists = others.some(it => courseKey(it) === newKey);
+
+    let nextItems;
+    if (exists) {
+      // If it exists, just remove the old one (merging)
+      nextItems = others;
+    } else {
+      nextItems = [...others, newItem];
+    }
+
+    saveList(nextItems);
+    setItems(nextItems);
+    broadcastPlannerChange();
+    setDraggedItem(null);
+  }
+
+  function handleDragEnd() {
+    setDraggedItem(null);
+    setDragOverTerm(null);
   }
 
   async function handleClearAll() {
@@ -184,8 +249,16 @@ export default function PlannerPage() {
             else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
             else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
 
+            const isOver = dragOverTerm === termKey;
+
             return (
-              <div key={termKey} className={styles.column}>
+              <div
+                key={termKey}
+                className={`${styles.column} ${isOver ? styles.columnDragOver : ""}`}
+                onDragOver={(e) => handleDragOver(e, termKey)}
+                onDrop={(e) => handleDrop(e, termKey)}
+                onDragLeave={handleDragLeave}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                   <h3 className={styles.colTitle} style={{ margin: 0 }}>
                     {termKey} <span className={styles.countBadge}>{list.length}</span>
@@ -201,21 +274,30 @@ export default function PlannerPage() {
 
                 <div className={styles.colList}>
                   {list.length === 0 ? (
-                    <div className={styles.emptySlot}>No courses</div>
+                    <div className={styles.emptySlot}>Drop here</div>
                   ) : (
-                    list.map(c => (
-                      <div key={courseKey(c)} className={styles.card}>
-                        <div className={styles.cardHead}>
-                          <span className={styles.code}>{c.subject} {c.catalogue}</span>
-                          <span className={styles.credits}>{c.credits} cr</span>
+                    list.map(c => {
+                      const isDragging = draggedItem && courseKey(draggedItem) === courseKey(c);
+                      return (
+                        <div
+                          key={courseKey(c)}
+                          className={`${styles.card} ${isDragging ? styles.cardDragging : ""}`}
+                          draggable={true}
+                          onDragStart={(e) => handleDragStart(e, c)}
+                          onDragEnd={handleDragEnd}
+                        >
+                          <div className={styles.cardHead}>
+                            <span className={styles.code}>{c.subject} {c.catalogue}</span>
+                            <span className={styles.credits}>{c.credits} cr</span>
+                          </div>
+                          <div className={styles.cardTitle}>{c.title}</div>
+                          {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
+                          <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
+                            Remove
+                          </button>
                         </div>
-                        <div className={styles.cardTitle}>{c.title}</div>
-                        {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
-                        <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
-                          Remove
-                        </button>
-                      </div>
-                    ))
+                      )
+                    })
                   )}
                 </div>
               </div>

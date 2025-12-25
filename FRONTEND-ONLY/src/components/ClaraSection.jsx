@@ -6,26 +6,27 @@ export default function ClaraSection({ styles, displayClass, stacked = false }) 
   return (
     <section className={styles.section}>
       <h2 className={styles.h2}>
-        Meet our AI chat bot — <span className={displayClass}>Clara</span>
+        Meet <span className={displayClass}>Clara.</span> <br />
+        <span style={{ fontSize: '0.8em', opacity: 0.7 }}>Your Academic Oracle.</span>
       </h2>
 
       <p className={styles.lead}>
-        Clara is your smart course sidekick. Ask things like
-        <em> “Is COMP 352 hard?”, “Who to take for SOEN 228?”, “How many credits is ENCS 272?” </em>
-           she blends our course index (CSV), Reddit chatter, and RateMyProfessors to answer fast.
+        Clara isn't just a bot. She's a synthesis of every course review, every grading pattern,
+        and every prerequisite rule.
+        <em> She knows if COMP 352 is hard so you don't have to guess.</em>
       </p>
 
       <div className={`${styles.claraGrid} ${stacked ? styles.claraStack : ""}`}>
         {/* Info card */}
         <div className={styles.claraCard}>
-          <h3 className={styles.claraH3}>What Clara can do</h3>
+          <h3 className={styles.claraH3}>Omniscient Intelligence</h3>
           <ul className={styles.claraList}>
-            <li><strong>Community insight:</strong> Summaries from recent Reddit threads.</li>
-            <li><strong>Professor pulse:</strong> Quality, difficulty, would-take-again from RMP.</li>
-            <li><strong>Catalog facts:</strong> Credits, prereqs, terms, sessions, equivalents.</li>
-            <li><strong>Fast answers:</strong> Ask naturally, Clara figures out intent.</li>
+            <li><strong>Hive Mind:</strong> Instant summaries of student consensus from Reddit.</li>
+            <li><strong>Professor Pulse:</strong> Knowing who teaches best (and who to avoid).</li>
+            <li><strong>Policy Expert:</strong> Credits, prerequisites, and obscure rules—memorized.</li>
+            <li><strong>Natural Chat:</strong> Just talk to her. She gets it.</li>
           </ul>
-          <p className={styles.muted}>Tip: include a course code like <code>COMP 248</code> for best results.</p>
+          <p className={styles.muted}>Pro Tip: Ask "What's the vibe of SOEN 287?"</p>
         </div>
 
         {/* Video block */}
