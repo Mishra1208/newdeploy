@@ -12,6 +12,7 @@
     "build:index": "node scripts/generateCourseIndex.cjs"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.36.5",
     "@gsap/react": "^2.1.2",
     "@xyflow/react": "^12.10.0",
     "canvas-confetti": "^1.9.4",

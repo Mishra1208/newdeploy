@@ -11,7 +11,7 @@ const MarqueeItem = ({ text }) => (
             margin: "0 40px",
             fontSize: "18px",
             fontWeight: 700,
-            color: "var(--ink)",
+            color: "var(--ink-primary)",
             opacity: 0.4,
             whiteSpace: "nowrap",
         }}
@@ -54,11 +54,7 @@ export default function TrustedMarquee() {
             </div>
 
             {/* Marquee Container */}
-            <div style={{
-                display: "flex",
-                width: "fit-content",
-                animation: "scroll 40s linear infinite"
-            }}>
+            <div className="marquee-track">
                 {/* Double the content for seamless loop */}
                 {[...departments, ...departments].map((dept, i) => (
                     <MarqueeItem key={i} text={dept} />
@@ -66,33 +62,43 @@ export default function TrustedMarquee() {
             </div>
 
             {/* Fade Gradients */}
-            <div style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100px",
-                height: "100%",
-                background: "linear-gradient(to right, var(--bg), transparent)",
-                zIndex: 2,
-                pointerEvents: "none"
-            }} />
-            <div style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                width: "100px",
-                height: "100%",
-                background: "linear-gradient(to left, var(--bg), transparent)",
-                zIndex: 2,
-                pointerEvents: "none"
-            }} />
+            <div className="fade-left" />
+            <div className="fade-right" />
 
             <style jsx>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+                .marquee-track {
+                    display: flex;
+                    width: fit-content;
+                    animation: scroll 40s linear infinite;
+                }
+                
+                .fade-left {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100px;
+                    height: 100%;
+                    background: linear-gradient(to right, var(--bg-page), transparent);
+                    z-index: 2;
+                    pointer-events: none;
+                }
+
+                .fade-right {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 100px;
+                    height: 100%;
+                    background: linear-gradient(to left, var(--bg-page), transparent);
+                    z-index: 2;
+                    pointer-events: none;
+                }
+
+                @keyframes scroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+            `}</style>
         </div>
     );
 }

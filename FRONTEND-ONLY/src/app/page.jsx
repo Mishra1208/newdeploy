@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./home.module.css";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Space_Grotesk, Inter } from "next/font/google";
+import { SignedOut, SignInButton } from "@clerk/nextjs";
 
 // --- Components ---
 import MagneticButton from "@/components/widgets/MagneticButton";
@@ -275,7 +276,43 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* --- LOGIN PROMO WIDGET (Only for SignedOut) --- */}
+      <SignedOut>
+        <section className={styles.loginPromoWidget}>
+          {/* Animated Glow in Background */}
+          <div className={styles.promoGlow1}></div>
+          <div className={styles.promoGlow2}></div>
 
+          <h2 className={`${styles.promoTitle} h2`}>
+            Save Your Progress. <span style={{
+              background: 'linear-gradient(to right, #8b1e3f, #d946ef)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
+            }}>Sync Across Devices.</span>
+          </h2>
+          <p className={styles.promoText}>
+            Don't lose your perfect schedule. Connect your GitHub or Gmail to save your planner and GPA data instantly.
+          </p>
+
+          <SignInButton mode="modal">
+            <button style={{
+              background: '#171717', color: 'white', border: 'none',
+              padding: '12px 24px', borderRadius: 50, fontSize: 15, fontWeight: 600,
+              cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              transition: 'transform 0.2s'
+            }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <span style={{ fontSize: 18 }}>🚀</span> Connect with Git / Gmail
+            </button>
+          </SignInButton>
+
+          <div style={{ marginTop: 16, fontSize: 12, opacity: 0.5 }}>
+            100% Free • Secure Authentication via Clerk
+          </div>
+        </section>
+      </SignedOut>
 
     </main>
   );

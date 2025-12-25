@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { exportPlannerToExcel } from "@/lib/exportPlannerExcel";
 import styles from "./planner.module.css";
 
@@ -53,6 +55,7 @@ function broadcastPlannerChange() {
 export default function PlannerPage() {
   const [items, setItems] = useState([]);
   const [exporting, setExporting] = useState(false);
+  const router = useRouter();
 
   // Drag & Drop State
   const [draggedItem, setDraggedItem] = useState(null);
@@ -167,6 +170,11 @@ export default function PlannerPage() {
     }
   }
 
+  // Save Progress Handler
+  const handleSaveProgress = () => {
+    router.push('/login');
+  };
+
   // Group by Term
   const byTerm = { Fall: [], Winter: [], Summer: [], Others: [] };
   let totalCredits = 0;
@@ -193,6 +201,33 @@ export default function PlannerPage() {
           <p className={styles.subtitle}>Build your perfect schedule</p>
         </div>
         <div className={styles.actions}>
+
+          {/* User Controls: Only visible in Planner for now */}
+          <div style={{ marginRight: 16 }}>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+          </div>
+
+          <SignedIn>
+            <button
+              className={styles.ghostBtn}
+              onClick={() => alert("Progress Saved to Cloud! (Simulated)")}
+              style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)' }}
+            >
+              Save Progress
+            </button>
+          </SignedIn>
+
+          <SignedOut>
+            <button
+              className={styles.ghostBtn}
+              onClick={handleSaveProgress}
+            >
+              Save Progress (Login)
+            </button>
+          </SignedOut>
+
           <button
             className={styles.ghostBtn}
             onClick={handleClearAll}
