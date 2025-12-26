@@ -135,6 +135,9 @@ body {
     radial-gradient(at 0% 100%, rgba(252, 165, 165, 0.2) 0px, transparent 50%);
   /* Soft Pink Bottom Left */
   background-attachment: fixed;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 /* --- Typography Overrides --- */
@@ -295,6 +298,16 @@ button,
   z-index: 1000;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: var(--navbg);
+}
+
+@media (max-width: 768px) {
+  .site-nav-force-visible {
+    min-width: unset !important;
+    width: 90% !important;
+    left: 5%;
+    transform: none !important;
+    padding: 20px 10px;
+  }
 }
 
 /* FAB */
@@ -815,6 +828,14 @@ button,
   padding: 0;
   white-space: nowrap;
   /* Prevent "Log In" from wrapping */
+}
+
+@media (max-width: 768px) {
+  .site-nav ul {
+    flex-direction: column;
+    gap: 12px;
+    white-space: normal;
+  }
 }
 
 .site-nav a {
