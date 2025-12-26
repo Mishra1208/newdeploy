@@ -269,6 +269,97 @@ button,
 
   min-height: calc(var(--brand-logo-h) + 18px);
   isolation: auto;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+}
+
+.site-nav-hidden {
+  transform: translateY(-200%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-nav-force-visible {
+  transform: translate(-50%, 0) !important;
+  opacity: 1 !important;
+  pointer-events: auto;
+  position: fixed;
+  top: 40px;
+  /* Top-Center as requested */
+  left: 50%;
+  width: auto;
+  min-width: 800px;
+  /* Increased min-width to prevent squashing */
+  max-width: 95%;
+  margin: 0;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25), var(--ring);
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--navbg);
+}
+
+/* FAB */
+.nav-fab {
+  position: fixed;
+  top: 30px;
+  /* Moved to Top Right to avoid Chatbot overlap */
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--navbg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 999;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.nav-fab.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.nav-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  background: white;
+}
+
+[data-theme="dark"] .nav-fab:hover {
+  background: #1e293b;
+}
+
+/* Close Btn inside Nav */
+.nav-close-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 12px;
+  color: var(--ink);
+  transition: background 0.2s;
+}
+
+.nav-close-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ef4444;
 }
 
 /* ... existing helpers ... */
@@ -715,8 +806,15 @@ button,
   list-style: none;
   display: flex;
   gap: 18px;
+  width: 100%;
+  /* ensure full width usage */
+  justify-content: center;
+  /* center items */
+  align-items: center;
   margin: 0;
-  padding: 0
+  padding: 0;
+  white-space: nowrap;
+  /* Prevent "Log In" from wrapping */
 }
 
 .site-nav a {

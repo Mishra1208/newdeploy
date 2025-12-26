@@ -146,33 +146,8 @@ async function searchReddit({ subreddits, searchQ, afterTs, limit, perCallTimeou
 }
 
 /* -------------------- Puppeteer: persistent singleton -------------------- */
-let _browserPromise = null;
-async function getBrowser() {
-    if (!_browserPromise) {
-        // const { executablePath } = require("puppeteer"); // Not needed for auto-resolve
-        const flags = (process.env.CHROME_FLAGS || "--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu --headless=new").split(" ");
-
-        console.log("[puppeteer] launching browser with flags:", flags);
-
-        _browserPromise = require("puppeteer-extra").launch({
-            headless: true,
-            args: flags,
-            // executablePath: exe, // Let Puppeteer find the bundled Chrome automatically
-        });
-    }
-    return _browserPromise;
-}
-
-
-// graceful shutdown
-async function closeBrowser() {
-    try {
-        const br = await _browserPromise;
-        await br?.close();
-    } catch { }
-}
-process.on("SIGINT", async () => { await closeBrowser(); process.exit(0); });
-process.on("SIGTERM", async () => { await closeBrowser(); process.exit(0); });
+// Ephemeral Browser: no persistent instance to save memory
+const baseFlags = (process.env.CHROME_FLAGS || "--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu --headless=new").split(" ");
 
 /* -------------------- Supabase Cache -------------------- */
 const { createClient } = require('@supabase/supabase-js');
@@ -326,9 +301,15 @@ app.get("/api/rmp", async (req, res) => {
         .trim()
     `;
 
-    let page;
+    let browser = null;
+    let page = null;
     try {
-        const browser = await getBrowser(); // 🚀 persistent browser
+        // Launch a fresh browser for every request to maintain low memory profile
+        browser = await puppeteer.launch({
+            headless: true,
+            args: baseFlags,
+        });
+
         page = await browser.newPage();
 
         // ⚡ SPEED OPTIMIZATION: Block heavy resources
@@ -553,7 +534,10 @@ app.get("/api/rmp", async (req, res) => {
         console.error("rmp error:", e?.message || e);
         if (!res.headersSent) res.status(500).json({ error: "RMP scrape failed", detail: String(e) });
     } finally {
-        try { await page?.close(); } catch { } // ✅ close tab, keep browser alive
+        // 🧹 Cleanup: Always kill the browser
+        clearTimeout(overallTimer);
+        if (page) await page.close().catch(() => { });
+        if (browser) await browser.close().catch(() => { });
     }
 });
 

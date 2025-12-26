@@ -8,6 +8,7 @@ import ChatWidget from "@/components/ChatWidget";
 import "@/styles/globals.css";
 import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
+import DynamicNavbar from "@/components/DynamicNavbar";
 
 export const metadata = {
   title: "ConU Planner",
@@ -46,35 +47,7 @@ export default async function RootLayout({ children }) {
         <body>
 
 
-          <header className="site-nav">
-            <nav className="site-nav__inner">
-              <Link href="/" className="brand" aria-label="ConU Planner">
-                <img src="/logo2.png" alt="ConU Planner" className="brandLogo" />
-              </Link>
-
-              <ul>
-                <li><NavLink href="/">Home</NavLink></li>
-                <li><NavLink href="/pages/courses">Courses</NavLink></li>
-                <li><NavLink href="/pages/planner">Planner</NavLink></li>
-                <li><NavLink href="/pages/gpa">GPA</NavLink></li>
-                <li><NavLink href="/about">About</NavLink></li>
-
-                <SignedOut>
-                  <li>
-                    <NavLink href="/login">Log In</NavLink>
-                  </li>
-                </SignedOut>
-
-                <SignedIn>
-                  <li className="user-avatar-fancy" style={{ display: 'flex', alignItems: 'center' }}>
-                    <UserButton afterSignOutUrl="/" />
-                  </li>
-                </SignedIn>
-
-                <li><ThemeToggle /></li>
-              </ul>
-            </nav>
-          </header>
+          <DynamicNavbar />
 
           <main className="site-main">{children}</main>
           <Footer />

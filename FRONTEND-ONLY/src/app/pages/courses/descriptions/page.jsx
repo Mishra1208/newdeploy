@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import styles from "./descriptions.module.css";
 
 /* helpers */
 const anchorIdFor = (r) =>
   `${(r?.subject || "").toUpperCase()}-${(r?.catalogue || "").toUpperCase()}`;
 
-/** tiny CSV parser that handles quoted commas and newlines */
+/* --- CSV PARSER (Keep existing logic) --- */
 function parseCSV(text) {
   const rows = [];
   let i = 0, cell = "", inQ = false, row = [];
@@ -46,7 +46,6 @@ const parseCredits = (v) => {
 const longer = (a = "", b = "") =>
   (String(a).trim().length >= String(b).trim().length ? a : b);
 
-/** if description is missing, pick the longest paragraph-like cell */
 function sniffDescriptionFromAnyCell(row, { avoid = [] } = {}) {
   let best = "";
   for (const [_, v] of Object.entries(row)) {
@@ -62,244 +61,221 @@ function sniffDescriptionFromAnyCell(row, { avoid = [] } = {}) {
 
 export default function DescriptionsPage() {
   const [items, setItems] = useState([]);
-  const [openId, setOpenId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(40);
 
+  // Observer for infinite scroll
+  const observer = useRef();
+  const lastElementRef = useCallback(node => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setVisibleCount(prev => prev + 40);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [loading]);
+
+  // Load Data
   useEffect(() => {
     let alive = true;
     (async () => {
-      const text = await fetch("/courses_merged.csv", { cache: "no-store" }).then((r) => r.text());
-      if (!alive) return;
-      const raw = parseCSV(text);
+      try {
+        const text = await fetch("/courses_merged.csv", { cache: "no-store" }).then((r) => r.text());
+        if (!alive) return;
 
-      const normalized = raw
-        .map((r) => {
-          const subject = (pick(r, ["subject", "Subject", "SUBJECT"]) || "")
-            .toString()
-            .toUpperCase();
+        const raw = parseCSV(text);
 
-          const catalogue = (
-            pick(r, ["catalogue", "Catalogue", "catalog", "number", "catalogue_number"]) || ""
-          ).toString().trim();
-
-          // Title: prefer explicit title fields
-          let title =
-            pick(r, ["title", "Title", "course_title", "course_name_short"]) || "";
-
+        // Normalize
+        const normalized = raw.map((r) => {
+          const subject = (pick(r, ["subject", "Subject", "SUBJECT"]) || "").toString().toUpperCase();
+          const catalogue = (pick(r, ["catalogue", "Catalogue", "catalog", "number", "catalogue_number"]) || "").toString().trim();
+          let title = pick(r, ["title", "Title", "course_title", "course_name_short"]) || "";
           const rawCourseName = pick(r, ["course_name"]) || "";
-
-          // If we still don't have a title, only use course_name as title if it's SHORT
-          // (many COMP rows have the full paragraph in course_name).
-          if (!title && rawCourseName && rawCourseName.trim().length <= 80) {
-            title = rawCourseName.trim();
-          }
-
-          const credits = parseCredits(
-            pick(r, ["credits", "Credits", "course_credit", "course_credits", "course_cre", "course_cr"])
-          );
-
-          // Description: try all the usual fields first
-          let description =
-            pick(r, [
-              "description",
-              "Description",
-              "course_description",
-              "calendar_description",
-              "calendarDescription",
-              "long_description",
-              "longDescription",
-              "desc",
-              "Desc",
-              "course_desc",
-              "Course Description",
-              "Course description",
-            ]) || "";
-
-          // If still empty and course_name is LONG, treat that as description
-          if (!description && rawCourseName && rawCourseName.trim().length > 80) {
-            description = rawCourseName.trim();
-          }
-
-          const prereq =
-            pick(r, [
-              "prereqdescription",
-              "PrereqDescription",
-              "prerequisite",
-              "Prerequisite",
-              "Course Prerequisite",
-              "corequisite",
-              "Corequisite",
-              "Course Co-requisite",
-              "prereq",
-              "Prereq",
-            ]) || "";
-
-          const equivalent =
-            pick(r, [
-              "equivalent_course_description",
-              "equivalent",
-              "Equivalent",
-              "course_equivalent",
-              "Equivalent Courses",
-            ]) || "";
-
-          // Final fallback: sniff any paragraph-like cell (but don't skip a long course_name here)
-          if (!String(description).trim()) {
-            description = sniffDescriptionFromAnyCell(r, {
-              avoid: [title, prereq, equivalent].filter(Boolean),
-            });
-          }
-
-          // No subject restriction
-          // const ALLOW = new Set(["COMP", "COEN", "SOEN", "MECH", "ENGR", "ENCS", "AERO"]);
-          // if (!ALLOW.has(subject)) return null;
+          if (!title && rawCourseName && rawCourseName.trim().length <= 80) title = rawCourseName.trim();
+          const credits = parseCredits(pick(r, ["credits", "Credits", "course_credit"]));
+          let description = pick(r, ["description", "Description", "course_description", "calendar_description", "long_description", "desc"]) || "";
+          if (!description && rawCourseName && rawCourseName.trim().length > 80) description = rawCourseName.trim();
+          const prereq = pick(r, ["prereqdescription", "prerequisite", "Prerequisite", "corequisite"]) || "";
+          const equivalent = pick(r, ["equivalent", "Equivalent", "course_equivalent"]) || "";
+          if (!String(description).trim()) description = sniffDescriptionFromAnyCell(r, { avoid: [title, prereq, equivalent].filter(Boolean) });
           if (!subject || !catalogue || !title) return null;
+          return { subject, catalogue, title: String(title).trim(), credits: Number.isFinite(credits) ? credits : 0, description: String(description || "").trim(), prereqdescription: String(prereq || "").trim(), equivalent_course_description: String(equivalent || "").trim() };
+        }).filter(Boolean);
 
-          return {
-            subject,
-            catalogue,
-            title: String(title).trim(),
-            credits: Number.isFinite(credits) ? credits : 0,
-            description: String(description || "").trim(),
-            prereqdescription: String(prereq || "").trim(),
-            equivalent_course_description: String(equivalent || "").trim(),
-          };
-        })
-        .filter(Boolean);
-
-      // de-dupe by subject+catalogue — keep the richest content
-      const map = new Map();
-      for (const r of normalized) {
-        const key = `${r.subject}-${r.catalogue}`.toUpperCase();
-        const prev = map.get(key);
-        if (!prev) map.set(key, r);
-        else {
-          map.set(key, {
-            subject: r.subject,
-            catalogue: r.catalogue,
-            title: longer(prev.title, r.title),
-            credits: prev.credits || r.credits || 0,
-            description: longer(prev.description, r.description),
-            prereqdescription: longer(prev.prereqdescription, r.prereqdescription),
-            equivalent_course_description: longer(
-              prev.equivalent_course_description,
-              r.equivalent_course_description
-            ),
-          });
+        // Dedupe
+        const map = new Map();
+        for (const r of normalized) {
+          const key = `${r.subject}-${r.catalogue}`.toUpperCase();
+          const prev = map.get(key);
+          if (!prev) map.set(key, r);
+          else map.set(key, { ...prev, title: longer(prev.title, r.title), description: longer(prev.description, r.description), prereqdescription: longer(prev.prereqdescription, r.prereqdescription), equivalent_course_description: longer(prev.equivalent_course_description, r.equivalent_course_description) });
         }
+
+        const arr = Array.from(map.values()).sort((a, b) => `${a.subject} ${a.catalogue}`.localeCompare(`${b.subject} ${b.catalogue}`, "en", { numeric: true }));
+        setItems(arr);
+        setLoading(false);
+
+        // Check hash for direct open
+        const hash = decodeURIComponent((window.location.hash || "").slice(1));
+        if (hash) {
+          const match = arr.find(x => anchorIdFor(x) === hash);
+          if (match) setSelectedCourse(match);
+        }
+
+      } catch (e) {
+        console.error("CSV Load Failed", e);
+        setLoading(false);
       }
-
-      const arr = Array.from(map.values()).sort((a, b) =>
-        `${a.subject} ${a.catalogue}`.localeCompare(`${b.subject} ${b.catalogue}`, "en", {
-          numeric: true,
-        })
-      );
-
-      setItems(arr);
-
-      const hash = decodeURIComponent((window.location.hash || "").slice(1));
-      if (hash) setOpenId(hash);
     })();
     return () => { alive = false; };
   }, []);
 
-  // open/scroll when hash changes
+  // Filter Logic
+  const filteredItems = useMemo(() => {
+    if (!searchTerm) return items;
+    const lower = searchTerm.toLowerCase();
+    return items.filter(i =>
+      `${i.subject} ${i.catalogue}`.toLowerCase().includes(lower) ||
+      i.title.toLowerCase().includes(lower)
+    );
+  }, [items, searchTerm]);
+
+  // Open Modal
+  const handleCardClick = (course) => {
+    setSelectedCourse(course);
+    // Update hash silently
+    history.replaceState(null, "", `#${anchorIdFor(course)}`);
+  };
+
+  // Close Modal
+  const closeModal = () => {
+    setSelectedCourse(null);
+    history.replaceState(null, "", location.pathname + location.search);
+  };
+
+  // Scroll to Top Logic
+  const [showTopBtn, setShowTopBtn] = useState(false);
   useEffect(() => {
-    const onHash = () => {
-      const id = decodeURIComponent((window.location.hash || "").slice(1));
-      if (id) setOpenId(id);
+    const onScroll = () => {
+      if (window.scrollY > 400) setShowTopBtn(true);
+      else setShowTopBtn(false);
     };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // after render, scroll to open item
-  useEffect(() => {
-    if (!items.length || !openId) return;
-    const raf = requestAnimationFrame(() => {
-      const el = document.getElementById(openId);
-      if (el) {
-        el.scrollIntoView({ block: "start", behavior: "smooth" });
-        el.classList.add(styles.justFocused);
-        setTimeout(() => el.classList.remove(styles.justFocused), 900);
-      }
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [items.length, openId]);
-
-  // click handler for single-open behavior
-  const handleSummaryClick = (id, isOpen) => (e) => {
-    e.preventDefault();
-    const next = isOpen ? null : id;
-    setOpenId(next);
-    if (next) history.replaceState(null, "", `#${encodeURIComponent(next)}`);
-    else history.replaceState(null, "", location.pathname + location.search);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <main className={styles.wrap}>
-      <h1 className={styles.title}>Course Descriptions</h1>
 
-      <div className={styles.accordion}>
-        {items.map((r) => {
-          const id = anchorIdFor(r);
-          const isOpen = openId === id;
-          const cr = Number(r.credits ?? 0);
-          const creditsLabel =
-            Number.isFinite(cr) ? `${cr.toFixed(cr % 1 === 0 ? 0 : 1)} credits` : "";
+      {/* Scroll to Top Button */}
+      <button
+        className={`${styles.scrollTopBtn} ${showTopBtn ? styles.visible : ""}`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        ↑
+      </button>
 
-          return (
-            <details id={id} key={id} className={styles.item} open={isOpen}>
-              <summary className={styles.summary} onClick={handleSummaryClick(id, isOpen)}>
-                <span className={styles.code}>
-                  {r.subject} {r.catalogue}
-                </span>
-                <span className={styles.name}>{r.title}</span>
-                {creditsLabel && <span className={styles.credits}>{creditsLabel}</span>}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.location.href = `/pages/tree?code=${r.subject}-${r.catalogue}`;
-                  }}
-                  style={{
-                    marginLeft: 'auto',
-                    padding: '4px 8px',
-                    fontSize: 12,
-                    fontWeight: 600,
-                    borderRadius: 4,
-                    border: 'none',
-                    background: '#e2e8f0',
-                    color: '#0f172a',
-                    cursor: 'pointer'
-                  }}
-                  title="View Prerequisite Tree"
-                >
-                  Tech Tree ↗
-                </button>
-              </summary>
-
-              <div className={styles.body}>
-                {r.description && <p className="body">{r.description}</p>}
-                {(r.prereqdescription || r.equivalent_course_description) && (
-                  <ul>
-                    {r.prereqdescription && (
-                      <li>
-                        <strong className={styles.label}>Prerequisite/Corequisite:</strong>{" "}
-                        {r.prereqdescription}
-                      </li>
-                    )}
-                    {r.equivalent_course_description && (
-                      <li>
-                        <strong className={styles.label}>Equivalent:</strong>{" "}
-                        {r.equivalent_course_description}
-                      </li>
-                    )}
-                  </ul>
-                )}
-              </div>
-            </details>
-          );
-        })}
+      {/* Hero Section */}
+      <div className={styles.hero}>
+        <h1 className={styles.title}>Course Catalog</h1>
+        <p className={styles.subtitle}>Explore over 12,000 Concordia University courses. Search by code, title, or keywords to find exactly what you need.</p>
       </div>
+
+      {/* Sticky Search */}
+      <div className={styles.searchContainer}>
+        <span className={styles.searchIcon}>🔍</span>
+        <input
+          type="text"
+          placeholder="Search courses (e.g., COMP 248, Financial Accounting...)"
+          className={styles.searchInput}
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setVisibleCount(40); // Reset scroll on search
+          }}
+        />
+      </div>
+
+      {/* Grid Content */}
+      {loading ? (
+        <div className={styles.loading}>Loading catalog...</div>
+      ) : (
+        <div className={styles.grid}>
+          {filteredItems.slice(0, visibleCount).map((course, idx) => {
+            const isLast = idx === visibleCount - 1;
+            return (
+              <div
+                key={anchorIdFor(course)}
+                className={styles.card}
+                ref={isLast ? lastElementRef : null}
+                onClick={() => handleCardClick(course)}
+              >
+                <div className={styles.cardHeader}>
+                  <span className={styles.codeBadge}>{course.subject} {course.catalogue}</span>
+                  <h3 className={styles.courseTitle}>{course.title}</h3>
+                </div>
+                <div className={styles.cardBody}>
+                  <p className={styles.descriptionPreview}>
+                    {course.description || "No description available."}
+                  </p>
+                  <span className={styles.creditsBadge}>{course.credits} Credits</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Detail Modal */}
+      {selectedCourse && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <button className={styles.modalClose} onClick={closeModal}>✕</button>
+              <span className={styles.codeBadge} style={{ fontSize: '0.9rem' }}>{selectedCourse.subject} {selectedCourse.catalogue}</span>
+              <h2 className={styles.modalTitle}>{selectedCourse.title}</h2>
+              <div style={{ marginTop: '8px', opacity: 0.7, fontWeight: 600 }}>{selectedCourse.credits} Credits</div>
+            </div>
+
+            <div className={styles.modalBody}>
+              <p className={styles.modalP}>{selectedCourse.description || "No description info available for this course."}</p>
+
+              {selectedCourse.prereqdescription && (
+                <div className={styles.infoBlock}>
+                  <span className={styles.infoLabel}>Prerequisites / Corequisites</span>
+                  <div style={{ lineHeight: 1.6 }}>{selectedCourse.prereqdescription}</div>
+                </div>
+              )}
+
+              {selectedCourse.equivalent_course_description && (
+                <div className={styles.infoBlock}>
+                  <span className={styles.infoLabel}>Equivalencies</span>
+                  <div style={{ lineHeight: 1.6 }}>{selectedCourse.equivalent_course_description}</div>
+                </div>
+              )}
+
+              <div style={{ textAlign: 'right' }}>
+                <button
+                  className={styles.techTreeBtn}
+                  onClick={() => window.location.href = `/pages/tree?code=${selectedCourse.subject}-${selectedCourse.catalogue}`}
+                >
+                  <span>Base Graph</span> ↗
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
