@@ -36,31 +36,48 @@
 }
 
 /* --- FAB (Floating Action Button) --- */
+/* --- FAB (Floating Action Button) --- */
 .fab {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background: var(--primary-gradient);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  background: transparent;
+  /* "Remove that purple" */
+  /* box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4); Removed container shadow */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   z-index: 10000;
+  animation: float 6s ease-in-out infinite;
+  /* "Animated cool" */
 }
 
 .fab:hover {
-  transform: scale(1.1) rotate(15deg);
-  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+  transform: scale(1.1) rotate(5deg);
 }
 
 .fabIcon {
-  width: 32px;
-  height: 32px;
-  /* filter: brightness(0) invert(1); */
+  width: 100%;
+  /* "Look very small" -> Make it fill the 80px */
+  height: 100%;
+  filter: drop-shadow(0 8px 16px rgba(99, 102, 241, 0.4));
+  /* Shadow on the icon itself */
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* --- Main Panel --- */
