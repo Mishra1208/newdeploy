@@ -1,393 +1,308 @@
-// src/app/api/chat/route.js
+import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "node:path";
-import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
-export const revalidate = 0;
-
-/* --------------------------- Community (Reddit) --------------------------- */
-const COMMUNITY_API = process.env.COMMUNITY_API_URL || "http://localhost:4000";
-const DEV = process.env.NODE_ENV !== "production";
-const COMMUNITY_CACHE = new Map();
-const COMMUNITY_TTL_MS = 30_000;
-
-const RMP_ENABLED = true;
-
-function log(...a) { if (DEV) console.log("[community]", ...a); }
-
-/* --------------------------- RMP helpers --------------------------- */
-function looksLikeProfessorName(q = "") {
-  const s = q.trim();
-  if (!s) return false;
-  if (/\b[A-Z]{3,4}\s*-?\s*\d{3}\b/.test(s)) return false;
-  if (/\b(credit|credits|prereq|prerequisite|term|session|offered|location|campus)\b/i.test(s)) return false;
-  return /^[A-Za-z][A-Za-z.'-]+(?:\s+[A-Za-z][A-Za-z.'-]+){1,3}$/.test(s);
-}
-
-// used only for trimming the “QUALITY … ratings” preamble etc.
-function cleanName(raw, dept, school) {
-  let s = String(raw || "");
-  s = s.replace(/^QUALITY\s*[\d.]+\s*\d+\s*ratings\s*/i, "");
-  if (dept) {
-    const reDept = new RegExp(`\\b${dept.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b.*$`, "i");
-    s = s.replace(reDept, "");
-  }
-  if (school) {
-    const reSch = new RegExp(`\\b${school.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b.*$`, "i");
-    s = s.replace(reSch, "");
-  }
-  s = s.replace(/\b(University|College|Department|School)\b.*$/i, "");
-  return s.replace(/\s+/g, " ").trim();
-}
-
-function formatRow(label, value) {
-  const v = value == null || value === "" ? "—" : value;
-  return `<div class="kv"><span class="k">${label}</span><span class="v">${v}</span></div>`;
-}
-
-// FINAL GUARANTEE: if the API didn’t populate difficulty/department, pull from blockText.
-function deriveFromBlockText(blockText) {
-  const t = (blockText || "");
-  const difficulty =
-    (t.match(/level\s*of\s*difficulty\s*[:\s]*([\d.]{1,3})/i) || [])[1] ||
-    (t.match(/([\d.]{1,3})\s*level\s*of\s*difficulty/i) || [])[1] ||
-    null;
-  const dept =
-    (t.match(/\b(Computer Science|Mathematics|Engineering|Biology|Chemistry|Physics|Statistics|Business|Finance|Accounting|Marketing|Psychology|Sociology|Philosophy|History|Political Science|Fine Arts|Anthropology|Film|Social Science|Social Sciences)\b/i) || [])[1] ||
-    null;
-  return { difficulty, dept };
-}
-
-async function fetchRmpBlock(name) {
-  const norm = (s = "") =>
-    String(s).replace(/\u00A0/g, " ").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim();
-
-  const extractHumanName = (raw, fallbacks = []) => {
-    const text = norm(raw);
-    const stripped = text.replace(/^QUALITY\s*[\d.]+\s*\d+\s*ratings\s*/i, "");
-    const m =
-      text.match(/([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){1,3})/) ||
-      (fallbacks[0] && norm(fallbacks[0]).match(/([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){1,3})/));
-    return (m && (m[1] || m[0])) ? (m[1] || m[0]).trim() : (fallbacks[0] || "");
-  };
-
-  const row = (k, v) => `<div class="kv"><span class="k">${k}</span><span class="v">${(v ?? "—")}</span></div>`;
-
-  try {
-    const url = new URL("/api/rmp", COMMUNITY_API);
-    url.searchParams.set("name", name);
-    url.searchParams.set("all", "0"); // Concordia-only
-    const r = await fetch(url.toString(), { cache: "no-store" });
-    if (!r.ok) return null;
-    const data = await r.json();
-    if (!data || !data.count || !data.top) return null;
-
-    const t = data.top;
-
-    // ✅ Only the human name — strip dept/school tails
-    let profName = extractHumanName(t.name, [t.blockText, name]);
-    profName = cleanName(profName, t.dept, t.school);
-
-    const derived = deriveFromBlockText(t.blockText || "");
-    const profDept = t.dept || derived.dept || "—";
-    const profDiff = t.difficulty || derived.difficulty || "—";
-
-    const ratingsN = t.numRatings ? String(t.numRatings).replace(/\D+/g, "") : null;
-    const qualityLine = ratingsN
-      ? `Overall quality (based on ${ratingsN} rating${ratingsN === "1" ? "" : "s"}):`
-      : "Overall quality:";
-
-    const topBlock =
-      row("Professor Name:", profName) +
-      row("Dept:", profDept) +
-      row("School:", t.school || "Concordia University") +
-      row(qualityLine, t.quality || "—") +
-      row("Would take again:", t.wouldTakeAgain ? `${t.wouldTakeAgain}%` : "—") +
-      row("Level of difficulty:", profDiff || "—") +
-      (t.url
-        ? `<div class="kv"><span class="k">Profile:</span><span class="v"><a href="${t.url}" target="_blank" rel="noreferrer">Click here</a></span></div>`
-        : "");
-
-    const others = (data.others || [])
-      .slice(0, 4)
-      .map((o) => {
-        const oDerived = deriveFromBlockText(o.blockText || "");
-        let nm = extractHumanName(o.name, [o.blockText]);
-        nm = cleanName(nm, o.dept, o.school); // ✅ clean other names too
-        return `
-          <li>
-            <div class="other">
-              ${row("Professor Name:", nm)}
-              ${row("Dept:", o.dept || oDerived.dept || "—")}
-              ${row("School:", o.school || "—")}
-              ${row("Overall quality:", o.quality || "—")}
-              ${row("Would take again:", o.wouldTakeAgain ? `${o.wouldTakeAgain}%` : "—")}
-              ${row("Level of difficulty:", o.difficulty || oDerived.difficulty || "—")}
-              ${
-                o.url
-                  ? `<div class="kv"><span class="k">Profile:</span><span class="v"><a href="${o.url}" target="_blank" rel="noreferrer">Click here</a></span></div>`
-                  : ""
-              }
-            </div>
-          </li>`;
-      })
-      .join("");
-
-    const html = `
-      <style>
-        .kv { display:flex; gap:.5rem; line-height:1.6; }
-        .kv .k { min-width: 220px; font-weight:600; opacity:.9; }   /* inherit color */
-        .kv .v { opacity: 1; }
-        .other { padding:.5rem .75rem; border:1px solid rgba(0,0,0,.08); border-radius:8px; margin:.35rem 0; }
-        .rlinks { margin:.4rem 0 0 .2rem; padding-left:1rem; }
-        .rlinks li { margin:.35rem 0; }
-    .community .pill.rmp{
-       display: inline-block;
-       background: #3b82f6;      /* blue */
-       color: #fff;
-       font-weight: 700;
-       font-size: 10.5px;
-       letter-spacing: .35px;
-       padding: 3px 7px;
-       border-radius: 6px;
-       line-height: 1;
-       box-shadow: 0 1px 0 rgba(0,0,0,.08);
-       position: relative;       /* <-- needed so the tail positions correctly */
-       border: none;             /* ensure no orange border leaks in */
-    }
-   .community .pill.rmp::after{
-      content:"";
-      position:absolute;
-      bottom:-4px;
-      left:8px;
-      border-width:4px 4px 0 4px;
-      border-style:solid;
-      border-color:#3b82f6 transparent transparent transparent; /* match the blue */
-   }     
-      </style>
-      <div class="community minimalist">
-        <div class="topline">
-          <span class="label">RateMyProfessors</span>
-          <span class="pill rmp">RMP</span>
-        </div>
-        <div class="msg">
-          <div class="card">
-            ${topBlock}
-          </div>
-          ${others ? `<div style="margin-top:10px;">
-              <strong>Other matches (Concordia):</strong>
-              <ul class="rlinks">${others}</ul>
-            </div>` : ""}
-        </div>
-        <div class="rfoot">Unofficial community ratings from RateMyProfessors.</div>
-      </div>
-    `;
-    return html;
-  } catch {
-    return null;
-  }
-}
-
-/* --------------------------- Reddit helpers --------------------------- */
-function looksCommunityQuestion(q = "") {
-  const s = q.toLowerCase();
-  if (/\b(credit|credits|cr|prereq|pre[-\s]?req|prerequisite|requirements?|equiv|equivalent|term|terms|semester|offered|session|sessions|location|campus|title)\b/.test(s)) {
-    return false;
-  }
-  return (
-    /\b(hard|harder|hardest|difficult|difficulty|tough|easy|easier|easiest|workload|time\s*commitment|drop\s*rate|withdraw(?:al)?\s*rate|fail\s*rate|pass\s*rate|curve|curved|final|midterm|exam|test|quiz|format|grading|grade(?:\s*distribution)?|tips?|advice|study|labs?|assignments?|resources?|textbook|notes)\b/.test(s) ||
-    /\b(best|good|great|avoid)\b.*\b(prof\w*|teacher|instructor)\b/.test(s) ||
-    /\b(prof\w*|teacher|instructor)\b.*\b(best|good|great|avoid)\b/.test(s) ||
-    /\bwho\s*(to|should)\s*take\b/.test(s) ||
-    /\b(proff?esor|professer)\b/.test(s) ||
-    /\b(prof\w*|teacher|instructor)s?\b/.test(s)
-  );
-}
-
-const COURSE_RE = /\b([A-Z]{3,4})\s*-?\s*(\d{3})\b/i;
-function extractCourseFromText(text) {
-  const m = (text || "").match(COURSE_RE);
-  return m ? `${(m[1] || "COMP").toUpperCase().trim()} ${m[2].trim()}` : null;
-}
-
-async function fetchCommunityAnswer(question, course) {
-  const key = `${course}::${question.toLowerCase()}`;
-  const now = Date.now();
-  const cached = COMMUNITY_CACHE.get(key);
-  if (cached && now - cached.ts < COMMUNITY_TTL_MS) return cached.data;
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 6000);
-  try {
-    const url = new URL("/api/reddit/answer", COMMUNITY_API);
-    url.searchParams.set("question", question);
-    url.searchParams.set("course", course);
-    url.searchParams.set("limit", "6");
-    url.searchParams.set("windowDays", "720");
-    const r = await fetch(url.toString(), { signal: controller.signal });
-    if (!r.ok) return null;
-    const data = await r.json().catch(() => null);
-    if (!data?.answer || data?.count === 0) return null;
-    const out = { answer: data.answer, sources: data.sources || [], topic: data.topic, count: data.count };
-    COMMUNITY_CACHE.set(key, { ts: now, data: out });
-    return out;
-  } catch (e) {
-    log("answer error", String(e?.name || e));
-    return null;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-/* ---------------------- CSV bot (course index lookup) --------------------- */
-let COURSE_INDEX = null, CODE_MAP = null, TITLE_LIST = null, TITLE_TOKENS_MAP = null;
-
-function normalizeCode(subj, num) {
-  return `${(subj || "COMP").toString().trim().toUpperCase()} ${(num || "").toString().trim()}`;
-}
-const INTENT_WORDS = new Set([
-  "credit","credits","cr","prereq","prereqs","prerequisite","prerequisites",
-  "requirement","requirements","equivalent","equivalents","term","terms",
-  "semester","semesters","offered","when","session","sessions","week",
-  "duration","title","what","is","are","for","of","the","in"
-]);
-function tokenize(str){ return (str||"").toLowerCase().replace(/[^a-z0-9\s]/g," ").split(/\s+/).filter(Boolean); }
+/* ---------------------------------- DATA ---------------------------------- */
+let COURSE_INDEX = null, CODE_MAP = null;
 
 async function ensureIndex() {
   if (COURSE_INDEX) return;
-  const p = path.join(process.cwd(), "public", "course_index.json");
-  const raw = await fs.readFile(p, "utf8");
-  COURSE_INDEX = JSON.parse(raw)?.list ?? [];
-  CODE_MAP = new Map(); TITLE_LIST = []; TITLE_TOKENS_MAP = new Map();
-  for (const item of COURSE_INDEX) {
-    const code = normalizeCode(item.subject, item.catalogue);
-    CODE_MAP.set(code, item);
-    const lowerTitle = (item.title || "").toLowerCase();
-    TITLE_LIST.push([code, lowerTitle, item]);
-    TITLE_TOKENS_MAP.set(item, new Set(tokenize(lowerTitle)));
+  try {
+    const p = path.join(process.cwd(), "public", "course_index.json");
+    const raw = await fs.readFile(p, "utf8");
+    COURSE_INDEX = JSON.parse(raw)?.list ?? [];
+    CODE_MAP = new Map();
+    for (const item of COURSE_INDEX) {
+      const code = `${(item.subject || "").toUpperCase()} ${(item.catalogue || "")}`;
+      CODE_MAP.set(code.trim(), item);
+    }
+  } catch (e) { console.error("Index load failed", e); }
+}
+
+/* ------------------------------- CLASSIFIER ------------------------------- */
+const INTENTS = {
+  RMP: "RMP_LOOKUP",
+  REDDIT: "REDDIT_SEARCH",
+  COURSE_INFO: "COURSE_LOOKUP",
+  UNKNOWN: "UNKNOWN",
+};
+
+/**
+ * Heuristic to detect "First Last" names without keywords.
+ */
+function looksLikeName(text) {
+  const t = text.trim();
+  if (/^(hi|hello|hey|help|start|menu)/i.test(t)) return false;
+  // Must be 2-4 words, starts with letter, no numbers
+  if (/\d/.test(t)) return false;
+  return /^[A-Za-z][A-Za-z.'-]+(?:\s+[A-Za-z][A-Za-z.'-]+){1,3}$/.test(t);
+}
+
+function classify(text) {
+  const t = text.trim();
+  const lower = t.toLowerCase();
+
+  // 1. Course Code Extraction
+  // Matches "COMP 248", "comp-248", "soen287"
+  const courseMatch = t.match(/\b([A-Z]{3,4})\s*-?\s*(\d{3,4})\b/i);
+  const courseEntity = courseMatch ? `${(courseMatch[1] || "COMP").toUpperCase()} ${courseMatch[2]}` : null;
+
+  // 2. Reddit Keywords (Expanded)
+  const isReddit = /\b(hard|easy|difficulty|workload|heavy|light|opinion|thoughts|review|advice|tip|worth|taking|skip|vs|compare|better|exam|midterm|final|lab|resources|best|avoid|recommend|who)\b/i.test(lower);
+
+  // 3. Priority: "Best/Who is taking [Course]" -> REDDIT
+  if (courseEntity && (isReddit || lower.includes("professor for") || lower.includes("teacher for"))) {
+    let topic = "difficulty";
+    if (/(best|who|recommend|avoid|teacher|prof)/.test(lower)) topic = "instructor";
+    if (/(final|midterm|exam)/.test(lower)) topic = "exam";
+    return { intent: INTENTS.REDDIT, entity: courseEntity, topic };
   }
-}
 
-function prettyPrereq(str=""){ return str.replace(/^course\s+pre[-\s]?requisite[s]?:\s*/i,"").trim(); }
-
-function detectIntent(text) {
-  const t = (text ?? "").toLowerCase();
-  if (/\bcredit(s)?\b|\bcr\b/.test(t)) return "credits";
-  if (/\bpre[-\s]?req(s|uisite|uisites)?\b|\brequirement(s)?\b/.test(t)) return "prereq";
-  if (/\bequiv(alent|alents)?\b/.test(t)) return "equivalent";
-  if (/\b(term|terms|semester|semesters|offered|when)\b/.test(t)) return "terms";
-  if (/\b(session|sessions|week|duration|13w|6h1)\b/.test(t)) return "session";
-  if (/\b(location|campus|where)\b/.test(t)) return "location";
-  if (/\btitle\b/.test(t)) return "title";
-  if (/\bwhat\s+is\b/.test(t)) return "summary";
-  return "summary";
-}
-
-function answerForIntent(course, intent) {
-  const code = `${course.subject} ${course.catalogue}`;
-  const name = `${code} — ${course.title || ""}`.trim();
-
-  const buildSummary = () => {
-    const lines = [name];
-    if (course.credits) lines.push(`${course.credits} credits`);
-    if (course.terms?.length) lines.push(`Offered: ${course.terms.join(", ")}`);
-    if (course.sessions?.length) lines.push(`Session: ${course.sessions.join(", ")}`);
-    if (course.prereq) lines.push(`Prerequisite(s): ${prettyPrereq(course.prereq)}`);
-    if (course.equivalent) lines.push(`Equivalent: ${course.equivalent}`);
-    if (course.location) lines.push(`Location: ${course.location}`);
-    if (course.description) lines.push(`\n${course.description}`);
-    return lines.join(" • ");
-  };
-
-  switch (intent) {
-    case "credits":   return `${code} is ${course.credits || "-"} credits.`;
-    case "prereq": {
-      const p = prettyPrereq(course.prereq || "");
-      return p ? `Prerequisites for ${code}: ${p}` : `There are no listed prerequisites for ${code}.`;
-    }
-    case "equivalent": {
-      const e = (course.equivalent || "").trim();
-      return e ? `Course(s) equivalent to ${code}: ${e}` : `No equivalents are listed for ${code}.`;
-    }
-    case "terms":     return `${code} is offered in: ${course.terms?.length ? course.terms.join(", ") : "—"}.`;
-    case "session":   return `${code} session/format: ${course.sessions?.length ? course.sessions.join(", ") : "—"}.`;
-    case "location":  return `${code} location: ${course.location || "—"}.`;
-    case "title":     return buildSummary();
-    default:          return buildSummary();
+  // 4. Explicit RMP: "Rate Professor X", "Who is Professor X"
+  // Avoid capturing "for", "is", "the" as names
+  const profMatch = t.match(/\b(rate|prof|professor|teacher|instructor)\s+(?!for\b|is\b|the\b)([A-Za-z.'-]+(?:\s+[A-Za-z.'-]+)?)/i);
+  if (profMatch && profMatch[2].length > 2) {
+    // Only if it doesn't look like a course request
+    return { intent: INTENTS.RMP, entity: profMatch[2].trim() };
   }
-}
 
-function findByTitleFragment(text){
-  const tokens = tokenize(text).filter(t=>!INTENT_WORDS.has(t));
-  if (!tokens.length) return null;
-  let best=null,bestScore=0;
-  for (const [, , item] of TITLE_LIST){
-    const titleTokens = TITLE_TOKENS_MAP.get(item);
-    let hits=0; for (const t of tokens) if (titleTokens.has(t)) hits++;
-    const score = hits / tokens.length;
-    if (score>bestScore){ bestScore=score; best=item; }
+  // 5. Course Info Fallback ("How many credits is COMP 248?")
+  if (courseEntity) {
+    return { intent: INTENTS.COURSE_INFO, entity: courseEntity };
   }
-  return bestScore>=0.4 ? best : null;
+
+  // 6. Loose Name Detection (Fallback)
+  if (looksLikeName(t)) {
+    return { intent: INTENTS.RMP, entity: t };
+  }
+
+  return { intent: INTENTS.UNKNOWN };
 }
 
-/* ----------------------------- POST /api/chat ----------------------------- */
-export async function POST(req){
-  try{
-    await ensureIndex();
+/* --------------------------- External Callers --------------------------- */
+const COMMUNITY_API = process.env.COMMUNITY_API_URL || "http://localhost:4000";
 
-    const body = await req.json().catch(()=>({}));
-    const message = (body?.message ?? body?.q ?? body?.text ?? "").toString().trim();
+async function fetchRMP(name) {
+  try {
+    const url = new URL("/api/rmp", COMMUNITY_API);
+    url.searchParams.set("name", name);
+    const r = await fetch(url.toString());
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
 
-    if (!message){
-      const reply = "Ask about a course, e.g. “How many credits is COMP 248?”";
-      return NextResponse.json({ reply, message: reply, answer: reply, text: reply });
+async function fetchReddit(course, query) {
+  try {
+    const url = new URL("/api/reddit/answer", COMMUNITY_API);
+    url.searchParams.set("course", course);
+    url.searchParams.set("question", query);
+    url.searchParams.set("windowDays", "150"); // 5 months
+    const r = await fetch(url.toString());
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
+
+/* --------------------------- CARD BUILDERS --------------------------- */
+function buildCourseCard(c) {
+  return `
+    <div class="premium-card">
+        <!-- Header Gradient -->
+        <div class="card-header" style="background:linear-gradient(135deg, #3b82f6, #6366f1) !important; color:white;">
+            <div style="display:flex; justify-content:space-between; align-items:start;">
+                <div>
+                    <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Concordia Course</div>
+                    <h3 style="margin:4px 0 0 0; font-size:1.6em; font-weight:800; letter-spacing:-0.03em;">
+                        ${c.subject} ${c.catalogue}
+                    </h3>
+                </div>
+                <span style="background:rgba(255,255,255,0.2); color:white; padding:4px 12px; border-radius:99px; font-size:0.85em; font-weight:700; backdrop-filter:blur(4px); box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                    ${c.credits} Cr
+                </span>
+            </div>
+            <div style="font-size:0.95em; opacity:0.95; margin-top:6px; font-weight:500; line-height:1.4;">${c.title}</div>
+        </div>
+
+        <!-- Content -->
+        <div style="padding:20px;">
+            
+            ${c.prereq ? `
+            <div style="margin-bottom:16px; padding:12px 16px; background:rgba(59, 130, 246, 0.08); border-radius:12px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.7em; font-weight:800; color:#3b82f6; text-transform:uppercase; margin-bottom:4px; letter-spacing:0.5px;">Prerequisites</div>
+                <div style="font-size:0.9em; line-height:1.5; font-weight:500;">${c.prereq}</div>
+            </div>` : ""}
+
+            ${c.description ? `
+            <div style="font-size:0.95em; line-height:1.6; opacity:0.8;">
+                ${c.description}
+            </div>` : ""}
+        </div>
+        
+        <!-- Footer -->
+         <div style="background:rgba(0,0,0,0.02); padding:12px 20px; border-top:1px solid rgba(0,0,0,0.05); text-align:right;">
+             <span style="font-size:0.7em; opacity:0.4; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Official Catalog Data</span>
+        </div>
+    </div>
+    `;
+}
+
+function buildRMPCard(t) {
+  // 1. Clean the name
+  let name = t.name.replace(/QUALITY\s*[\d.]+\s*\d*\s*ratings?/i, "")
+    .replace(/\d+%\s*would\s*take\s*again/i, "")
+    .replace(/[\d.]+\s*level\s*of\s*difficulty/i, "")
+    .replace(/Concordia\s*University/i, "")
+    .replace(t.dept || "_______", "")
+    .trim();
+  if (name.length < 3) name = t.name.split("Computer")[0].replace(/QUALITY.*?ratings?/i, "").trim();
+
+  // 2. Color Logic
+  const q = parseFloat(t.quality) || 0;
+  const qColor = q >= 3.5 ? "#4ade80" : q >= 2.5 ? "#facc15" : "#f87171";
+  const d = parseFloat(t.difficulty) || 0;
+  const dColor = d >= 4 ? "#f87171" : d >= 3 ? "#facc15" : "#4ade80";
+
+  return `
+    <div class="premium-card">
+        <!-- Header Gradient -->
+        <div class="card-header" style="background:linear-gradient(135deg, #8b5cf6, #d946ef) !important; color:white;">
+            <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">RateMyProfessors</div>
+            <h3 style="margin:4px 0 0 0; font-size:1.6em; font-weight:800; letter-spacing:-0.03em;">${name}</h3>
+            <div style="font-size:0.95em; opacity:0.9; margin-top:4px;">${t.dept || 'Concordia'}</div>
+        </div>
+
+        <!-- Stats Row -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; padding:20px; gap:16px;">
+            <!-- Quality -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                <div style="font-size:0.75em; opacity:0.6; font-weight:700; letter-spacing:0.5px;">QUALITY</div>
+                <div style="background:${qColor}15; color:${qColor}; border:2px solid ${qColor}40; border-radius:16px; padding:6px 20px; font-weight:800; font-size:1.6em; box-shadow:0 4px 12px ${qColor}20;">
+                    ${t.quality}
+                </div>
+                <div style="font-size:0.7em; opacity:0.4; font-weight:500;">out of 5.0</div>
+            </div>
+            
+            <!-- Difficulty -->
+             <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                <div style="font-size:0.75em; opacity:0.6; font-weight:700; letter-spacing:0.5px;">DIFFICULTY</div>
+                <div style="background:${dColor}15; color:${dColor}; border:2px solid ${dColor}40; border-radius:16px; padding:6px 20px; font-weight:800; font-size:1.6em; box-shadow:0 4px 12px ${dColor}20;">
+                    ${t.difficulty}
+                </div>
+                <div style="font-size:0.7em; opacity:0.4; font-weight:500;">out of 5.0</div>
+            </div>
+        </div>
+
+        <!-- Footer Info: Progress Bar -->
+         <div style="background:rgba(0,0,0,0.02); padding:20px; border-top:1px solid rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="font-size:0.75em; font-weight:700; opacity:0.6; text-transform:uppercase; letter-spacing:0.5px;">Would Take Again</span>
+                <span style="font-size:1.1em; font-weight:800; color:${t.wouldTakeAgain ? (parseInt(t.wouldTakeAgain) >= 50 ? '#4ade80' : '#f87171') : '#999'}">${t.wouldTakeAgain || 'N/A'}%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:${parseInt(t.wouldTakeAgain) || 0}%; background:${t.wouldTakeAgain ? (parseInt(t.wouldTakeAgain) >= 50 ? '#4ade80' : '#f87171') : 'transparent'};"></div>
+            </div>
+            
+            ${t.url ? `<div style="margin-top:16px; text-align:center;">
+                <a href="${t.url}" target="_blank" style="font-size:0.85em; font-weight:700; color:#8b5cf6; text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:transform 0.2s;">
+                    View Profile on RMP <span>→</span>
+                </a>
+            </div>` : ""}
+        </div>
+    </div>`;
+}
+
+function buildRedditCard(data, entity) {
+  const answerClean = data.answer.split('\n').filter(line => line.startsWith('•')).map(line => {
+    // Clean up
+    const parts = line.replace(/^•\s*/, '').split('—');
+    const title = parts[0].trim();
+    const meta = parts.slice(1).join('—').trim();
+    return `<div style="margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.05);">
+            <div style="font-weight:600; font-size:0.95em; margin-bottom:4px; line-height:1.4;">${title}</div>
+            <div style="font-size:0.75em; opacity:0.5;">${meta.split('http')[0]}</div>
+        </div>`;
+  }).join("");
+
+  return `
+    <div class="premium-card">
+         <!-- Header Gradient -->
+        <div class="card-header" style="background:linear-gradient(135deg, #f97316, #ea580c) !important; color:white;">
+            <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Reddit Consensus</div>
+            <h3 style="margin:4px 0 0 0; font-size:1.5em; font-weight:800; letter-spacing:-0.03em;">
+                ${entity}
+            </h3>
+        </div>
+        
+        <!-- Content -->
+        <div style="padding:24px;">
+             <div style="font-size:0.9em; line-height:1.6; opacity:0.9;">
+                ${answerClean || "No specific posts found, but here is the general consensus..."}
+             </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="background:rgba(0,0,0,0.02); padding:12px 20px; border-top:1px solid rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center;">
+             <span style="font-size:0.7em; opacity:0.5; font-weight:600;">Updated ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+             <a href="https://www.reddit.com/r/Concordia/search/?q=${encodeURIComponent(entity)}" target="_blank" style="font-size:0.85em; font-weight:700; color:#f97316; text-decoration:none;">
+                View on Reddit →
+             </a>
+        </div>
+    </div>
+    `;
+}
+
+/* --------------------------- API HANDLER --------------------------- */
+export async function POST(req) {
+  try {
+    await ensureIndex(); // Load data
+
+    const { message, text } = await req.json(); // Support both 'text' (legacy) and 'message' (new)
+    const input = message || text;
+
+    const { intent, entity, topic } = classify(input);
+
+    /* -------------------------- 1. RMP HANDLER -------------------------- */
+    if (intent === INTENTS.RMP) {
+      const data = await fetchRMP(entity);
+      if (data && data.top) {
+        return NextResponse.json({ html: buildRMPCard(data.top) });
+      }
+      return NextResponse.json({ reply: `I searched for professor "${entity}" but couldn't find a match on RateMyProfessors.` });
     }
 
-    // 1) Professor name → RMP
-    if (RMP_ENABLED && looksLikeProfessorName(message)) {
-      const html = await fetchRmpBlock(message);
-      if (html) return NextResponse.json({ html });
-      // fallthrough if RMP fails
+    /* ------------------------ 2. REDDIT HANDLER ------------------------- */
+    if (intent === INTENTS.REDDIT) {
+      const data = await fetchReddit(entity, topic || "difficulty");
+      if (data && data.answer) {
+        return NextResponse.json({ html: buildRedditCard(data, entity) });
+      }
+      return NextResponse.json({ reply: `I looked on Reddit for ${entity} discussions but found nothing recent.` });
     }
 
-    // 2) Community-style question → Reddit
-    if (looksCommunityQuestion(message)){
-      const courseStr = extractCourseFromText(message) || "COMP 248";
-      log("community route →", courseStr);
-      const community = await fetchCommunityAnswer(message, courseStr);
-      if (community && community.count >= 1){
+    /* ------------------------- 3. COURSE HANDLER ------------------------ */
+    if (intent === INTENTS.COURSE_INFO) {
+      if (CODE_MAP && CODE_MAP.has(entity)) {
+        const course = CODE_MAP.get(entity);
         return NextResponse.json({
-          ok: true,
-          course: courseStr,
-          topic: community.topic,
-          answer: community.answer,
-          sources: community.sources
+          html: buildCourseCard(course),
+          actions: [
+            { label: "View Tree Graph", link: `/pages/tree?code=${course.subject}-${course.catalogue}` },
+            { label: "Search Courses", link: `/pages/courses?search=${course.subject}%20${course.catalogue}` },
+            { label: "Full Description", link: `/pages/courses/descriptions#${course.subject}-${course.catalogue}` }
+          ]
         });
       }
-      log("community fallback → CSV");
+      return NextResponse.json({ reply: `I couldn't find detailed record for **${entity}** in the course index.` });
     }
 
-    // 3) CSV fallback
-    const code = extractCourseFromText(message);
-    const intent = detectIntent(message);
-    let course = null;
-    if (code && CODE_MAP.has(code)) course = CODE_MAP.get(code);
-    else course = findByTitleFragment(message);
+    /* -------------------------- 4. FALLBACK --------------------------- */
+    return NextResponse.json({
+      reply: "I didn't catch that. Try:\n- **Course Code** (e.g. `COMP 248`) for details.\n- **Professor Name** (e.g. `Aiman Hanna`) for ratings.\n- **Question** (e.g. `Is COMP 248 hard?`) for Reddit advice."
+    });
 
-    if (!course){
-      const reply = "I couldn't find that course in our index. Try a full code like `COMP 248` or a course title (e.g., `fundamentals of programming`).";
-      return NextResponse.json({ reply, message: reply, answer: reply, text: reply });
-    }
-
-    const reply = answerForIntent(course, intent);
-    return NextResponse.json({ reply, message: reply, answer: reply, text: reply });
-
-  } catch(e){
-    console.error("Chat route error:", e);
-    const reply = "Server error: " + String(e?.message || e);
-    return NextResponse.json({ reply, message: reply, answer: reply, text: reply }, { status: 500 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ reply: "My logic circuits jammed. Try again!" }, { status: 500 });
   }
 }
-
-

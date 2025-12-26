@@ -12,6 +12,7 @@
     "build:index": "node scripts/generateCourseIndex.cjs"
   },
   "dependencies": {
+    "@ai-sdk/react": "^3.0.3",
     "@clerk/nextjs": "^6.36.5",
     "@gsap/react": "^2.1.2",
     "@xyflow/react": "^12.10.0",
@@ -26,7 +27,9 @@
     "papaparse": "^5.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "xlsx-populate": "^1.21.0"
+    "react-markdown": "^10.1.0",
+    "xlsx-populate": "^1.21.0",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
