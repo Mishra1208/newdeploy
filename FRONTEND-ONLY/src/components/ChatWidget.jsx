@@ -143,7 +143,7 @@ export default function ChatWidget() {
   return (
     <div className={styles.container} data-open={open ? "1" : "0"}>
       <button className={styles.fab} aria-label="Chat" onClick={() => setOpen(v => !v)}>
-        <img src="/clara_launcher.png" alt="Clara Chatbot" className={styles.fabIcon} />
+        <img src="/clara.svg" alt="Clara Chatbot" className={styles.fabIcon} />
       </button>
 
       {open && (
