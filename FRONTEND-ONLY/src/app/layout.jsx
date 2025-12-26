@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import ChatWidget from "@/components/ChatWidget";
 import "@/styles/globals.css";
 import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "ConU Planner",
@@ -78,6 +79,7 @@ export default async function RootLayout({ children }) {
           <main className="site-main">{children}</main>
           <Footer />
           <ChatWidget />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
