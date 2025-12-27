@@ -230,9 +230,9 @@ export default function HomePage() {
               <GPAMockup />
             </div>
             <div className={styles.cardContent}>
-              <div className={styles.cardTitle}>GPA Forecaster</div>
+              <div className={styles.cardTitle}>Academic Standing</div>
               <div className={styles.cardDesc}>
-                Calculate your standing with precision.
+                Weighted credit calculation with real-time GPA forecasting.
               </div>
             </div>
           </Link>
@@ -243,16 +243,16 @@ export default function HomePage() {
               <PlannerMockup />
             </div>
             <div className={styles.cardContent}>
-              <div className={styles.cardTitle}>Drag & Drop Planner</div>
+              <div className={styles.cardTitle}>Smart Sequence Planner</div>
               <div className={styles.cardDesc}>
-                Draft semseters in seconds. Auto-detect conflicts.
+                Build your multi-year sequence with automated prerequisite validation.
               </div>
               <div style={{ marginTop: 12 }}>
                 <MagneticButton
                   className={styles.btnGhost}
                   style={{ fontSize: 13, padding: '6px 12px', border: '1px solid rgba(0,0,0,0.1)' }}
                 >
-                  Open Planner →
+                  Start Planning →
                 </MagneticButton>
               </div>
             </div>

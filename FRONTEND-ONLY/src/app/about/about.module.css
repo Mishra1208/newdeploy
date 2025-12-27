@@ -144,6 +144,41 @@
   color: #e2e8f0;
 }
 
+/* --- Narrative Section --- */
+.narrativeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .narrativeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.narrativeCard {
+  background: var(--panel);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-lg);
+}
+
+:global([data-theme="dark"]) .narrativeCard {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.bodyText {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-dim);
+  opacity: 0.9;
+}
+
 /* --- Narrative Text --- */
 .bodyWide {
   font-size: 19px;

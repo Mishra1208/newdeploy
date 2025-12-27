@@ -11,22 +11,21 @@ export default function ClaraSection({ styles, displayClass, stacked = false }) 
       </h2>
 
       <p className={styles.lead}>
-        Clara isn't just a bot. She's a synthesis of every course review, every grading pattern,
-        and every prerequisite rule.
-        <em> She knows if COMP 352 is hard so you don't have to guess.</em>
+        Clara isn't just a chatbot—she's a high-performance logic engine designed to handle the complexity of academic life.
+        She cross-references official course data with thousands of peer reviews to give you the truth about your degree.
       </p>
 
       <div className={`${styles.claraGrid} ${stacked ? styles.claraStack : ""}`}>
         {/* Info card */}
         <div className={styles.claraCard}>
-          <h3 className={styles.claraH3}>Omniscient Intelligence</h3>
+          <h3 className={styles.claraH3}>Advanced Capabilities</h3>
           <ul className={styles.claraList}>
-            <li><strong>Hive Mind:</strong> Instant summaries of student consensus from Reddit.</li>
-            <li><strong>Professor Pulse:</strong> Knowing who teaches best (and who to avoid).</li>
-            <li><strong>Policy Expert:</strong> Credits, prerequisites, and obscure rules—memorized.</li>
-            <li><strong>Natural Chat:</strong> Just talk to her. She gets it.</li>
+            <li><strong>Sentiment Analysis:</strong> Summarizes Reddit consensus to identify "Hidden Gem" electives and "GPA Killer" courses.</li>
+            <li><strong>Professor Insight:</strong> Correlates RateMyProf ratings with specific course sections for better scheduling.</li>
+            <li><strong>Prerequisite Logic:</strong> Understands complex "and/or" course dependencies to prevent enrollment errors.</li>
+            <li><strong>Live Catalog Access:</strong> Direct integration with the Concordia course registry for sub-second data retrieval.</li>
           </ul>
-          <p className={styles.muted}>Pro Tip: Ask "What's the vibe of SOEN 287?"</p>
+          <p className={styles.muted}>Pro Tip: Try asking "Compare COMP 352 with SOEN 331 difficulty."</p>
         </div>
 
         {/* Video block */}

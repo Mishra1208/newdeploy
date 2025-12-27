@@ -82,43 +82,53 @@ export default function AboutPage() {
           </h1>
 
           <p className={styles.lead}>
-            One beautiful interface for courses, credits, and community wisdom.
-            Stop jumping between tabs—start designing your future.
+            Born from frustration, built for clarity. We're on a mission to simplify the academic journey for every Concordia student.
           </p>
 
           <ul className={styles.chips} aria-label="Sources we unify">
-            <li className={styles.chip}>Official Docs</li>
-            <li className={styles.chip}>Student Reddit</li>
-            <li className={styles.chip}>Professor Ratings</li>
-            <li className={styles.chip}>Credit Math</li>
+            <li className={styles.chip}>Reddit Integration</li>
+            <li className={styles.chip}>RateMyProf Data</li>
+            <li className={styles.chip}>Course Catalog</li>
+            <li className={styles.chip}>GPA Forecaster</li>
           </ul>
         </div>
       </motion.section>
 
-      {/* --- Narrative --- */}
-      <motion.p
-        className={styles.bodyWide}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <strong>ConU Planner</strong> isn't just a search bar—it's peace of mind.
-        We stitch together the scattered chaos of university data into a single,
-        smooth experience so you can enroll with zero doubt.
-        <span className={styles.note}> The beam below shows how everything connects.</span>
-      </motion.p>
+      {/* --- Vision & Mission --- */}
+      <section className={styles.section}>
+        <div className={styles.narrativeGrid}>
+          <motion.div
+            className={styles.narrativeCard}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h2 className={`${styles.h2} ${display.className}`}>Our Vision</h2>
+            <p className={styles.bodyText}>
+              To become the definitive computational companion for students, transforming complex academic data into
+              intuitive, actionable insights that empower better decision-making.
+            </p>
+          </motion.div>
 
-      {/* --- Stats Ticker --- */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
-        <StatsTicker displayClass={display.className} />
-      </motion.div>
+          <motion.div
+            className={styles.narrativeCard}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            transition={{ delay: 0.2 }}
+          >
+            <h2 className={`${styles.h2} ${display.className}`}>Our Mission</h2>
+            <p className={styles.bodyText}>
+              We bridge the gap between static university catalogs and the dynamic student experience by unifying
+              official requirements with peer wisdom and modern planning tools.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-      {/* --- Animated Beam --- */}
+      {/* --- Origin Story --- */}
       <motion.section
         className={styles.section}
         initial="hidden"
@@ -126,7 +136,14 @@ export default function AboutPage() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <AnimatedBeamDemo />
+        <div className={styles.glassIsland} style={{ padding: '60px 40px' }}>
+          <h2 className={`${styles.h2} ${display.className}`}>How it Started</h2>
+          <p className={styles.bodyText} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            It started in a library with 12 open tabs, a confusing PDF course sequence, and a Reddit thread from 2018.
+            We realized that "planning" shouldn't be a chore. We built ConU Planner to be the tool we wished we had:
+            fast, interconnected, and actually smart.
+          </p>
+        </div>
       </motion.section>
 
       {/* --- Holographic Features Grid --- */}
@@ -138,39 +155,39 @@ export default function AboutPage() {
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          Why it feels magic
+          Engineered for Success
         </motion.h2>
 
         <div className={styles.grid}>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>Designed for Humans</h3>
-            <p className={styles.muted}>A UI that respects your time. Clean, intuitive, and remarkably fast.</p>
+            <h3 className={display.className}>Unified Intelligence</h3>
+            <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
           </TiltCard>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>Search Superpowers</h3>
+            <h3 className={display.className}>Contextual Search</h3>
             <p className={styles.muted}>
-              Filter by anything: term, credits, session, even specific times.
+              Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need to take before it.
             </p>
           </TiltCard>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>Prerequisite Vision</h3>
+            <h3 className={display.className}>Live GPA Math</h3>
             <p className={styles.muted}>
-              See the path instantly: “MATH 204 + COMP 249 → COMP 352”. No manual checking.
+              No more spreadsheets. Forecast your cumulative standing instantly with our weighted credit calculator.
             </p>
           </TiltCard>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>Data, Harmonized</h3>
+            <h3 className={display.className}>Peer-Driven Insights</h3>
             <p className={styles.muted}>
-              We normalize terms, subjects, and locations into one consistent language.
+              Leverage the collective memory of thousands of students. Real-time consensus on course difficulty and vibes.
             </p>
           </TiltCard>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>Built for Mobile</h3>
-            <p className={styles.muted}>Plan your degree from your phone, tablet, or laptop. It just works.</p>
+            <h3 className={display.className}>Mobile-First Logic</h3>
+            <p className={styles.muted}>A premium experience on every device. Plan your next semester while on the STM.</p>
           </TiltCard>
           <TiltCard className={styles.card}>
-            <h3 className={display.className}>The Future is Bright</h3>
-            <p className={styles.muted}>Saved plans, auto-timetables, and more are on the horizon.</p>
+            <h3 className={display.className}>Future-Proof Tech</h3>
+            <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds.</p>
           </TiltCard>
         </div>
       </section>
