@@ -75,7 +75,7 @@ export default function AboutPage() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className={styles.glassIsland}>
+        <div className={`${styles.glassIsland} ${styles.glassNoise}`}>
           <p className={`${styles.kicker} ${display.className}`}>ConU Planner</p>
           <h1 className={`${styles.title} ${display.className}`}>
             Dream It. <br /> Plan It. Done.
@@ -97,7 +97,7 @@ export default function AboutPage() {
       <section className={styles.section}>
         <div className={styles.narrativeGrid}>
           <motion.div
-            className={styles.narrativeCard}
+            className={`${styles.narrativeCard} ${styles.glassNoise}`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -111,7 +111,7 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div
-            className={styles.narrativeCard}
+            className={`${styles.narrativeCard} ${styles.glassNoise}`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -146,7 +146,7 @@ export default function AboutPage() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className={styles.glassIsland} style={{ padding: '60px 40px' }}>
+        <div className={`${styles.glassIsland} ${styles.glassNoise}`} style={{ padding: '60px 40px' }}>
           <h2 className={`${styles.h2} ${display.className}`}>How it Started</h2>
           <p className={styles.bodyText} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
             It started in a library with 12 open tabs, a confusing PDF course sequence, and a Reddit thread from 2018.
@@ -183,35 +183,35 @@ export default function AboutPage() {
         </motion.h2>
 
         <div className={styles.grid}>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
             <h3 className={display.className}>Unified Intelligence</h3>
             <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
           </TiltCard>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
             <h3 className={display.className}>Contextual Search</h3>
             <p className={styles.muted}>
-              Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need to take before it.
+              Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need.
             </p>
           </TiltCard>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.rowSpan2} ${styles.glassNoise}`}>
             <h3 className={display.className}>Live GPA Math</h3>
             <p className={styles.muted}>
-              No more spreadsheets. Forecast your cumulative standing instantly with our weighted credit calculator.
+              Forecast your cumulative standing instantly with our weighted credit calculator. No more spreadsheets required.
             </p>
           </TiltCard>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
             <h3 className={display.className}>Peer-Driven Insights</h3>
             <p className={styles.muted}>
-              Leverage the collective memory of thousands of students. Real-time consensus on course difficulty and vibes.
+              Real-time consensus on course difficulty and vibes from thousands of students.
             </p>
           </TiltCard>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
             <h3 className={display.className}>Mobile-First Logic</h3>
-            <p className={styles.muted}>A premium experience on every device. Plan your next semester while on the STM.</p>
+            <p className={styles.muted}>A premium experience on every device. Plan semesters on the STM.</p>
           </TiltCard>
-          <TiltCard className={styles.card}>
+          <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
             <h3 className={display.className}>Future-Proof Tech</h3>
-            <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds.</p>
+            <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds across the entire university catalog.</p>
           </TiltCard>
         </div>
       </section>
