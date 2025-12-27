@@ -53,6 +53,26 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    }
+  }
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
 export default function AboutPage() {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 2000], [0, 400]);
@@ -147,15 +167,19 @@ export default function AboutPage() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
+        style={{ y: useTransform(scrollY, [600, 1800], [0, 80]) }}
       >
-        <div className={`${styles.glassIsland} ${styles.glassNoise}`} style={{ padding: '60px 40px' }}>
+        <div className={`${styles.glassIsland} ${styles.glassNoise}`}>
           <div className={styles.glintOverlay} />
-          <h2 className={`${styles.h2} ${display.className}`}>How it Started</h2>
-          <p className={styles.bodyText} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-            It started in a library with 12 open tabs, a confusing PDF course sequence, and a Reddit thread from 2018.
-            We realized that "planning" shouldn't be a chore. We built ConU Planner to be the tool we wished we had:
-            fast, interconnected, and actually smart.
+          <h2 className={`${styles.h2} ${display.className}`}>The Origin Story</h2>
+          <p className={styles.lead} style={{ textAlign: "left", fontSize: "1.1rem" }}>
+            ConU Planner didn't start in a boardroom. It started in a crowded library at 2 AM, staring at 14 open tabs—Concordia's ancient SIS, Reddit threads on COMP 248 difficulty, and RateMyProf ratings for five different teachers.
+            <br /><br />
+            We realized that students weren't just planning schedules; they were performing complex data synthesis by hand. We decided to automate the stress, bridging the gap between official data and student reality.
           </p>
+          <div style={{ textAlign: "center", marginTop: 20 }}>
+            <span className={styles.note}>1,200+ hours of engineering and design</span>
+          </div>
         </div>
       </motion.section>
 
@@ -185,44 +209,67 @@ export default function AboutPage() {
           Engineered for Success
         </motion.h2>
 
-        <div className={styles.grid}>
-          <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Unified Intelligence</h3>
-            <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
-          </TiltCard>
-          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Contextual Search</h3>
-            <p className={styles.muted}>
-              Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need.
-            </p>
-          </TiltCard>
-          <TiltCard className={`${styles.card} ${styles.rowSpan2} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Live GPA Math</h3>
-            <p className={styles.muted}>
-              Forecast your cumulative standing instantly with our weighted credit calculator. No more spreadsheets required.
-            </p>
-          </TiltCard>
-          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Peer-Driven Insights</h3>
-            <p className={styles.muted}>
-              Real-time consensus on course difficulty and vibes from thousands of students.
-            </p>
-          </TiltCard>
-          <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Mobile-First Logic</h3>
-            <p className={styles.muted}>A premium experience on every device. Plan semesters on the STM.</p>
-          </TiltCard>
-          <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
-            <div className={styles.glintOverlay} />
-            <h3 className={display.className}>Future-Proof Tech</h3>
-            <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds across the entire university catalog.</p>
-          </TiltCard>
-        </div>
+        <motion.div
+          className={styles.grid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={staggerItem} className={styles.colSpan2}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Unified Intelligence</h3>
+              <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
+            </TiltCard>
+          </motion.div>
+
+          <motion.div variants={staggerItem}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Contextual Search</h3>
+              <p className={styles.muted}>
+                Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need.
+              </p>
+            </TiltCard>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className={styles.rowSpan2}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Live GPA Math</h3>
+              <p className={styles.muted}>
+                Forecast your cumulative standing instantly with our weighted credit calculator. No more spreadsheets required.
+              </p>
+            </TiltCard>
+          </motion.div>
+
+          <motion.div variants={staggerItem}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Peer-Driven Insights</h3>
+              <p className={styles.muted}>
+                Real-time consensus on course difficulty and vibes from thousands of students.
+              </p>
+            </TiltCard>
+          </motion.div>
+
+          <motion.div variants={staggerItem}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Mobile-First Logic</h3>
+              <p className={styles.muted}>A premium experience on every device. Plan semesters on the STM.</p>
+            </TiltCard>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className={styles.colSpan2}>
+            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+              <div className={styles.glintOverlay} />
+              <h3 className={display.className}>Future-Proof Tech</h3>
+              <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds across the entire university catalog.</p>
+            </TiltCard>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* --- Meet Clara --- */}
@@ -251,7 +298,8 @@ export default function AboutPage() {
         <h2 className={`${styles.h2} ${display.className}`}>Team and Collaborators</h2>
         <div className={styles.teamGrid}>
           {TEAM.map((m) => (
-            <TiltCard key={m.name} style={{ background: "transparent", border: "none", boxShadow: "none" }}>
+            <TiltCard key={m.name} className={`${styles.glassNoise}`} style={{ background: "transparent", border: "none", boxShadow: "none", position: 'relative' }}>
+              <div className={styles.glintOverlay} />
               {/* We wrap Profile in TiltCard to give it the effect */}
               <Profile name={m.name} role={m.role} avatar={m.avatar} links={m.links} />
             </TiltCard>

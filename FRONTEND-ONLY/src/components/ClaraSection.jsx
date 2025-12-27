@@ -17,7 +17,9 @@ export default function ClaraSection({ styles, displayClass, stacked = false }) 
 
       <div className={`${styles.claraGrid} ${stacked ? styles.claraStack : ""}`}>
         {/* Info card */}
-        <div className={styles.claraCard}>
+        <div className={`${styles.claraCard} ${styles.glassNoise}`}>
+          <div className={styles.glintOverlay} />
+
           <h3 className={styles.claraH3}>Advanced Capabilities</h3>
           <ul className={styles.claraList}>
             <li><strong>Sentiment Analysis:</strong> Summarizes Reddit consensus to identify "Hidden Gem" electives and "GPA Killer" courses.</li>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import styles from "./descriptions.module.css";
+import { motion, AnimatePresence } from "framer-motion";
+import TiltCard from "@/components/widgets/TiltCard";
 
 /* helpers */
 const anchorIdFor = (r) =>
@@ -58,6 +60,31 @@ function sniffDescriptionFromAnyCell(row, { avoid = [] } = {}) {
   }
   return best;
 }
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    }
+  }
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, scale: 0.95, y: 15 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+  }
+};
 
 export default function DescriptionsPage() {
   const [items, setItems] = useState([]);
@@ -185,10 +212,16 @@ export default function DescriptionsPage() {
       </button>
 
       {/* Hero Section */}
-      <div className={styles.hero}>
+      <motion.div
+        className={`${styles.hero} ${styles.glassNoise}`}
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+      >
+        <div className={styles.glintOverlay} />
         <h1 className={styles.title}>Course Catalog</h1>
         <p className={styles.subtitle}>Explore over 12,000 Concordia University courses. Search by code, title, or keywords to find exactly what you need.</p>
-      </div>
+      </motion.div>
 
       {/* Sticky Search */}
       <div className={styles.searchContainer}>
@@ -209,30 +242,41 @@ export default function DescriptionsPage() {
       {loading ? (
         <div className={styles.loading}>Loading catalog...</div>
       ) : (
-        <div className={styles.grid}>
+        <motion.div
+          className={styles.grid}
+          key={searchTerm} // Force re-animate on search
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
           {filteredItems.slice(0, visibleCount).map((course, idx) => {
             const isLast = idx === visibleCount - 1;
             return (
-              <div
+              <motion.div
                 key={anchorIdFor(course)}
-                className={styles.card}
+                variants={staggerItem}
                 ref={isLast ? lastElementRef : null}
-                onClick={() => handleCardClick(course)}
               >
-                <div className={styles.cardHeader}>
-                  <span className={styles.codeBadge}>{course.subject} {course.catalogue}</span>
-                  <h3 className={styles.courseTitle}>{course.title}</h3>
-                </div>
-                <div className={styles.cardBody}>
-                  <p className={styles.descriptionPreview}>
-                    {course.description || "No description available."}
-                  </p>
-                  <span className={styles.creditsBadge}>{course.credits} Credits</span>
-                </div>
-              </div>
+                <TiltCard
+                  className={`${styles.card} ${styles.glassNoise}`}
+                  onClick={() => handleCardClick(course)}
+                >
+                  <div className={styles.glintOverlay} />
+                  <div className={styles.cardHeader}>
+                    <span className={styles.codeBadge}>{course.subject} {course.catalogue}</span>
+                    <h3 className={styles.courseTitle}>{course.title}</h3>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <p className={styles.descriptionPreview}>
+                      {course.description || "No description available."}
+                    </p>
+                    <span className={styles.creditsBadge}>{course.credits} Credits</span>
+                  </div>
+                </TiltCard>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       )}
 
       {/* Detail Modal */}

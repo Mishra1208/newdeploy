@@ -10,6 +10,7 @@ import { SignedOut, SignInButton } from "@clerk/nextjs";
 // --- Components ---
 import MagneticButton from "@/components/widgets/MagneticButton";
 import TrustedMarquee from "@/components/widgets/TrustedMarquee";
+import TiltCard from "@/components/widgets/TiltCard";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-inter" });
@@ -81,6 +82,30 @@ const GPAMockup = () => (
   </TriggerOnScroll>
 );
 
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    }
+  }
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+  }
+};
 
 export default function HomePage() {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
@@ -208,77 +233,100 @@ export default function HomePage() {
 
       {/* --- FEATURE SHOWCASE (BENTO Grid) --- */}
       <section className={styles.bentoSection}>
-        <div className={styles.bentoGrid}>
-
+        <motion.div
+          className={styles.bentoGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
           {/* Card 1: Tech Tree */}
-          <Link href="/pages/tree" className={`${styles.featureCard} ${styles.colSpan2}`} style={{ textDecoration: 'none' }}>
-            <div className={styles.mockupContainer}>
-              <TreeMockup />
-            </div>
-            <div className={styles.cardContent}>
-              <div className={styles.cardTitle}>Interactive Tech Tree</div>
-              <div className={styles.cardDesc}>
-                Visualize your entire degree prerequisites as a dynamic network graph.
-                Spot bottlenecks and unlock paths instantly.
-              </div>
-            </div>
-          </Link>
+          <motion.div variants={staggerItem} className={styles.colSpan2}>
+            <Link href="/pages/tree" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+              <TiltCard className={`${styles.featureCard} ${styles.glassNoise}`} style={{ height: '100%' }}>
+                <div className={styles.glintOverlay} />
+                <div className={styles.mockupContainer}>
+                  <TreeMockup />
+                </div>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTitle}>Interactive Tech Tree</div>
+                  <div className={styles.cardDesc}>
+                    Visualize your entire degree prerequisites as a dynamic network graph.
+                    Spot bottlenecks and unlock paths instantly.
+                  </div>
+                </div>
+              </TiltCard>
+            </Link>
+          </motion.div>
 
           {/* Card 2: GPA */}
-          <Link href="/pages/gpa" className={styles.featureCard} style={{ textDecoration: 'none' }}>
-            <div className={styles.mockupContainer}>
-              <GPAMockup />
-            </div>
-            <div className={styles.cardContent}>
-              <div className={styles.cardTitle}>Academic Standing</div>
-              <div className={styles.cardDesc}>
-                Weighted credit calculation with real-time GPA forecasting.
-              </div>
-            </div>
-          </Link>
+          <motion.div variants={staggerItem}>
+            <Link href="/pages/gpa" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+              <TiltCard className={`${styles.featureCard} ${styles.glassNoise}`} style={{ height: '100%' }}>
+                <div className={styles.glintOverlay} />
+                <div className={styles.mockupContainer}>
+                  <GPAMockup />
+                </div>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTitle}>Academic Standing</div>
+                  <div className={styles.cardDesc}>
+                    Weighted credit calculation with real-time GPA forecasting.
+                  </div>
+                </div>
+              </TiltCard>
+            </Link>
+          </motion.div>
 
           {/* Card 3: Planner */}
-          <Link href="/pages/planner" className={styles.featureCard} style={{ textDecoration: 'none' }}>
-            <div className={styles.mockupContainer}>
-              <PlannerMockup />
-            </div>
-            <div className={styles.cardContent}>
-              <div className={styles.cardTitle}>Smart Sequence Planner</div>
-              <div className={styles.cardDesc}>
-                Build your multi-year sequence with automated prerequisite validation.
-              </div>
-              <div style={{ marginTop: 12 }}>
-                <MagneticButton
-                  className={styles.btnGhost}
-                  style={{ fontSize: 13, padding: '6px 12px', border: '1px solid rgba(0,0,0,0.1)' }}
-                >
-                  Start Planning →
-                </MagneticButton>
-              </div>
-            </div>
-          </Link>
+          <motion.div variants={staggerItem}>
+            <Link href="/pages/planner" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+              <TiltCard className={`${styles.featureCard} ${styles.glassNoise}`} style={{ height: '100%' }}>
+                <div className={styles.glintOverlay} />
+                <div className={styles.mockupContainer}>
+                  <PlannerMockup />
+                </div>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTitle}>Smart Sequence Planner</div>
+                  <div className={styles.cardDesc}>
+                    Build your multi-year sequence with automated prerequisite validation.
+                  </div>
+                </div>
+              </TiltCard>
+            </Link>
+          </motion.div>
 
           {/* Card 4: Catalog */}
-          <Link href="/pages/courses" className={`${styles.featureCard} ${styles.colSpan2}`} style={{ textDecoration: 'none' }}>
-            <div className={styles.cardContent} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div>
-                <div className={styles.cardTitle}>Complete Course Catalog</div>
-                <div className={styles.cardDesc}>
-                  Search instantly across all departments. Filter by credits, terms, and prerequisites.
+          <motion.div variants={staggerItem} className={styles.colSpan2}>
+            <Link href="/pages/courses" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+              <TiltCard className={`${styles.featureCard} ${styles.glassNoise}`} style={{ height: '100%' }}>
+                <div className={styles.glintOverlay} />
+                <div className={styles.cardContent} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <div className={styles.cardTitle}>Complete Course Catalog</div>
+                    <div className={styles.cardDesc}>
+                      Search instantly across all departments. Filter by credits, terms, and prerequisites.
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 24, padding: 12, background: 'rgba(34, 211, 238, 0.1)', borderRadius: 12, color: '#22d3ee' }}>
+                    📚
+                  </div>
                 </div>
-              </div>
-              <div style={{ fontSize: 24, padding: 12, background: 'rgba(34, 211, 238, 0.1)', borderRadius: 12, color: '#22d3ee' }}>
-                📚
-              </div>
-            </div>
-          </Link>
-
-        </div>
+              </TiltCard>
+            </Link>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* --- LOGIN PROMO WIDGET (Only for SignedOut) --- */}
       <SignedOut>
-        <section className={styles.loginPromoWidget}>
+        <motion.section
+          className={`${styles.loginPromoWidget} ${styles.glassNoise}`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <div className={styles.glintOverlay} />
           {/* Animated Glow in Background */}
           <div className={styles.promoGlow1}></div>
           <div className={styles.promoGlow2}></div>
@@ -311,7 +359,7 @@ export default function HomePage() {
           <div style={{ marginTop: 16, fontSize: 12, opacity: 0.5 }}>
             100% Free • Secure Authentication via Clerk
           </div>
-        </section>
+        </motion.section>
       </SignedOut>
 
     </main>

@@ -164,6 +164,52 @@
   border-color: var(--accent);
 }
 
+/* --- GLASS TOKENS --- */
+.glassNoise {
+  position: relative;
+}
+
+.glassNoise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glintOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.25) 50%,
+      transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 5;
+  animation: glintPulse 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes glintPulse {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  20%,
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+[data-theme="dark"] .glintOverlay {
+  background: linear-gradient(115deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 60%);
+}
+
 .cardContent {
   padding: 24px;
   z-index: 10;
@@ -1594,54 +1640,53 @@
 
 [data-theme="dark"] .loginPromoWidget {
   /* Dark Theme Overrides */
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .promoTitle {
-  font-size: 2rem;
-  margin-bottom: 12px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
   position: relative;
   color: var(--ink-primary);
 }
 
 .promoText {
-  max-width: 500px;
-  margin: 0 auto 24px;
-  opacity: 0.8;
   font-size: 1.1rem;
-  color: var(--ink-secondary);
+  color: var(--ink-dim);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
 }
 
 [data-theme="dark"] .promoText {
   color: var(--ink-dim);
 }
 
-.promoGlow1 {
+.promoGlow1,
+.promoGlow2 {
   position: absolute;
-  top: -50px;
-  left: -50px;
-  width: 200px;
-  height: 200px;
-  background: #8b1e3f;
-  filter: blur(80px);
-  opacity: 0.1;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.15;
   pointer-events: none;
 }
 
+.promoGlow1 {
+  top: -200px;
+  left: -100px;
+  background: var(--accent);
+}
+
 .promoGlow2 {
-  position: absolute;
-  bottom: -50px;
-  right: -50px;
-  width: 200px;
-  height: 200px;
-  background: #d946ef;
-  filter: blur(80px);
-  opacity: 0.1;
-  border-radius: 50%;
-  pointer-events: none;
+  bottom: -200px;
+  right: -100px;
+  background: var(--accent-pink, #f472b6);
 }
 
 [data-theme="dark"] .promoGlow1,
