@@ -23,12 +23,12 @@
   top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.05) 50%, transparent 70%);
-  filter: blur(60px);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.1) 50%, transparent 70%);
+  filter: blur(80px);
   z-index: -1;
-  animation: pulseGlow 8s ease-in-out infinite alternate;
+  animation: pulseGlow 12s ease-in-out infinite alternate;
 }
 
 @keyframes pulseGlow {
@@ -319,6 +319,37 @@
 
 .card:hover::after {
   transform: translateX(100%);
+}
+
+.glintOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 5;
+  animation: glintPulse 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes glintPulse {
+  0% {
+    transform: translateX(-150%) skewX(-15deg);
+  }
+
+  20%,
+  100% {
+    transform: translateX(150%) skewX(-15deg);
+  }
+}
+
+:global([data-theme="dark"]) .glintOverlay {
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 60%);
 }
 
 :global([data-theme="dark"]) .card {

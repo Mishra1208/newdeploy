@@ -94,16 +94,20 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
+      {/* --- Vision & Mission --- */}
       <section className={styles.section}>
-        <div className={styles.narrativeGrid}>
+        <motion.div
+          className={styles.narrativeGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <motion.div
-            className={`${styles.narrativeCard} ${styles.glassNoise}`}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className={`${styles.narrativeCard} ${styles.glassNoise} ${styles.glint}`}
             variants={fadeInUp}
           >
-            <h2 className={`${styles.h2} ${display.className}`}>Our Vision</h2>
+            <div className={styles.glintOverlay} />
+            <h2 className={`${styles.h2} ${display.className}`} style={{ textAlign: 'left', marginBottom: 20 }}>Our Vision</h2>
             <p className={styles.bodyText}>
               To become the definitive computational companion for students, transforming complex academic data into
               intuitive, actionable insights that empower better decision-making.
@@ -111,20 +115,18 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div
-            className={`${styles.narrativeCard} ${styles.glassNoise}`}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className={`${styles.narrativeCard} ${styles.glassNoise} ${styles.glint}`}
             variants={fadeInUp}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.15 }}
           >
-            <h2 className={`${styles.h2} ${display.className}`}>Our Mission</h2>
+            <div className={styles.glintOverlay} />
+            <h2 className={`${styles.h2} ${display.className}`} style={{ textAlign: 'left', marginBottom: 20 }}>Our Mission</h2>
             <p className={styles.bodyText}>
               We bridge the gap between static university catalogs and the dynamic student experience by unifying
               official requirements with peer wisdom and modern planning tools.
             </p>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* --- Stats Ticker --- */}
@@ -147,6 +149,7 @@ export default function AboutPage() {
         variants={fadeInUp}
       >
         <div className={`${styles.glassIsland} ${styles.glassNoise}`} style={{ padding: '60px 40px' }}>
+          <div className={styles.glintOverlay} />
           <h2 className={`${styles.h2} ${display.className}`}>How it Started</h2>
           <p className={styles.bodyText} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
             It started in a library with 12 open tabs, a confusing PDF course sequence, and a Reddit thread from 2018.
@@ -184,32 +187,38 @@ export default function AboutPage() {
 
         <div className={styles.grid}>
           <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Unified Intelligence</h3>
             <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
           </TiltCard>
           <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Contextual Search</h3>
             <p className={styles.muted}>
               Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need.
             </p>
           </TiltCard>
           <TiltCard className={`${styles.card} ${styles.rowSpan2} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Live GPA Math</h3>
             <p className={styles.muted}>
               Forecast your cumulative standing instantly with our weighted credit calculator. No more spreadsheets required.
             </p>
           </TiltCard>
           <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Peer-Driven Insights</h3>
             <p className={styles.muted}>
               Real-time consensus on course difficulty and vibes from thousands of students.
             </p>
           </TiltCard>
           <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Mobile-First Logic</h3>
             <p className={styles.muted}>A premium experience on every device. Plan semesters on the STM.</p>
           </TiltCard>
           <TiltCard className={`${styles.card} ${styles.colSpan2} ${styles.glassNoise}`}>
+            <div className={styles.glintOverlay} />
             <h3 className={display.className}>Future-Proof Tech</h3>
             <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds across the entire university catalog.</p>
           </TiltCard>
