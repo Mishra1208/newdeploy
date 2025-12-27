@@ -94,7 +94,6 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* --- Vision & Mission --- */}
       <section className={styles.section}>
         <div className={styles.narrativeGrid}>
           <motion.div
@@ -128,6 +127,17 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* --- Stats Ticker --- */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        style={{ marginTop: 60 }}
+      >
+        <StatsTicker displayClass={display.className} />
+      </motion.div>
+
       {/* --- Origin Story --- */}
       <motion.section
         className={styles.section}
@@ -144,6 +154,20 @@ export default function AboutPage() {
             fast, interconnected, and actually smart.
           </p>
         </div>
+      </motion.section>
+
+      {/* --- Connection Beam --- */}
+      <motion.section
+        className={styles.section}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <p className={styles.bodyText} style={{ textAlign: 'center', marginBottom: 40, opacity: 0.8 }}>
+          The visualization below demonstrates how we bridge scattered data points into one fluid experience.
+        </p>
+        <AnimatedBeamDemo />
       </motion.section>
 
       {/* --- Holographic Features Grid --- */}
