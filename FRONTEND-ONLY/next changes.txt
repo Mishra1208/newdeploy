@@ -1,0 +1,20 @@
+ Roadmap: What's Next for "ConU Planner 2.0"?
+If you decide to open this codebase again for a major update, here are three high-impact directions that would take this from a "tool" to an "essential platform":
+
+1. The Social Synchronicity (Community Layer)
+Currently, the planner is a solo experience. The next leap is Social Discovery:
+
+Shared Sequences: Allow students to "follow" a friend's plan or see the most "upvoted" elective sequences.
+Classmate Discovery: A "Who's in my class?" widget on course cards that shows other users who have added that course to their sequence.
+Peer Reviews 2.0: Integrating real student sentiment directly into the "Glass Island" modal for courses.
+2. Clara 2.0: The Proactive Advisor
+Transition Clara from a "helper" to a "strategist":
+
+Automated Degree Audit: Clara could scan a student's sequence and proactively say: "Warning: You're missing a 400-level elective for graduation in Fall 2026."
+GPA Simulation: AI-driven "What-if" scenarios: "If you get a B in COMP 352, your graduating GPA will be 3.8."
+3. Real-Time Data Ecosystem
+Direct API Integration: If possible, pulling real-time "Seat Availability" from Concordia’s actual schedule.
+Course "Survival Guides": Adding a community-driven "Resource Hub" to each course card where students can link to public GitHub notes or study Discord servers.
+4. Mobile-Native "Companion"
+While the web app is responsive, a specialized React Native companion app focused on "Today's Schedule" and "Task Tracking" would complete the ecosystem.
+
