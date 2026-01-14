@@ -6,9 +6,10 @@ import Script from "next/script";
 import { cookies } from "next/headers";
 import ChatWidget from "@/components/ChatWidget";
 import "@/styles/globals.css";
-import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import DynamicNavbar from "@/components/DynamicNavbar";
+import ClerkThemeProvider from "@/components/ClerkThemeProvider";
 
 export const metadata = {
   title: "ConU Planner",
@@ -21,7 +22,7 @@ export default async function RootLayout({ children }) {
   const initialTheme = themeCookie === "dark" ? "dark" : "light";
 
   return (
-    <ClerkProvider>
+    <ClerkThemeProvider initialTheme={initialTheme}>
       <html lang="en" data-theme={initialTheme} suppressHydrationWarning>
         <head>
           <link
@@ -55,6 +56,6 @@ export default async function RootLayout({ children }) {
           <Analytics />
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkThemeProvider>
   );
 }

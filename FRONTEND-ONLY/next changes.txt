@@ -18,3 +18,26 @@ Course "Survival Guides": Adding a community-driven "Resource Hub" to each cours
 4. Mobile-Native "Companion"
 While the web app is responsive, a specialized React Native companion app focused on "Today's Schedule" and "Task Tracking" would complete the ecosystem.
 
+New Feature: University Seat Finder (Real-time Registration Alerts)
+Objective:
+Notify students via SMS/Email the moment a seat opens up in a course section (or a waitlist spot becomes available).
+
+Technical Strategy (Concordia University Example):
+
+Public Data Source: Use the Concordia Public Class Search. This portal is public and provides live Capacity, Enrollment Total, and Waitlist counts without requiring any student login (NetID).
+The "Extractor" (Scraper):
+Build a bot using Puppeteer or Playwright (Node.js).
+The bot will automatically navigate the public search, input the course code (e.g., COMP 248), for the specific term.
+It will "click" on the class link to expand details and scrape the enrollment numbers.
+Monitoring Logic:
+Run the scraper on a loop (every 1–5 minutes) for high-demand courses.
+Compare Enrollment Total against Class Capacity. If Enrollment < Capacity, trigger the alert.
+Notification Stack:
+SMS: Twilio API.
+Email: Resend or SendGrid.
+Monetization Idea: Once traffic picks up, introduce a "Pay-per-alert" model ($1.50 - $2.00 per course) using Stripe.
+Action Items for Next Phase:
+
+Set up a basic Node.js scraper script to test the Concordia Guest Portal data extraction.
+Design a "Cyber-Glass" UI component for users to "Watch" a course.
+Set up a MongoDB database to track active watches and course statuses.
