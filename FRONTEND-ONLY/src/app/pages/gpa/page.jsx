@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import styles from "./gpa.module.css";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, RefreshCw } from "lucide-react";
 
 /* ---------------- Config & Helpers ---------------- */
 const GRADE_POINTS = {
@@ -11,6 +11,14 @@ const GRADE_POINTS = {
     "C+": 2.3, "C": 2.0, "C-": 1.7,
     "D+": 1.3, "D": 1.0, "D-": 0.7,
     "F": 0.0, "FNS": 0.0, "R": 0.0, "GNR": 0.0
+};
+
+// 4.0 Scale: A+ is 4.0. Usually A is also 4.0.
+// Standard US: A=4, A-=3.7, B+=3.3, B=3.0 ...
+// So basically only A+ changes from 4.3 to 4.0.
+const GRADE_POINTS_4_0 = {
+    ...GRADE_POINTS,
+    "A+": 4.0
 };
 
 const GRADE_OPTIONS = Object.keys(GRADE_POINTS);
@@ -60,6 +68,9 @@ export default function GPACalculator() {
         { id: 3, name: "", credits: 3.0, grade: "B+" },
         { id: 4, name: "", credits: 3.0, grade: "A-" },
     ]);
+    
+    // Scale Toggle State
+    const [isScale40, setIsScale40] = useState(false);
 
     // Load Course DB
     useEffect(() => {
@@ -120,12 +131,15 @@ export default function GPACalculator() {
 
     /* --- Calculations --- */
     const { semesterGPA, totalSemesterCredits, finalGPA, hasCumulativeData } = useMemo(() => {
+        // Select logic
+        const pointsMap = isScale40 ? GRADE_POINTS_4_0 : GRADE_POINTS;
+
         // 1. Calculate Semester details
         let semCreds = 0;
         let semPoints = 0;
         rows.forEach((r) => {
             const cred = parseFloat(r.credits) || 0;
-            const pts = GRADE_POINTS[r.grade] || 0;
+            const pts = pointsMap[r.grade] || 0;
             semCreds += cred;
             semPoints += (cred * pts);
         });
@@ -133,6 +147,8 @@ export default function GPACalculator() {
         const semGPA = semCreds > 0 ? (semPoints / semCreds) : 0;
 
         // 2. Calculate Cumulative if data exists
+        // NOTE: If user inputs a Current GPA, we assume it's in the SAME scale as currently selected.
+        // We do *not* convert their input, we just mix it.
         const curG = parseFloat(currentGPA);
         const curC = parseFloat(currentCredits);
         let final = semGPA;
@@ -151,7 +167,7 @@ export default function GPACalculator() {
             finalGPA: final,
             hasCumulativeData: hasCum
         };
-    }, [rows, currentGPA, currentCredits]);
+    }, [rows, currentGPA, currentCredits, isScale40]);
 
     /* --- Handlers --- */
     const updateRow = (id, field, value) => {
@@ -224,7 +240,7 @@ export default function GPACalculator() {
                 <aside className={styles.resultCard}>
                     {/* Gauge & Value */}
                     <div className={styles.gaugeContainer}>
-                        <GPAGauge value={finalGPA} />
+                        <GPAGauge value={finalGPA} max={isScale40 ? 4.0 : 4.3} />
                         <div className={styles.gpaOverlay}>
                             <div className={styles.gpaValue}>{finalGPA.toFixed(2)}</div>
                             <div className={styles.gpaLabel}>GPA</div>
@@ -273,6 +289,19 @@ export default function GPACalculator() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Scale Toggle Button */}
+                    <div style={{ marginTop: 24, display: 'flex', justifyContent: 'center' }}>
+                         <button 
+                            className={styles.clearBtn} 
+                            style={{ fontSize: 13, gap: 6, width: '100%', justifyContent: 'center', background: 'rgba(0,0,0,0.03)' }}
+                            onClick={() => setIsScale40(!isScale40)}
+                        >
+                            <RefreshCw size={14} /> 
+                            {isScale40 ? "Using 4.0 Scale (Switch to 4.3)" : "Using 4.3 Scale (Switch to 4.0)"}
+                         </button>
+                    </div>
+
                 </aside>
             </div>
         </main>
@@ -362,25 +391,15 @@ function CourseRow({ row, coursesDB, onChange, onRemove, onSelect }) {
     );
 }
 
-function GPAGauge({ value }) {
-    // 0 to 4.3 map to 0 to 180 degrees (semi-circle)
-    const max = 4.3;
+function GPAGauge({ value, max = 4.3 }) {
+    // 0 to max map to 0 to 180 degrees (semi-circle)
     const clamped = Math.min(Math.max(value, 0), max);
     const percent = clamped / max;
 
     // Circle math
     const r = 80;
-    const c = 3.14159 * r; // circumference (half circle logic needs care)
-    // Actually full circle circumference is 2*pi*r. 
-    // We want a semi-circle stroke.
-
-    // Let's use simple stroke-dasharray trick.
-    // FULL circle perimeter = 2 * pi * 80 ~= 502.
-    // We want the gauge to be a 180 degree arc. 
-    // So we set stroke-dasharray to "251 502"? No, simpler:
-    // Path is an arc.
-
-    // Just drawing an arc path is easier
+    // Sem-circle arc
+    
     return (
         <svg viewBox="0 0 200 110" width="100%" height="100%">
             <defs>
@@ -398,15 +417,6 @@ function GPAGauge({ value }) {
                 strokeWidth="16"
                 strokeLinecap="round"
             />
-            {/* Foreground Value Arc */}
-            {/* We calculate end point using trigonometry */}
-            {/* Angle goes from 180 (left) to 360/0 (right) -> actually in SVG coord system:
-                Start (20, 100) is 180 deg. 
-                End (180, 100) is 0 deg.
-                We want to travel clockwise? No, usually gauges go left to right.
-                Start Angle = 180 (Pi). End Angle = 0.
-                Current Angle = 180 - (percent * 180).
-             */}
             <GaugeArc value={percent} />
         </svg>
     );

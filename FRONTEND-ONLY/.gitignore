@@ -8,3 +8,6 @@ yarn-*.log*
 
 # Roadmap
 next changes.txt
+
+# clerk configuration (can include secrets)
+/.clerk/
