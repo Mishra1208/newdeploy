@@ -11,6 +11,7 @@ import { SignedOut, SignInButton } from "@clerk/nextjs";
 import MagneticButton from "@/components/widgets/MagneticButton";
 import TrustedMarquee from "@/components/widgets/TrustedMarquee";
 import TiltCard from "@/components/widgets/TiltCard";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-inter" });
@@ -361,6 +362,9 @@ export default function HomePage() {
           </div>
         </motion.section>
       </SignedOut>
+
+      {/* --- NEWSLETTER SIGNUP --- */}
+      <NewsletterSignup />
 
     </main>
   );
