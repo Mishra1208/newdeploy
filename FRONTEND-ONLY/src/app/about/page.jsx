@@ -114,6 +114,34 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
+      {/* --- Team Profile Chips --- */}
+      <motion.section
+        className={styles.section}
+        style={{ marginBottom: 40 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <h2 className={`${styles.h2} ${display.className}`}>Team and Collaborators</h2>
+        <div className={styles.teamGrid}>
+          {TEAM.map((m) => (
+            <TiltCard key={m.name} className={`${styles.glassNoise}`} style={{ background: "transparent", border: "none", boxShadow: "none", position: 'relative' }}>
+              <div className={styles.glintOverlay} />
+              {/* We wrap Profile in TiltCard to give it the effect */}
+              <Profile name={m.name} role={m.role} avatar={m.avatar} links={m.links} />
+            </TiltCard>
+          ))}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 60, marginBottom: 40 }}>
+          <p className="body" style={{ opacity: 0.7, marginBottom: 20 }}>
+            Want to contribute?
+          </p>
+          <ConfettiButton />
+        </div>
+      </motion.section>
+
       {/* --- Vision & Mission --- */}
       <section className={styles.section}>
         <motion.div
@@ -286,33 +314,7 @@ export default function AboutPage() {
         />
       </motion.div>
 
-      {/* --- Team Profile Chips --- */}
-      <motion.section
-        className={styles.section}
-        style={{ marginBottom: 40 }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
-        <h2 className={`${styles.h2} ${display.className}`}>Team and Collaborators</h2>
-        <div className={styles.teamGrid}>
-          {TEAM.map((m) => (
-            <TiltCard key={m.name} className={`${styles.glassNoise}`} style={{ background: "transparent", border: "none", boxShadow: "none", position: 'relative' }}>
-              <div className={styles.glintOverlay} />
-              {/* We wrap Profile in TiltCard to give it the effect */}
-              <Profile name={m.name} role={m.role} avatar={m.avatar} links={m.links} />
-            </TiltCard>
-          ))}
-        </div>
 
-        <div style={{ textAlign: "center", marginTop: 60, marginBottom: 40 }}>
-          <p className="body" style={{ opacity: 0.7, marginBottom: 20 }}>
-            Want to contribute?
-          </p>
-          <ConfettiButton />
-        </div>
-      </motion.section>
     </main>
   );
 }
