@@ -175,20 +175,55 @@ export default function PlannerPage() {
     router.push('/login');
   };
 
-  // Group by Term
+  // Group by Term with automatic splitting for 6-credit courses
   const byTerm = { Fall: [], Winter: [], Summer: [], Others: [] };
   let totalCredits = 0;
 
+  // Helper to determine next term
+  const getNextTerm = (t) => {
+    if (/Fall/i.test(t)) return "Winter";
+    if (/Winter/i.test(t)) return "Summer";
+    return "Others";
+  };
+
   items.forEach(c => {
-    const cr = parseFloat(c.credits) || 0;
-    totalCredits += cr;
+    const rawCreds = parseFloat(c.credits) || 0;
+    totalCredits += rawCreds;
 
     // Normalize term
     const t = (c.term || "").trim();
-    if (/Fall/i.test(t)) byTerm.Fall.push(c);
-    else if (/Winter/i.test(t)) byTerm.Winter.push(c);
-    else if (/Summer/i.test(t)) byTerm.Summer.push(c);
-    else byTerm.Others.push(c);
+    let targetTerm = "Others";
+    if (/Fall/i.test(t)) targetTerm = "Fall";
+    else if (/Winter/i.test(t)) targetTerm = "Winter";
+    else if (/Summer/i.test(t)) targetTerm = "Summer";
+
+    // Check for Full-Year Course (approx 6 credits)
+    if (rawCreds >= 5.5) {
+      // PART A (Original Term)
+      byTerm[targetTerm].push({
+        ...c,
+        credits: 3, // Display as 3 credits per term
+        isSplit: true,
+        splitPart: 1,
+        displayTitle: "(Part 1)"
+      });
+
+      // PART B (Next Term - Virtual)
+      const nextT = getNextTerm(targetTerm);
+      byTerm[nextT].push({
+        ...c,
+        id: `virtual-${c.id || c.title}`, // unique fake ID
+        term: nextT,
+        credits: 3,
+        isSplit: true,
+        splitPart: 2,
+        isVirtual: true, // Marker to disable dragging/deleting directly
+        displayTitle: "(Part 2)"
+      });
+    } else {
+      // Standard Course
+      byTerm[targetTerm].push(c);
+    }
   });
 
   const termOrder = ["Fall", "Winter", "Summer", "Others"];
@@ -325,11 +360,17 @@ export default function PlannerPage() {
                             <span className={styles.code}>{c.subject} {c.catalogue}</span>
                             <span className={styles.credits}>{c.credits} cr</span>
                           </div>
-                          <div className={styles.cardTitle}>{c.title}</div>
+                          <div className={styles.cardTitle}>
+                            {c.title}
+                            {c.displayTitle && <span style={{ opacity: 0.6, fontSize: '0.9em', marginLeft: 6 }}>{c.displayTitle}</span>}
+                          </div>
                           {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
-                          <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
-                            Remove
-                          </button>
+                          {/* Disable remove button for virtual parts if desired, or handle removal logic */}
+                          {!c.isVirtual && (
+                            <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
+                              Remove
+                            </button>
+                          )}
                         </div>
                       )
                     })
