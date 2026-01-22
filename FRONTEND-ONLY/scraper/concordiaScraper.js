@@ -22,10 +22,16 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
         // Optional: Load local font if needed, but keeping it simple for now
         // await chromium.font('https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf');
 
+        // REMOTE DOWNLOAD STRATEGY
+        // This bypasses the "input directory does not exist" error by downloading the binary at runtime to /tmp
+        const executablePath = await chromium.executablePath(
+            "https://github.com/Sparticuz/chromium/releases/download/v123.0.0/chromium-v123.0.0-pack.tar"
+        );
+
         browser = await puppeteerCore.launch({
             args: chromium.args,
             defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
+            executablePath: executablePath,
             headless: chromium.headless,
             ignoreHTTPSErrors: true
         });
