@@ -13,14 +13,6 @@ const GRADE_POINTS = {
     "F": 0.0, "FNS": 0.0, "R": 0.0, "GNR": 0.0
 };
 
-// 4.0 Scale: A+ is 4.0. Usually A is also 4.0.
-// Standard US: A=4, A-=3.7, B+=3.3, B=3.0 ...
-// So basically only A+ changes from 4.3 to 4.0.
-const GRADE_POINTS_4_0 = {
-    ...GRADE_POINTS,
-    "A+": 4.0
-};
-
 const GRADE_OPTIONS = Object.keys(GRADE_POINTS);
 
 // Simple CSV parser
@@ -68,9 +60,6 @@ export default function GPACalculator() {
         { id: 3, name: "", credits: 3.0, grade: "B+" },
         { id: 4, name: "", credits: 3.0, grade: "A-" },
     ]);
-    
-    // Scale Toggle State
-    const [isScale40, setIsScale40] = useState(false);
 
     // Load Course DB
     useEffect(() => {
@@ -130,44 +119,55 @@ export default function GPACalculator() {
     const [currentCredits, setCurrentCredits] = useState("");
 
     /* --- Calculations --- */
-    const { semesterGPA, totalSemesterCredits, finalGPA, hasCumulativeData } = useMemo(() => {
-        // Select logic
-        const pointsMap = isScale40 ? GRADE_POINTS_4_0 : GRADE_POINTS;
-
-        // 1. Calculate Semester details
+    const { semesterGPA_43, semesterGPA_40, totalSemesterCredits, finalGPA_43, finalGPA_40, hasCumulativeData } = useMemo(() => {
+        // 1. Calculate Semester details for 4.3 scale (Primary)
         let semCreds = 0;
-        let semPoints = 0;
+        let semPoints_43 = 0;
+
         rows.forEach((r) => {
             const cred = parseFloat(r.credits) || 0;
-            const pts = pointsMap[r.grade] || 0;
+            const grade = r.grade;
+            // 4.3 Scale Points
+            const pts_43 = GRADE_POINTS[grade] || 0;
+
             semCreds += cred;
-            semPoints += (cred * pts);
+            semPoints_43 += (cred * pts_43);
         });
 
-        const semGPA = semCreds > 0 ? (semPoints / semCreds) : 0;
+        const semGPA_43 = semCreds > 0 ? (semPoints_43 / semCreds) : 0;
+
+        // Linear Conversion for 4.0 Scale: (Value / 4.3) * 4.0
+        // mathematically different for any given GPAs (except 0 and infinity, but max is 4.3)
+        const semGPA_40 = (semGPA_43 / 4.3) * 4.0;
 
         // 2. Calculate Cumulative if data exists
-        // NOTE: If user inputs a Current GPA, we assume it's in the SAME scale as currently selected.
-        // We do *not* convert their input, we just mix it.
+        // NOTE: We assume user input for "Current GPA" is in 4.3 scale (Concordia default).
+
         const curG = parseFloat(currentGPA);
         const curC = parseFloat(currentCredits);
-        let final = semGPA;
+
+        let final_43 = semGPA_43;
         let hasCum = false;
 
         if (!isNaN(curG) && !isNaN(curC) && curC > 0) {
-            const totalPoints = (curG * curC) + semPoints;
+            const totalPoints_43 = (curG * curC) + semPoints_43;
             const totalCreds = curC + semCreds;
-            final = totalCreds > 0 ? (totalPoints / totalCreds) : 0;
+            final_43 = totalCreds > 0 ? (totalPoints_43 / totalCreds) : 0;
             hasCum = true;
         }
 
+        // Linear conversion for Cumulative 4.0
+        const final_40 = (final_43 / 4.3) * 4.0;
+
         return {
-            semesterGPA: semGPA,
+            semesterGPA_43: semGPA_43,
+            semesterGPA_40: semGPA_40,
             totalSemesterCredits: semCreds,
-            finalGPA: final,
+            finalGPA_43: final_43,
+            finalGPA_40: final_40, // We can expose this if needed for cumulative display in the future
             hasCumulativeData: hasCum
         };
-    }, [rows, currentGPA, currentCredits, isScale40]);
+    }, [rows, currentGPA, currentCredits]);
 
     /* --- Handlers --- */
     const updateRow = (id, field, value) => {
@@ -238,13 +238,22 @@ export default function GPACalculator() {
 
                 {/* --- Result Dashboard --- */}
                 <aside className={styles.resultCard}>
-                    {/* Gauge & Value */}
+                    {/* Gauge & Value - Primary 4.3 Scale */}
                     <div className={styles.gaugeContainer}>
-                        <GPAGauge value={finalGPA} max={isScale40 ? 4.0 : 4.3} />
+                        <GPAGauge value={finalGPA_43} max={4.3} />
                         <div className={styles.gpaOverlay}>
-                            <div className={styles.gpaValue}>{finalGPA.toFixed(2)}</div>
-                            <div className={styles.gpaLabel}>GPA</div>
+                            <div className={styles.gpaValue}>{finalGPA_43.toFixed(2)}</div>
+                            <div className={styles.gpaLabel}>GPA (4.3)</div>
                         </div>
+                    </div>
+
+                    {/* Secondary 4.0 Scale Display */}
+                    <div style={{ textAlign: 'center', marginBottom: 20, padding: 10, background: 'rgba(0,0,0,0.02)', borderRadius: 8 }}>
+                        <div style={{ fontSize: 13, color: '#666' }}>Standard 4.0 Scale</div>
+                        <div style={{ fontSize: 24, fontWeight: 700, color: '#333' }}>
+                            {semesterGPA_40.toFixed(2)}
+                        </div>
+                        {hasCumulativeData && <div style={{ fontSize: 10, color: '#888' }}>(Semester only)</div>}
                     </div>
 
                     <div className={styles.statGrid}>
@@ -253,8 +262,8 @@ export default function GPACalculator() {
                             <div className={styles.statNum}>{totalSemesterCredits}</div>
                         </div>
                         <div className={styles.statBox}>
-                            <div className={styles.statLabel}>Points</div>
-                            <div className={styles.statNum}>{(semesterGPA * totalSemesterCredits || 0).toFixed(0)}</div>
+                            <div className={styles.statLabel}>Sem (4.3)</div>
+                            <div className={styles.statNum}>{semesterGPA_43.toFixed(2)}</div>
                         </div>
                     </div>
 
@@ -288,18 +297,6 @@ export default function GPACalculator() {
                                 />
                             </div>
                         </div>
-                    </div>
-
-                    {/* Scale Toggle Button */}
-                    <div style={{ marginTop: 24, display: 'flex', justifyContent: 'center' }}>
-                         <button 
-                            className={styles.clearBtn} 
-                            style={{ fontSize: 13, gap: 6, width: '100%', justifyContent: 'center', background: 'rgba(0,0,0,0.03)' }}
-                            onClick={() => setIsScale40(!isScale40)}
-                        >
-                            <RefreshCw size={14} /> 
-                            {isScale40 ? "Using 4.0 Scale (Switch to 4.3)" : "Using 4.3 Scale (Switch to 4.0)"}
-                         </button>
                     </div>
 
                 </aside>
@@ -399,7 +396,7 @@ function GPAGauge({ value, max = 4.3 }) {
     // Circle math
     const r = 80;
     // Sem-circle arc
-    
+
     return (
         <svg viewBox="0 0 200 110" width="100%" height="100%">
             <defs>
