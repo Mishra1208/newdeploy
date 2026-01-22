@@ -47,46 +47,56 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
     const page = await browser.newPage();
     // END HYBRID BROWSER CONFIG
 
+    // ⚡️ OPTIMIZATION 1: Block Images, Fonts, CSS for speed
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+        if (['image', 'stylesheet', 'font', 'media'].includes(req.resourceType())) {
+            req.abort();
+        } else {
+            req.continue();
+        }
+    });
+
     // Enable logging from inside the browser
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
 
     try {
-        // 1. Go to Search Page
+        // 1. Go to Search Page (Fastest Wait)
         console.log("🔗 Connecting...");
         await page.goto('https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_EXT.CU_CLASS_SEARCH.GBL', {
-            waitUntil: 'networkidle2',
-            timeout: 60000
+            waitUntil: 'domcontentloaded', // Much faster than networkidle2
+            timeout: 30000
         });
 
         // 2. Select Term
         console.log("... Choosing Term");
         await page.waitForSelector(SEL.TERM_DROPDOWN);
         await page.select(SEL.TERM_DROPDOWN, termVal);
-        await new Promise(r => setTimeout(r, 1000));
-        await page.waitForNetworkIdle({ idleTime: 500, timeout: 5000 }).catch(() => console.log("No network idle after term select"));
 
-        // 3. Input Subject
+        // Wait for Loading Overlay/Spinner to disappear instead of fixed sleep
+        // Concordia pages usually do a postback. We wait for network idle briefly.
+        await page.waitForNetworkIdle({ idleTime: 100, timeout: 3000 }).catch(() => { });
+
+        // 3. Input Subject (Instant Entry)
         console.log("... Typing Subject");
-        await page.click(SEL.SUBJECT_INPUT);
-        await new Promise(r => setTimeout(r, 500));
-        await page.type(SEL.SUBJECT_INPUT, subject, { delay: 100 });
-        await page.keyboard.press('Tab');
-        await new Promise(r => setTimeout(r, 500));
+        await page.waitForSelector(SEL.SUBJECT_INPUT);
+        await page.$eval(SEL.SUBJECT_INPUT, (el, val) => el.value = val, subject);
+        await page.type(SEL.SUBJECT_INPUT, ' '); // Small trigger to fire events
+        await page.keyboard.press('Backspace');
 
-        // 4. Input Number
+        // 4. Input Number (Instant Entry)
         console.log("... Typing Number");
-        await page.type(SEL.CATALOG_NBR_INPUT, courseNumber, { delay: 100 });
-        await page.keyboard.press('Tab');
-        await new Promise(r => setTimeout(r, 500));
+        await page.waitForSelector(SEL.CATALOG_NBR_INPUT);
+        await page.$eval(SEL.CATALOG_NBR_INPUT, (el, val) => el.value = val, courseNumber);
+        await page.type(SEL.CATALOG_NBR_INPUT, ' '); // Trigger events
+        await page.keyboard.press('Backspace');
 
         // 5. Uncheck "Show Open Classes Only"
         try {
-            const labelSel = `label[for="SSR_CLSRCH_WRK_SSR_OPEN_ONLY$5"]`;
             const isChecked = await page.$eval(SEL.OPEN_ONLY_CHECKBOX, el => el.checked);
             if (isChecked) {
                 console.log("... Unchecking 'Open Only'");
-                await page.click(labelSel);
-                await new Promise(r => setTimeout(r, 100));
+                await page.click(SEL.OPEN_ONLY_CHECKBOX); // Click matches label often better
             }
         } catch (e) {
             console.warn("⚠️ Checkbox issue:", e.message);
