@@ -1,0 +1,156 @@
+[
+  {
+    "course": "COMP 346",
+    "section": "A-X-LAB 12 Wk",
+    "status": "Waitlist",
+    "time": "We 9:30PM - 11:20PM",
+    "classNbr": "1492"
+  },
+  {
+    "course": "COMP 346",
+    "section": "B-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Mo 2:15PM - 4:05PM",
+    "classNbr": "1488"
+  },
+  {
+    "course": "COMP 346",
+    "section": "C-X-LAB 12 Wk",
+    "status": "Waitlist",
+    "time": "Fr 5:45PM - 7:35PM",
+    "classNbr": "4548"
+  },
+  {
+    "course": "COMP 346",
+    "section": "D-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Fr 7:45PM - 9:35PM",
+    "classNbr": "4549"
+  },
+  {
+    "course": "COMP 346",
+    "section": "E-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Tu 9:30PM - 11:20PM",
+    "classNbr": "1493"
+  },
+  {
+    "course": "COMP 346",
+    "section": "F-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Fr 2:15PM - 4:05PM",
+    "classNbr": "1491"
+  },
+  {
+    "course": "COMP 346",
+    "section": "G-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Mo 9:30PM - 11:20PM",
+    "classNbr": "4489"
+  },
+  {
+    "course": "COMP 346",
+    "section": "H-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Fr 2:15PM - 4:05PM",
+    "classNbr": "4490"
+  },
+  {
+    "course": "COMP 346",
+    "section": "I-X-LAB 12 Wk",
+    "status": "Open",
+    "time": "Th 7:45PM - 9:35PM",
+    "classNbr": "4710"
+  },
+  {
+    "course": "COMP 346",
+    "section": "J-X-LAB 12 Wk",
+    "status": "Closed",
+    "time": "Mo 2:15PM - 4:05PM",
+    "classNbr": "5007"
+  },
+  {
+    "course": "COMP 346",
+    "section": "NN-LEC 12 Wk",
+    "status": "Waitlist",
+    "time": "We 5:45PM - 8:15PM",
+    "classNbr": "1489"
+  },
+  {
+    "course": "COMP 346",
+    "section": "NNNA-TUT 12 Wk",
+    "status": "Closed",
+    "time": "We 8:45PM - 9:35PM",
+    "classNbr": "1490"
+  },
+  {
+    "course": "COMP 346",
+    "section": "NNNB-TUT 12 Wk",
+    "status": "Waitlist",
+    "time": "Mo 1:15PM - 2:05PM",
+    "classNbr": "1487"
+  },
+  {
+    "course": "COMP 346",
+    "section": "UU-LEC 12 Wk",
+    "status": "Open",
+    "time": "Mo 5:45PM - 8:15PM",
+    "classNbr": "4545"
+  },
+  {
+    "course": "COMP 346",
+    "section": "UUUA-TUT 12 Wk",
+    "status": "Open",
+    "time": "Mo 4:40PM - 5:30PM",
+    "classNbr": "4546"
+  },
+  {
+    "course": "COMP 346",
+    "section": "UUUB-TUT 12 Wk",
+    "status": "Open",
+    "time": "We 3:10PM - 4:00PM",
+    "classNbr": "4547"
+  },
+  {
+    "course": "COMP 346",
+    "section": "WW-LEC 12 Wk",
+    "status": "Open",
+    "time": "Tu 5:45PM - 8:15PM",
+    "classNbr": "1495"
+  },
+  {
+    "course": "COMP 346",
+    "section": "WWWA-TUT 12 Wk",
+    "status": "Waitlist",
+    "time": "Tu 8:45PM - 9:35PM",
+    "classNbr": "1494"
+  },
+  {
+    "course": "COMP 346",
+    "section": "WWWB-TUT 12 Wk",
+    "status": "Open",
+    "time": "Fr 1:15PM - 2:05PM",
+    "classNbr": "1486"
+  },
+  {
+    "course": "COMP 346",
+    "section": "YY-LEC 12 Wk",
+    "status": "Open",
+    "time": "Mo 5:45PM - 8:15PM",
+    "classNbr": "4486"
+  },
+  {
+    "course": "COMP 346",
+    "section": "YYYA-TUT 12 Wk",
+    "status": "Open",
+    "time": "Mo 8:45PM - 9:35PM",
+    "classNbr": "4487"
+  },
+  {
+    "course": "COMP 346",
+    "section": "YYYB-TUT 12 Wk",
+    "status": "Open",
+    "time": "Fr 1:15PM - 2:05PM",
+    "classNbr": "4488"
+  }
+]

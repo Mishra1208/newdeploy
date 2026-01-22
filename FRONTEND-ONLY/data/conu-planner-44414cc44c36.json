@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "conu-planner",
+  "private_key_id": "44414cc44c36965eeea8cb047075b045878570e7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC+DCKOyuGqRxSl\n/G93AVXK0jhBqaMD/A893z+hZFG2ViuatoBYBVTY7DCREklUHSOcek0J5wf57kYS\nkDkIdMv+lth+vKjyhJi0TTwkrN3O57qPsZfnO9G+GpPsnwzaO/XNQj1tg/+CF1Nd\nx6EgE7i+BdfOVCyqysosPAw8u5Xwrtu5a60e5sJtY6Zi8RDuTw9TV1hAbxXmACf8\nIog6Iss/Ec7Kg98iKWSowUm6oNP86LlRgAFa4gcdw4K/1qfTnugFAhceXk+T2SNd\nNT59m9KbQK/rr7TD8oByNL6toGGkce8ghmws57oCdpltYOcHI/v4/4I5ixogC5dt\n4A397aRXAgMBAAECggEAEAr9iSj5PyLm9v1wpLl5IOOkGhmUMvbpNnjiaeEKa3uq\nDKe7/TIzWmh9z7vycrukUPDwu0BEfRsEe/auydb04tX1tU/UbJHi7igtm+RNM8p+\nBjlLWxrCoZX5chpvFFEcISqmqC23Y6eibaKM0yS3DgYiPz790kvHdfp6XKTH4Ib3\nsqf3avI4e9CFAVLGhpwxoev8+jTDkILspwPE66hubOhkKgzYxPBlk08+oIBnFrPz\n2QeiSmLiXG3cGWFAF7UKbFPMmEe5yJDybVHZmbzuHsUR0qRpxuRT2e147FWiaQ7x\nMXd5YWeRwFBAu9eRZiNDh5WLM4+S0JMWB7COLOQaQQKBgQDhI0jeMq2vBaIbyTXF\ndct7SmofwTquut0O9dvPR892BhPt8IU4tHPUMBZuk/zw8LnPO3LXlH5X4AZ/vp3g\ney8F9wWYchPGRmk1bqiwn8PA6PeBiD/1arT2Y/QZusB72baepJXQL38gCm5pN5Zv\nvN1i1BEljylb3R6jaUyhwaC3oQKBgQDYGW3gM8NSJoKmFCpzVzHVLrf+2L2FkqS/\nkLzYl+AjmhEAV+OG3VQWtW7H2erftgUuXwCXxBVDRVEjrZrfNYZ5TjAnrOC8pwj4\nq5wDX7V+d+FJDiTH0WRnyT5uG7VOmZqWYmWcbWh0ldria4vwfm0VDlyYXm07hEif\nq/tATSl49wKBgCpVOydkuhnV4lR9Mhot+xP0ux27dLBUPKrKeglwxEa5/9dWyYYP\nEFSOsjkapI4dhaK81+xHZLZbTn2ItyD1qLLjbu7qTGOU68V7SEbl06YbaCa4Guan\nqN1HkCeiYP0ow9jys6TQuYOp0ncAV84s4ifqHktErw8x9cfeTeWAhhrhAoGANzbg\nHR38tPvD+/1BD3Fi+S5TstjcK8nZMF0h81Fy4oXV/Dl4mBfrCVZYNNYYLgrK7hs2\nApEGQcbvQWd1H70EW/A/W5PPZERlhWwLk80biXHF7S2g9jEpL197BRUtUSTsG6qO\nfdZyjv9PCvUhr1QOOQgPXpsZ29Aj4jBGJRrSEucCgYB5VdeLs5e99i9bdZPUREFB\n9dqng5ZznRPOfn14BPIgByZWT5q8dWWz0WYkfx8QP6NvwnDalAn67VMrZY4yuRkQ\nAtRO8tCzR0yJ2/eea2v4HOvEwidlw1NQEGjvNtBXwOnYqtX7r7fyOEfoh0xvUhA1\nhF294/XSN+F6n6pjFpzVzA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "newsletter-bot@conu-planner.iam.gserviceaccount.com",
+  "client_id": "103479896670565612365",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/newsletter-bot%40conu-planner.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

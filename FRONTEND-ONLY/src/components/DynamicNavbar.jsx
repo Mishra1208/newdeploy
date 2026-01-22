@@ -65,6 +65,7 @@ export default function DynamicNavbar() {
 
                     <ul>
                         <li><NavLink href="/">Home</NavLink></li>
+                        {/* <li><NavLink href="/pages/seat-finder">Seat Finder</NavLink></li> */}
                         <li><NavLink href="/pages/courses">Courses</NavLink></li>
                         <li><NavLink href="/pages/courses/descriptions">Catalog</NavLink></li>
                         <li><NavLink href="/pages/planner">Planner</NavLink></li>
