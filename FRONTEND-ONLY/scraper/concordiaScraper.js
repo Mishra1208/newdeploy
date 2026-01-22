@@ -1,6 +1,4 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
 
 // SELECTORS
 const SEL = {
@@ -12,13 +10,12 @@ const SEL = {
     HIDDEN_SUBMIT_ID: 'CLASS_SRCH_WRK2_SSR_PB_CLASS_SRCH'
 };
 
-async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
+export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
     console.log(`🚀 Starting Scraper for ${subject} ${courseNumber}...`);
 
     const browser = await puppeteer.launch({
-        headless: true, // Strictly hidden
-        defaultViewport: { width: 1920, height: 1080 }, // Force Desktop to see all columns
-        args: ['--no-sandbox', '--disable-setuid-sandbox'] // Safer for server env
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
@@ -85,7 +82,9 @@ async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
             await page.waitForSelector('div[id^="win0divDERIVED_CLSRCH_SSR_STATUS_LONG"]', { timeout: 15000 });
             console.log("⚡ Results detected!");
         } catch (e) {
-            console.log("⚠️ Wait timeout or no results found. Converting page...");
+            console.log("⚠️ Wait timeout or no results found.");
+            // We return empty array if no results found instead of crashing
+            return [];
         }
 
         // 8. Parse Results
@@ -97,7 +96,6 @@ async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
             while (true) {
                 // Status Icon Container
                 const statusContainer = document.querySelector(`#win0divDERIVED_CLSRCH_SSR_STATUS_LONG\\$${i}`);
-                // Break if we can't find the next row
                 if (!statusContainer) break;
 
                 // Extract Status
@@ -137,29 +135,13 @@ async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
         }, `${subject} ${courseNumber}`);
 
         console.log(`✅ Found ${sections.length} sections.`);
-        console.log(sections);
-
-        // Save to JSON
-        const outputPath = path.resolve(__dirname, 'scraper_results.json');
-        fs.writeFileSync(outputPath, JSON.stringify(sections, null, 2));
-        console.log(`💾 Saved data to ${outputPath}`);
+        return sections; // RETURN DATA DIRECTLY
 
     } catch (error) {
         console.error("❌ Scraper Error:", error);
+        throw error; // Propagate error to API
     } finally {
         console.log("Closing browser immediately...");
         await browser.close();
     }
 }
-
-// CLI Argument Parsing
-const args = process.argv.slice(2);
-const termArg = args.find(a => a.startsWith('--term='))?.split('=')[1] || '2254'; // Default Winter 2026
-const subjectArg = args.find(a => a.startsWith('--subject='))?.split('=')[1] || 'COMP';
-const numberArg = args.find(a => a.startsWith('--number='))?.split('=')[1] || '248';
-
-if (require.main === module) {
-    scrapeConcordiaSeats(termArg, subjectArg, numberArg);
-}
-
-module.exports = scrapeConcordiaSeats;
