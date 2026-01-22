@@ -11,14 +11,35 @@ const SEL = {
 };
 
 export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
-    console.log(`🚀 Starting Scraper for ${subject} ${courseNumber}...`);
+    // START HYBRID BROWSER CONFIG
+    let browser;
 
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    // Detect Vercel/Production Environment
+    if (process.env.NODE_ENV === 'production') {
+        const chromium = (await import('@sparticuz/chromium')).default;
+        const puppeteerCore = (await import('puppeteer-core')).default;
+
+        // Optional: Load local font if needed, but keeping it simple for now
+        // await chromium.font('https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf');
+
+        browser = await puppeteerCore.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
+            ignoreHTTPSErrors: true
+        });
+    } else {
+        // Local Development
+        const puppeteer = (await import('puppeteer')).default;
+        browser = await puppeteer.launch({
+            headless: "new", // "new" is the modern headless mode
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+    }
 
     const page = await browser.newPage();
+    // END HYBRID BROWSER CONFIG
 
     // Enable logging from inside the browser
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
