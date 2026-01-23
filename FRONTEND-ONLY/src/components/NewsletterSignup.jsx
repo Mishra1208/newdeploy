@@ -155,7 +155,14 @@ export default function NewsletterSignup() {
                                 onMouseEnter={e => !status && (e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)')}
                                 onMouseLeave={e => !status && (e.currentTarget.style.transform = 'translateY(0) scale(1)')}
                             >
-                                {status === "loading" ? "..." : "Subscribe"}
+                                {status === "loading" ? (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                        <style jsx>{`
+                                            @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                                        `}</style>
+                                    </svg>
+                                ) : "Subscribe"}
                             </button>
                         </motion.form>
                     )}
