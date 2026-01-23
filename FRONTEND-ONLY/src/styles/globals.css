@@ -324,10 +324,12 @@ h5 {
 }
 
 .premium-nav-inner {
-  max-width: 1200px;
+  max-width: 100%;
+  /* Fluid width to use all space */
   height: 100%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 40px;
+  /* More padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -599,7 +601,7 @@ h5 {
   transition: all 0.3s;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .desktop-links {
     display: none;
   }
@@ -611,10 +613,11 @@ h5 {
 
 .mobile-menu {
   position: fixed;
-  top: 72px;
+  top: 100px;
+  /* Usage with new height */
   left: 0;
   width: 100%;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 100px);
   background: var(--bg-page);
   z-index: 999;
   padding: 40px;
