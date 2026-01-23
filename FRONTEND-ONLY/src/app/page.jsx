@@ -183,12 +183,10 @@ export default function HomePage() {
           style={{
             maxWidth: '900px',
             margin: '0 auto 120px auto',
-            padding: '80px 40px',
+            padding: '40px 20px',
             textAlign: 'center',
-            background: 'white',
-            borderRadius: '32px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.05)',
-            border: '1px solid rgba(0,0,0,0.03)'
+            position: 'relative',
+            background: 'radial-gradient(circle at center, rgba(219, 158, 30, 0.03) 0%, transparent 70%)', // Very subtle glow
           }}
         >
           <div className={styles.glintOverlay} />
