@@ -57,8 +57,9 @@ const features = [
 
 export default function FeaturesStack() {
     return (
-        <div style={{ height: '600px', width: '100%', position: 'relative' }}>
+        <div style={{ width: '100%', position: 'relative' }}>
             <ScrollStack
+                useWindowScroll={true}
                 itemDistance={50}
                 itemScale={0.05}
                 itemStackDistance={30}
