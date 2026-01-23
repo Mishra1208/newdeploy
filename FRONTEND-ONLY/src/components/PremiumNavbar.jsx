@@ -65,19 +65,19 @@ export default function PremiumNavbar() {
                 <div className="premium-nav-inner">
                     {/* LOGO */}
                     <Link href="/" className="premium-brand">
-                        <img src="/logo2.png" alt="ConU" className="brand-logo" />
+                        <img src="/logo2.png" alt="Concordia University" className="brand-logo" />
                         <span className="brand-text">
-                            ConU<span className="brand-highlight">Planner</span>
+                            Concordia<span className="brand-highlight">University</span>
                         </span>
                     </Link>
 
                     {/* DESKTOP LINKS */}
                     <nav className="desktop-links">
-                        <NavLink href="/">Home</NavLink>
-                        <NavLink href="/pages/seat-finder">Seat Finder</NavLink>
-                        <NavLink href="/pages/courses">Courses</NavLink>
-                        <NavLink href="/pages/planner">Planner</NavLink>
-                        <NavLink href="/pages/gpa">GPA</NavLink>
+                        <Link href="/" className="nav-link-premium">Home</Link>
+                        <Link href="/pages/seat-finder" className="nav-link-premium">Seat Finder</Link>
+                        <Link href="/pages/courses" className="nav-link-premium">Courses</Link>
+                        <Link href="/pages/planner" className="nav-link-premium">Planner</Link>
+                        <Link href="/pages/gpa" className="nav-link-premium">GPA</Link>
 
                         <div className="divider" />
 

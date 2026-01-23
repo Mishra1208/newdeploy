@@ -297,10 +297,12 @@ h5 {
   position: fixed;
   top: 0;
   left: 0;
+  left: 0;
   right: 0;
-  height: 72px;
+  height: 88px;
+  /* Taller for premium feel */
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -340,16 +342,21 @@ h5 {
 }
 
 .brand-logo {
-  height: 36px;
+  height: 48px;
+  /* BIGGER LOGO */
   width: auto;
   filter: none;
-  /* Keep original colors if possible, or adjust */
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.premium-brand:hover .brand-logo {
+  transform: scale(1.05) rotate(-3deg);
+  /* Funky Tilt */
 }
 
 /* Force logo color adaption */
 [data-theme="light"] .brand-logo {
   filter: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(3025%) hue-rotate(325deg) brightness(88%) contrast(97%);
-  /* Approx Burgundy #912338 */
 }
 
 [data-theme="dark"] .brand-logo {
@@ -358,22 +365,50 @@ h5 {
 
 .brand-text {
   font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  /* Extra Bold */
+  font-size: 26px;
+  /* BIGGER TEXT */
+  letter-spacing: -0.03em;
   color: var(--ink-primary);
+  line-height: 1;
 }
 
 .brand-highlight {
   color: var(--secondary);
-  /* Gold */
 }
 
 /* LINKS */
+/* LINKS - FUNKY STYLE */
 .desktop-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
+  /* More breathing room */
+}
+
+/* Styles for NavLink items */
+.nav-link-premium {
+  position: relative;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink-secondary);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-link-premium:hover {
+  color: var(--primary);
+  background: rgba(145, 35, 56, 0.08);
+  /* Burgundy tint pill */
+  transform: translateY(-1px);
+}
+
+.nav-link-premium.active {
+  color: var(--primary);
+  background: rgba(145, 35, 56, 0.08);
 }
 
 .divider {
