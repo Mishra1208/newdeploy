@@ -33,7 +33,7 @@ const features = [
         title: "Complete Course Catalog",
         desc: "Search instantly across all departments. Filter by credits, terms, and prerequisites.",
         mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F5F7', fontSize: '8rem' }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', fontSize: '8rem' }}>
                 📚
             </div>
         ),
@@ -45,7 +45,7 @@ const features = [
         title: "Seat Finder",
         desc: "Never miss a class. Real-time alerts when seats open up in full courses.",
         mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F5F7', fontSize: '8rem' }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', fontSize: '8rem' }}>
                 🪑
             </div>
         ),
@@ -98,7 +98,7 @@ export default function FeaturesStack() {
 
                             {/* Content Side (Clean White) */}
                             <div style={{
-                                padding: '56px',
+                                padding: '48px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
@@ -106,18 +106,18 @@ export default function FeaturesStack() {
                             }}>
                                 <h3 style={{
                                     fontFamily: 'var(--font-inter), system-ui, sans-serif',
-                                    fontSize: '36px',
+                                    fontSize: '32px', // More refined size
                                     fontWeight: 700,
-                                    marginBottom: '14px',
-                                    letterSpacing: '-0.03em',
-                                    color: '#1a1a1a', // Deep Black for contrast
+                                    marginBottom: '12px',
+                                    letterSpacing: '-0.02em',
+                                    color: '#1a1a1a',
                                     lineHeight: 1.15
                                 }}>
                                     {feat.title}
                                 </h3>
                                 <p style={{
-                                    fontSize: '17px',
-                                    color: '#666', // Softer grey
+                                    fontSize: '16px', // Sleeker text
+                                    color: '#666',
                                     lineHeight: 1.6,
                                     maxWidth: '92%',
                                     fontWeight: 500
@@ -126,14 +126,14 @@ export default function FeaturesStack() {
                                 </p>
                                 <Link href={feat.link} style={{ textDecoration: 'none' }}>
                                     <div style={{
-                                        marginTop: '36px',
+                                        marginTop: '32px',
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         gap: '8px',
-                                        padding: '12px 24px',
+                                        padding: '10px 20px',
                                         background: '#f5f5f7',
                                         borderRadius: '100px',
-                                        fontSize: '14px',
+                                        fontSize: '13px',
                                         fontWeight: 600,
                                         color: feat.accent,
                                         cursor: 'pointer',
