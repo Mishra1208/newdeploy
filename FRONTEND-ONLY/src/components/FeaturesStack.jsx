@@ -68,7 +68,7 @@ export default function FeaturesStack() {
             >
                 {features.map((feat, i) => (
                     <ScrollStackItem key={i}>
-                        <Link href={feat.link} style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', height: '100%', width: '100%', textDecoration: 'none', color: 'inherit' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', height: '100%', width: '100%', color: 'inherit' }}>
 
                             {/* Visual Side (Premium Grey Background) */}
                             <div style={{
@@ -114,21 +114,24 @@ export default function FeaturesStack() {
                                 }}>
                                     {feat.desc}
                                 </p>
-                                <div style={{
-                                    marginTop: '40px',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    fontSize: '16px',
-                                    fontWeight: 600,
-                                    color: feat.accent
-                                }}>
-                                    <span style={{ borderBottom: `2px solid ${feat.accent}30` }}>Explore Feature</span>
-                                    <span style={{ transition: 'transform 0.2s' }}>→</span>
-                                </div>
+                                <Link href={feat.link} style={{ textDecoration: 'none' }}>
+                                    <div style={{
+                                        marginTop: '40px',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        fontSize: '16px',
+                                        fontWeight: 600,
+                                        color: feat.accent,
+                                        cursor: 'pointer'
+                                    }}>
+                                        <span style={{ borderBottom: `2px solid ${feat.accent}30` }}>Explore Feature</span>
+                                        <span style={{ transition: 'transform 0.2s' }}>→</span>
+                                    </div>
+                                </Link>
                             </div>
 
-                        </Link>
+                        </div>
                     </ScrollStackItem>
                 ))}
             </ScrollStack>
