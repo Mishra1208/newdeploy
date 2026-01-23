@@ -438,6 +438,66 @@ h5 {
 }
 
 /* THEME TOGGLE (iOS Switch Style) */
+.nav-dropdown-container {
+  position: relative;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-page);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 180px;
+  display: none;
+  /* Controlled by Framer Motion, but good fallback */
+  padding-top: 8px;
+}
+
+[data-theme="dark"] .nav-dropdown-menu {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 16px;
+  color: var(--ink-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-soft);
+  color: var(--primary);
+}
+
+.mobile-divider {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
 .theme-toggle-premium {
   width: 56px;
   height: 30px;

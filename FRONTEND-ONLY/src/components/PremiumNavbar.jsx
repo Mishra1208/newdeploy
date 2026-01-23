@@ -3,6 +3,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import NavLink from "@/components/NavLink";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Sun, Moon } from "lucide-react";
@@ -37,9 +38,11 @@ function PremiumThemeToggle() {
 /* -------------------------------------------------------------------------- */
 export default function PremiumNavbar() {
     const { scrollY } = useScroll();
+    const pathname = usePathname(); // Get current path
     const [hidden, setHidden] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = scrollY.getPrevious();
@@ -50,6 +53,8 @@ export default function PremiumNavbar() {
         }
         setScrolled(latest > 50);
     });
+
+    const isHome = pathname === "/";
 
     return (
         <>
@@ -73,11 +78,37 @@ export default function PremiumNavbar() {
 
                     {/* DESKTOP LINKS */}
                     <nav className="desktop-links">
-                        <Link href="/" className="nav-link-premium">Home</Link>
+                        {!isHome && (
+                            <Link href="/" className="nav-link-premium">Home</Link>
+                        )}
                         <Link href="/pages/seat-finder" className="nav-link-premium">Seat Finder</Link>
-                        <Link href="/pages/courses" className="nav-link-premium">Courses</Link>
                         <Link href="/pages/planner" className="nav-link-premium">Planner</Link>
-                        <Link href="/pages/gpa" className="nav-link-premium">GPA</Link>
+                        <Link href="/about" className="nav-link-premium">About Us</Link>
+
+                        {/* MORE DROPDOWN */}
+                        <div
+                            className="nav-dropdown-container"
+                            onMouseEnter={() => setMoreDropdownOpen(true)}
+                            onMouseLeave={() => setMoreDropdownOpen(false)}
+                        >
+                            <button className="nav-link-premium dropdown-trigger">
+                                More <span style={{ fontSize: 10, marginLeft: 4 }}>▼</span>
+                            </button>
+
+                            <motion.div
+                                className="nav-dropdown-menu"
+                                initial="closed"
+                                animate={moreDropdownOpen ? "open" : "closed"}
+                                variants={{
+                                    open: { opacity: 1, y: 0, pointerEvents: "auto", display: "block" },
+                                    closed: { opacity: 0, y: 10, pointerEvents: "none", transitionEnd: { display: "none" } }
+                                }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <Link href="/pages/courses" className="dropdown-item">Course Catalogue</Link>
+                                <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
+                            </motion.div>
+                        </div>
 
                         <div className="divider" />
 
@@ -121,9 +152,14 @@ export default function PremiumNavbar() {
                 >
                     <div className="mobile-links">
                         <NavLink href="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
-                        <NavLink href="/pages/courses" onClick={() => setMenuOpen(false)}>Courses</NavLink>
+                        <NavLink href="/pages/seat-finder" onClick={() => setMenuOpen(false)}>Seat Finder</NavLink>
                         <NavLink href="/pages/planner" onClick={() => setMenuOpen(false)}>Planner</NavLink>
+                        <NavLink href="/about" onClick={() => setMenuOpen(false)}>About Us</NavLink>
+
+                        <div className="mobile-divider">More</div>
+                        <NavLink href="/pages/courses" onClick={() => setMenuOpen(false)}>Course Catalogue</NavLink>
                         <NavLink href="/pages/gpa" onClick={() => setMenuOpen(false)}>GPA Calculator</NavLink>
+
                         <div style={{ height: 20 }} />
                         <PremiumThemeToggle />
                     </div>
