@@ -8,7 +8,7 @@ import ChatWidget from "@/components/ChatWidget";
 import "@/styles/globals.css";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
-import DynamicNavbar from "@/components/DynamicNavbar";
+import PremiumNavbar from "@/components/PremiumNavbar";
 import ClerkThemeProvider from "@/components/ClerkThemeProvider";
 
 export const metadata = {
@@ -47,10 +47,9 @@ export default async function RootLayout({ children }) {
         </head>
         <body>
 
+          <PremiumNavbar />
 
-          <DynamicNavbar />
-
-          <main className="site-main">{children}</main>
+          <main className="site-main" style={{ paddingTop: 100 }}>{children}</main>
           <Footer />
           <ChatWidget />
           <Analytics />

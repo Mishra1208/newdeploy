@@ -281,8 +281,246 @@ h5 {
 }
 
 @media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .site-nav-force-visible {
+    min-width: unset !important;
+    width: 90% !important;
+    left: 5%;
+    transform: none !important;
+    padding: 20px 10px;
   }
+}
+
+/* ========================================= */
+/*            PREMIUM NAVBAR (GLASS)         */
+/* ========================================= */
+.premium-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.2s;
+}
+
+.premium-nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .premium-nav {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .premium-nav.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.premium-nav-inner {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* BRAND */
+.premium-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  height: 36px;
+  width: auto;
+  filter: none;
+  /* Keep original colors if possible, or adjust */
+}
+
+/* Force logo color adaption */
+[data-theme="light"] .brand-logo {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(3025%) hue-rotate(325deg) brightness(88%) contrast(97%);
+  /* Approx Burgundy #912338 */
+}
+
+[data-theme="dark"] .brand-logo {
+  filter: brightness(0) invert(1);
+}
+
+.brand-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ink-primary);
+}
+
+.brand-highlight {
+  color: var(--secondary);
+  /* Gold */
+}
+
+/* LINKS */
+.desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 8px;
+}
+
+[data-theme="dark"] .divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.login-btn-premium {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  color: var(--ink-primary);
+  transition: all 0.2s;
+}
+
+.login-btn-premium:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* THEME TOGGLE (iOS Switch Style) */
+.theme-toggle-premium {
+  width: 56px;
+  height: 30px;
+  background: var(--bg-soft);
+  border-radius: 99px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  transition: all 0.2s;
+}
+
+.theme-toggle-premium:hover {
+  border-color: var(--secondary);
+}
+
+.toggle-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  width: 22px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  left: 3px;
+  /* Start pos */
+}
+
+[data-theme="dark"] .toggle-thumb {
+  left: auto;
+  right: 3px;
+  background: var(--primary);
+  box-shadow: 0 0 10px rgba(145, 35, 56, 0.4);
+}
+
+.icon-sun {
+  color: #f59e0b;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.icon-moon {
+  color: #a8a29e;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+[data-theme="dark"] .icon-sun {
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .icon-moon {
+  opacity: 1;
+  color: #fff;
+}
+
+/* MOBILE */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger {
+  width: 24px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2px;
+  background: var(--ink-primary);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 900px) {
+  .desktop-links {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 72px);
+  background: var(--bg-page);
+  z-index: 999;
+  padding: 40px;
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
 }
