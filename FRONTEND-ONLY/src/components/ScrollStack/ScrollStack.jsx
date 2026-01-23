@@ -28,7 +28,8 @@ const ScrollStack = ({
     const stackCompletedRef = useRef(false);
     const animationFrameRef = useRef(null);
     const lenisRef = useRef(null);
-    const cardsRef = useRef([]); // This will now hold WRAPPERS
+    const cardsRef = useRef([]);
+    const cardOffsetsRef = useRef([]);
     const lastTransformsRef = useRef(new Map());
     const isUpdatingRef = useRef(false);
 
@@ -92,8 +93,8 @@ const ScrollStack = ({
             const card = wrapper.firstElementChild;
             if (!card) return;
 
-            // MEASURE WRAPPER (Static)
-            const cardTop = getElementOffset(wrapper);
+            // USE CACHED OFFSET
+            const cardTop = cardOffsetsRef.current[i] || 0;
 
             const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
             const triggerEnd = cardTop - scaleEndPositionPx;
@@ -166,11 +167,12 @@ const ScrollStack = ({
                 Math.abs(lastTransform.blur - newTransform.blur) > 0.1;
 
             if (hasChanged) {
-                const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
+                const transform = `translate3d(0, ${newTransform.translateY}px, ${i}px) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
                 const filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : '';
 
                 card.style.transform = transform;
                 card.style.filter = filter;
+                card.style.zIndex = i; // Explicitly set z-index
 
                 lastTransformsRef.current.set(i, newTransform);
             }
@@ -264,6 +266,8 @@ const ScrollStack = ({
         const transformsCache = lastTransformsRef.current;
 
         // Init styles on WRAPPER or CARD
+        cardOffsetsRef.current = wrappers.map(w => getElementOffset(w));
+
         wrappers.forEach((wrapper, i) => {
             // Add margin to wrapper to create scroll space
             if (i < wrappers.length - 1) {
@@ -280,12 +284,20 @@ const ScrollStack = ({
         });
 
         setupLenis();
-        updateCardTransforms();
 
-        window.addEventListener('resize', updateCardTransforms);
+        // Final measurement after a short delay to ensure layout is settled
+        const onResize = () => {
+            cardOffsetsRef.current = cardsRef.current.map(w => getElementOffset(w));
+            updateCardTransforms();
+        };
+
+        const timer = setTimeout(onResize, 100);
+
+        window.addEventListener('resize', onResize);
 
         return () => {
-            window.removeEventListener('resize', updateCardTransforms);
+            clearTimeout(timer);
+            window.removeEventListener('resize', onResize);
             if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
             if (lenisRef.current) lenisRef.current.destroy();
 

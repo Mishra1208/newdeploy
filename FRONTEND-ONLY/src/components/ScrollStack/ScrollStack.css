@@ -1,11 +1,11 @@
 .scroll-stack-scroller {
     position: relative;
     width: 100%;
-    /* Remove height/overflow by default to allow parent to control or window scroll */
     height: auto;
     overflow: visible;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    perspective: 2000px;
 }
 
 .scroll-stack-scroller:not(.use-window-scroll) {
@@ -19,10 +19,10 @@
 
 .scroll-stack-inner {
     padding: 10vh 2rem 30vh;
-    /* Balanced buffer */
     min-height: 100vh;
     margin: 0 auto;
     max-width: 1000px;
+    transform-style: preserve-3d;
 }
 
 .scroll-stack-card-wrapper {
