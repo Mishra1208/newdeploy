@@ -334,8 +334,8 @@ export default function HomePage() {
 
           <h2 className={`${styles.promoTitle} h2`}>
             Save Your Progress. <span style={{
-              background: 'linear-gradient(to right, #8b1e3f, #d946ef)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
+              color: 'var(--secondary)',
+              textShadow: '0 2px 10px rgba(219, 158, 30, 0.2)'
             }}>Sync Across Devices.</span>
           </h2>
           <p className={styles.promoText}>
@@ -344,16 +344,30 @@ export default function HomePage() {
 
           <SignInButton mode="modal">
             <button style={{
-              background: '#171717', color: 'white', border: 'none',
-              padding: '12px 24px', borderRadius: 50, fontSize: 15, fontWeight: 600,
-              cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              transition: 'transform 0.2s'
+              background: 'var(--primary)',
+              color: 'white',
+              border: 'none',
+              padding: '14px 28px',
+              borderRadius: 8,
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 4px 15px rgba(145, 35, 56, 0.3)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              transition: 'all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)'
             }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(145, 35, 56, 0.4)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(145, 35, 56, 0.3)';
+              }}
             >
-              <span style={{ fontSize: 18 }}>🚀</span> Connect with Git / Gmail
+              <span style={{ fontSize: 18 }}>🎓</span> Connect with Git / Gmail
             </button>
           </SignInButton>
 

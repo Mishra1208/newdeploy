@@ -1662,13 +1662,15 @@
 .promoGlow1 {
   top: -200px;
   left: -100px;
-  background: var(--accent);
+  background: var(--primary);
+  /* Burgundy */
 }
 
 .promoGlow2 {
   bottom: -200px;
   right: -100px;
-  background: var(--accent-pink, #f472b6);
+  background: var(--secondary);
+  /* Gold */
 }
 
 [data-theme="dark"] .promoGlow1,
