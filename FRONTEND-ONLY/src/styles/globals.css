@@ -299,8 +299,8 @@ h5 {
   left: 0;
   left: 0;
   right: 0;
-  height: 88px;
-  /* Taller for premium feel */
+  height: 100px;
+  /* EXTRA TALL for BIG LOGO */
   z-index: 1000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   background: rgba(255, 255, 255, 0.85);
@@ -342,8 +342,8 @@ h5 {
 }
 
 .brand-logo {
-  height: 48px;
-  /* BIGGER LOGO */
+  height: 64px;
+  /* MASSIVE LOGO */
   width: auto;
   filter: none;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -367,8 +367,8 @@ h5 {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   /* Extra Bold */
-  font-size: 26px;
-  /* BIGGER TEXT */
+  font-size: 32px;
+  /* MASSIVE TEXT */
   letter-spacing: -0.03em;
   color: var(--ink-primary);
   line-height: 1;
