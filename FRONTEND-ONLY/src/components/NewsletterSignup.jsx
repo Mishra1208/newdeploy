@@ -39,7 +39,7 @@ export default function NewsletterSignup() {
     };
 
     return (
-    return (
+
         <section style={{
             maxWidth: 800,
             margin: "0 auto 120px",
