@@ -53,8 +53,8 @@ export default function Footer() {
         <div>
           <div className={`footer-head ${display.className}`}>Status</div>
           <ul className="footer-list">
-            <li><Link href="#" className="footer-link">Privacy Policy</Link></li>
-            <li><Link href="#" className="footer-link">Terms of Service</Link></li>
+            <li><Link href="/pages/privacy" className="footer-link">Privacy Policy</Link></li>
+            <li><Link href="/pages/terms" className="footer-link">Terms of Service</Link></li>
             <li style={{ marginTop: 12 }}>
               <div style={{
                 display: 'inline-flex',
