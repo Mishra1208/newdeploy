@@ -138,6 +138,7 @@ export default function HomePage() {
     };
   }, []);
 
+  // Force refresh v2
   return (
     <main className={`${styles.page} ${body.className}`}>
 
