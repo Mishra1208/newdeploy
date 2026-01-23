@@ -108,7 +108,7 @@ export default function PrivacyPage() {
                         <p>
                             You have the right to request full deletion of your synced account data at any time. For privacy inquiries or to report a vulnerability, contact the development team directly at:
                         </p>
-                        <a href="mailto:privacy@conuplanner.app" style={{ display: 'inline-block', marginTop: 12, color: '#912338', fontWeight: 600, fontSize: 18 }}>privacy@conuplanner.app</a>
+                        <a href="mailto:mishranarendra1208@gmail.com" style={{ display: 'inline-block', marginTop: 12, color: '#912338', fontWeight: 600, fontSize: 18 }}>mishranarendra1208@gmail.com</a>
                     </PolicySection>
 
                 </div>

@@ -39,7 +39,7 @@ export default function TermsPage() {
                     }}>
                         <span style={{ color: '#db9e1e' }}>⚖️</span> Legal Agreement
                     </div>
-                    <h1 className={display.className} style={{ fontSize: '48px', marginBottom: 16 }}>Terms of Service</h1>
+                    <h1 className={display.className} style={{ fontSize: '48px', marginBottom: 16, color: 'white' }}>Terms of Service</h1>
                     <p style={{ fontSize: '18px', opacity: 0.8, maxWidth: 600, margin: '0 auto', lineHeight: 1.6 }}>
                         Guidelines for using ConU Planner responsibly and ethically.
                     </p>
