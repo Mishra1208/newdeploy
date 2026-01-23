@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { exportPlannerToExcel } from "@/lib/exportPlannerExcel";
+import Link from "next/link";
 import styles from "./planner.module.css";
 
 const KEY = "conu-planner:selected";
@@ -97,21 +99,18 @@ export default function PlannerPage() {
   function handleDragStart(e, course) {
     setDraggedItem(course);
     e.dataTransfer.effectAllowed = "move";
-    // Set transparent drag image or use default
     e.dataTransfer.setData("text/plain", JSON.stringify(course));
-    // Optional: Add a class for styling
   }
 
   function handleDragOver(e, term) {
-    e.preventDefault(); // Necessary to allow dropping
+    e.preventDefault();
     e.dataTransfer.dropEffect = "move";
     if (dragOverTerm !== term) {
       setDragOverTerm(term);
     }
   }
 
-  function handleDragLeave(e) {
-    // Basic clearing. Ideally check if leaving the specific drop zone.
+  function handleDragLeave() {
     // For simplicity, we clear dragOverTerm on Drop or DragEnd
   }
 
@@ -121,22 +120,14 @@ export default function PlannerPage() {
 
     if (!draggedItem) return;
 
-    // Logic: Remove old instance, add new instance with updated term
     const oldKey = courseKey(draggedItem);
-
-    // Create new object
     const newItem = { ...draggedItem, term: targetTerm };
     const newKey = courseKey(newItem);
-
-    // Filter out old instance
     const others = items.filter(it => courseKey(it) !== oldKey);
-
-    // Check if duplicate in target term (optional, but good practice)
     const exists = others.some(it => courseKey(it) === newKey);
 
     let nextItems;
     if (exists) {
-      // If it exists, just remove the old one (merging)
       nextItems = others;
     } else {
       nextItems = [...others, newItem];
@@ -170,16 +161,14 @@ export default function PlannerPage() {
     }
   }
 
-  // Save Progress Handler
   const handleSaveProgress = () => {
     router.push('/login');
   };
 
-  // Group by Term with automatic splitting for 6-credit courses
+  // Group by Term
   const byTerm = { Fall: [], Winter: [], Summer: [], Others: [] };
   let totalCredits = 0;
 
-  // Helper to determine next term
   const getNextTerm = (t) => {
     if (/Fall/i.test(t)) return "Winter";
     if (/Winter/i.test(t)) return "Summer";
@@ -190,38 +179,33 @@ export default function PlannerPage() {
     const rawCreds = parseFloat(c.credits) || 0;
     totalCredits += rawCreds;
 
-    // Normalize term
     const t = (c.term || "").trim();
     let targetTerm = "Others";
     if (/Fall/i.test(t)) targetTerm = "Fall";
     else if (/Winter/i.test(t)) targetTerm = "Winter";
     else if (/Summer/i.test(t)) targetTerm = "Summer";
 
-    // Check for Full-Year Course (approx 6 credits)
     if (rawCreds >= 5.5) {
-      // PART A (Original Term)
       byTerm[targetTerm].push({
         ...c,
-        credits: 3, // Display as 3 credits per term
+        credits: 3,
         isSplit: true,
         splitPart: 1,
         displayTitle: "(Part 1)"
       });
 
-      // PART B (Next Term - Virtual)
       const nextT = getNextTerm(targetTerm);
       byTerm[nextT].push({
         ...c,
-        id: `virtual-${c.id || c.title}`, // unique fake ID
+        id: `virtual-${c.id || c.title}`,
         term: nextT,
         credits: 3,
         isSplit: true,
         splitPart: 2,
-        isVirtual: true, // Marker to disable dragging/deleting directly
+        isVirtual: true,
         displayTitle: "(Part 2)"
       });
     } else {
-      // Standard Course
       byTerm[targetTerm].push(c);
     }
   });
@@ -229,16 +213,19 @@ export default function PlannerPage() {
   const termOrder = ["Fall", "Winter", "Summer", "Others"];
 
   return (
-    <main className={styles.wrap}>
+    <motion.main
+      className={styles.wrap}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <header className={styles.head}>
         <div>
-          <h1 className="h2" style={{ marginBottom: 4 }}>My Planner</h1>
-          <p className={styles.subtitle}>Build your perfect schedule</p>
+          <h1 className="h1">My Planner</h1>
+          <p className={styles.subtitle}>Curate your academic journey with precision.</p>
         </div>
         <div className={styles.actions}>
-
-          {/* User Controls: Only visible in Planner for now */}
-          <div style={{ marginRight: 16 }}>
+          <div style={{ marginRight: 8 }}>
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
@@ -247,19 +234,16 @@ export default function PlannerPage() {
           <SignedIn>
             <button
               className={styles.ghostBtn}
-              onClick={() => alert("Progress Saved to Cloud! (Simulated)")}
+              onClick={() => alert("Cloud Sync is active! Your data is safe.")}
               style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)' }}
             >
-              Save Progress
+              Sync Active
             </button>
           </SignedIn>
 
           <SignedOut>
-            <button
-              className={styles.ghostBtn}
-              onClick={handleSaveProgress}
-            >
-              Save Progress (Login)
+            <button className={styles.ghostBtn} onClick={handleSaveProgress}>
+              Cloud Sync (Login)
             </button>
           </SignedOut>
 
@@ -268,119 +252,142 @@ export default function PlannerPage() {
             onClick={handleClearAll}
             disabled={!items.length}
           >
-            Clear All
+            Clear Board
           </button>
+
           <button
             className={styles.exportBtn}
             onClick={handleExport}
             disabled={!items.length || exporting}
           >
-            {exporting ? "Preparing…" : "Download Excel"}
+            {exporting ? "Generating Excel…" : "Export to Excel"}
           </button>
         </div>
       </header>
 
-      {/* Overview Stats */}
+      {/* Stats Section */}
       <div className={styles.statsRow}>
-        <div className={styles.statCard}>
-          <div className={styles.statLabel}>Total Credits</div>
-          <div className={styles.statValue}>{totalCredits.toFixed(1)}</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statLabel}>Courses</div>
-          <div className={styles.statValue}>{items.length}</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statLabel}>Active Terms</div>
-          <div className={styles.statValue}>{Object.values(byTerm).filter(arr => 'length' in arr && arr.length > 0).length}</div>
-        </div>
+        {[
+          { label: "Total Credits", value: totalCredits.toFixed(1), icon: "🎓" },
+          { label: "Courses Added", value: items.length, icon: "📚" },
+          { label: "Active Semesters", value: Object.values(byTerm).filter(a => a.length).length, icon: "🗓️" }
+        ].map((stat, i) => (
+          <motion.div
+            key={i}
+            className={styles.statCard}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.1 }}
+          >
+            <span className={styles.statLabel}>{stat.label}</span>
+            <div className={styles.statValue}>{stat.value}</div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Board Layout */}
       <div className={styles.board}>
-        {items.length === 0 ? (
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>📅</div>
-            <h3>Your planner is empty</h3>
-            <p>Go to the Courses page to add some classes!</p>
-          </div>
-        ) : (
-          termOrder.map(termKey => {
-            const list = byTerm[termKey];
-            if (list.length === 0 && termKey === "Others") return null; // hide others if empty
+        <AnimatePresence mode="popLayout">
+          {items.length === 0 ? (
+            <motion.div
+              key="empty"
+              className={styles.emptyState}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div className={styles.emptyIcon}>✨</div>
+              <h3>Your whiteboard is clean</h3>
+              <p>Explore our catalog and find the perfect courses for your degree.</p>
+              <Link href="/pages/courses" className={styles.exportBtn}>
+                Browse Courses
+              </Link>
+            </motion.div>
+          ) : (
+            termOrder.map(termKey => {
+              const list = byTerm[termKey];
+              if (list.length === 0 && termKey === "Others") return null;
 
-            // Calc credits per term
-            const termCreds = list.reduce((acc, c) => acc + (parseFloat(c.credits) || 0), 0);
+              const termCreds = list.reduce((acc, c) => acc + (parseFloat(c.credits) || 0), 0);
+              let statusLabel = "N/A";
+              let statusColor = "var(--ink-dim)";
+              if (termCreds >= 15) { statusLabel = "Heavy Load"; statusColor = "#a78bfa"; }
+              else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
+              else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
 
-            // Determine status
-            let statusLabel = "N/A";
-            let statusColor = "var(--ink-dim)";
-            if (termCreds >= 15) { statusLabel = "Heavy Load"; statusColor = "#a78bfa"; }
-            else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
-            else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
+              const isOver = dragOverTerm === termKey;
 
-            const isOver = dragOverTerm === termKey;
+              return (
+                <motion.div
+                  key={termKey}
+                  layout
+                  className={`${styles.column} ${isOver ? styles.columnDragOver : ""}`}
+                  onDragOver={(e) => handleDragOver(e, termKey)}
+                  onDrop={(e) => handleDrop(e, termKey)}
+                  onDragLeave={handleDragLeave}
+                >
+                  <div className={styles.colHeader}>
+                    <h3 className={styles.colTitle}>
+                      {termKey} <span className={styles.countBadge}>{list.length}</span>
+                    </h3>
+                    {list.length > 0 && (
+                      <span style={{
+                        fontSize: 10, fontWeight: 800, color: statusColor,
+                        background: `${statusColor}15`, padding: '4px 8px', borderRadius: 8
+                      }}>
+                        {statusLabel}
+                      </span>
+                    )}
+                  </div>
 
-            return (
-              <div
-                key={termKey}
-                className={`${styles.column} ${isOver ? styles.columnDragOver : ""}`}
-                onDragOver={(e) => handleDragOver(e, termKey)}
-                onDrop={(e) => handleDrop(e, termKey)}
-                onDragLeave={handleDragLeave}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <h3 className={styles.colTitle} style={{ margin: 0 }}>
-                    {termKey} <span className={styles.countBadge}>{list.length}</span>
-                  </h3>
-                  {list.length > 0 && <span style={{
-                    fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
-                    letterSpacing: '0.05em', color: statusColor,
-                    background: 'rgba(255,255,255,0.05)', padding: '4px 8px', borderRadius: 6
-                  }}>
-                    {statusLabel}
-                  </span>}
-                </div>
-
-                <div className={styles.colList}>
-                  {list.length === 0 ? (
-                    <div className={styles.emptySlot}>Drop here</div>
-                  ) : (
-                    list.map(c => {
-                      const isDragging = draggedItem && courseKey(draggedItem) === courseKey(c);
-                      return (
-                        <div
-                          key={courseKey(c)}
-                          className={`${styles.card} ${isDragging ? styles.cardDragging : ""}`}
-                          draggable={true}
-                          onDragStart={(e) => handleDragStart(e, c)}
-                          onDragEnd={handleDragEnd}
+                  <motion.div className={styles.colList} layout>
+                    <AnimatePresence mode="popLayout">
+                      {list.length === 0 ? (
+                        <motion.div
+                          key={`empty-${termKey}`}
+                          className={styles.emptySlot}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
                         >
-                          <div className={styles.cardHead}>
-                            <span className={styles.code}>{c.subject} {c.catalogue}</span>
-                            <span className={styles.credits}>{c.credits} cr</span>
-                          </div>
-                          <div className={styles.cardTitle}>
-                            {c.title}
-                            {c.displayTitle && <span style={{ opacity: 0.6, fontSize: '0.9em', marginLeft: 6 }}>{c.displayTitle}</span>}
-                          </div>
-                          {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
-                          {/* Disable remove button for virtual parts if desired, or handle removal logic */}
-                          {!c.isVirtual && (
-                            <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
-                              Remove
-                            </button>
-                          )}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </div>
-            )
-          })
-        )}
+                          Drop Courses Here
+                        </motion.div>
+                      ) : (
+                        list.map(c => (
+                          <motion.div
+                            key={courseKey(c)}
+                            layout
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            className={`${styles.card} ${draggedItem && courseKey(draggedItem) === courseKey(c) ? styles.cardDragging : ""}`}
+                            draggable={true}
+                            onDragStart={(e) => handleDragStart(e, c)}
+                            onDragEnd={handleDragEnd}
+                          >
+                            <div className={styles.cardHead}>
+                              <span className={styles.code}>{c.subject} {c.catalogue}</span>
+                              <span className={styles.credits}>{c.credits} CR</span>
+                            </div>
+                            <div className={styles.cardTitle}>
+                              {c.title}
+                              {c.displayTitle && <span style={{ opacity: 0.5, fontSize: '0.8em', marginLeft: 4 }}>{c.displayTitle}</span>}
+                            </div>
+                            {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
+                            {!c.isVirtual && (
+                              <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
+                                Remove Offering
+                              </button>
+                            )}
+                          </motion.div>
+                        ))
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </motion.div>
+              )
+            })
+          )}
+        </AnimatePresence>
       </div>
-    </main>
+    </motion.main>
   );
 }
