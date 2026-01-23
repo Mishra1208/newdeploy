@@ -182,7 +182,7 @@ export default function HomePage() {
           variants={fadeInUp}
           style={{
             maxWidth: '900px',
-            margin: '0 auto',
+            margin: '0 auto 120px auto',
             padding: '80px 40px',
             textAlign: 'center',
             background: 'white',
