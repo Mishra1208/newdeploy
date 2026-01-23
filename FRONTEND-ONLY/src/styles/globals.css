@@ -331,6 +331,8 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 40px;
+  /* Force separation between Logo and Links */
 }
 
 /* BRAND */
@@ -342,8 +344,8 @@ h5 {
 }
 
 .brand-logo {
-  height: 64px;
-  /* MASSIVE LOGO */
+  height: 56px;
+  /* Optimized Big Size */
   width: auto;
   filter: none;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -367,11 +369,13 @@ h5 {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   /* Extra Bold */
-  font-size: 32px;
-  /* MASSIVE TEXT */
+  font-size: 28px;
+  /* Balanced Big Text */
   letter-spacing: -0.03em;
   color: var(--ink-primary);
   line-height: 1;
+  white-space: nowrap;
+  /* Prevent wrapping */
 }
 
 .brand-highlight {
@@ -385,6 +389,9 @@ h5 {
   align-items: center;
   gap: 32px;
   /* More breathing room */
+  flex-shrink: 0;
+  /* Prevent links from squashing */
+  padding-right: 12px;
 }
 
 /* Styles for NavLink items */
@@ -397,6 +404,8 @@ h5 {
   padding: 8px 12px;
   border-radius: 8px;
   transition: all 0.2s ease;
+  white-space: nowrap;
+  /* Ensure links stay on one line */
 }
 
 .nav-link-premium:hover {
