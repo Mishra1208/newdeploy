@@ -1,7 +1,7 @@
 "use client";
 
 import ScrollStack, { ScrollStackItem } from "./ScrollStack/ScrollStack";
-import { TreeMockup, GPAMockup, PlannerMockup } from "./FeatureMockups";
+import { TreeMockup, GPAMockup, PlannerMockup, CatalogMockup, SeatMockup } from "./FeatureMockups";
 import Link from 'next/link';
 
 const features = [
@@ -32,11 +32,7 @@ const features = [
     {
         title: "Complete Course Catalog",
         desc: "Search instantly across all departments. Filter by credits, terms, and prerequisites.",
-        mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', fontSize: '8rem' }}>
-                📚
-            </div>
-        ),
+        mockup: <CatalogMockup />,
         link: "/pages/courses",
         color: "#fff",
         accent: "#7a1d2f" // Dark Burgundy
@@ -44,11 +40,7 @@ const features = [
     {
         title: "Seat Finder",
         desc: "Never miss a class. Real-time alerts when seats open up in full courses.",
-        mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', fontSize: '8rem' }}>
-                🪑
-            </div>
-        ),
+        mockup: <SeatMockup />,
         link: "/pages/seat-finder",
         color: "#fff",
         accent: "#db9e1e" // Gold
