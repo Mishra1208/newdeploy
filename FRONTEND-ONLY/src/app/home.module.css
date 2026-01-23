@@ -34,31 +34,105 @@
 }
 
 /* Badge: "Engineering" style -> "Academic" style */
+/* Badge: Premium Pill */
 .proBadge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  font-family: var(--font-mono, monospace);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-dim);
-  margin-bottom: 32px;
-  font-weight: 600;
+  gap: 8px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 99px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink-primary);
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .title {
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  line-height: 1.1;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  /* MASSIVE TITLE */
+  line-height: 1;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   color: var(--primary);
-  /* Burgundy Heading */
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--primary) 30%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Workflow Row (Static + Dynamic Text) */
+.workflowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.workflowStatic {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+.rotatorChip {
+  padding: 8px 24px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 20px;
+  display: inline-block;
+}
+
+.heroSubtitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
 }
 
 /* --- COMMAND PALETTE (SEARCH) --- */
