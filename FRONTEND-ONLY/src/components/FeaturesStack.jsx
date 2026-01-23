@@ -70,25 +70,35 @@ export default function FeaturesStack() {
                     <ScrollStackItem key={i}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', height: '100%', width: '100%', color: 'inherit' }}>
 
-                            {/* Visual Side (Premium Grey Background) */}
+                            {/* Visual Side (Dynamic Premium Gradient) */}
                             <div style={{
                                 position: 'relative',
-                                background: '#F5F5F7', // Apple Light Grey
-                                borderRight: '1px solid rgba(0,0,0,0.05)',
+                                background: `linear-gradient(135deg, ${feat.accent}12 0%, #FAFAFA 100%)`, // Subtle tint of accent
+                                borderRight: '1px solid rgba(0,0,0,0.04)',
                                 overflow: 'hidden',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                padding: '60px'
+                                padding: '40px'
                             }}>
-                                <div style={{ transform: 'scale(1.1)', transformOrigin: 'center' }}>
+                                {/* Ambient Glow behind mockup */}
+                                <div style={{
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: '100%',
+                                    background: `radial-gradient(circle at center, ${feat.accent}15 0%, transparent 70%)`,
+                                    filter: 'blur(40px)',
+                                    pointerEvents: 'none'
+                                }} />
+
+                                <div style={{ transform: 'scale(1.35)', transformOrigin: 'center', position: 'relative', zIndex: 2 }}>
                                     {feat.mockup}
                                 </div>
                             </div>
 
                             {/* Content Side (Clean White) */}
                             <div style={{
-                                padding: '64px',
+                                padding: '56px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
@@ -96,37 +106,42 @@ export default function FeaturesStack() {
                             }}>
                                 <h3 style={{
                                     fontFamily: 'var(--font-inter), system-ui, sans-serif',
-                                    fontSize: '42px',
+                                    fontSize: '36px',
                                     fontWeight: 700,
-                                    marginBottom: '20px',
-                                    letterSpacing: '-0.02em',
-                                    color: feat.accent,
-                                    lineHeight: 1.1
+                                    marginBottom: '14px',
+                                    letterSpacing: '-0.03em',
+                                    color: '#1a1a1a', // Deep Black for contrast
+                                    lineHeight: 1.15
                                 }}>
                                     {feat.title}
                                 </h3>
                                 <p style={{
-                                    fontSize: '20px',
-                                    color: '#555557', // Premium dark grey
-                                    lineHeight: 1.5,
-                                    maxWidth: '90%',
-                                    fontWeight: 400
+                                    fontSize: '17px',
+                                    color: '#666', // Softer grey
+                                    lineHeight: 1.6,
+                                    maxWidth: '92%',
+                                    fontWeight: 500
                                 }}>
                                     {feat.desc}
                                 </p>
                                 <Link href={feat.link} style={{ textDecoration: 'none' }}>
                                     <div style={{
-                                        marginTop: '40px',
+                                        marginTop: '36px',
                                         display: 'inline-flex',
                                         alignItems: 'center',
-                                        gap: '6px',
-                                        fontSize: '16px',
+                                        gap: '8px',
+                                        padding: '12px 24px',
+                                        background: '#f5f5f7',
+                                        borderRadius: '100px',
+                                        fontSize: '14px',
                                         fontWeight: 600,
                                         color: feat.accent,
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s ease',
+                                        border: `1px solid ${feat.accent}20`
                                     }}>
-                                        <span style={{ borderBottom: `2px solid ${feat.accent}30` }}>Explore Feature</span>
-                                        <span style={{ transition: 'transform 0.2s' }}>→</span>
+                                        <span>Explore Feature</span>
+                                        <span style={{ fontSize: '1.1em' }}>→</span>
                                     </div>
                                 </Link>
                             </div>
