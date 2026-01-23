@@ -200,53 +200,89 @@
 /* --- FEATURE SHOWCASE (BENTO Grid) --- */
 .bentoSection {
   padding: 80px 20px;
-  max-width: 1200px;
+  max-width: 1280px;
+  /* Wider for more breathing room */
   margin: 0 auto;
 }
 
 .bentoGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  grid-auto-rows: minmax(300px, auto);
+  gap: 32px;
+  /* Bigger gaps */
+  grid-auto-rows: minmax(360px, auto);
+  /* Taller cards */
 }
 
+/* Apple-style Glass Card */
 .featureCard {
-  background: #F9FAFB;
-  /* Light Grey Card */
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  /* Square */
+  background: rgba(255, 255, 255, 0.65);
+  /* Frosty */
+  backdrop-filter: blur(24px);
+  /* Heavy Blur */
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  /* Super Round */
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.02),
+    0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  /* Subtle outline ring */
 }
 
 .featureCard:hover {
-  border-color: var(--secondary);
-  /* Gold Hover */
-  transform: translateY(-2px);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.05),
+    0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 .cardContent {
-  padding: 32px;
+  padding: 40px;
   z-index: 10;
+  margin-top: auto;
+  /* Push content to bottom usually looks premium */
 }
 
 .cardTitle {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--primary);
-  /* Burgundy Title */
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px;
+  /* Bigger Headline */
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: #1d1d1f;
+  /* Apple Black */
 }
 
 .cardDesc {
-  font-size: 15px;
-  color: var(--ink-secondary);
-  line-height: 1.6;
+  font-size: 17px;
+  color: #86868b;
+  /* Apple Grey */
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 90%;
+}
+
+.colSpan2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .colSpan2 {
+    grid-column: span 1;
+  }
 }
 
 /* --- BUTTONS --- */
