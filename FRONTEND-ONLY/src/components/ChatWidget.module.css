@@ -2,21 +2,22 @@
 /* --- Variables & Theme --- */
 .container {
   --panel-width: 420px;
-  --primary: #6366f1;
-  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  --primary: #912338;
+  /* Burgundy */
+  --primary-gradient: linear-gradient(135deg, #912338 0%, #7a1d2f 100%);
+  --secondary-gradient: linear-gradient(135deg, #db9e1e 0%, #b8861b 100%);
+  /* Gold */
 
   /* SOLID COLORS - NO TRANSPARENCY */
   --glass-bg: #ffffff;
   --glass-border: #e2e8f0;
-  --glass-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
-  /* Deeper shadow */
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
-  --msg-ai-bg: #f1f5f9;
-  --msg-ai-text: #0f172a;
-  /* Dark text for light bubble */
+  --msg-ai-bg: #f3f4f6;
+  --msg-ai-text: #1f2937;
+
   --msg-user-text: #fff;
-  --font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: 'Inter', sans-serif;
 
   position: fixed;
   right: 24px;
@@ -281,14 +282,12 @@
 }
 
 .msgUser .msgText {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  /* More vibrant purple */
+  background: var(--primary);
+  /* Solid Burgundy */
   color: var(--msg-user-text);
   border-bottom-right-radius: 4px;
-  box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.4);
-  /* Colored shadow */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle inner border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
 }
 
 /* --- Chips --- */
@@ -320,7 +319,10 @@
 /* Icon injection for chips */
 .actionChip::before {
   content: '⚡';
+  /* Could replace with something more academic like '•' */
   font-size: 0.8em;
+  color: #db9e1e;
+  /* Gold Icon */
 }
 
 .actionChip:hover {
@@ -410,9 +412,9 @@
 
 .send::after {
   content: '➤';
-  font-size: 20px;
-  transform: translateX(-1px) rotate(-45deg);
-  /* Paper plane angle */
+  font-size: 18px;
+  transform: translateX(2px) rotate(0deg);
+  /* Straight arrow */
   display: block;
 }
 

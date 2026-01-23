@@ -6,37 +6,42 @@
 /*                                 VARIABLES                                  */
 /* -------------------------------------------------------------------------- */
 :root {
-  /* Bases */
-  --bg-page: #fdfcfa;
-  /* Warm academic paper white */
-  --bg-panel: #ffffff;
-  --bg-soft: #f3f4f6;
+  /* Bases - Clean Academic Look */
+  --bg-page: #FFFFFF;
+  --bg-panel: #F4F4F4;
+  /* Light grey for distinct sections */
+  --bg-soft: #E5E5E5;
+  /* Slightly darker for inputs/secondary */
 
-  --ink-primary: #1e1b4b;
-  /* Deep indigo ink (almost black) */
-  --ink-secondary: #475569;
-  /* Slate for subtitles */
-  --ink-dim: #94a3b8;
+  --ink-primary: #212121;
+  /* Sharp Black/Grey */
+  --ink-secondary: #595959;
+  --ink-dim: #757575;
 
-  /* Brand Colors */
-  --primary: #8b1e3f;
-  /* Concordia Burgundy */
-  --secondary: #d97706;
-  /* Gold/Amber */
-  --accent: #d946ef;
-  /* Modern Magenta Pop */
+  /* Brand Colors - Concordia Identity */
+  --primary: #912338;
+  /* Burgundy */
+  --secondary: #db9e1e;
+  /* Gold */
+  --accent: #db9e1e;
+  /* Gold (unifying accent) */
+  --accent-2: #cfa03c;
+  /* Darker Gold for gradients if needed */
 
-  /* Utils */
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+  /* Utils - Squared/Professional */
+  --radius-lg: 8px;
+  --radius-md: 4px;
+  --radius-sm: 2px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
 
   /* Nav Specific */
-  --nav-bg: rgba(255, 255, 255, 0.85);
-  --nav-border: rgba(0, 0, 0, 0.05);
+  --nav-bg: #912338;
+  /* Solid Burgundy Header */
+  --nav-border: transparent;
+  --nav-text: #FFFFFF;
 }
 
 [data-theme="dark"] {
@@ -92,53 +97,59 @@ button {
 /* Navigation: Floating Pill Style */
 .site-nav {
   position: sticky;
-  top: 20px;
-  /* Floating off top */
+  top: 0;
   z-index: 1000;
   display: flex;
   justify-content: center;
-  padding: 0 20px;
-  pointer-events: none;
-  /* Let clicks pass through the sides */
+  width: 100%;
+  background: var(--nav-bg);
+  /* Solid Burgundy */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-bottom: 4px solid var(--secondary);
+  /* Gold Trim */
 }
 
 .site-nav__inner {
-  pointer-events: auto;
-  background: var(--nav-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--nav-border);
-  padding: 12px 24px;
-  border-radius: 50px;
-  /* Pill shape */
+  width: 100%;
+  max-width: 1280px;
+  /* Standard Container Width */
+  padding: 0 40px;
+  height: 80px;
+  /* Fixed Height */
   display: flex;
   align-items: center;
-  gap: 32px;
-  box-shadow: var(--shadow-md);
-  max-width: 900px;
-  width: 100%;
   justify-content: space-between;
 }
 
 .brandLogo {
-  height: 32px;
+  height: 40px;
+  /* Slightly larger */
   width: auto;
+  filter: brightness(0) invert(1);
+  /* Force White Logo */
 }
 
 .site-nav__inner ul {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 }
 
 .site-nav__inner a {
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
+  font-weight: 600;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  /* Off-white text */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
 }
 
 .site-nav__inner a.active,
 .site-nav__inner a:hover {
-  color: var(--primary);
+  color: var(--secondary);
+  /* Gold */
+  opacity: 1;
 }
 
 /* Typography */
@@ -218,12 +229,60 @@ h5 {
   animation: glowPulse 1.5s infinite;
 }
 
-/* Ensure the Clerk button inside fits nicely and is larger */
-.user-avatar-fancy .cl-userButton-root {
-  display: block;
+/* University Footer */
+.site-footer {
+  background: #2a0a12;
+  /* Very Dark Burgundy */
+  color: #ffffff;
+  padding: 80px 0 40px;
+  margin-top: auto;
+  border-top: 4px solid var(--secondary);
+  /* Gold Trim */
 }
 
-.user-avatar-fancy .cl-userButton-avatarBox {
-  width: 40px;
-  height: 40px;
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-head {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--secondary);
+  /* Gold */
+  margin-bottom: 24px;
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  padding-top: 32px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
