@@ -176,11 +176,19 @@ export const CatalogMockup = () => (
                             justifyContent: 'center',
                             textAlign: 'center'
                         }}>
-                            <div style={{ height: 4, width: 30, background: 'rgba(255,255,255,0.3)', borderRadius: 2, marginBottom: 12 }} />
-                            <span style={{ color: '#fff', fontSize: '14px', fontWeight: 800, lineHeight: 1.2, letterSpacing: '0.02em', fontFamily: 'var(--font-inter)' }}>
+                            <div style={{ height: 4, width: 30, background: 'rgba(255, 215, 0, 0.3)', borderRadius: 2, marginBottom: 12 }} />
+                            <span style={{
+                                color: '#FFD700', // Gold/Yellow
+                                fontSize: '14px',
+                                fontWeight: 800,
+                                lineHeight: 1.2,
+                                letterSpacing: '0.02em',
+                                fontFamily: 'var(--font-inter)',
+                                textShadow: '0 0 15px rgba(255, 215, 0, 0.6)' // Glowing effect
+                            }}>
                                 ConU<br />Planner
                             </span>
-                            <div style={{ height: 4, width: 20, background: 'rgba(255,255,255,0.3)', borderRadius: 2, marginTop: 12 }} />
+                            <div style={{ height: 4, width: 20, background: 'rgba(255, 215, 0, 0.3)', borderRadius: 2, marginTop: 12 }} />
                         </div>
                     ) : (
                         <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
