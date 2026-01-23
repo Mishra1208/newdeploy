@@ -162,35 +162,39 @@
 
 .commandPalette {
   width: 100%;
-  background: #ffffff;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  /* Square corners */
-  padding: 18px 20px 18px 50px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  /* Minimal Border */
+  border-radius: 16px;
+  /* Modern Roundness */
+  padding: 20px 24px 20px 56px;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 17px;
   color: var(--ink-primary);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-  transition: all 0.2s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .commandPalette:focus {
   outline: none;
   border-color: var(--secondary);
-  /* Gold Border */
-  box-shadow: 0 0 0 4px rgba(219, 158, 30, 0.15);
+  box-shadow: 0 12px 40px rgba(219, 158, 30, 0.15);
+  /* Gold Glow */
+  transform: translateY(-2px);
 }
 
 .searchIcon {
   position: absolute;
-  left: 20px;
+  left: 24px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.5;
+  opacity: 1;
   width: 20px;
   height: 20px;
   pointer-events: none;
-  color: var(--primary);
+  color: var(--secondary);
+  /* Gold Icon */
 }
 
 /* --- FEATURE SHOWCASE (BENTO Grid) --- */
@@ -251,19 +255,69 @@
   border: 0;
   outline: 0;
   cursor: pointer;
-  padding: 14px 28px;
-  border-radius: 4px;
-  /* Square */
+  padding: 16px 36px;
+  border-radius: 99px;
+  /* Pill Shape */
   font-weight: 700;
   color: #fff;
-  background: var(--primary);
-  /* Solid Burgundy */
+  background: linear-gradient(135deg, var(--primary) 0%, #701b2b 100%);
+  /* Premium Gradient */
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 16px;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(145, 35, 56, 0.25);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(145, 35, 56, 0.35);
+}
+
+.btnGhost {
+  appearance: none;
+  border: 1px solid rgba(219, 158, 30, 0.4);
+  /* Gold Border */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  color: var(--ink-primary);
+  padding: 16px 36px;
+  border-radius: 99px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.btnGhost:hover {
+  background: white;
+  border-color: var(--secondary);
+  color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+border: 0;
+outline: 0;
+cursor: pointer;
+padding: 14px 28px;
+border-radius: 4px;
+/* Square */
+font-weight: 700;
+color: #fff;
+background: var(--primary);
+/* Solid Burgundy */
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-size: 16px;
+transition: background 0.2s;
 }
 
 .btnPrimary:hover {
