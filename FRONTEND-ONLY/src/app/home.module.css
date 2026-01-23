@@ -1754,18 +1754,16 @@
   overflow: hidden;
   border-radius: 24px;
 
-  /* Premium Crisp Look */
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow:
-    0 20px 40px -5px rgba(0, 0, 0, 0.05),
-    0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  /* Minimized for Text-Only Look */
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 [data-theme="dark"] .loginPromoWidget {
   /* Dark Theme Overrides */
-  background: rgba(15, 23, 42, 0.4);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border-color: transparent;
 }
 
 .promoTitle {
