@@ -80,10 +80,8 @@ const ScrollStack = ({
         const stackPositionPx = parsePercentage(stackPosition, containerHeight);
         const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
 
-        // End element for pinning reference
-        const endElement = useWindowScroll
-            ? document.querySelector('.scroll-stack-end')
-            : scrollerRef.current?.querySelector('.scroll-stack-end');
+        // End element for pinning reference - Scope to scrollerRef for robustness
+        const endElement = scrollerRef.current?.querySelector('.scroll-stack-end');
 
         const endElementTop = endElement ? getElementOffset(endElement) : 0;
 
@@ -259,12 +257,8 @@ const ScrollStack = ({
         const scroller = scrollerRef.current;
         if (!scroller && !useWindowScroll) return;
 
-        // FIND WRAPPERS
-        const wrappers = Array.from(
-            useWindowScroll
-                ? document.querySelectorAll('.scroll-stack-card-wrapper')
-                : scroller.querySelectorAll('.scroll-stack-card-wrapper')
-        );
+        // FIND WRAPPERS - Always scope to the scroller ref for safety
+        const wrappers = Array.from(scrollerRef.current?.querySelectorAll('.scroll-stack-card-wrapper') || []);
 
         cardsRef.current = wrappers;
         const transformsCache = lastTransformsRef.current;
@@ -288,7 +282,10 @@ const ScrollStack = ({
         setupLenis();
         updateCardTransforms();
 
+        window.addEventListener('resize', updateCardTransforms);
+
         return () => {
+            window.removeEventListener('resize', updateCardTransforms);
             if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
             if (lenisRef.current) lenisRef.current.destroy();
 
@@ -314,7 +311,10 @@ const ScrollStack = ({
     ]);
 
     return (
-        <div className={`scroll-stack-scroller ${className}`.trim()} ref={scrollerRef}>
+        <div
+            className={`scroll-stack-scroller ${className} ${useWindowScroll ? 'use-window-scroll' : ''}`.trim()}
+            ref={scrollerRef}
+        >
             <div className="scroll-stack-inner">
                 {children}
                 <div className="scroll-stack-end" />

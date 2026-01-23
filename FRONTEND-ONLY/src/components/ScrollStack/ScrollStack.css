@@ -1,14 +1,19 @@
 .scroll-stack-scroller {
     position: relative;
     width: 100%;
+    /* Remove height/overflow by default to allow parent to control or window scroll */
+    height: auto;
+    overflow: visible;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.scroll-stack-scroller:not(.use-window-scroll) {
     height: 100%;
     overflow-y: auto;
-    overflow-x: visible;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
     will-change: scroll-position;
 }
 
@@ -31,9 +36,8 @@
     transform-style: preserve-3d;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     height: 420px;
-    /* Sleek compact height */
     width: 100%;
-    margin: 40px 0;
+    margin: 0;
     padding: 0;
     /* Let content handle padding */
     border-radius: 32px;
