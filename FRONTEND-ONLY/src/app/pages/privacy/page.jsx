@@ -98,13 +98,26 @@ export default function PrivacyPage() {
                         </p>
                     </PolicySection>
 
-                    <PolicySection title="4. External Data Sources" icon="☁️">
+                    <PolicySection title="4. Cookies & Analytics" icon="🍪">
+                        <p>
+                            We use cookies for two purposes:
+                        </p>
+                        <ul style={{ listStyle: 'disc', paddingLeft: 24, margin: '12px 0', color: '#555' }}>
+                            <li><strong>Essential:</strong> To keep you logged in (provided by Clerk). These cannot be disabled.</li>
+                            <li><strong>Analytics:</strong> To understand site traffic (provided by Vercel). These are <strong>optional</strong>.</li>
+                        </ul>
+                        <p>
+                            You have full control. You can decline analytics cookies via our banner, or change your mind at any time using the <em>"Cookie Settings"</em> link in the footer.
+                        </p>
+                    </PolicySection>
+
+                    <PolicySection title="5. External Data Sources" icon="☁️">
                         <p>
                             Course data is aggregated from public Concordia University course catalogues. While we strive for accuracy, official university data (on the Student Hub) always supersedes the information presented here.
                         </p>
                     </PolicySection>
 
-                    <PolicySection title="5. Contact & Data Removal" icon="📩">
+                    <PolicySection title="6. Contact & Data Removal" icon="📩">
                         <p>
                             You have the right to request full deletion of your synced account data at any time. For privacy inquiries or to report a vulnerability, contact the development team directly at:
                         </p>

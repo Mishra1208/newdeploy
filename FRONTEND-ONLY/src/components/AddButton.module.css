@@ -1,0 +1,62 @@
+.addBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--ink-secondary);
+}
+
+.addBtn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--ink-primary);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.addBtn[data-state="added"] {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.addBtn[data-state="exists"] {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+.addIcon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+}
+
+[data-theme="dark"] .addBtn {
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .addBtn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+/* Added State Hover -> Remove */
+.addBtn[data-state="added"]:hover {
+    background: rgba(145, 35, 56, 0.1) !important;
+    color: #912338 !important;
+    border-color: rgba(145, 35, 56, 0.2) !important;
+}
+
+/* Dark mode overrides for remove hover */
+:global([data-theme="dark"]) .addBtn[data-state="added"]:hover {
+    background: rgba(244, 63, 94, 0.15) !important;
+    color: #f43f5e !important;
+    border-color: rgba(244, 63, 94, 0.3) !important;
+}

@@ -43,6 +43,11 @@ export default function PremiumNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = scrollY.getPrevious();
@@ -113,17 +118,21 @@ export default function PremiumNavbar() {
 
                         <div className="divider" />
 
-                        <SignedOut>
-                            <Link href="/login" className="login-btn-premium">
-                                Log In
-                            </Link>
-                        </SignedOut>
+                        {mounted && (
+                            <>
+                                <SignedOut>
+                                    <Link href="/login" className="login-btn-premium">
+                                        Log In
+                                    </Link>
+                                </SignedOut>
 
-                        <SignedIn>
-                            <div className="user-avatar-premium">
-                                <UserButton afterSignOutUrl="/" />
-                            </div>
-                        </SignedIn>
+                                <SignedIn>
+                                    <div className="user-avatar-premium">
+                                        <UserButton afterSignOutUrl="/" />
+                                    </div>
+                                </SignedIn>
+                            </>
+                        )}
 
                         <PremiumThemeToggle />
                     </nav>

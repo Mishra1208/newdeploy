@@ -63,6 +63,21 @@ export default function CoursesPage() {
   const [selectedKeys, setSelectedKeys] = useState(new Set());
   const [toast, setToast] = useState(null);
   const [visibleCount, setVisibleCount] = useState(50);
+  const [showTopBtn, setShowTopBtn] = useState(false);
+
+  // Scroll to Top Logic
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 400) setShowTopBtn(true);
+      else setShowTopBtn(false);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const refreshSelectedFromStorage = () => {
     const list = loadList();
@@ -161,6 +176,22 @@ export default function CoursesPage() {
     broadcastPlannerChange();
     setToast({ text: "Added to planner", kind: "ok" });
     return true;
+  }
+
+  async function removeFromPlanner(course) {
+    const key = courseKey(course);
+    const list = loadList();
+    const next = list.filter((i) => courseKey(i) !== key);
+    saveList(next);
+
+    setSelectedKeys((prev) => {
+      const s = new Set(prev);
+      s.delete(key);
+      return s;
+    });
+
+    broadcastPlannerChange();
+    setToast({ text: "Removed from planner", kind: "ok" });
   }
 
   // --- Logic for "Catalog View" vs "Grid View" ---
@@ -312,31 +343,162 @@ export default function CoursesPage() {
     );
   };
 
-  // --- Spotlight Hero Component ---
-  const SpotlightHero = () => (
-    <div className={styles.spotlightHero}>
-      <div className={styles.spotlightBg} />
-      <div className={styles.spotlightContent}>
-        <span className={styles.spotlightBadge}>🔥 Trending now</span>
-        <h2 className={styles.spotlightTitle}>COMP 352</h2>
-        <p className={styles.spotlightDesc}>
-          Data Structures & Algorithms. The fundamental logic behind every great piece of software.
-          Master the art of efficiency.
-        </p>
-        <button
-          className={styles.applyBtn}
-          onClick={() => {
-            // Mock add behavior or scroll to it. For now just a trigger.
-            router.push("/pages/courses?search=COMP%20352");
-          }}
-        >
-          View Course
-        </button>
-      </div>
-    </div>
-  );
+  // --- Spotlight Hero Component (Premium Carousel) ---
+  const SpotlightHero = () => {
+    const [current, setCurrent] = useState(0);
 
-  // Helper to render a single card
+    const SLIDES = [
+      {
+        badge: "🔥 Featured Course",
+        title: "COMP 352",
+        subtitle: "Data Structures & Algorithms",
+        desc: "The fundamental logic behind every great piece of software. Master efficiency, complexity analysis, and advanced data organization.",
+        btnPrimary: "View Details",
+        actionPrimary: () => router.push("/pages/courses?search=COMP%20352"),
+        btnSecondary: "Prerequisites: COMP 248, MATH 203",
+        visual: "book"
+      },
+      {
+        badge: "🎓 Degree Planner",
+        title: "Build Your Degree",
+        subtitle: "Simple & Powerful",
+        desc: "Swipe courses into your backpack. Check credits, terms, and conflicts in seconds. Your entire degree map, visualized.",
+        btnPrimary: "Go to Planner",
+        actionPrimary: () => router.push("/pages/planner"),
+        btnSecondary: "Try it now",
+        visual: "planner"
+      },
+      {
+        badge: "🌳 Prerequisite Tree",
+        title: "Visualize Your Path",
+        subtitle: "Never Get Stuck",
+        desc: "See exactly what you need for 400-level electives with our interactive dependency trees. Plan 3 steps ahead.",
+        btnPrimary: "Explore Trees",
+        actionPrimary: () => router.push("/pages/tree"),
+        btnSecondary: "Interactive Demo",
+        visual: "tree"
+      },
+      {
+        badge: "💺 Seat Finder",
+        title: "Find Your Spot",
+        subtitle: "Real-time Seat Availability",
+        desc: "Don't gamble with your study time. Check real-time seat availability in the library and quiet zones before you go.",
+        btnPrimary: "Check Seats",
+        actionPrimary: () => router.push("/pages/seat-finder"),
+        btnSecondary: "View Map",
+        visual: "seat"
+      }
+    ];
+
+    // Auto-rotate
+    useEffect(() => {
+      const t = setInterval(() => {
+        setCurrent(prev => (prev + 1) % SLIDES.length);
+      }, 8000);
+      return () => clearInterval(t);
+    }, []);
+
+    const slide = SLIDES[current];
+
+    return (
+      <div className={styles.spotlightHero}>
+        <div className={styles.spotlightBg} />
+
+        {/* Carousel Content */}
+        {SLIDES.map((s, idx) => (
+          <div
+            key={idx}
+            className={`${styles.heroSlide} ${idx === current ? styles.heroSlideActive : ""}`}
+          >
+            <div className={styles.spotlightContent}>
+              <div className={styles.spotlightBadge}>
+                <span className={styles.fireIcon}>{s.badge.split(" ")[0]}</span> {s.badge.split(" ").slice(1).join(" ")}
+              </div>
+              <h2 className={styles.spotlightTitle}>{s.title}</h2>
+              <div className={styles.spotlightSubtitle}>{s.subtitle}</div>
+              <p className={styles.spotlightDesc}>{s.desc}</p>
+
+              <div className={styles.heroActions}>
+                <button className={styles.heroBtnPrimary} onClick={s.actionPrimary}>
+                  {s.btnPrimary}
+                </button>
+                <button className={styles.heroBtnSecondary}>
+                  {s.btnSecondary}
+                </button>
+              </div>
+            </div>
+
+            {/* Unique Visual per Slide */}
+            <div className={styles.spotlightVisual}>
+              {s.visual === "book" && (
+                <div className={styles.book3d}>
+                  <div className={styles.bookCover}>
+                    <div className={styles.bookSpine}></div>
+                    <div className={styles.bookFace}>
+                      <span className={styles.bookTitle}>DS &<br />ALGO</span>
+                      <span className={styles.bookCode}>COMP 352</span>
+                    </div>
+                  </div>
+                  <div className={styles.bookPages}></div>
+                  <div className={styles.bookShadow}></div>
+                </div>
+              )}
+
+              {s.visual === "planner" && (
+                <div className={styles.plannerStack}>
+                  <div className={`${styles.plannerCard} ${styles.pCard3}`}>ELECTIVE</div>
+                  <div className={`${styles.plannerCard} ${styles.pCard2}`}>CORE</div>
+                  <div className={`${styles.plannerCard} ${styles.pCard1}`}>
+                    <span>Next Term</span>
+                  </div>
+                </div>
+              )}
+
+              {s.visual === "tree" && (
+                <div className={styles.treeVisual}>
+                  <div className={`${styles.treeLine} ${styles.line1}`}></div>
+                  <div className={`${styles.treeLine} ${styles.line2}`}></div>
+                  <div className={`${styles.treeLine} ${styles.line3}`}></div>
+                  <div className={`${styles.treeLine} ${styles.line4}`}></div>
+
+                  <div className={`${styles.treeNode} ${styles.tNode1}`}>ROOT</div>
+                  <div className={`${styles.treeNode} ${styles.tNode2}`}>PRE</div>
+                  <div className={`${styles.treeNode} ${styles.tNode3}`}>REQ</div>
+                  <div className={`${styles.treeNode} ${styles.tNode4}`}>NEXT</div>
+                </div>
+              )}
+
+              {s.visual === "seat" && (
+                <div className={styles.seatVisual}>
+                  <div className={styles.seatMap}>
+                    {/* Row 1 */}
+                    <div className={`${styles.seat} ${styles.seattaken}`} />
+                    <div className={`${styles.seat} ${styles.seatfree}`} />
+                    {/* Row 2 */}
+                    <div className={styles.seat} />
+                    <div className={`${styles.seat} ${styles.seattaken}`} />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Navigation Dots */}
+        <div className={styles.heroNav}>
+          {SLIDES.map((_, idx) => (
+            <div
+              key={idx}
+              className={`${styles.heroDot} ${idx === current ? styles.heroDotActive : ""}`}
+              onClick={() => setCurrent(idx)}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Helper to render a single card (Premium Card Style)
   const renderCard = (c) => {
     const k = courseKey(c);
     const isSelected = selectedKeys.has(k);
@@ -346,58 +508,72 @@ export default function CoursesPage() {
 
     return (
       <div key={k} className={`card ${isSelected ? styles.cardSelected : ""}`} style={{
-        display: "flex", flexDirection: "column", gap: "12px", padding: "24px",
-        // Force width in flex row (Catalog View) vs auto in Grid
-        minWidth: isDefaultView ? "300px" : undefined,
-        maxWidth: isDefaultView ? "300px" : undefined,
+        display: "flex", flexDirection: "column", padding: "0",
+        minWidth: isDefaultView ? "340px" : undefined,
+        maxWidth: isDefaultView ? "340px" : undefined,
       }}>
+        {/* Card Header / Gradient Strip */}
+        <div className={styles.cardHeaderStrip}></div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", position: "relative", zIndex: 2 }}>
-          <div className="courseCode" style={{
-            background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
-            WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
-            fontWeight: "800", fontSize: "14px", letterSpacing: "0.05em"
-          }}>
-            {c?.subject} {c?.catalogue}
+        <div style={{ padding: "24px", display: "flex", flexDirection: "column", flex: 1, gap: "12px" }}>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div className={styles.courseCodeBadge}>
+              {c?.subject} {c?.catalogue}
+            </div>
+            {isSelected &&
+              <div className={styles.animPop} style={{
+                color: "#10b981", fontSize: "11px", fontWeight: "800",
+                textTransform: "uppercase", letterSpacing: "0.05em",
+                background: "rgba(16, 185, 129, 0.1)", padding: "4px 8px", borderRadius: "99px"
+              }}>
+                Added
+              </div>
+            }
           </div>
-          {isSelected && <div className={styles.animPop} style={{ color: "#22c55e", fontSize: "12px", fontWeight: "700" }}>ADDED</div>}
-        </div>
 
-        <div className={`cardTitle ${isSelected ? styles.cardTitleAdded : ""}`} style={{
-          fontSize: "18px", fontWeight: "700", lineHeight: "1.3", margin: "4px 0",
-          position: "relative", zIndex: 2
-        }}>
-          {c?.title}
-        </div>
-
-        {/* Vibe Tags */}
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "4px" }}>
-          {vibes.map((v, i) => (
-            <span key={i} className={`${styles.vibeTag} ${styles[v.type]}`}>{v.label}</span>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
-          <span className={styles.tag}>{(c?.credits ?? "-")} cr</span>
-          {c?.session && <span className={styles.tag}>{c.session}</span>}
-          {c?.term && <span className={styles.tag}>{c.term}</span>}
-        </div>
-
-        <div style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative", zIndex: 2 }}>
-          <div className={isSelected ? styles.animPop : ""}>
-            <AddButton onAdd={() => addToPlanner(c)} />
+          <div className={styles.cardTitle}>
+            {c?.title}
           </div>
-          <div style={{ display: "flex", gap: "4px" }}>
-            <a className={styles.ghostBtn} href={descHref}>
-              Details
-            </a>
-            <a
-              className={styles.ghostBtn}
-              href={`/pages/tree?code=${c.subject}-${c.catalogue}`}
-              title="View Prerequisite Tree"
-            >
-              Tree ↗
-            </a>
+
+          {/* Vibe Tags & Info */}
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "4px" }}>
+            {vibes.map((v, i) => (
+              <span key={i} className={`${styles.vibeTag} ${styles[v.type]}`}>{v.label}</span>
+            ))}
+          </div>
+
+          <div className={styles.metaRow}>
+            <div className={styles.metaItem}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              {(c?.credits ?? "-")} Credits
+            </div>
+            {c?.term && (
+              <div className={styles.metaItem}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                {c.term}
+              </div>
+            )}
+          </div>
+
+          {/* Actions Footer */}
+          <div className={styles.cardActions}>
+            <div className={isSelected ? styles.animPop : ""}>
+              <AddButton
+                onAdd={() => addToPlanner(c)}
+                onRemove={() => removeFromPlanner(c)}
+                isAdded={isSelected}
+              />
+            </div>
+
+            <div style={{ display: "flex", gap: "8px" }}>
+              <a className={styles.iconAction} href={descHref} title="View Details">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </a>
+              <a className={styles.iconAction} href={`/pages/tree?code=${c.subject}-${c.catalogue}`} title="View Prerequisite Tree">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><line x1="14" y1="21" x2="14" y2="8"></line></svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -406,6 +582,15 @@ export default function CoursesPage() {
 
   return (
     <main className={styles.wrap}>
+      {/* Scroll to Top Button */}
+      <button
+        className={`${styles.scrollTopBtn} ${showTopBtn ? styles.visible : ""}`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        ↑
+      </button>
+
       <div className={styles.head}>
         <h1 className="h2" style={{ fontFamily: "var(--font-outfit)" }}>Courses</h1>
       </div>
@@ -418,9 +603,9 @@ export default function CoursesPage() {
       />
 
       {loading ? (
-        <p className="body">Loading…</p>
+        <p className="body" style={{ textAlign: "center", padding: "40px", opacity: 0.6 }}>Loading Catalog…</p>
       ) : data.length === 0 ? (
-        <p className="body">No results. Try adjusting filters.</p>
+        <p className="body" style={{ textAlign: "center", padding: "40px" }}>No results found. Try adjusting your filters.</p>
       ) : (
         <>
           {/* CATALOG VIEW (Netflix Style) */}
@@ -460,12 +645,17 @@ export default function CoursesPage() {
                         <div key={subj.subject} className={styles.categorySection}>
                           <h3 className={styles.categoryTitle}>
                             {subj.subject}
-                            <span style={{ fontSize: "0.6em", opacity: 0.5, fontWeight: 400, marginLeft: "8px" }}>
+                            <span className={styles.countBadge}>
                               {subj.count} Courses
                             </span>
                           </h3>
-                          <div className={styles.categoryRow}>
-                            {subj.courses.map(renderCard)}
+                          <div className={styles.rowWrapper}>
+                            <div className={styles.categoryRow}>
+                              {subj.courses.map(renderCard)}
+                            </div>
+                            <div className={styles.scrollHint}>
+                              Swipe →
+                            </div>
                           </div>
                         </div>
                       ))}

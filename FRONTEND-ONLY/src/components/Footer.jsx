@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Space_Grotesk } from "next/font/google";
 
@@ -55,6 +56,28 @@ export default function Footer() {
           <ul className="footer-list">
             <li><Link href="/pages/privacy" className="footer-link">Privacy Policy</Link></li>
             <li><Link href="/pages/terms" className="footer-link">Terms of Service</Link></li>
+            <li>
+              <button
+                onClick={() => {
+                  try {
+                    localStorage.removeItem("conu_cookie_consent");
+                    window.location.reload();
+                  } catch (e) { console.error(e) }
+                }}
+                className="footer-link"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontFamily: 'inherit',
+                  fontSize: 'inherit'
+                }}
+              >
+                Cookie Settings
+              </button>
+            </li>
             <li style={{ marginTop: 12 }}>
               <div style={{
                 display: 'inline-flex',

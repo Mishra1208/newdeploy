@@ -64,25 +64,24 @@
 }
 
 .title {
-  font-family: 'Outfit', sans-serif;
-  font-size: clamp(4rem, 9vw, 6.5rem);
-  /* EVEN BIGGER */
-  line-height: 0.95;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.04em;
-  color: var(--primary);
+  color: #111;
   margin-bottom: 32px;
   text-align: center;
-  text-shadow: 0 20px 40px rgba(145, 35, 56, 0.1);
   position: relative;
   z-index: 2;
 }
 
 .gradientText {
-  background: linear-gradient(135deg, var(--primary) 30%, var(--secondary) 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+  padding-bottom: 4px;
 }
 
 /* Workflow Row (Static + Dynamic Text) */

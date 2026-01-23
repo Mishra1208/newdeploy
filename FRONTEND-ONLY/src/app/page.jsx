@@ -83,6 +83,7 @@ export default function HomePage() {
       <div className={styles.gridBackground} />
 
       {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION --- */}
       <section className={styles.hero}>
 
         {/* Pro Badge */}
@@ -158,8 +159,6 @@ export default function HomePage() {
             Try Planner
           </MagneticButton>
         </div>
-
-
       </section>
 
       {/* --- FEATURE SHOWCASE (BENTO Grid) --- */}
@@ -182,5 +181,47 @@ export default function HomePage() {
       <NewsletterSignup />
 
     </main >
+  );
+}
+
+// Helper Component for Parallax Elements
+function FloatingElement({ symbol, top, left, right, bottom, delay, speed }) {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 500 * speed]);
+
+  return (
+    <motion.div
+      style={{
+        position: 'absolute',
+        top, left, right, bottom,
+        y: y,
+        fontSize: '4rem',
+        zIndex: 0,
+        filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))',
+        pointerEvents: 'none'
+      }}
+      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{
+        delay: 0.5 + delay,
+        duration: 1,
+        type: "spring"
+      }}
+    >
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          rotate: [0, 5, -5, 0]
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: delay * 2
+        }}
+      >
+        {symbol}
+      </motion.div>
+    </motion.div>
   );
 }

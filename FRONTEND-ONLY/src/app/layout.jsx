@@ -7,9 +7,10 @@ import { cookies } from "next/headers";
 import ChatWidget from "@/components/ChatWidget";
 import "@/styles/globals.css";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Analytics } from "@vercel/analytics/next";
 import PremiumNavbar from "@/components/PremiumNavbar";
 import ClerkThemeProvider from "@/components/ClerkThemeProvider";
+import CookieBanner from "@/components/CookieBanner";
+import AnalyticsWrapper from "@/components/AnalyticsWrapper";
 
 export const metadata = {
   title: "ConU Planner",
@@ -46,13 +47,12 @@ export default async function RootLayout({ children }) {
           `}</Script>
         </head>
         <body>
-
           <PremiumNavbar />
-
           <main className="site-main" style={{ paddingTop: 100 }}>{children}</main>
           <Footer />
           <ChatWidget />
-          <Analytics />
+          <CookieBanner />
+          <AnalyticsWrapper />
         </body>
       </html>
     </ClerkThemeProvider>

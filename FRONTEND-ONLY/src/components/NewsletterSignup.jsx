@@ -6,6 +6,8 @@ import { Space_Grotesk } from "next/font/google";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 
+import confetti from 'canvas-confetti';
+
 export default function NewsletterSignup() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState("idle"); // idle | loading | success
@@ -24,6 +26,28 @@ export default function NewsletterSignup() {
     const sparkleY = useTransform(scrollYProgress, [0, 1], [-20, 60]);
     const bookY = useTransform(scrollYProgress, [0, 1], [60, -40]);
 
+    const triggerConfetti = () => {
+        const count = 200;
+        const defaults = {
+            origin: { y: 0.7 }, // Start a bit lower
+            zIndex: 9999
+        };
+
+        function fire(particleRatio, opts) {
+            confetti({
+                ...defaults,
+                ...opts,
+                particleCount: Math.floor(count * particleRatio)
+            });
+        }
+
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email) return;
@@ -39,6 +63,10 @@ export default function NewsletterSignup() {
 
             if (res.ok) {
                 setStatus("success");
+                setEmail("");
+                triggerConfetti(); // 🎉 PARTY TIME!
+            } else if (res.status === 409) {
+                setStatus("exists");
                 setEmail("");
             } else {
                 console.error("Subscription failed:", res.statusIcon);
@@ -150,7 +178,7 @@ export default function NewsletterSignup() {
                         lineHeight: 1.6,
                         fontWeight: 500
                     }}>
-                        Get notified about new features like the <b>Seat Finder</b> and <b>Schedule AI</b>. <br />
+                        Get notified about <b>Course Enrollment Appointments</b> (March 4th), new features like the <b>Seat Finder</b> and <b>Schedule AI</b>. <br />
                         (No spam, strictly important updates only).
                     </p>
                 </motion.div>
@@ -176,6 +204,29 @@ export default function NewsletterSignup() {
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                             You're on the list!
+                        </motion.div>
+                    ) : status === "exists" ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            style={{
+                                color: "#B45309",
+                                background: "#FEF3C7",
+                                padding: "16px 32px",
+                                borderRadius: "100px",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                fontWeight: 600,
+                                fontSize: "18px"
+                            }}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            You are already subscribed!
                         </motion.div>
                     ) : (
                         <motion.form

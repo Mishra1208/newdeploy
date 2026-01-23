@@ -12,11 +12,13 @@ export default clerkMiddleware(async (auth, req) => {
     // or fallback to headers if needed
     // const hostHeader = req.headers.get("host");
 
+    /* 
     if (hostname.includes("vercel.app")) {
         const newUrl = new URL(req.nextUrl.pathname, "https://www.conuplanner.com");
         newUrl.search = req.nextUrl.search;
         return NextResponse.redirect(newUrl);
     }
+    */
 
     if (isProtectedRoute(req)) await auth.protect();
 }, {
