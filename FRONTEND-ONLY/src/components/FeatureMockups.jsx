@@ -85,21 +85,20 @@ export const PlannerMockup = () => (
             transform: 'rotateY(-10deg) rotateX(5deg)'
         }}>
             {[
-                { w: '70%', color: 'rgba(29, 29, 31, 0.8)', delay: 0 },
-                { w: '40%', color: 'rgba(29, 29, 31, 0.4)', delay: 0.2 },
-                { w: '90%', color: 'rgba(29, 29, 31, 0.6)', delay: 0.4 },
-                { w: '60%', color: 'rgba(29, 29, 31, 0.8)', delay: 0.6 },
+                { w: '75%', bg: 'linear-gradient(90deg, #8B5CF6 0%, #EC4899 100%)', delay: 0 }, // Purple -> Pink
+                { w: '45%', bg: 'linear-gradient(90deg, #3B82F6 0%, #06B6D4 100%)', delay: 0.2 }, // Blue -> Cyan
+                { w: '90%', bg: 'linear-gradient(90deg, #6366F1 0%, #A855F7 100%)', delay: 0.4 }, // Indigo -> Purple
+                { w: '60%', bg: 'linear-gradient(90deg, #EC4899 0%, #F43F5E 100%)', delay: 0.6 }, // Pink -> Rose
             ].map((bar, i) => (
                 <div key={i} style={{
                     height: 24,
                     width: bar.w,
-                    background: bar.color,
+                    background: bar.bg, // Gradient Background
                     borderRadius: 6,
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.15)', // Enhanced shadow
                     transformOrigin: 'left',
                     opacity: 0,
                     animation: `slideRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards ${bar.delay}s`,
-                    backdropFilter: 'blur(4px)'
                 }} />
             ))}
             <style jsx>{`
