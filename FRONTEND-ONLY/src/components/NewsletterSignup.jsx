@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Space_Grotesk } from "next/font/google";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
@@ -9,6 +9,18 @@ const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 export default function NewsletterSignup() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState("idle"); // idle | loading | success
+
+    // Parallax Ref
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
+    });
+
+    // Parallax Values
+    const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
+    const capY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+    const floatY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,15 +51,17 @@ export default function NewsletterSignup() {
     };
 
     return (
-
-        <section style={{
-            maxWidth: 800,
-            margin: "0 auto 120px",
-            padding: "0 20px",
-            position: "relative",
-            zIndex: 10,
-            textAlign: 'center'
-        }}>
+        <section
+            ref={ref}
+            style={{
+                maxWidth: 800,
+                margin: "0 auto 120px",
+                padding: "0 20px",
+                position: "relative",
+                zIndex: 10,
+                textAlign: 'center'
+            }}
+        >
             {/* Subtle Gradient Glow (Matches Login) */}
             <div style={{
                 position: 'absolute', top: -100, left: '50%', transform: 'translateX(-50%)',
@@ -56,33 +70,60 @@ export default function NewsletterSignup() {
                 pointerEvents: 'none'
             }} />
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                style={{ position: "relative" }}
-            >
-                <h3 className={display.className} style={{
-                    fontSize: "56px", // Premium Headline
-                    marginBottom: "16px",
-                    color: "#111",
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1.1,
-                    fontWeight: 800
-                }}>
-                    Join the Inner Circle <span style={{ fontSize: '0.9em' }}>🎓</span>
-                </h3>
+            {/* --- Floating Elements --- */}
+            <motion.div style={{
+                position: 'absolute',
+                top: '-20%',
+                left: '2%', // Different side from Login for balance
+                fontSize: '80px',
+                opacity: 0.08,
+                y: capY,
+                rotate: -15,
+                zIndex: 0,
+                pointerEvents: 'none'
+            }}>
+                🎓
+            </motion.div>
 
-                <p style={{
-                    color: "#666",
-                    fontSize: "20px", // Editorial Size
-                    marginBottom: "40px",
-                    lineHeight: 1.6,
-                    fontWeight: 500
-                }}>
-                    Get notified about new features like the <b>Seat Finder</b> and <b>Schedule AI</b>. <br />
-                    (No spam, strictly important updates only).
-                </p>
+            <motion.div style={{
+                position: 'absolute',
+                bottom: '10%',
+                right: '5%',
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(145, 35, 56, 0.15) 0%, transparent 70%)',
+                y: floatY,
+                opacity: 0.5,
+                zIndex: 0,
+                pointerEvents: 'none',
+                filter: 'blur(30px)'
+            }} />
+
+            <div style={{ position: "relative", zIndex: 1 }}>
+                <motion.div style={{ y: textY }}>
+                    <h3 className={display.className} style={{
+                        fontSize: "56px", // Premium Headline
+                        marginBottom: "16px",
+                        color: "#111",
+                        letterSpacing: '-0.03em',
+                        lineHeight: 1.1,
+                        fontWeight: 800
+                    }}>
+                        Join the Inner Circle <span style={{ fontSize: '0.9em' }}>🎓</span>
+                    </h3>
+
+                    <p style={{
+                        color: "#666",
+                        fontSize: "20px", // Editorial Size
+                        marginBottom: "40px",
+                        lineHeight: 1.6,
+                        fontWeight: 500
+                    }}>
+                        Get notified about new features like the <b>Seat Finder</b> and <b>Schedule AI</b>. <br />
+                        (No spam, strictly important updates only).
+                    </p>
+                </motion.div>
 
                 <AnimatePresence mode="wait">
                     {status === "success" ? (
@@ -167,7 +208,7 @@ export default function NewsletterSignup() {
                         </motion.form>
                     )}
                 </AnimatePresence>
-            </motion.div>
+            </div>
         </section>
     );
 }
