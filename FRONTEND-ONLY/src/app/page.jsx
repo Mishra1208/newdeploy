@@ -180,30 +180,55 @@ export default function HomePage() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
+          style={{
+            maxWidth: '900px',
+            margin: '0 auto',
+            padding: '80px 40px',
+            textAlign: 'center',
+            background: 'white',
+            borderRadius: '32px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.05)',
+            border: '1px solid rgba(0,0,0,0.03)'
+          }}
         >
           <div className={styles.glintOverlay} />
-          {/* Animated Glow in Background */}
-          <div className={styles.promoGlow1}></div>
-          <div className={styles.promoGlow2}></div>
 
-          <h2 className={`${styles.promoTitle} h2`}>
-            Save Your Progress. <span style={{
-              color: 'var(--secondary)',
-              textShadow: '0 2px 10px rgba(219, 158, 30, 0.2)'
+          <h2 className={`${styles.promoTitle} h2`} style={{
+            fontFamily: 'var(--font-inter), system-ui, sans-serif',
+            fontSize: '48px',
+            fontWeight: 800,
+            letterSpacing: '-0.03em',
+            marginBottom: '16px',
+            color: '#1a1a1a'
+          }}>
+            Save Your Progress. <br />
+            <span style={{
+              color: 'transparent',
+              background: 'linear-gradient(135deg, #DB9E1E 0%, #F59E0B 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
             }}>Sync Across Devices.</span>
           </h2>
-          <p className={styles.promoText}>
+          <p className={styles.promoText} style={{
+            fontSize: '20px',
+            color: '#666',
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            margin: '0 auto 40px auto'
+          }}>
             Don't lose your perfect schedule. Connect your GitHub or Gmail to save your planner and GPA data instantly.
           </p>
 
           <SignInButton mode="modal">
             <button style={{
-              background: 'var(--primary)',
+              background: '#1a1a1a',
               color: 'white',
               border: 'none',
-              padding: '14px 28px',
-              borderRadius: 8,
-              fontSize: 16,
+              padding: '16px 36px',
+              borderRadius: '100px',
+              fontSize: '16px',
+
               fontWeight: 600,
               cursor: 'pointer',
               boxShadow: '0 4px 15px rgba(145, 35, 56, 0.3)',
