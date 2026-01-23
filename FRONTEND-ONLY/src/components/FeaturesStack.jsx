@@ -33,7 +33,7 @@ const features = [
         title: "Complete Course Catalog",
         desc: "Search instantly across all departments. Filter by credits, terms, and prerequisites.",
         mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F9FAFB', fontSize: '3rem' }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F5F7', fontSize: '8rem' }}>
                 📚
             </div>
         ),
@@ -45,7 +45,7 @@ const features = [
         title: "Seat Finder",
         desc: "Never miss a class. Real-time alerts when seats open up in full courses.",
         mockup: (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F9FAFB', fontSize: '3rem' }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F5F7', fontSize: '8rem' }}>
                 🪑
             </div>
         ),

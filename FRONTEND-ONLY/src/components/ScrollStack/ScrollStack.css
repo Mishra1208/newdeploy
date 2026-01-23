@@ -30,8 +30,8 @@
     backface-visibility: hidden;
     transform-style: preserve-3d;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    height: 550px;
-    /* Increased height for premium typography */
+    height: 480px;
+    /* Compact premium height */
     width: 100%;
     margin: 40px 0;
     padding: 0;
