@@ -1,9 +1,7 @@
 "use client";
 
 import ScrollStack, { ScrollStackItem } from "./ScrollStack/ScrollStack";
-import TreeMockup from "../app/pages/tree/TreeMockup";
-import GPAMockup from "../app/pages/gpa/GPAMockup";
-import PlannerMockup from "../app/pages/planner/PlannerMockup";
+import { TreeMockup, GPAMockup, PlannerMockup } from "./FeatureMockups";
 import Link from 'next/link';
 
 const features = [
