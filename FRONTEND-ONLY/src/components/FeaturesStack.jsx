@@ -27,7 +27,7 @@ const features = [
         mockup: <PlannerMockup />,
         link: "/pages/planner",
         color: "#fff",
-        accent: "#1d1d1f" // Tech Black
+        accent: "#7C3AED" // Vibrant Violet
     },
     {
         title: "Complete Course Catalog",
