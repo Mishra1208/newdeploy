@@ -65,19 +65,20 @@ export default function NewsletterSignup() {
             >
                 {/* Subtle Gradient Glow */}
                 <div style={{
-                    position: 'absolute', top: -50, left: '50%', transform: 'translateX(-50%)',
-                    width: 200, height: 200, background: 'radial-gradient(circle, rgba(139,30,63,0.15) 0%, transparent 70%)',
+                    position: 'absolute', top: -100, left: '50%', transform: 'translateX(-50%)',
+                    width: 300, height: 300,
+                    background: 'radial-gradient(circle, rgba(219, 158, 30, 0.08) 0%, transparent 60%)',
                     pointerEvents: 'none'
                 }} />
 
                 <h3 className={display.className} style={{
                     fontSize: "24px",
                     marginBottom: "8px",
-                    background: "linear-gradient(to right, #1e1b4b, #475569)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
+                    color: "var(--primary)",
+                    background: "none",
+                    WebkitTextFillColor: "initial"
                 }}>
-                    Join the Inner Circle 🎓
+                    Join the Inner Circle <span style={{ color: "var(--secondary)" }}>🎓</span>
                 </h3>
 
                 <p style={{
@@ -127,9 +128,9 @@ export default function NewsletterSignup() {
                                 required
                                 style={{
                                     padding: "12px 16px",
-                                    borderRadius: "12px",
+                                    borderRadius: "8px",
                                     border: "1px solid rgba(0,0,0,0.1)",
-                                    background: "rgba(255,255,255,0.8)",
+                                    background: "#FFFFFF",
                                     minWidth: "260px",
                                     fontSize: "15px",
                                     outline: "none",
@@ -140,15 +141,15 @@ export default function NewsletterSignup() {
                                 type="submit"
                                 disabled={status === "loading"}
                                 style={{
-                                    background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
+                                    background: "var(--primary)",
                                     color: "white",
                                     border: "none",
-                                    borderRadius: "12px",
+                                    borderRadius: "8px",
                                     padding: "12px 24px",
                                     fontWeight: 600,
                                     cursor: "pointer",
-                                    boxShadow: "0 4px 12px rgba(30, 27, 75, 0.2)",
-                                    transition: "transform 0.2s",
+                                    boxShadow: "0 4px 15px rgba(145, 35, 56, 0.3)",
+                                    transition: "all 0.2s",
                                     minWidth: "120px"
                                 }}
                                 onMouseEnter={e => !status && (e.currentTarget.style.transform = 'translateY(-2px)')}
