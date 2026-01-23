@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./home.module.css";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { SignedOut, SignInButton } from "@clerk/nextjs";
 
@@ -174,85 +174,7 @@ export default function HomePage() {
 
       {/* --- LOGIN PROMO WIDGET (Only for SignedOut) --- */}
       <SignedOut>
-        <motion.section
-          className={`${styles.loginPromoWidget} ${styles.glassNoise}`}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          style={{
-            maxWidth: '900px',
-            margin: '0 auto 120px auto',
-            padding: '40px 20px',
-            textAlign: 'center',
-            position: 'relative',
-            background: 'radial-gradient(circle at center, rgba(219, 158, 30, 0.03) 0%, transparent 70%)', // Very subtle glow
-          }}
-        >
-          <div className={styles.glintOverlay} />
-
-          <h2 className={`${styles.promoTitle} h2`} style={{
-            fontFamily: 'var(--font-inter), system-ui, sans-serif',
-            fontSize: '64px', // Big & Bold
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            marginBottom: '24px',
-            lineHeight: 1.1,
-            color: '#111'
-          }}>
-            Save Your Progress. <br />
-            <span style={{
-              background: 'linear-gradient(135deg, #F59E0B 0%, #B45309 100%)', // Richer Gold
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              paddingBottom: '10px' // Prevent clipper cut-off
-            }}>Sync Across Devices.</span>
-          </h2>
-          <p className={styles.promoText} style={{
-            fontSize: '22px',
-            color: '#555',
-            lineHeight: 1.6,
-            maxWidth: '640px',
-            margin: '0 auto 48px auto',
-            fontWeight: 500
-          }}>
-            Don't lose your perfect schedule. Connect your GitHub or Gmail to save your planner and GPA data instantly.
-          </p>
-
-          <SignInButton mode="modal">
-            <button style={{
-              background: '#0a0a0a',
-              color: 'white',
-              border: '1px solid rgba(255,255,255,0.1)',
-              padding: '18px 42px',
-              borderRadius: '100px',
-              fontSize: '17px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 12,
-              transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
-              }}
-            >
-              <span style={{ fontSize: 20 }}>🎓</span> Connect with Git / Gmail
-            </button>
-          </SignInButton>
-
-          <div style={{ marginTop: 16, fontSize: 12, opacity: 0.5 }}>
-            100% Free • Secure Authentication via Clerk
-          </div>
-        </motion.section>
+        <LoginPromo />
       </SignedOut>
 
       {/* --- NEWSLETTER SIGNUP --- */}
