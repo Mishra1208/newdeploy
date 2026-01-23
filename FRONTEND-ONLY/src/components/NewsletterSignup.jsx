@@ -21,6 +21,8 @@ export default function NewsletterSignup() {
     const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
     const capY = useTransform(scrollYProgress, [0, 1], [80, -80]);
     const floatY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+    const sparkleY = useTransform(scrollYProgress, [0, 1], [-20, 60]);
+    const bookY = useTransform(scrollYProgress, [0, 1], [60, -40]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,6 +85,34 @@ export default function NewsletterSignup() {
                 pointerEvents: 'none'
             }}>
                 🎓
+            </motion.div>
+
+            <motion.div style={{
+                position: 'absolute',
+                top: '15%',
+                right: '15%',
+                fontSize: '40px',
+                opacity: 0.15,
+                y: sparkleY,
+                rotate: 45,
+                zIndex: 0,
+                pointerEvents: 'none'
+            }}>
+                ✨
+            </motion.div>
+
+            <motion.div style={{
+                position: 'absolute',
+                bottom: '20%',
+                left: '10%',
+                fontSize: '45px',
+                opacity: 0.08,
+                y: bookY,
+                rotate: -10,
+                zIndex: 0,
+                pointerEvents: 'none'
+            }}>
+                📚
             </motion.div>
 
             <motion.div style={{

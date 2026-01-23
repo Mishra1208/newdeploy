@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SignInButton } from "@clerk/nextjs";
-import styles from "./home.module.css"; // Ensure styles are imported
+import styles from "../app/home.module.css"; // Ensure styles are imported
 
 // Re-using fadeInUp variant if needed, or defining new one
 const fadeInUp = {
@@ -22,6 +22,8 @@ export default function LoginPromo() {
     const textY = useTransform(scrollYProgress, [0, 1], [0, 40]); // Text moves slower (appears to drag down/stay)
     const capY = useTransform(scrollYProgress, [0, 1], [100, -100]); // Cap floats up
     const orbY = useTransform(scrollYProgress, [0, 1], [0, -50]); // Orb floats up slower
+    const bookY = useTransform(scrollYProgress, [0, 1], [-50, 80]); // Book floats down
+    const scrollY = useTransform(scrollYProgress, [0, 1], [60, -60]); // Scroll floats up
 
     return (
         <motion.section
@@ -54,6 +56,34 @@ export default function LoginPromo() {
                 pointerEvents: 'none'
             }}>
                 🎓
+            </motion.div>
+
+            <motion.div style={{
+                position: 'absolute',
+                bottom: '15%',
+                right: '5%',
+                fontSize: '60px',
+                opacity: 0.08,
+                y: scrollY,
+                rotate: -10,
+                zIndex: 0,
+                pointerEvents: 'none'
+            }}>
+                📜
+            </motion.div>
+
+            <motion.div style={{
+                position: 'absolute',
+                top: '5%',
+                left: '8%',
+                fontSize: '50px',
+                opacity: 0.1,
+                y: bookY,
+                rotate: 20,
+                zIndex: 0,
+                pointerEvents: 'none'
+            }}>
+                📚
             </motion.div>
 
             <motion.div style={{
