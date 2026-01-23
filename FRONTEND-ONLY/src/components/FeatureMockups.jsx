@@ -166,11 +166,28 @@ export const CatalogMockup = () => (
                     opacity: 0,
                     animation: `stackUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards ${i * 0.2}s`
                 }}>
-                    {/* Abstract lines on card */}
-                    <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        <div style={{ height: 8, width: '60%', background: i === 2 ? 'rgba(255,255,255,0.3)' : '#eee', borderRadius: 4 }} />
-                        <div style={{ height: 8, width: '80%', background: i === 2 ? 'rgba(255,255,255,0.3)' : '#eee', borderRadius: 4 }} />
-                    </div>
+                    {/* Content */}
+                    {i === 2 ? (
+                        <div style={{
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textAlign: 'center'
+                        }}>
+                            <div style={{ height: 4, width: 30, background: 'rgba(255,255,255,0.3)', borderRadius: 2, marginBottom: 12 }} />
+                            <span style={{ color: '#fff', fontSize: '14px', fontWeight: 800, lineHeight: 1.2, letterSpacing: '0.02em', fontFamily: 'var(--font-inter)' }}>
+                                ConU<br />Planner
+                            </span>
+                            <div style={{ height: 4, width: 20, background: 'rgba(255,255,255,0.3)', borderRadius: 2, marginTop: 12 }} />
+                        </div>
+                    ) : (
+                        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            <div style={{ height: 8, width: '60%', background: '#eee', borderRadius: 4 }} />
+                            <div style={{ height: 8, width: '80%', background: '#eee', borderRadius: 4 }} />
+                        </div>
+                    )}
                 </div>
             ))}
             <style jsx>{`
