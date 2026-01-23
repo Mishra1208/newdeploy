@@ -302,48 +302,7 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
-border: 0;
-outline: 0;
-cursor: pointer;
-padding: 14px 28px;
-border-radius: 4px;
-/* Square */
-font-weight: 700;
-color: #fff;
-background: var(--primary);
-/* Solid Burgundy */
-text-decoration: none;
-display: inline-flex;
-align-items: center;
-gap: 8px;
-font-size: 16px;
-transition: background 0.2s;
-}
 
-.btnPrimary:hover {
-  background: #7a1d2f;
-  /* Darker Burgundy */
-}
-
-.btnGhost {
-  appearance: none;
-  border: 1px solid #E5E7EB;
-  background: transparent;
-  color: var(--ink-primary);
-  padding: 14px 28px;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-}
-
-.btnGhost:hover {
-  background: #F3F4F6;
-  border-color: #D1D5DB;
-}
 
 /* Remove Glass Effects */
 .glassNoise::before {
