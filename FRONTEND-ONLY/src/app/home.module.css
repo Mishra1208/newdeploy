@@ -260,8 +260,8 @@
   /* Pill Shape */
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(135deg, var(--primary) 0%, #701b2b 100%);
-  /* Premium Gradient */
+  background: #912338 !important;
+  /* Force Solid Burgundy */
   text-decoration: none;
   display: inline-flex;
   align-items: center;
