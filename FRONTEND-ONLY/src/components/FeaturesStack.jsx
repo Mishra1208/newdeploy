@@ -60,34 +60,74 @@ export default function FeaturesStack() {
         <div style={{ width: '100%', position: 'relative' }}>
             <ScrollStack
                 useWindowScroll={true}
-                itemDistance={50}
+                itemDistance={80} // More breathing room
                 itemScale={0.05}
                 itemStackDistance={30}
-                stackPosition="10%"
-                scaleEndPosition="5%"
-                baseScale={0.9}
-                rotationAmount={0}
-                blurAmount={0} // Clean premium look, no blur
+                stackPosition="15%" // Show more of the top card
+                baseScale={0.92} // Larger cards
             >
                 {features.map((feat, i) => (
                     <ScrollStackItem key={i}>
-                        <Link href={feat.link} style={{ display: 'flex', height: '100%', width: '100%', textDecoration: 'none', color: 'inherit' }}>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #eee', background: feat.color }}>
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <Link href={feat.link} style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', height: '100%', width: '100%', textDecoration: 'none', color: 'inherit' }}>
+
+                            {/* Visual Side (Premium Grey Background) */}
+                            <div style={{
+                                position: 'relative',
+                                background: '#F5F5F7', // Apple Light Grey
+                                borderRight: '1px solid rgba(0,0,0,0.05)',
+                                overflow: 'hidden',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '60px'
+                            }}>
+                                <div style={{ transform: 'scale(1.1)', transformOrigin: 'center' }}>
                                     {feat.mockup}
                                 </div>
                             </div>
-                            <div style={{ flex: 1, padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'white' }}>
-                                <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '32px', fontWeight: 700, marginBottom: '16px', color: feat.accent }}>
+
+                            {/* Content Side (Clean White) */}
+                            <div style={{
+                                padding: '64px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                background: 'white'
+                            }}>
+                                <h3 style={{
+                                    fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                                    fontSize: '42px',
+                                    fontWeight: 700,
+                                    marginBottom: '20px',
+                                    letterSpacing: '-0.02em',
+                                    color: feat.accent,
+                                    lineHeight: 1.1
+                                }}>
                                     {feat.title}
                                 </h3>
-                                <p style={{ fontSize: '18px', color: 'var(--ink-secondary)', lineHeight: 1.6 }}>
+                                <p style={{
+                                    fontSize: '20px',
+                                    color: '#555557', // Premium dark grey
+                                    lineHeight: 1.5,
+                                    maxWidth: '90%',
+                                    fontWeight: 400
+                                }}>
                                     {feat.desc}
                                 </p>
-                                <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', color: feat.accent, fontWeight: 600, gap: '8px' }}>
-                                    Explore Feature <span>→</span>
+                                <div style={{
+                                    marginTop: '40px',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    fontSize: '16px',
+                                    fontWeight: 600,
+                                    color: feat.accent
+                                }}>
+                                    <span style={{ borderBottom: `2px solid ${feat.accent}30` }}>Explore Feature</span>
+                                    <span style={{ transition: 'transform 0.2s' }}>→</span>
                                 </div>
                             </div>
+
                         </Link>
                     </ScrollStackItem>
                 ))}
