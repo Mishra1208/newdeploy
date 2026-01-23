@@ -82,6 +82,7 @@ export default function PremiumNavbar() {
                             <Link href="/" className="nav-link-premium">Home</Link>
                         )}
                         <Link href="/pages/seat-finder" className="nav-link-premium">Seat Finder</Link>
+                        <Link href="/pages/courses" className="nav-link-premium">Courses</Link>
                         <Link href="/pages/planner" className="nav-link-premium">Planner</Link>
                         <Link href="/about" className="nav-link-premium">About Us</Link>
 
@@ -105,8 +106,8 @@ export default function PremiumNavbar() {
                                 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                <Link href="/pages/courses" className="dropdown-item">Course Catalogue</Link>
                                 <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
+                                <Link href="/pages/courses/descriptions" className="dropdown-item">Course Descriptions</Link>
                             </motion.div>
                         </div>
 
@@ -153,12 +154,13 @@ export default function PremiumNavbar() {
                     <div className="mobile-links">
                         <NavLink href="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
                         <NavLink href="/pages/seat-finder" onClick={() => setMenuOpen(false)}>Seat Finder</NavLink>
+                        <NavLink href="/pages/courses" onClick={() => setMenuOpen(false)}>Courses</NavLink>
                         <NavLink href="/pages/planner" onClick={() => setMenuOpen(false)}>Planner</NavLink>
                         <NavLink href="/about" onClick={() => setMenuOpen(false)}>About Us</NavLink>
 
                         <div className="mobile-divider">More</div>
-                        <NavLink href="/pages/courses" onClick={() => setMenuOpen(false)}>Course Catalogue</NavLink>
                         <NavLink href="/pages/gpa" onClick={() => setMenuOpen(false)}>GPA Calculator</NavLink>
+                        <NavLink href="/pages/courses/descriptions" onClick={() => setMenuOpen(false)}>Course Descriptions</NavLink>
 
                         <div style={{ height: 20 }} />
                         <PremiumThemeToggle />
