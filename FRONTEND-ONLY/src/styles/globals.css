@@ -504,7 +504,7 @@ h5 {
 }
 
 .dropdown-item:hover {
-  background: var(--bg-soft);
+  background: rgba(145, 35, 56, 0.08);
   color: var(--primary);
 }
 
