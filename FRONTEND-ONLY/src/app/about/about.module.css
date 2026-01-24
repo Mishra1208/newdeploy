@@ -520,3 +520,30 @@
   color: #C5A059;
   /* Gold */
 }
+
+@media (max-width: 640px) {
+  .page {
+    padding: 40px 0 80px;
+  }
+
+  .glassIsland {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+
+  .capabilitiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .claraHeader {
+    font-size: 32px;
+  }
+}

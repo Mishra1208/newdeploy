@@ -137,6 +137,25 @@
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .wrap {
+    padding: 20px 16px 120px;
+  }
+
+  .hero {
+    margin: 20px auto 40px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
 /* Card Style */
 .card {
   background: rgba(255, 255, 255, 0.5);
@@ -308,6 +327,33 @@
   transition: all 0.2s;
 }
 
+@media (max-width: 640px) {
+  .modalContent {
+    max-width: 100%;
+    width: 100%;
+    animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modalHeader {
+    padding: 24px;
+    align-items: flex-start;
+  }
+
+  .modalBody {
+    padding: 24px;
+  }
+
+  .modalClose {
+    top: 16px;
+    right: 16px;
+  }
+
+  .scrollTopBtn {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
 .modalClose:hover {
   background: #912338;
   color: white;
@@ -454,6 +500,16 @@
 
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }
 
