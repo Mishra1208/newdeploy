@@ -1302,3 +1302,74 @@
   background: #e11d48;
   box-shadow: 0 10px 30px rgba(225, 29, 72, 0.4);
 }
+
+/* ================= Mobile Overrides (iPhone) ================= */
+@media (max-width: 767px) {
+  .spotlightHero {
+    height: 800px;
+    /* Taller for vertical stack */
+    padding: 0;
+  }
+
+  .heroSlide {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .spotlightContent {
+    max-width: 100%;
+    align-items: center;
+    z-index: 20;
+  }
+
+  .spotlightTitle {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  .spotlightSubtitle {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .spotlightDesc {
+    font-size: 16px;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .heroBtnPrimary,
+  .heroBtnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .spotlightVisual {
+    position: absolute;
+    inset: auto;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    right: auto;
+    top: auto;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+  }
+
+  /* Adjust visual position for better fit */
+  .book3d,
+  .plannerStack,
+  .treeVisual,
+  .seatVisual {
+    margin: 0 auto;
+  }
+}
