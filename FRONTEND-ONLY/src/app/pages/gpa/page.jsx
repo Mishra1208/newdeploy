@@ -238,6 +238,10 @@ export default function GPACalculator() {
 
                 {/* --- Result Dashboard --- */}
                 <aside className={styles.resultCard}>
+                    <div className={styles.resultHeader}>
+                        <div className={styles.resultTitle}>PROJECTED GPA</div>
+                    </div>
+
                     {/* Gauge & Value - Primary 4.3 Scale */}
                     <div className={styles.gaugeContainer}>
                         <GPAGauge value={finalGPA_43} max={4.3} />
@@ -248,12 +252,12 @@ export default function GPACalculator() {
                     </div>
 
                     {/* Secondary 4.0 Scale Display */}
-                    <div style={{ textAlign: 'center', marginBottom: 20, padding: 10, background: 'rgba(0,0,0,0.02)', borderRadius: 8 }}>
-                        <div style={{ fontSize: 13, color: '#666' }}>Standard 4.0 Scale</div>
-                        <div style={{ fontSize: 24, fontWeight: 700, color: '#333' }}>
+                    <div style={{ textAlign: 'center', marginBottom: 32, padding: 12, background: 'rgba(0,0,0,0.03)', borderRadius: 12, border: '1px solid rgba(0,0,0,0.05)' }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Standard 4.0 Scale</div>
+                        <div style={{ fontSize: 28, fontWeight: 800, color: '#333', fontFamily: 'Outfit, sans-serif' }}>
                             {semesterGPA_40.toFixed(2)}
                         </div>
-                        {hasCumulativeData && <div style={{ fontSize: 10, color: '#888' }}>(Semester only)</div>}
+                        {hasCumulativeData && <div style={{ fontSize: 10, color: '#888', marginTop: 4 }}>(Semester only)</div>}
                     </div>
 
                     <div className={styles.statGrid}>
@@ -271,7 +275,9 @@ export default function GPACalculator() {
 
                     {/* Cumulative Inputs (HUD Style) */}
                     <div className={styles.cumulativeSection}>
-                        <h3 className={styles.cardTitle}>Cumulative (Optional)</h3>
+                        <h3 className={styles.cardTitle}>
+                            <RefreshCw size={14} /> Cumulative (Optional)
+                        </h3>
                         <div className={styles.cumInputs}>
                             <div className={styles.inputStack}>
                                 <label>Current GPA</label>
@@ -382,7 +388,7 @@ function CourseRow({ row, coursesDB, onChange, onRemove, onSelect }) {
             </div>
 
             <button className={styles.removeBtn} onClick={onRemove} aria-label="Remove">
-                <Trash2 size={16} />
+                <Trash2 size={18} />
             </button>
         </div>
     );
@@ -401,17 +407,17 @@ function GPAGauge({ value, max = 4.3 }) {
         <svg viewBox="0 0 200 110" width="100%" height="100%">
             <defs>
                 <linearGradient id="gpaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#ef4444" />
-                    <stop offset="50%" stopColor="#eab308" />
-                    <stop offset="100%" stopColor="#22c55e" />
+                    <stop offset="0%" stopColor="#912338" /> {/* Burgundy */}
+                    <stop offset="50%" stopColor="#db9e1e" /> {/* Gold */}
+                    <stop offset="100%" stopColor="#22c55e" /> {/* Green Success */}
                 </linearGradient>
             </defs>
             {/* Background Arc */}
             <path
                 d="M 20 100 A 80 80 0 0 1 180 100"
                 fill="none"
-                stroke="#e2e8f0"
-                strokeWidth="16"
+                stroke="rgba(0,0,0,0.06)"
+                strokeWidth="12"
                 strokeLinecap="round"
             />
             <GaugeArc value={percent} />
@@ -446,9 +452,9 @@ function GaugeArc({ value }) {
             d={d}
             fill="none"
             stroke="url(#gpaGrad)"
-            strokeWidth="16"
+            strokeWidth="12"
             strokeLinecap="round"
-            style={{ transition: "d 0.5s ease-out" }}
+            style={{ transition: "d 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }}
         />
     );
 }

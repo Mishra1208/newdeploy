@@ -93,18 +93,10 @@ export default function DescriptionsPage() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [visibleCount, setVisibleCount] = useState(40);
 
-  // Observer for infinite scroll
-  const observer = useRef();
-  const lastElementRef = useCallback(node => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setVisibleCount(prev => prev + 40);
-      }
-    });
-    if (node) observer.current.observe(node);
-  }, [loading]);
+  // Manual Load More Logic
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 50);
+  };
 
   // Load Data
   useEffect(() => {
@@ -213,22 +205,20 @@ export default function DescriptionsPage() {
 
       {/* Hero Section */}
       <motion.div
-        className={`${styles.hero} ${styles.glassNoise}`}
+        className={styles.hero}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
       >
-        <div className={styles.glintOverlay} />
-        <h1 className={styles.title}>Course Catalog</h1>
-        <p className={styles.subtitle}>Explore over 12,000 Concordia University courses. Search by code, title, or keywords to find exactly what you need.</p>
+        <h1 className={styles.title}>Course Directory</h1>
+        <p className={styles.subtitle}>Access the complete academic archive of Concordia University. Over 12,000 courses at your fingertips.</p>
       </motion.div>
 
       {/* Sticky Search */}
       <div className={styles.searchContainer}>
-        <span className={styles.searchIcon}>🔍</span>
         <input
           type="text"
-          placeholder="Search courses (e.g., COMP 248, Financial Accounting...)"
+          placeholder="Search by code, title, or keywords..."
           className={styles.searchInput}
           value={searchTerm}
           onChange={(e) => {
@@ -236,11 +226,16 @@ export default function DescriptionsPage() {
             setVisibleCount(40); // Reset scroll on search
           }}
         />
+        <div className={styles.searchIcon}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
       </div>
 
       {/* Grid Content */}
       {loading ? (
-        <div className={styles.loading}>Loading catalog...</div>
+        <div className={styles.loading}>
+          <div>Loading Archive...</div>
+        </div>
       ) : (
         <motion.div
           className={styles.grid}
@@ -250,18 +245,17 @@ export default function DescriptionsPage() {
           variants={staggerContainer}
         >
           {filteredItems.slice(0, visibleCount).map((course, idx) => {
-            const isLast = idx === visibleCount - 1;
             return (
               <motion.div
                 key={anchorIdFor(course)}
-                variants={staggerItem}
-                ref={isLast ? lastElementRef : null}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <TiltCard
-                  className={`${styles.card} ${styles.glassNoise}`}
+                <div /* Replaced TiltCard with standard Div for cleaner glass look */
+                  className={styles.card}
                   onClick={() => handleCardClick(course)}
                 >
-                  <div className={styles.glintOverlay} />
                   <div className={styles.cardHeader}>
                     <span className={styles.codeBadge}>{course.subject} {course.catalogue}</span>
                     <h3 className={styles.courseTitle}>{course.title}</h3>
@@ -270,55 +264,94 @@ export default function DescriptionsPage() {
                     <p className={styles.descriptionPreview}>
                       {course.description || "No description available."}
                     </p>
-                    <span className={styles.creditsBadge}>{course.credits} Credits</span>
+
+                    <div className={styles.footerRow}>
+                      <span className={styles.creditsBadge}>{course.credits} Credits</span>
+                    </div>
                   </div>
-                </TiltCard>
+                </div>
               </motion.div>
             );
           })}
         </motion.div>
       )}
 
-      {/* Detail Modal */}
-      {selectedCourse && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <button className={styles.modalClose} onClick={closeModal}>✕</button>
-              <span className={styles.codeBadge} style={{ fontSize: '0.9rem' }}>{selectedCourse.subject} {selectedCourse.catalogue}</span>
-              <h2 className={styles.modalTitle}>{selectedCourse.title}</h2>
-              <div style={{ marginTop: '8px', opacity: 0.7, fontWeight: 600 }}>{selectedCourse.credits} Credits</div>
-            </div>
-
-            <div className={styles.modalBody}>
-              <p className={styles.modalP}>{selectedCourse.description || "No description info available for this course."}</p>
-
-              {selectedCourse.prereqdescription && (
-                <div className={styles.infoBlock}>
-                  <span className={styles.infoLabel}>Prerequisites / Corequisites</span>
-                  <div style={{ lineHeight: 1.6 }}>{selectedCourse.prereqdescription}</div>
-                </div>
-              )}
-
-              {selectedCourse.equivalent_course_description && (
-                <div className={styles.infoBlock}>
-                  <span className={styles.infoLabel}>Equivalencies</span>
-                  <div style={{ lineHeight: 1.6 }}>{selectedCourse.equivalent_course_description}</div>
-                </div>
-              )}
-
-              <div style={{ textAlign: 'right' }}>
-                <button
-                  className={styles.techTreeBtn}
-                  onClick={() => window.location.href = `/pages/tree?code=${selectedCourse.subject}-${selectedCourse.catalogue}`}
-                >
-                  <span>Base Graph</span> ↗
-                </button>
-              </div>
-            </div>
-          </div>
+      {/* Load More Button */}
+      {!loading && visibleCount < filteredItems.length && (
+        <div className={styles.loadMoreContainer}>
+          <button className={styles.loadMoreBtn} onClick={handleLoadMore}>
+            Load More Courses ↓
+          </button>
         </div>
       )}
+
+      {/* Detail Modal - Dossier Style */}
+      <AnimatePresence>
+        {selectedCourse && (
+          <motion.div
+            className={styles.modalOverlay}
+            onClick={closeModal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className={styles.modalContent}
+              onClick={e => e.stopPropagation()}
+              initial={{ x: "100%" }}
+              animate={{ x: 0, transition: { type: "spring", damping: 25, stiffness: 200 } }}
+              exit={{ x: "100%" }}
+            >
+              <div className={styles.modalHeader}>
+                <button className={styles.modalClose} onClick={closeModal}>✕</button>
+                <div className={styles.modalSubtitle}>Course Dossier</div>
+                <h2 className={styles.modalTitle}>{selectedCourse.title}</h2>
+                <div style={{ marginTop: '8px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <span className={styles.codeBadge}>{selectedCourse.subject} {selectedCourse.catalogue}</span>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#666' }}>{selectedCourse.credits} Credits</span>
+                </div>
+              </div>
+
+              <div className={styles.modalBody}>
+                <p className={styles.modalP}>{selectedCourse.description || "No description info available for this course."}</p>
+
+                {selectedCourse.prereqdescription && (
+                  <div className={styles.infoBlock}>
+                    <span className={styles.infoLabel}>Prerequisites / Corequisites</span>
+                    <div style={{ lineHeight: 1.6, fontSize: '0.95rem', color: '#444' }}>{selectedCourse.prereqdescription}</div>
+                  </div>
+                )}
+
+                {selectedCourse.equivalent_course_description && (
+                  <div className={styles.infoBlock}>
+                    <span className={styles.infoLabel}>Equivalencies</span>
+                    <div style={{ lineHeight: 1.6, fontSize: '0.95rem', color: '#444' }}>{selectedCourse.equivalent_course_description}</div>
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', gap: '12px', marginTop: '32px' }}>
+                  <button
+                    className={styles.primaryBtn}
+                    onClick={() => {
+                      const query = `${selectedCourse.subject} ${selectedCourse.catalogue}`.replace(" ", "+");
+                      window.open(`/pages/courses?search=${query}&minCredits=0&maxCredits=6`, '_blank');
+                    }}
+                  >
+                    Add to Planner
+                  </button>
+
+                  <button
+                    className={styles.secondaryBtn}
+                    onClick={() => window.location.href = `/pages/tree?code=${selectedCourse.subject}-${selectedCourse.catalogue}`}
+                  >
+                    View Graph ↗
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </main>
   );

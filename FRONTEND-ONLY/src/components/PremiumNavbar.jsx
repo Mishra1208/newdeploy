@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavLink from "@/components/NavLink";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { Sun, Moon } from "lucide-react";
+import StaggeredMenu from "@/components/staggered/StaggeredMenu";
 
 /* -------------------------------------------------------------------------- */
 /*                                THEME TOGGLE                                */
@@ -39,6 +40,7 @@ function PremiumThemeToggle() {
 export default function PremiumNavbar() {
     const { scrollY } = useScroll();
     const pathname = usePathname(); // Get current path
+    const { isSignedIn } = useUser();
     const [hidden, setHidden] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -52,17 +54,37 @@ export default function PremiumNavbar() {
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = scrollY.getPrevious();
         if (latest > previous && latest > 150) {
-            setHidden(true);
+            setHidden(true); // Hide main nav
         } else {
-            setHidden(false);
+            setHidden(false); // Show main nav
         }
         setScrolled(latest > 50);
     });
 
     const isHome = pathname === "/";
 
+    // Configuration for Staggered Menu
+    const menuItems = [
+        { label: 'Home', link: '/' },
+        { label: 'Seat Finder', link: '/pages/seat-finder' },
+        { label: 'Courses', link: '/pages/courses' },
+        { label: 'Planner', link: '/pages/planner' },
+        { label: 'GPA Calc', link: '/pages/gpa' },
+        { label: 'About', link: '/about' },
+        { label: 'Contact', link: '/contact' }
+    ];
+
+    if (!isSignedIn) {
+        menuItems.push({ label: 'Log In', link: '/login' });
+    }
+
+    const socialItems = [
+        { label: 'GitHub', link: 'https://github.com/Mishra1208/newdeploy' }
+    ];
+
     return (
         <>
+            {/* Standard "Premium" Navbar (Hides on Scroll) */}
             <motion.header
                 className={`premium-nav ${scrolled ? "scrolled" : ""}`}
                 variants={{
@@ -176,6 +198,34 @@ export default function PremiumNavbar() {
                     </div>
                 </motion.div>
             </motion.header>
+
+            {/* STAGGERED MENU (Appears when Main Nav Hides) */}
+            <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    right: 0,
+                    height: '100vh',
+                    zIndex: 900,
+                    pointerEvents: 'none',
+                    opacity: hidden ? 1 : 0, // Only visible when main nav is hidden
+                    transition: 'opacity 0.4s ease'
+                }}
+            >
+                <div style={{ pointerEvents: hidden ? 'auto' : 'none', height: '100%' }}>
+                    <StaggeredMenu
+                        items={menuItems}
+                        socialItems={socialItems}
+                        displaySocials={true}
+                        displayItemNumbering={true}
+                        menuButtonColor="#ffffff" // White text on Burgundy pill
+                        openMenuButtonColor="#ffffff" // Stay White on Open
+                        changeMenuColorOnOpen={true}
+                        colors={['#f8fafc', '#f1f5f9']} // Light Layers
+                        accentColor="#912338"
+                    />
+                </div>
+            </div>
         </>
     );
 }
