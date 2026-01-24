@@ -71,6 +71,7 @@ export default async function RootLayout({ children }) {
     <ClerkThemeProvider initialTheme={initialTheme}>
       <html lang="en" data-theme={initialTheme} suppressHydrationWarning>
         <head>
+          <meta name="google-site-verification" content="7mjp32Xg9XKtiijFf44nzkbc8aSe7N9W6kRjZqhK5Oo" />
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
             rel="stylesheet"
