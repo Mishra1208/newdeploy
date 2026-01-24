@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd FRONTEND-ONLY && npm run build",
+  "devCommand": "cd FRONTEND-ONLY && npm run dev",
+  "installCommand": "cd FRONTEND-ONLY && npm install",
+  "framework": "nextjs",
+  "outputDirectory": "FRONTEND-ONLY/.next"
+}
