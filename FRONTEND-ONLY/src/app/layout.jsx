@@ -41,6 +41,9 @@ export const metadata = {
   alternates: {
     canonical: "https://conuplanner.com"
   },
+  verification: {
+    google: "7mjp32Xg9XKtiijFf44nzkbc8aSe7N9W6kRjZqhK5Oo"
+  },
   robots: {
     index: true,
     follow: true,
