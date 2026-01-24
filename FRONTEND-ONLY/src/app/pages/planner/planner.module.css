@@ -309,19 +309,53 @@
 
 .ghostBtn {
   padding: 14px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Slightly clearer border */
   border-radius: 100px;
   font-weight: 600;
   font-size: 14px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.0);
   color: var(--ink);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.ghostBtn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
+:global([data-theme="light"]) .ghostBtn {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ghostBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+:global([data-theme="light"]) .ghostBtn:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.ghostBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exportBtn.downloaded {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: none;
+  opacity: 1 !important;
+  /* Override disabled opacity */
+  cursor: default !important;
+}
+
+.exportBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
 }
 
 /* ================= Empty States ================= */

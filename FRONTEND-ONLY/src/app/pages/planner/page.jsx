@@ -56,7 +56,7 @@ function broadcastPlannerChange() {
 /* -------------------------------- page ----------------------------------- */
 export default function PlannerPage() {
   const [items, setItems] = useState([]);
-  const [exporting, setExporting] = useState(false);
+  const [downloadStatus, setDownloadStatus] = useState("idle"); // idle | downloading | downloaded
   const router = useRouter();
 
   // Drag & Drop State
@@ -74,7 +74,11 @@ export default function PlannerPage() {
   useEffect(() => {
     refresh();
     const onStorage = (e) => { if (!e || e.key === KEY) refresh(); };
-    const onPlannerUpdate = () => refresh();
+    const onPlannerUpdate = () => {
+      refresh();
+      // Reset download status on any change
+      setDownloadStatus("idle");
+    };
     const onVisible = () => { if (!document.hidden) refresh(); };
     window.addEventListener("storage", onStorage);
     window.addEventListener("planner:update", onPlannerUpdate);
@@ -154,16 +158,31 @@ export default function PlannerPage() {
 
   async function handleExport() {
     try {
-      setExporting(true);
+      setDownloadStatus("downloading");
       await exportPlannerToExcel(items);
-    } finally {
-      setExporting(false);
+      // Artificial delay for better UX if it's too fast
+      await new Promise(r => setTimeout(r, 800));
+      setDownloadStatus("downloaded");
+    } catch (e) {
+      console.error(e);
+      setDownloadStatus("idle");
+      alert("Export failed. Please try again.");
     }
   }
 
   const handleSaveProgress = () => {
     router.push('/login');
   };
+
+  const getButtonText = () => {
+    switch (downloadStatus) {
+      case "downloading": return "Downloading...";
+      case "downloaded": return "Downloaded ✓";
+      default: return "Export to Excel";
+    }
+  };
+
+  const isExportDisabled = !items.length || downloadStatus === "downloading" || downloadStatus === "downloaded";
 
   // Group by Term
   const byTerm = { Fall: [], Winter: [], Summer: [], Others: [] };
@@ -275,34 +294,36 @@ export default function PlannerPage() {
             </button>
 
             <button
-              className={styles.exportBtn}
+              className={`${styles.exportBtn} ${downloadStatus === 'downloaded' ? styles.downloaded : ''}`}
               onClick={handleExport}
-              disabled={!items.length || exporting}
+              disabled={isExportDisabled}
             >
-              {exporting ? "Generating Excel…" : "Export to Excel"}
+              {getButtonText()}
             </button>
           </div>
         </header>
 
         {/* Stats Section */}
-        <div className={styles.statsRow}>
-          {[
-            { label: "Total Credits", value: totalCredits.toFixed(1), icon: "🎓" },
-            { label: "Courses Added", value: items.length, icon: "📚" },
-            { label: "Active Semesters", value: Object.values(byTerm).filter(a => a.length).length, icon: "🗓️" }
-          ].map((stat, i) => (
-            <motion.div
-              key={i}
-              className={styles.statCard}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <span className={styles.statLabel}>{stat.label}</span>
-              <div className={styles.statValue}>{stat.value}</div>
-            </motion.div>
-          ))}
-        </div>
+        < div className={styles.statsRow} >
+          {
+            [
+              { label: "Total Credits", value: totalCredits.toFixed(1), icon: "🎓" },
+              { label: "Courses Added", value: items.length, icon: "📚" },
+              { label: "Active Semesters", value: Object.values(byTerm).filter(a => a.length).length, icon: "🗓️" }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                className={styles.statCard}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <span className={styles.statLabel}>{stat.label}</span>
+                <div className={styles.statValue}>{stat.value}</div>
+              </motion.div>
+            ))
+          }
+        </div >
 
         <div className={styles.board}>
           <AnimatePresence mode="popLayout">
@@ -407,7 +428,7 @@ export default function PlannerPage() {
             )}
           </AnimatePresence>
         </div>
-      </motion.main>
-    </div>
+      </motion.main >
+    </div >
   );
 }
