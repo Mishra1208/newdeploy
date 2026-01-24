@@ -1431,4 +1431,35 @@
     border-radius: 12px;
     order: 4;
   }
+
+  /* --- Mobile Dept Tabs (Horizontal Scroll) --- */
+  .deptTabs {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 4px 0 12px;
+    /* Bottom padding for touch space/scrollbar */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin-bottom: 20px;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .deptTabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .deptTab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }

@@ -159,47 +159,12 @@ export default function PremiumNavbar() {
                         <PremiumThemeToggle />
                     </nav>
 
-                    {/* MOBILE HAMBURGER */}
-                    <button
-                        className="mobile-toggle"
-                        onClick={() => setMenuOpen(!menuOpen)}
-                    >
-                        <div className={`hamburger ${menuOpen ? "open" : ""}`}>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </button>
                 </div>
 
-                {/* MOBILE MENU OVERLAY */}
-                <motion.div
-                    className="mobile-menu"
-                    initial="closed"
-                    animate={menuOpen ? "open" : "closed"}
-                    variants={{
-                        open: { opacity: 1, pointerEvents: "auto" },
-                        closed: { opacity: 0, pointerEvents: "none" }
-                    }}
-                >
-                    <div className="mobile-links">
-                        <NavLink href="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
-                        <NavLink href="/pages/seat-finder" onClick={() => setMenuOpen(false)}>Seat Finder</NavLink>
-                        <NavLink href="/pages/courses" onClick={() => setMenuOpen(false)}>Courses</NavLink>
-                        <NavLink href="/pages/planner" onClick={() => setMenuOpen(false)}>Planner</NavLink>
-                        <NavLink href="/about" onClick={() => setMenuOpen(false)}>About Us</NavLink>
 
-                        <div className="mobile-divider">More</div>
-                        <NavLink href="/pages/gpa" onClick={() => setMenuOpen(false)}>GPA Calculator</NavLink>
-                        <NavLink href="/pages/courses/descriptions" onClick={() => setMenuOpen(false)}>Course Descriptions</NavLink>
-
-                        <div style={{ height: 20 }} />
-                        <PremiumThemeToggle />
-                    </div>
-                </motion.div>
             </motion.header>
 
-            {/* STAGGERED MENU (Appears when Main Nav Hides) */}
+            {/* STAGGERED MENU (Always Visible as Primary Mobile Nav) */}
             <div
                 style={{
                     position: 'fixed',
@@ -208,20 +173,19 @@ export default function PremiumNavbar() {
                     height: '100vh',
                     zIndex: 900,
                     pointerEvents: 'none',
-                    opacity: hidden ? 1 : 0, // Only visible when main nav is hidden
-                    transition: 'opacity 0.4s ease'
+                    opacity: 1, // Always visible
                 }}
             >
-                <div style={{ pointerEvents: hidden ? 'auto' : 'none', height: '100%' }}>
+                <div style={{ pointerEvents: 'auto', height: '100%' }}>
                     <StaggeredMenu
                         items={menuItems}
                         socialItems={socialItems}
                         displaySocials={true}
                         displayItemNumbering={true}
-                        menuButtonColor="#ffffff" // White text on Burgundy pill
-                        openMenuButtonColor="#ffffff" // Stay White on Open
+                        menuButtonColor={hidden ? "#ffffff" : "#912338"} // White when scrolled (burgundy bg), Burgundy when top (white bg)
+                        openMenuButtonColor="#ffffff"
                         changeMenuColorOnOpen={true}
-                        colors={['#f8fafc', '#f1f5f9']} // Light Layers
+                        colors={['#f8fafc', '#f1f5f9']}
                         accentColor="#912338"
                     />
                 </div>
