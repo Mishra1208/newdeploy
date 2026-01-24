@@ -213,181 +213,201 @@ export default function PlannerPage() {
   const termOrder = ["Fall", "Winter", "Summer", "Others"];
 
   return (
-    <motion.main
-      className={styles.wrap}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <header className={styles.head}>
-        <div>
-          <h1 className="h1">My Planner</h1>
-          <p className={styles.subtitle}>Curate your academic journey with precision.</p>
-        </div>
-        <div className={styles.actions}>
-          <div style={{ marginRight: 8 }}>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/" />
-            </SignedIn>
-          </div>
+    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
+      {/* Premium Background Decor */}
+      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', top: '-10%', left: '-10%', width: '50%', height: '50%',
+          background: '#912338', opacity: 0.03, borderRadius: '9999px', filter: 'blur(120px)'
+        }} />
+        <div style={{
+          position: 'absolute', top: '20%', right: '-10%', width: '40%', height: '60%',
+          background: '#C5A059', opacity: 0.05, borderRadius: '9999px', filter: 'blur(100px)'
+        }} />
+        {/* Extra center glow for depth */}
+        <div style={{
+          position: 'absolute', bottom: '-20%', left: '20%', width: '60%', height: '40%',
+          background: '#912338', opacity: 0.02, borderRadius: '9999px', filter: 'blur(140px)'
+        }} />
+      </div>
 
-          <SignedIn>
+      <motion.main
+        className={styles.wrap}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ position: 'relative', zIndex: 10 }}
+      >
+        <header className={styles.head}>
+          <div>
+            <h1 className="h1">My Planner</h1>
+            <p className={styles.subtitle}>Curate your academic journey with precision.</p>
+          </div>
+          <div className={styles.actions}>
+            <div style={{ marginRight: 8 }}>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+            </div>
+
+            <SignedIn>
+              <button
+                className={styles.ghostBtn}
+                onClick={() => alert("Cloud Sync is active! Your data is safe.")}
+                style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)' }}
+              >
+                Sync Active
+              </button>
+            </SignedIn>
+
+            <SignedOut>
+              <button className={styles.ghostBtn} onClick={handleSaveProgress}>
+                Cloud Sync (Login)
+              </button>
+            </SignedOut>
+
             <button
               className={styles.ghostBtn}
-              onClick={() => alert("Cloud Sync is active! Your data is safe.")}
-              style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)' }}
+              onClick={handleClearAll}
+              disabled={!items.length}
             >
-              Sync Active
+              Clear Board
             </button>
-          </SignedIn>
 
-          <SignedOut>
-            <button className={styles.ghostBtn} onClick={handleSaveProgress}>
-              Cloud Sync (Login)
+            <button
+              className={styles.exportBtn}
+              onClick={handleExport}
+              disabled={!items.length || exporting}
+            >
+              {exporting ? "Generating Excel…" : "Export to Excel"}
             </button>
-          </SignedOut>
+          </div>
+        </header>
 
-          <button
-            className={styles.ghostBtn}
-            onClick={handleClearAll}
-            disabled={!items.length}
-          >
-            Clear Board
-          </button>
-
-          <button
-            className={styles.exportBtn}
-            onClick={handleExport}
-            disabled={!items.length || exporting}
-          >
-            {exporting ? "Generating Excel…" : "Export to Excel"}
-          </button>
-        </div>
-      </header>
-
-      {/* Stats Section */}
-      <div className={styles.statsRow}>
-        {[
-          { label: "Total Credits", value: totalCredits.toFixed(1), icon: "🎓" },
-          { label: "Courses Added", value: items.length, icon: "📚" },
-          { label: "Active Semesters", value: Object.values(byTerm).filter(a => a.length).length, icon: "🗓️" }
-        ].map((stat, i) => (
-          <motion.div
-            key={i}
-            className={styles.statCard}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <span className={styles.statLabel}>{stat.label}</span>
-            <div className={styles.statValue}>{stat.value}</div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className={styles.board}>
-        <AnimatePresence mode="popLayout">
-          {items.length === 0 ? (
+        {/* Stats Section */}
+        <div className={styles.statsRow}>
+          {[
+            { label: "Total Credits", value: totalCredits.toFixed(1), icon: "🎓" },
+            { label: "Courses Added", value: items.length, icon: "📚" },
+            { label: "Active Semesters", value: Object.values(byTerm).filter(a => a.length).length, icon: "🗓️" }
+          ].map((stat, i) => (
             <motion.div
-              key="empty"
-              className={styles.emptyState}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              key={i}
+              className={styles.statCard}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.1 }}
             >
-              <div className={styles.emptyIcon}>✨</div>
-              <h3>Your whiteboard is clean</h3>
-              <p>Explore our catalog and find the perfect courses for your degree.</p>
-              <Link href="/pages/courses" className={styles.exportBtn}>
-                Browse Courses
-              </Link>
+              <span className={styles.statLabel}>{stat.label}</span>
+              <div className={styles.statValue}>{stat.value}</div>
             </motion.div>
-          ) : (
-            termOrder.map(termKey => {
-              const list = byTerm[termKey];
-              if (list.length === 0 && termKey === "Others") return null;
+          ))}
+        </div>
 
-              const termCreds = list.reduce((acc, c) => acc + (parseFloat(c.credits) || 0), 0);
-              let statusLabel = "N/A";
-              let statusColor = "var(--ink-dim)";
-              if (termCreds >= 15) { statusLabel = "Heavy Load"; statusColor = "#a78bfa"; }
-              else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
-              else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
+        <div className={styles.board}>
+          <AnimatePresence mode="popLayout">
+            {items.length === 0 ? (
+              <motion.div
+                key="empty"
+                className={styles.emptyState}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className={styles.emptyIcon}>✨</div>
+                <h3>Your whiteboard is clean</h3>
+                <p>Explore our catalog and find the perfect courses for your degree.</p>
+                <Link href="/pages/courses" className={styles.exportBtn}>
+                  Browse Courses
+                </Link>
+              </motion.div>
+            ) : (
+              termOrder.map(termKey => {
+                const list = byTerm[termKey];
+                if (list.length === 0 && termKey === "Others") return null;
 
-              const isOver = dragOverTerm === termKey;
+                const termCreds = list.reduce((acc, c) => acc + (parseFloat(c.credits) || 0), 0);
+                let statusLabel = "N/A";
+                let statusColor = "var(--ink-dim)";
+                if (termCreds >= 15) { statusLabel = "Heavy Load"; statusColor = "#a78bfa"; }
+                else if (termCreds >= 12) { statusLabel = "Full Time"; statusColor = "#22c55e"; }
+                else if (termCreds > 0) { statusLabel = "Part Time"; statusColor = "#fca5a5"; }
 
-              return (
-                <motion.div
-                  key={termKey}
-                  layout
-                  className={`${styles.column} ${isOver ? styles.columnDragOver : ""}`}
-                  onDragOver={(e) => handleDragOver(e, termKey)}
-                  onDrop={(e) => handleDrop(e, termKey)}
-                  onDragLeave={handleDragLeave}
-                >
-                  <div className={styles.colHeader}>
-                    <h3 className={styles.colTitle}>
-                      {termKey} <span className={styles.countBadge}>{list.length}</span>
-                    </h3>
-                    {list.length > 0 && (
-                      <span style={{
-                        fontSize: 10, fontWeight: 800, color: statusColor,
-                        background: `${statusColor}15`, padding: '4px 8px', borderRadius: 8
-                      }}>
-                        {statusLabel}
-                      </span>
-                    )}
-                  </div>
+                const isOver = dragOverTerm === termKey;
 
-                  <motion.div className={styles.colList} layout>
-                    <AnimatePresence mode="popLayout">
-                      {list.length === 0 ? (
-                        <motion.div
-                          key={`empty-${termKey}`}
-                          className={styles.emptySlot}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                        >
-                          Drop Courses Here
-                        </motion.div>
-                      ) : (
-                        list.map(c => (
-                          <motion.div
-                            key={courseKey(c)}
-                            layout
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            className={`${styles.card} ${draggedItem && courseKey(draggedItem) === courseKey(c) ? styles.cardDragging : ""}`}
-                            draggable={true}
-                            onDragStart={(e) => handleDragStart(e, c)}
-                            onDragEnd={handleDragEnd}
-                          >
-                            <div className={styles.cardHead}>
-                              <span className={styles.code}>{c.subject} {c.catalogue}</span>
-                              <span className={styles.credits}>{c.credits} CR</span>
-                            </div>
-                            <div className={styles.cardTitle}>
-                              {c.title}
-                              {c.displayTitle && <span style={{ opacity: 0.5, fontSize: '0.8em', marginLeft: 4 }}>{c.displayTitle}</span>}
-                            </div>
-                            {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
-                            {!c.isVirtual && (
-                              <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
-                                Remove Offering
-                              </button>
-                            )}
-                          </motion.div>
-                        ))
+                return (
+                  <motion.div
+                    key={termKey}
+                    layout
+                    className={`${styles.column} ${isOver ? styles.columnDragOver : ""}`}
+                    onDragOver={(e) => handleDragOver(e, termKey)}
+                    onDrop={(e) => handleDrop(e, termKey)}
+                    onDragLeave={handleDragLeave}
+                  >
+                    <div className={styles.colHeader}>
+                      <h3 className={styles.colTitle}>
+                        {termKey} <span className={styles.countBadge}>{list.length}</span>
+                      </h3>
+                      {list.length > 0 && (
+                        <span style={{
+                          fontSize: 10, fontWeight: 800, color: statusColor,
+                          background: `${statusColor}15`, padding: '4px 8px', borderRadius: 8
+                        }}>
+                          {statusLabel}
+                        </span>
                       )}
-                    </AnimatePresence>
+                    </div>
+
+                    <motion.div className={styles.colList} layout>
+                      <AnimatePresence mode="popLayout">
+                        {list.length === 0 ? (
+                          <motion.div
+                            key={`empty-${termKey}`}
+                            className={styles.emptySlot}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                          >
+                            Drop Courses Here
+                          </motion.div>
+                        ) : (
+                          list.map(c => (
+                            <motion.div
+                              key={courseKey(c)}
+                              layout
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              className={`${styles.card} ${draggedItem && courseKey(draggedItem) === courseKey(c) ? styles.cardDragging : ""}`}
+                              draggable={true}
+                              onDragStart={(e) => handleDragStart(e, c)}
+                              onDragEnd={handleDragEnd}
+                            >
+                              <div className={styles.cardHead}>
+                                <span className={styles.code}>{c.subject} {c.catalogue}</span>
+                                <span className={styles.credits}>{c.credits} CR</span>
+                              </div>
+                              <div className={styles.cardTitle}>
+                                {c.title}
+                                {c.displayTitle && <span style={{ opacity: 0.5, fontSize: '0.8em', marginLeft: 4 }}>{c.displayTitle}</span>}
+                              </div>
+                              {c.session && c.session !== "N/A" && <div className={styles.cardMeta}>{c.session}</div>}
+                              {!c.isVirtual && (
+                                <button className={styles.removeBtn} onClick={() => removeOffering(c)}>
+                                  Remove Offering
+                                </button>
+                              )}
+                            </motion.div>
+                          ))
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              )
-            })
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.main>
+                )
+              })
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.main>
+    </div>
   );
 }

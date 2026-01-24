@@ -8,9 +8,30 @@ const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 
 import confetti from 'canvas-confetti';
 
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 export default function NewsletterSignup() {
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState("idle"); // idle | loading | success
+    const [status, setStatus] = useState("idle"); // idle | loading | success | exists | animating
+
+    const [dotLottie, setDotLottie] = useState(null);
+    const [animationComplete, setAnimationComplete] = useState(false);
+
+    // Listen for animation completion
+    React.useEffect(() => {
+        if (!dotLottie) return;
+
+        const onComplete = () => {
+            setAnimationComplete(true);
+            setStatus("success");
+            triggerConfetti();
+        };
+
+        dotLottie.addEventListener('complete', onComplete);
+        return () => {
+            dotLottie.removeEventListener('complete', onComplete);
+        };
+    }, [dotLottie]);
 
     // Parallax Ref
     const ref = useRef(null);
@@ -48,36 +69,24 @@ export default function NewsletterSignup() {
         fire(0.1, { spread: 120, startVelocity: 45 });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (!email) return;
 
-        setStatus("loading");
+        // Optimistic UI: Show animation immediately
+        setStatus("animating");
+        setAnimationComplete(false);
 
-        try {
-            const res = await fetch('/api/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
-            });
-
-            if (res.ok) {
-                setStatus("success");
-                setEmail("");
-                triggerConfetti(); // 🎉 PARTY TIME!
-            } else if (res.status === 409) {
-                setStatus("exists");
-                setEmail("");
-            } else {
-                console.error("Subscription failed:", res.statusIcon);
-                setStatus("idle");
-                alert("Something went wrong. Please try again.");
+        // Background call
+        fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        }).then(res => {
+            if (!res.ok && res.status !== 409) {
+                console.error("Background subscription failed:", res.statusIcon);
             }
-        } catch (e) {
-            console.error(e);
-            setStatus("idle");
-            alert("Error submitting. Please try later.");
-        }
+        }).catch(err => console.error("Subscription Error:", err));
     };
 
     return (
@@ -184,8 +193,26 @@ export default function NewsletterSignup() {
                 </motion.div>
 
                 <AnimatePresence mode="wait">
-                    {status === "success" ? (
+                    {status === "animating" ? (
                         <motion.div
+                            key="animating"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
+                            <div style={{ width: 300, height: 300 }}>
+                                <DotLottieReact
+                                    src="https://lottie.host/5bb5daea-1faf-45d5-a4f6-6a5ea4f6bb57/T1riHuc3F6.lottie"
+                                    loop={false}
+                                    autoplay
+                                    dotLottieRefCallback={setDotLottie}
+                                />
+                            </div>
+                        </motion.div>
+                    ) : status === "success" ? (
+                        <motion.div
+                            key="success"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             style={{
@@ -207,6 +234,7 @@ export default function NewsletterSignup() {
                         </motion.div>
                     ) : status === "exists" ? (
                         <motion.div
+                            key="exists"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             style={{

@@ -8,69 +8,19 @@ import ClaraSection from "@/components/ClaraSection";
 import StatsTicker from "@/components/widgets/StatsTicker";
 import TiltCard from "@/components/widgets/TiltCard";
 import ConfettiButton from "@/components/widgets/ConfettiButton";
+import EngineeredSticky from "@/components/widgets/EngineeredSticky";
+import TeamSticky from "@/components/widgets/TeamSticky";
 import { motion, useScroll, useTransform } from "motion/react";
 
 // Fancy display/body fonts (zero CLS, no <link> tags needed)
-import { Space_Grotesk, Inter } from "next/font/google";
-const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
+import { Outfit, Inter } from "next/font/google";
+const display = Outfit({ subsets: ["latin"], weight: ["700", "800"] });
 const body = Inter({ subsets: ["latin"], weight: ["400", "600"] });
 
-const TEAM = [
-  {
-    name: "Narendra Mishra",
-    role: "Founder & Dev",
-    avatar: "/team/narendra.JPG",
-    links: {
-      github: "https://github.com/Mishra1208",
-      instagram: "https://www.instagram.com/nar.endra_mis.hra?igsh=MWUyOWx0NHFxbm1sMg==",
-      linkedin: "https://www.linkedin.com/in/narendra-mishra-3a0136240/",
-    },
-  },
-  {
-    name: "Aryan Kotecha",
-    role: "Backend",
-    avatar: "/team/aryan.JPG",
-    links: {
-      github: "https://github.com/aryann2212",
-      instagram: "https://www.instagram.com/aryann.__.__?igsh=ZDJiNGJzY2syaDNu",
-      linkedin: "https://www.linkedin.com/in/aryankotecha/",
-    },
-  },
-  {
-    name: "Neelendra Mishra",
-    role: "Design",
-    avatar: "/team/neelendra.jpeg",
-    links: {
-      github: "https://github.com/Neelendra-Mishra",
-      instagram: "https://www.instagram.com/neelendra_mish.ra?igsh=Y3I5ZXE4ZG02eWY0",
-      linkedin: "https://www.linkedin.com/in/neelendra-mishra-031045229/",
-    },
-  },
-];
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    }
-  }
-};
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  }
 };
 
 export default function AboutPage() {
@@ -80,7 +30,7 @@ export default function AboutPage() {
   const y3 = useTransform(scrollY, [0, 2000], [0, 200]);
 
   return (
-    <main className={`container ${styles.page} ${body.className}`}>
+    <main className={`container mx-auto ${styles.page} ${body.className}`}>
 
       {/* --- Parallax Background --- */}
       <motion.div style={{ y: y1 }} className={`${styles.parallaxBlob} ${styles.blob1}`} />
@@ -95,9 +45,20 @@ export default function AboutPage() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className={`${styles.glassIsland} ${styles.glassNoise}`}>
+        <motion.div
+          className={styles.heroContent}
+          style={{
+            y: useTransform(scrollY, [0, 500], [0, 100]),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: '100vw',
+            textAlign: 'center'
+          }}
+        >
           <p className={`${styles.kicker} ${display.className}`}>ConU Planner</p>
-          <h1 className={`${styles.title} ${display.className}`}>
+          <h1 className={`${styles.title} ${display.className} ${styles.royalGradientText}`}>
             Dream It. <br /> Plan It. Done.
           </h1>
 
@@ -111,36 +72,11 @@ export default function AboutPage() {
             <li className={styles.chip}>Course Catalog</li>
             <li className={styles.chip}>GPA Forecaster</li>
           </ul>
-        </div>
+        </motion.div>
       </motion.section>
 
-      {/* --- Team Profile Chips --- */}
-      <motion.section
-        className={styles.section}
-        style={{ marginBottom: 40 }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
-        <h2 className={`${styles.h2} ${display.className}`}>Team and Collaborators</h2>
-        <div className={styles.teamGrid}>
-          {TEAM.map((m) => (
-            <TiltCard key={m.name} className={`${styles.glassNoise}`} style={{ background: "transparent", border: "none", boxShadow: "none", position: 'relative' }}>
-              <div className={styles.glintOverlay} />
-              {/* We wrap Profile in TiltCard to give it the effect */}
-              <Profile name={m.name} role={m.role} avatar={m.avatar} links={m.links} />
-            </TiltCard>
-          ))}
-        </div>
-
-        <div style={{ textAlign: "center", marginTop: 60, marginBottom: 40 }}>
-          <p className="body" style={{ opacity: 0.7, marginBottom: 20 }}>
-            Want to contribute?
-          </p>
-          <ConfettiButton />
-        </div>
-      </motion.section>
+      {/* --- Team Sticky Scroll --- */}
+      <TeamSticky />
 
       {/* --- Vision & Mission --- */}
       <section className={styles.section}>
@@ -195,18 +131,27 @@ export default function AboutPage() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        style={{ y: useTransform(scrollY, [600, 1800], [0, 80]) }}
+        style={{ y: useTransform(scrollY, [600, 1800], [0, 80]), position: 'relative', overflow: 'visible' }}
       >
-        <div className={`${styles.glassIsland} ${styles.glassNoise}`}>
-          <div className={styles.glintOverlay} />
-          <h2 className={`${styles.h2} ${display.className}`}>The Origin Story</h2>
-          <p className={styles.lead} style={{ textAlign: "left", fontSize: "1.1rem" }}>
-            ConU Planner didn't start in a boardroom. It started in a crowded library at 2 AM, staring at 14 open tabs—Concordia's ancient SIS, Reddit threads on COMP 248 difficulty, and RateMyProf ratings for five different teachers.
+        {/* Parallax Emojis */}
+        <motion.div style={{ position: 'absolute', top: '-10%', left: '10%', y: useTransform(scrollY, [1000, 2000], [0, -150]), fontSize: '3rem', opacity: 0.2 }}>☕️</motion.div>
+        <motion.div style={{ position: 'absolute', top: '20%', right: '15%', y: useTransform(scrollY, [1000, 2000], [0, -80]), fontSize: '4rem', opacity: 0.15 }}>📚</motion.div>
+        <motion.div style={{ position: 'absolute', bottom: '-20%', left: '20%', y: useTransform(scrollY, [1000, 2000], [0, -200]), fontSize: '2.5rem', opacity: 0.1 }}>💻</motion.div>
+        <motion.div style={{ position: 'absolute', bottom: '10%', right: '5%', y: useTransform(scrollY, [1000, 2000], [0, -120]), fontSize: '3.5rem', opacity: 0.2 }}>🤯</motion.div>
+
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <h2 className={`${styles.title} ${display.className} ${styles.originTitleGradient}`} style={{ fontSize: '4.5rem', marginBottom: '40px', lineHeight: 1.3, paddingBottom: '10px' }}>
+            The Origin Story
+          </h2>
+          <p className={styles.lead} style={{ textAlign: "center", fontSize: "1.4rem", lineHeight: "1.6", fontWeight: 500, color: 'var(--ink-secondary)' }}>
+            We didn't build this to launch a startup. We built it because we were tired of having 15 tabs open just to pick a schedule.
             <br /><br />
-            We realized that students weren't just planning schedules; they were performing complex data synthesis by hand. We decided to automate the stress, bridging the gap between official data and student reality.
+            Between the crash-prone SIS, Reddit threads from 4 years ago, and RateMyProf reviews that didn't match the section numbers... it was a nightmare. <span style={{ color: 'var(--primary)', fontWeight: 700 }}>So we fixed it.</span> For ourselves, and now for everyone else.
           </p>
-          <div style={{ textAlign: "center", marginTop: 20 }}>
-            <span className={styles.note}>1,200+ hours of engineering and design</span>
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <span className={styles.note} style={{ background: 'rgba(145, 35, 56, 0.08)', color: 'var(--primary)', padding: '10px 24px', borderRadius: '30px', fontSize: '1rem', fontWeight: 600 }}>
+              1,200+ hours of caffeine & code
+            </span>
           </div>
         </div>
       </motion.section>
@@ -225,80 +170,8 @@ export default function AboutPage() {
         <AnimatedBeamDemo />
       </motion.section>
 
-      {/* --- Holographic Features Grid --- */}
-      <section className={styles.section}>
-        <motion.h2
-          className={`${styles.h2} ${display.className}`}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
-          Engineered for Success
-        </motion.h2>
-
-        <motion.div
-          className={styles.grid}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-        >
-          <motion.div variants={staggerItem} className={styles.colSpan2}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Unified Intelligence</h3>
-              <p className={styles.muted}>Stop tab-switching. We pull Reddit threads, Professor ratings, and Catalog data into one view.</p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Contextual Search</h3>
-              <p className={styles.muted}>
-                Our engine understands prerequisites. It doesn't just find COMP 352; it knows what you need.
-              </p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem} className={styles.rowSpan2}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Live GPA Math</h3>
-              <p className={styles.muted}>
-                Forecast your cumulative standing instantly with our weighted credit calculator. No more spreadsheets required.
-              </p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Peer-Driven Insights</h3>
-              <p className={styles.muted}>
-                Real-time consensus on course difficulty and vibes from thousands of students.
-              </p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Mobile-First Logic</h3>
-              <p className={styles.muted}>A premium experience on every device. Plan semesters on the STM.</p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem} className={styles.colSpan2}>
-            <TiltCard className={`${styles.card} ${styles.glassNoise}`}>
-              <div className={styles.glintOverlay} />
-              <h3 className={display.className}>Future-Proof Tech</h3>
-              <p className={styles.muted}>Built with Next.js and high-performance indexing for sub-second search speeds across the entire university catalog.</p>
-            </TiltCard>
-          </motion.div>
-        </motion.div>
-      </section>
+      {/* --- Engineered Sticky Scroll --- */}
+      <EngineeredSticky />
 
       {/* --- Meet Clara --- */}
       <motion.div
@@ -310,11 +183,18 @@ export default function AboutPage() {
         <ClaraSection
           styles={styles}
           displayClass={display.className}
-          stacked
+          stacked={false}
         />
       </motion.div>
 
+      {/* --- Footer Contribution --- */}
+      <div style={{ textAlign: "center", marginTop: 120, marginBottom: 80 }}>
+        <p className={styles.lead} style={{ marginBottom: 24, fontSize: '1.2rem', fontWeight: 600 }}>
+          Want to contribute?
+        </p>
+        <ConfettiButton />
+      </div>
 
-    </main>
+    </main >
   );
 }

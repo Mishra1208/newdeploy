@@ -1,0 +1,209 @@
+/* src/app/contact/contact.module.css */
+
+.page {
+    min-height: 100vh;
+    padding: 120px 20px 80px;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 1) 0%, rgba(245, 245, 245, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+/* --- Left Column: Info --- */
+.infoColumn {
+    padding-top: 20px;
+}
+
+.title {
+    font-size: clamp(48px, 5vw, 64px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.royalGradientText {
+    background: linear-gradient(135deg, #1a1a1a 0%, #912338 50%, #C5A059 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: royalFlow 8s ease infinite;
+}
+
+@keyframes royalFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #52525b;
+    margin-bottom: 48px;
+    max-width: 90%;
+}
+
+.contactMethods {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.methodCard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.methodCard:hover {
+    background: #fff;
+    transform: translateX(5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(145, 35, 56, 0.1);
+}
+
+.iconBox {
+    width: 48px;
+    height: 48px;
+    background: rgba(145, 35, 56, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #912338;
+}
+
+.methodLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.methodValue {
+    display: block;
+    font-size: 15px;
+    color: #52525b;
+}
+
+/* --- Right Column: Form --- */
+.formCard {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    padding: 40px;
+    border-radius: 32px;
+    box-shadow:
+        0 20px 50px -10px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.fullWidth {
+    grid-column: span 2;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-left: 4px;
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    font-size: 16px;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    background: #fff;
+    border-color: #C5A059;
+    /* Gold focus */
+    box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+}
+
+.textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 16px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.submitBtn:hover {
+    background: #912338;
+    /* Maroon hover */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(145, 35, 56, 0.2);
+}

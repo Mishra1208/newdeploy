@@ -1,35 +1,14 @@
 "use client";
 
-import confetti from "canvas-confetti";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Sparkles, ArrowRight } from "lucide-react";
 import styles from "../../app/about/about.module.css";
 
 export default function ConfettiButton() {
-    const [isCopied, setIsCopied] = useState(false);
+    const router = useRouter();
 
-    const handleClick = (e) => {
-        // 1. Copy to Clipboard
-        navigator.clipboard.writeText("mishranarendra1208@gmail.com");
-        setIsCopied(true);
-
-        // 2. Trigger Confetti
-        const rect = e.target.getBoundingClientRect();
-        const x = (rect.left + rect.width / 2) / window.innerWidth;
-        const y = (rect.top + rect.height / 2) / window.innerHeight;
-
-        console.log("Confetti triggered!");
-        confetti({
-            origin: { x, y },
-            particleCount: 100,
-            spread: 70,
-            colors: ['#a78bfa', '#f472b6', '#38bdf8', '#facc15'],
-            zIndex: 9999, // Force on top
-        });
-
-        // 3. Reset button text after 2 seconds
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 2000);
+    const handleClick = () => {
+        router.push("/contact");
     };
 
     return (
@@ -38,26 +17,27 @@ export default function ConfettiButton() {
             className={styles.chip}
             style={{
                 fontSize: 16,
-                padding: "12px 32px",
-                // Change color to green when copied
-                background: isCopied ? "#10b981" : "linear-gradient(135deg, var(--accent), var(--accent-2))",
+                padding: "14px 32px",
+                background: "linear-gradient(135deg, #1a1a1a 0%, #912338 100%)", /* Premium Royal Gradient */
                 color: "white",
                 border: "none",
                 cursor: "pointer",
-                boxShadow: "0 10px 25px rgba(139, 92, 246, 0.4)",
+                boxShadow: "0 10px 25px rgba(145, 35, 56, 0.3)",
                 transition: "all 0.3s ease",
-                minWidth: "220px", // Prevent layout shift
+                minWidth: "220px",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "8px"
+                gap: "10px",
+                borderRadius: "99px",
+                fontWeight: 600
             }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "translateY(0)"}
         >
-            {isCopied ? (
-                <>✅ Email Copied!</>
-            ) : (
-                <>🎉 Send us an Email</>
-            )}
+            <Sparkles size={18} />
+            Join the Team
+            <ArrowRight size={18} style={{ opacity: 0.8 }} />
         </button>
     );
 }
