@@ -52,7 +52,10 @@ function broadcastPlannerChange() {
 }
 
 /* -------------------------------- component ------------------------------- */
-export default function CoursesPage() {
+/* -------------------------------- component ------------------------------- */
+import { Suspense } from "react";
+
+function CoursesContent() {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -696,6 +699,14 @@ export default function CoursesPage() {
       {/* Persistent Widget */}
       <FloatingBackpack count={selectedKeys.size} />
     </main>
+  );
+}
+
+export default function CoursesPage() {
+  return (
+    <Suspense fallback={<p style={{ textAlign: "center", padding: "40px" }}>Loading Courses...</p>}>
+      <CoursesContent />
+    </Suspense>
   );
 }
 
