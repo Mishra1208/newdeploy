@@ -109,7 +109,7 @@ function buildCourseCard(c) {
   return `
     <div class="premium-card">
         <!-- Header Gradient -->
-        <div class="card-header" style="background:linear-gradient(135deg, #3b82f6, #6366f1) !important; color:white;">
+        <div class="card-header" style="background:linear-gradient(135deg, #912338, #7a1d2f) !important; color:white;">
             <div style="display:flex; justify-content:space-between; align-items:start;">
                 <div>
                     <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Concordia Course</div>
@@ -128,8 +128,8 @@ function buildCourseCard(c) {
         <div style="padding:20px;">
             
             ${c.prereq ? `
-            <div style="margin-bottom:16px; padding:12px 16px; background:rgba(59, 130, 246, 0.08); border-radius:12px; border-left:4px solid #3b82f6;">
-                <div style="font-size:0.7em; font-weight:800; color:#3b82f6; text-transform:uppercase; margin-bottom:4px; letter-spacing:0.5px;">Prerequisites</div>
+            <div style="margin-bottom:16px; padding:12px 16px; background:rgba(145, 35, 56, 0.08); border-radius:12px; border-left:4px solid #912338;">
+                <div style="font-size:0.7em; font-weight:800; color:#912338; text-transform:uppercase; margin-bottom:4px; letter-spacing:0.5px;">Prerequisites</div>
                 <div style="font-size:0.9em; line-height:1.5; font-weight:500;">${c.prereq}</div>
             </div>` : ""}
 
@@ -166,10 +166,10 @@ function buildRMPCard(t) {
   return `
     <div class="premium-card">
         <!-- Header Gradient -->
-        <div class="card-header" style="background:linear-gradient(135deg, #8b5cf6, #d946ef) !important; color:white;">
-            <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">RateMyProfessors</div>
-            <h3 style="margin:4px 0 0 0; font-size:1.6em; font-weight:800; letter-spacing:-0.03em;">${name}</h3>
-            <div style="font-size:0.95em; opacity:0.9; margin-top:4px;">${t.dept || 'Concordia'}</div>
+        <div class="card-header" style="background:linear-gradient(135deg, #db9e1e, #b8861b) !important; color:white;">
+            <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px; text-shadow:0 1px 2px rgba(0,0,0,0.1);">RateMyProfessors</div>
+            <h3 style="margin:4px 0 0 0; font-size:1.6em; font-weight:800; letter-spacing:-0.03em; text-shadow:0 1px 2px rgba(0,0,0,0.1);">${name}</h3>
+            <div style="font-size:0.95em; opacity:0.9; margin-top:4px; font-weight:500;">${t.dept || 'Concordia'}</div>
         </div>
 
         <!-- Stats Row -->
@@ -227,7 +227,7 @@ function buildRedditCard(data, entity) {
   return `
     <div class="premium-card">
          <!-- Header Gradient -->
-        <div class="card-header" style="background:linear-gradient(135deg, #f97316, #ea580c) !important; color:white;">
+        <div class="card-header" style="background:linear-gradient(135deg, #c2410c, #9a3412) !important; color:white;">
             <div style="font-size:0.7rem; opacity:0.9; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Reddit Consensus</div>
             <h3 style="margin:4px 0 0 0; font-size:1.5em; font-weight:800; letter-spacing:-0.03em;">
                 ${entity}
