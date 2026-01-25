@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConU Planner - Your Academic Weapon</title>
+    <style>
+        /* Base styles for email clients */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        table { border-collapse: collapse; width: 100%; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #0a0a0a; }
+        
+        /* Typography */
+        h1, h2, h3 { margin: 0; font-family: 'Outfit', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+        .gradient-text {
+            background: linear-gradient(90deg, #f43f5e, #fbbf24);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: #fbbf24; /* Fallback */
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 40px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(145, 35, 56, 0.15) 0%, transparent 70%);
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 99px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .btn-primary { background: linear-gradient(135deg, #912338, #f43f5e); color: #ffffff; box-shadow: 0 10px 20px rgba(244, 63, 94, 0.2); }
+        .btn-amber { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000000; box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2); }
+        .btn-emerald { background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+
+        .deadline-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #666666;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 40px 20px; }
+            .card { padding: 24px; }
+            .container { width: 100% !important; }
+        }
+    </style>
+</head>
+<body>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#050505">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" class="container">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding: 40px 0;">
+                            <img src="https://conuplanner.com/logo2.png" alt="ConU Planner Logo" width="180" style="display: block; border: 0;">
+                        </td>
+                    </tr>
+
+                    <!-- Hero -->
+                    <tr>
+                        <td class="hero">
+                            <h1 style="font-size: 42px; line-height: 1.1; margin-bottom: 20px;">
+                                Your Academic Weapon <br>
+                                <span style="color: #f43f5e;">just got sharper.</span>
+                            </h1>
+                            <p style="font-size: 18px; color: #94a3b8; margin-bottom: 32px;">
+                                We've completely overhauled your experience with a rich, cinematic multi-chromatic interface.
+                            </p>
+                            <a href="https://conuplanner.com" class="btn btn-primary">Experience the New UI</a>
+                        </td>
+                    </tr>
+
+                    <!-- Section Content -->
+                    <tr>
+                        <td style="padding: 0 40px 40px;">
+                            
+                            <!-- UI Feature -->
+                            <div class="card">
+                                <h2 style="font-size: 24px; margin-bottom: 12px; color: #ffffff;">Chromatic Dark Mode</h2>
+                                <p style="color: #94a3b8; margin-bottom: 20px;">
+                                    Every page now has its own identity. From high-tech **Emerald** vision modules to **Midnight Blue** features and **Rose** directories—planning has never felt this premium.
+                                </p>
+                                <div style="display: flex; gap: 8px;">
+                                    <span style="width: 12px; height: 12px; background: #10b981; border-radius: 50%;"></span>
+                                    <span style="width: 12px; height: 12px; background: #3b82f6; border-radius: 50%;"></span>
+                                    <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 50%;"></span>
+                                    <span style="width: 12px; height: 12px; background: #fbbf24; border-radius: 50%;"></span>
+                                </div>
+                            </div>
+
+                            <!-- Seat Planner / Deadline -->
+                            <div class="card" style="border-color: rgba(251, 191, 36, 0.2); background: rgba(251, 191, 36, 0.02);">
+                                <div class="deadline-badge">Critical Deadline</div>
+                                <h2 style="font-size: 24px; margin-bottom: 12px; color: #fbbf24;">Seat Planner Alert</h2>
+                                <p style="color: #d1d5db; margin-bottom: 24px;">
+                                    **Monday, January 26, 2026** is the final date for add/drop. The window closes at **11:59 PM**. Secure your seats before the deadline!
+                                </p>
+                                <a href="https://conuplanner.com/pages/seat-finder" class="btn btn-amber" style="display: block; width: 100%; box-sizing: border-box;">Check Real-Time Seats</a>
+                            </div>
+
+                            <!-- Join Team -->
+                            <div class="card" style="border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.02);">
+                                <h2 style="font-size: 24px; margin-bottom: 12px; color: #10b981;">Join the Inner Circle</h2>
+                                <p style="color: #d1d5db; margin-bottom: 24px;">
+                                    ConU Planner is built by students, for students. Want to shape the future of Concordia's academic tools? We're looking for developers, designers, and visionaries.
+                                </p>
+                                <a href="https://conuplanner.com/contact" class="btn btn-emerald" style="display: block; width: 100%; box-sizing: border-box;">Fill in the Join Form</a>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td class="footer">
+                            <p style="margin-bottom: 16px;">
+                                🕊️ Unofficial. Premium. Built with love in Montreal.
+                            </p>
+                            <div style="margin-bottom: 24px;">
+                                <a href="https://conuplanner.com" style="color: #94a3b8; text-decoration: none; margin: 0 10px;">Website</a>
+                                <a href="https://conuplanner.com/about" style style="color: #94a3b8; text-decoration: none; margin: 0 10px;">Manifesto</a>
+                                <a href="https://conuplanner.com/pages/privacy" style="color: #94a3b8; text-decoration: none; margin: 0 10px;">Privacy</a>
+                            </div>
+                            <p style="font-size: 11px; opacity: 0.5;">
+                                © 2026 ConU Planner. Not affiliated with Concordia University. <br>
+                                You are receiving this because you signed up for early access.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
