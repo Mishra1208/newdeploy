@@ -1,9 +1,14 @@
 // components/ClaraSection.jsx
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Brain, GraduationCap, Sparkles, Zap, ArrowRight } from "lucide-react";
 
 export default function ClaraSection({ styles, displayClass, stacked = false }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <section className={styles.claraSection}>
       <div className={styles.claraContainer}>
@@ -54,14 +59,16 @@ export default function ClaraSection({ styles, displayClass, stacked = false }) 
         {/* Right Column: Visual/Demo */}
         <div className={styles.claraVisual}>
           <div suppressHydrationWarning={true} style={{ width: '100%', height: '100%' }}>
-            <video
-              className={styles.claraVideo}
-              src="/videos/clara-demo.mp4"
-              poster="/videos/thumbnail.jpg" // Fixed typo in original filename
-              controls
-              preload="metadata"
-              playsInline
-            />
+            {mounted && (
+              <video
+                className={styles.claraVideo}
+                src="/videos/clara-demo.mp4"
+                poster="/videos/thumbnail.jpg"
+                controls
+                preload="metadata"
+                playsInline
+              />
+            )}
           </div>
         </div>
 
