@@ -225,33 +225,37 @@
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 
-  /* PREMIUM SCROLLBAR - HIGH VISIBILITY */
+  /* PREMIUM SCROLLBAR - ALWAYS VISIBLE */
   scrollbar-width: thin;
   scrollbar-color: #912338 rgba(0, 0, 0, 0.05);
 }
 
+/* Force scrollbar to always show */
 .messages::-webkit-scrollbar {
   width: 8px;
-  /* Slightly thicker for usability */
+  height: 8px;
+  display: block;
+  /* Forces display */
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .messages::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(0, 0, 0, 0.05);
+  /* Slightly darker track to show it exists */
+  border-radius: 4px;
 }
 
 .messages::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #912338, #db9e1e);
-  /* Solid colors, no transparency */
-  border-radius: 99px;
-  border: 2px solid transparent;
-  /* Padding around thumb */
-  background-clip: content-box;
-  /* Makes thumb smaller than track */
+  border-radius: 4px;
+  border: none;
+  /* Remove border to make it solid */
+  min-height: 40px;
+  /* Ensure it's always graspable */
 }
 
 .messages::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #7a1d2f, #b8861b);
-  border: 1px solid transparent;
 }
 
 /* Message Bubbles */
