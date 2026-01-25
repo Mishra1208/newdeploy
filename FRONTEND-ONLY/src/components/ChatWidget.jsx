@@ -85,6 +85,7 @@ export default function ChatWidget() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const inputRef = useRef();
   const endRef = useRef();
+  const messagesRef = useRef();
 
   // Scroll on update (debounced slightly for typewriter)
   useEffect(() => {
@@ -257,7 +258,7 @@ export default function ChatWidget() {
             </div>
           </div>
 
-          <div className={styles.messages}>
+          <div className={styles.messages} ref={messagesRef}>
             {messages.map((m, i) => (
               <div
                 key={i}
@@ -314,8 +315,8 @@ export default function ChatWidget() {
               className={styles.input}
               rows={1}
             />
-            <button className={styles.send} onClick={send} disabled={loading || !text.trim()}>
-              {loading ? "…" : "Send"}
+            <button className={styles.send} onClick={send} disabled={loading || !text.trim()} aria-label="Send message">
+              {loading && "…"}
             </button>
           </div>
 
