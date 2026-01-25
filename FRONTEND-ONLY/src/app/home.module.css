@@ -2,9 +2,10 @@
 .page {
   padding-bottom: 80px;
   overflow-x: hidden;
-  background: white;
+  background: var(--bg-page);
   position: relative;
   min-height: 100vh;
+  transition: background 0.3s ease;
 }
 
 /* --- CLEAN BACKGROUND --- */
@@ -14,13 +15,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: white;
+  background: var(--bg-page);
   z-index: 0;
   pointer-events: none;
 }
 
 [data-theme="dark"] .gridBackground {
-  background: #1a1a1a;
+  background: #000000;
+  /* Force True Black */
 }
 
 /* --- HERO SECTION --- */
@@ -175,6 +177,19 @@
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+[data-theme="dark"] .commandPalette {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .commandPalette::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .commandPalette:focus {
   outline: none;
   border-color: var(--secondary);
@@ -228,11 +243,20 @@
   display: flex;
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.02),
-    0 10px 15px -3px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(0, 0, 0, 0.02);
   /* Subtle outline ring */
+}
+
+[data-theme="dark"] .featureCard {
+  background: rgba(18, 18, 18, 0.4);
+  /* Dark Glass */
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .featureCard:hover {
+  background: rgba(18, 18, 18, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .featureCard:hover {
@@ -261,6 +285,10 @@
   /* Apple Black */
 }
 
+[data-theme="dark"] .cardTitle {
+  color: white;
+}
+
 .cardDesc {
   font-size: 17px;
   color: #86868b;
@@ -268,6 +296,10 @@
   line-height: 1.5;
   font-weight: 400;
   max-width: 90%;
+}
+
+[data-theme="dark"] .cardDesc {
+  color: #a3a3a3;
 }
 
 .colSpan2 {
