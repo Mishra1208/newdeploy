@@ -79,7 +79,7 @@ export default function PremiumNavbar() {
     }
 
     const socialItems = [
-        { label: 'GitHub', link: 'https://github.com/Mishra1208/newdeploy' }
+        { label: 'Contact Us', link: '/contact' }
     ];
 
     return (
@@ -171,7 +171,7 @@ export default function PremiumNavbar() {
                     top: 0,
                     right: 0,
                     height: '100vh',
-                    zIndex: 900,
+                    zIndex: 11001, // Ensure above ChatWidget (11000)
                     pointerEvents: 'none',
                     opacity: 1, // Always visible
                 }}
@@ -182,11 +182,13 @@ export default function PremiumNavbar() {
                         socialItems={socialItems}
                         displaySocials={true}
                         displayItemNumbering={true}
-                        menuButtonColor={hidden ? "#ffffff" : "#912338"} // White when scrolled (burgundy bg), Burgundy when top (white bg)
+                        menuButtonColor={hidden ? "#ffffff" : "#912338"}
                         openMenuButtonColor="#ffffff"
                         changeMenuColorOnOpen={true}
                         colors={['#f8fafc', '#f1f5f9']}
                         accentColor="#912338"
+                        onMenuOpen={() => document.body.classList.add('staggered-menu-open')}
+                        onMenuClose={() => document.body.classList.remove('staggered-menu-open')}
                     />
                 </div>
             </div>

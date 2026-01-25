@@ -46,6 +46,12 @@
   --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
+:global(body.staggered-menu-open) .container {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 /* --- FAB (Floating Action Button) --- */
 /* --- FAB (Floating Action Button) --- */
 .fab {

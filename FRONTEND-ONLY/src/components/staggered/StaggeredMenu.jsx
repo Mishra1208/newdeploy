@@ -475,13 +475,21 @@ export const StaggeredMenu = ({
                         <div className="sm-socials" aria-label="Social links and theme">
                             <h3 className="sm-socials-title">Connect</h3>
                             <ul className="sm-socials-list" role="list">
-                                {socialItems && socialItems.map((s, i) => (
-                                    <li key={s.label + i} className="sm-socials-item">
-                                        <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
-                                            {s.label}
-                                        </a>
-                                    </li>
-                                ))}
+                                {socialItems && socialItems.map((s, i) => {
+                                    const isExternal = s.link.startsWith('http');
+                                    return (
+                                        <li key={s.label + i} className="sm-socials-item">
+                                            <a
+                                                href={s.link}
+                                                target={isExternal ? "_blank" : undefined}
+                                                rel={isExternal ? "noopener noreferrer" : undefined}
+                                                className="sm-socials-link"
+                                            >
+                                                {s.label}
+                                            </a>
+                                        </li>
+                                    );
+                                })}
                             </ul>
 
                             <div className="sm-theme-toggle-wrap">
