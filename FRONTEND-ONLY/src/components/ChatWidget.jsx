@@ -178,10 +178,34 @@ export default function ChatWidget() {
   async function send() {
     if (!text.trim()) return;
     if (soundEnabled) SoundManager.playPop(); // Pop on send
-    const user = { role: "user", text: text.trim() };
+
+    // Normalize text
+    const input = text.trim();
+    const inputLower = input.toLowerCase();
+
+    const user = { role: "user", text: input };
     pushMessage(user);
     setLoading(true);
     setText("");
+
+    // Quick Greeting Intercept (Client-side)
+    const greetings = ["hello", "hi", "hey", "hola", "bonjour", "greetings"];
+    if (greetings.some(g => inputLower.startsWith(g)) && inputLower.length < 15) {
+      setTimeout(() => {
+        if (soundEnabled) SoundManager.playDing();
+        pushMessage({
+          role: "assistant",
+          text: "Hello! 👋 I'm Clara. How can I help you today?",
+          actions: [
+            { label: "Search Courses", link: "/pages/courses" },
+            { label: "GPA Calculator", link: "/pages/gpa" },
+          ],
+          animate: true
+        });
+        setLoading(false);
+      }, 600); // Slight natural delay
+      return;
+    }
 
     try {
       const res = await fetch(API, {
