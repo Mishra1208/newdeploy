@@ -10,6 +10,7 @@ import TiltCard from "@/components/widgets/TiltCard";
 import ConfettiButton from "@/components/widgets/ConfettiButton";
 import EngineeredSticky from "@/components/widgets/EngineeredSticky";
 import TeamSticky from "@/components/widgets/TeamSticky";
+import OriginScribble from "@/components/scribble/OriginScribble";
 import { motion, useScroll, useTransform } from "motion/react";
 
 // Fancy display/body fonts (zero CLS, no <link> tags needed)
@@ -133,27 +134,7 @@ export default function AboutPage() {
         variants={fadeInUp}
         style={{ y: useTransform(scrollY, [600, 1800], [0, 80]), position: 'relative', overflow: 'visible' }}
       >
-        {/* Parallax Emojis */}
-        <motion.div style={{ position: 'absolute', top: '-10%', left: '10%', y: useTransform(scrollY, [1000, 2000], [0, -150]), fontSize: '3rem', opacity: 0.2 }}>☕️</motion.div>
-        <motion.div style={{ position: 'absolute', top: '20%', right: '15%', y: useTransform(scrollY, [1000, 2000], [0, -80]), fontSize: '4rem', opacity: 0.15 }}>📚</motion.div>
-        <motion.div style={{ position: 'absolute', bottom: '-20%', left: '20%', y: useTransform(scrollY, [1000, 2000], [0, -200]), fontSize: '2.5rem', opacity: 0.1 }}>💻</motion.div>
-        <motion.div style={{ position: 'absolute', bottom: '10%', right: '5%', y: useTransform(scrollY, [1000, 2000], [0, -120]), fontSize: '3.5rem', opacity: 0.2 }}>🤯</motion.div>
-
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <h2 className={`${styles.title} ${display.className} ${styles.originTitleGradient}`} style={{ fontSize: '4.5rem', marginBottom: '40px', lineHeight: 1.3, paddingBottom: '10px' }}>
-            The Origin Story
-          </h2>
-          <p className={styles.lead} style={{ textAlign: "center", fontSize: "1.4rem", lineHeight: "1.6", fontWeight: 500, color: 'var(--ink-secondary)' }}>
-            We didn't build this to launch a startup. We built it because we were tired of having 15 tabs open just to pick a schedule.
-            <br /><br />
-            Between the crash-prone SIS, Reddit threads from 4 years ago, and RateMyProf reviews that didn't match the section numbers... it was a nightmare. <span style={{ color: 'var(--primary)', fontWeight: 700 }}>So we fixed it.</span> For ourselves, and now for everyone else.
-          </p>
-          <div style={{ textAlign: "center", marginTop: 40 }}>
-            <span className={styles.note} style={{ background: 'rgba(145, 35, 56, 0.08)', color: 'var(--primary)', padding: '10px 24px', borderRadius: '30px', fontSize: '1rem', fontWeight: 600 }}>
-              1,200+ hours of caffeine & code
-            </span>
-          </div>
-        </div>
+        <OriginScribble displayClass={display.className} />
       </motion.section>
 
       {/* --- Connection Beam --- */}
