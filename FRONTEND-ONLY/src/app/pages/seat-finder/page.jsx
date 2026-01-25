@@ -43,12 +43,12 @@ export default function SeatFinderPage() {
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden bg-white text-slate-800 font-sans selection:bg-[#912338] selection:text-white">
+        <div className="min-h-screen relative overflow-hidden bg-white dark:bg-black text-slate-800 dark:text-slate-200 font-sans selection:bg-[#F59E0B] selection:text-white transition-colors duration-300">
 
-            {/* Premium Background Decor */}
+            {/* Premium Background Decor (Aurora) */}
             <div className="absolute inset-0 pointer-events-none z-0">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#912338] opacity-[0.03] rounded-full blur-[120px]" />
-                <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] bg-[#C5A059] opacity-[0.05] rounded-full blur-[100px]" />
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#912338] dark:bg-purple-900 opacity-[0.03] dark:opacity-[0.2] rounded-full blur-[120px]" />
+                <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] bg-[#C5A059] dark:bg-amber-600 opacity-[0.05] dark:opacity-[0.15] rounded-full blur-[100px]" />
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 flex flex-col items-center">
@@ -60,13 +60,13 @@ export default function SeatFinderPage() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16 max-w-2xl"
                 >
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-[#912338]/5 border border-[#912338]/10 text-sm font-bold text-[#912338] mb-6 tracking-wider uppercase">
+                    <div className="inline-block px-4 py-1.5 rounded-full bg-[#912338]/5 dark:bg-amber-500/10 border border-[#912338]/10 dark:border-amber-500/20 text-sm font-bold text-[#912338] dark:text-amber-500 mb-6 tracking-wider uppercase">
                         Concordia University
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 font-display">
-                        Seat <span className="text-[#912338]">Finder</span>
+                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 font-display">
+                        Seat <span className="text-[#912338] dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-amber-400 dark:to-orange-500">Finder</span>
                     </h1>
-                    <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                         Secure your spot. Real-time availability for every course.
                     </p>
                 </motion.div>
@@ -79,15 +79,15 @@ export default function SeatFinderPage() {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="w-full max-w-4xl"
                 >
-                    <div className="bg-white border border-slate-100 p-3 rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(145,35,56,0.15)] ring-1 ring-slate-100 overflow-hidden relative">
+                    <div className="bg-white dark:bg-[#0a0a0a] border border-slate-100 dark:border-white/10 p-3 rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(145,35,56,0.15)] dark:shadow-[0_20px_50px_-12px_rgba(245,158,11,0.15)] ring-1 ring-slate-100 dark:ring-white/5 overflow-hidden relative transition-colors duration-300">
 
                         {/* Term Selector - Always Visible */}
-                        <div className="bg-slate-50 border-b border-slate-100 p-4 flex flex-col md:flex-row items-center justify-between gap-4 rounded-t-[1.5rem]">
+                        <div className="bg-slate-50 dark:bg-white/5 border-b border-slate-100 dark:border-white/5 p-4 flex flex-col md:flex-row items-center justify-between gap-4 rounded-t-[1.5rem]">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-white rounded-xl shadow-sm border border-slate-100 text-[#912338]">
+                                <div className="p-2 bg-white dark:bg-white/10 rounded-xl shadow-sm border border-slate-100 dark:border-white/5 text-[#912338] dark:text-amber-400">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                 </div>
-                                <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Select Term</span>
+                                <span className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Select Term</span>
                             </div>
 
                             <div className="relative group min-w-[200px]">
@@ -97,7 +97,7 @@ export default function SeatFinderPage() {
                                         setTerm(e.target.value);
                                         setResults(null); // Clear results on term change
                                     }}
-                                    className="bg-white text-slate-800 font-bold text-lg py-2 pl-4 pr-10 rounded-xl border border-slate-200 shadow-sm outline-none appearance-none w-full cursor-pointer hover:border-[#912338]/30 focus:border-[#912338] focus:ring-4 focus:ring-[#912338]/5 transition-all"
+                                    className="bg-white dark:bg-[#111] text-slate-800 dark:text-white font-bold text-lg py-2 pl-4 pr-10 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm outline-none appearance-none w-full cursor-pointer hover:border-[#912338]/30 dark:hover:border-amber-500/30 focus:border-[#912338] dark:focus:border-amber-500 focus:ring-4 focus:ring-[#912338]/5 dark:focus:ring-amber-500/10 transition-all"
                                 >
                                     <option value="2254">Winter 2026</option>
                                     <option value="2261">Summer 2026</option>
@@ -115,32 +115,32 @@ export default function SeatFinderPage() {
                             {isTermAvailable(term) ? (
                                 /* Active Search Form */
                                 <form onSubmit={handleCheck} className="flex flex-col md:flex-row items-stretch gap-4">
-                                    <div className="flex-1 bg-slate-50 hover:bg-slate-100 transition-colors rounded-2xl border border-transparent focus-within:border-[#912338]/30 focus-within:ring-4 focus-within:ring-[#912338]/5 p-4 flex flex-col justify-center h-24 group relative">
-                                        <label className="text-xs font-bold text-slate-400 group-focus-within:text-[#912338] uppercase tracking-wider ml-1 mb-1 transition-colors">Subject</label>
+                                    <div className="flex-1 bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors rounded-2xl border border-transparent focus-within:border-[#912338]/30 dark:focus-within:border-amber-500/30 focus-within:ring-4 focus-within:ring-[#912338]/5 dark:focus-within:ring-amber-500/10 p-4 flex flex-col justify-center h-24 group relative">
+                                        <label className="text-xs font-bold text-slate-400 group-focus-within:text-[#912338] dark:group-focus-within:text-amber-500 uppercase tracking-wider ml-1 mb-1 transition-colors">Subject</label>
                                         <input
                                             type="text"
                                             value={subject}
                                             onChange={(e) => setSubject(e.target.value)}
                                             placeholder="e.g. COMP"
-                                            className="bg-transparent text-2xl font-bold text-slate-800 placeholder-slate-300 outline-none w-full uppercase"
+                                            className="bg-transparent text-2xl font-bold text-slate-800 dark:text-white placeholder-slate-300 dark:placeholder-white/20 outline-none w-full uppercase"
                                         />
                                     </div>
 
-                                    <div className="flex-1 bg-slate-50 hover:bg-slate-100 transition-colors rounded-2xl border border-transparent focus-within:border-[#C5A059]/50 focus-within:ring-4 focus-within:ring-[#C5A059]/10 p-4 flex flex-col justify-center h-24 group">
-                                        <label className="text-xs font-bold text-slate-400 group-focus-within:text-[#b08d4a] uppercase tracking-wider ml-1 mb-1 transition-colors">Course Number</label>
+                                    <div className="flex-1 bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors rounded-2xl border border-transparent focus-within:border-[#C5A059]/50 dark:focus-within:border-amber-500/50 focus-within:ring-4 focus-within:ring-[#C5A059]/10 dark:focus-within:ring-amber-500/10 p-4 flex flex-col justify-center h-24 group">
+                                        <label className="text-xs font-bold text-slate-400 group-focus-within:text-[#b08d4a] dark:group-focus-within:text-amber-500 uppercase tracking-wider ml-1 mb-1 transition-colors">Course Number</label>
                                         <input
                                             type="text"
                                             value={number}
                                             onChange={(e) => setNumber(e.target.value)}
                                             placeholder="e.g. 248"
-                                            className="bg-transparent text-2xl font-bold text-slate-800 placeholder-slate-300 outline-none w-full"
+                                            className="bg-transparent text-2xl font-bold text-slate-800 dark:text-white placeholder-slate-300 dark:placeholder-white/20 outline-none w-full"
                                         />
                                     </div>
 
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full md:w-auto px-10 bg-[#912338] hover:bg-[#7a1d2f] text-white rounded-2xl font-bold text-lg shadow-xl shadow-[#912338]/20 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-w-[160px]"
+                                        className="w-full md:w-auto px-10 bg-[#912338] dark:bg-gradient-to-r dark:from-amber-500 dark:to-orange-600 hover:bg-[#7a1d2f] dark:hover:to-orange-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-[#912338]/20 dark:shadow-orange-500/20 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-w-[160px]"
                                     >
                                         {loading ? (
                                             <>
@@ -158,11 +158,11 @@ export default function SeatFinderPage() {
                             ) : (
                                 /* Locked View */
                                 <div className="text-center py-8">
-                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-50 text-slate-400 mb-6">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-50 dark:bg-white/5 text-slate-400 dark:text-slate-500 mb-6">
                                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-800 mb-2">Enrollment Opens March 4, 2026</h3>
-                                    <p className="text-slate-500 max-w-md mx-auto mb-8">
+                                    <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">Enrollment Opens March 4, 2026</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
                                         The schedule for this term hasn't been released yet. Sign up to get notified the second they drop.
                                     </p>
 
@@ -196,21 +196,21 @@ export default function SeatFinderPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <div className="bg-white border border-slate-100 rounded-[2.5rem] shadow-[0_4px_30px_rgba(0,0,0,0.08)] overflow-hidden">
+                                <div className="bg-white dark:bg-[#0a0a0a] border border-slate-100 dark:border-white/10 rounded-[2.5rem] shadow-[0_4px_30px_rgba(0,0,0,0.08)] overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="border-b border-slate-100 text-slate-400 text-xs font-bold uppercase tracking-widest bg-slate-50/50">
+                                                <tr className="border-b border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest bg-slate-50/50 dark:bg-white/5">
                                                     <th className="px-8 py-6">Status</th>
                                                     <th className="px-8 py-6">Section</th>
                                                     <th className="px-8 py-6">Time & Schedule</th>
                                                     <th className="px-8 py-6">Class Number</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-slate-100">
+                                            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
                                                 {results.length === 0 ? (
                                                     <tr>
-                                                        <td colSpan={4} className="px-8 py-12 text-center text-slate-500 font-medium">No sections found for this course.</td>
+                                                        <td colSpan={4} className="px-8 py-12 text-center text-slate-500 dark:text-slate-400 font-medium">No sections found for this course.</td>
                                                     </tr>
                                                 ) : results.map((section, i) => (
                                                     <motion.tr
@@ -218,19 +218,19 @@ export default function SeatFinderPage() {
                                                         initial={{ opacity: 0, x: -10 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: i * 0.05 }}
-                                                        className="group hover:bg-slate-50 transition-colors"
+                                                        className="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
                                                     >
                                                         <td className="px-8 py-6">
                                                             <StatusBadge status={section.status} />
                                                         </td>
                                                         <td className="px-8 py-6">
-                                                            <div className="font-bold text-slate-800 text-lg group-hover:text-[#912338] transition-colors">{section.section}</div>
+                                                            <div className="font-bold text-slate-800 dark:text-slate-200 text-lg group-hover:text-[#912338] dark:group-hover:text-amber-500 transition-colors">{section.section}</div>
                                                         </td>
                                                         <td className="px-8 py-6">
-                                                            <div className="text-slate-600 font-medium">{section.time}</div>
+                                                            <div className="text-slate-600 dark:text-slate-400 font-medium">{section.time}</div>
                                                         </td>
                                                         <td className="px-8 py-6">
-                                                            <div className="font-mono text-slate-400 text-sm bg-slate-100 inline-block px-3 py-1 rounded-full">{section.classNbr}</div>
+                                                            <div className="font-mono text-slate-400 dark:text-slate-500 text-sm bg-slate-100 dark:bg-white/5 inline-block px-3 py-1 rounded-full">{section.classNbr}</div>
                                                         </td>
                                                     </motion.tr>
                                                 ))}
@@ -250,10 +250,10 @@ export default function SeatFinderPage() {
 
 function StatusBadge({ status }) {
     const styles = {
-        Open: "bg-emerald-50 text-emerald-700 border-emerald-100",
-        Closed: "bg-rose-50 text-rose-700 border-rose-100",
-        Waitlist: "bg-amber-50 text-amber-700 border-amber-100",
-        Unknown: "bg-slate-50 text-slate-600 border-slate-100"
+        Open: "bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800/50",
+        Closed: "bg-rose-50 dark:bg-rose-900/40 text-rose-700 dark:text-rose-400 border-rose-100 dark:border-rose-800/50",
+        Waitlist: "bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 border-amber-100 dark:border-amber-800/50",
+        Unknown: "bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-400 border-slate-100 dark:border-slate-700/50"
     };
 
     const dotStyles = {

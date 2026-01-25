@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Space_Grotesk } from "next/font/google";
+import styles from "../app/home.module.css";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
 
@@ -110,44 +111,38 @@ export default function NewsletterSignup() {
             }} />
 
             {/* --- Floating Elements --- */}
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 top: '-20%',
                 left: '2%', // Different side from Login for balance
                 fontSize: '80px',
-                opacity: 0.08,
                 y: capY,
                 rotate: -15,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 🎓
             </motion.div>
 
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 top: '15%',
                 right: '15%',
                 fontSize: '40px',
-                opacity: 0.15,
                 y: sparkleY,
                 rotate: 45,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 ✨
             </motion.div>
 
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 bottom: '20%',
                 left: '10%',
                 fontSize: '45px',
-                opacity: 0.08,
                 y: bookY,
                 rotate: -10,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 📚
             </motion.div>
@@ -172,7 +167,7 @@ export default function NewsletterSignup() {
                     <h3 className={display.className} style={{
                         fontSize: "56px", // Premium Headline
                         marginBottom: "16px",
-                        color: "#111",
+                        color: "var(--ink-primary)",
                         letterSpacing: '-0.03em',
                         lineHeight: 1.1,
                         fontWeight: 800
@@ -181,7 +176,7 @@ export default function NewsletterSignup() {
                     </h3>
 
                     <p style={{
-                        color: "#666",
+                        color: "var(--ink-secondary)",
                         fontSize: "20px", // Editorial Size
                         marginBottom: "40px",
                         lineHeight: 1.6,
@@ -273,8 +268,9 @@ export default function NewsletterSignup() {
                                 style={{
                                     padding: "16px 24px",
                                     borderRadius: "100px", // Capsule
-                                    border: "1px solid rgba(0,0,0,0.1)",
-                                    background: "rgba(255,255,255,0.8)",
+                                    border: "1px solid var(--nav-border)",
+                                    background: "var(--bg-soft)",
+                                    color: "var(--ink-primary)",
                                     backdropFilter: "blur(10px)",
                                     minWidth: "280px",
                                     fontSize: "16px",

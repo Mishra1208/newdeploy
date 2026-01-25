@@ -65,6 +65,13 @@
   border-color: var(--secondary);
 }
 
+[data-theme="dark"] .proBadge {
+  background: rgba(20, 20, 20, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
 .title {
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: clamp(3.5rem, 8vw, 5.5rem);
@@ -78,12 +85,24 @@
   z-index: 2;
 }
 
+[data-theme="dark"] .title {
+  color: #FFFFFF;
+}
+
 .gradientText {
   background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
   padding-bottom: 4px;
+}
+
+[data-theme="dark"] .gradientText {
+  background: linear-gradient(to right, #6366f1, #a855f7, #ec4899, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Workflow Row (Static + Dynamic Text) */
@@ -729,7 +748,8 @@
 }
 
 [data-theme="dark"] .btnPrimary {
-  box-shadow: 0 14px 40px rgba(34, 211, 238, .22)
+  box-shadow: 0 14px 40px rgba(145, 35, 56, 0.5);
+  /* Burgundy Glow */
 }
 
 /* Rotating line */
@@ -826,6 +846,23 @@
 .calDock>* {
   transform: scale(var(--cal-scale));
   transform-origin: top right
+}
+
+/* --- FLOATING EMOJIS (Dark Mode Glow) --- */
+.floatingEmoji {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+[data-theme="dark"] .floatingEmoji {
+  opacity: 1;
+  /* Fully visible */
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+  /* Glow */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 @media (min-width:1280px) {

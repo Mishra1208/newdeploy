@@ -156,7 +156,7 @@ export default function PremiumNavbar() {
                             </>
                         )}
 
-                        {/* <PremiumThemeToggle /> */}
+                        <PremiumThemeToggle />
                     </nav>
 
                 </div>

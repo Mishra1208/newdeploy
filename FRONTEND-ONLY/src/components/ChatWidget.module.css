@@ -232,30 +232,32 @@
 
 /* Force scrollbar to always show */
 .messages::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   display: block;
   /* Forces display */
-  background: rgba(0, 0, 0, 0.02);
+  background: transparent;
 }
 
 .messages::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  /* Slightly darker track to show it exists */
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 99px;
+  margin-block: 4px;
+  /* Space top/bottom */
 }
 
 .messages::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #912338, #db9e1e);
-  border-radius: 4px;
+  background: rgba(145, 35, 56, 0.4);
+  /* Subtle burgundy */
+  border-radius: 99px;
   border: none;
-  /* Remove border to make it solid */
   min-height: 40px;
-  /* Ensure it's always graspable */
+  transition: background 0.2s;
 }
 
 .messages::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #7a1d2f, #b8861b);
+  background: rgba(145, 35, 56, 0.8);
+  /* Solid burgundy on hover */
 }
 
 /* Message Bubbles */

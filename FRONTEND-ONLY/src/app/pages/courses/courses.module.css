@@ -792,10 +792,126 @@
 }
 
 /* Dark Mode Overrides */
-:global([data-theme="dark"]) .grid> :global(.card),
-:global([data-theme="dark"]) .categoryRow> :global(.card) {
-  background: #1e293b;
-  border-color: rgba(255, 255, 255, 0.05);
+:global([data-theme="dark"]) .grid>:global(.card),
+:global([data-theme="dark"]) .categoryRow>:global(.card) {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(20, 20, 20, 0.6));
+  border-color: rgba(244, 63, 94, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="dark"]) .grid>:global(.card):hover,
+:global([data-theme="dark"]) .categoryRow>:global(.card):hover {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(20, 20, 20, 0.7));
+  border-color: #f43f5e;
+  box-shadow: 0 8px 30px rgba(244, 63, 94, 0.25);
+  transform: translateY(-4px);
+  z-index: 20;
+}
+
+/* Fix for Selected (Added) Cards - Remove White BG */
+:global([data-theme="dark"]) .cardSelected {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8)) !important;
+  border-color: #10b981 !important;
+  /* Emerald for Added */
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15) !important;
+}
+
+:global([data-theme="dark"]) .cardSelected .cardTitle {
+  color: #10b981;
+  /* Green title for added items? Or keep white? Let's keep white */
+  color: #fff;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        CHROMATIC DARK MODE (ROSE)                          */
+/* -------------------------------------------------------------------------- */
+
+/* Spotlight Hero - Rose Gradient */
+:global([data-theme="dark"]) .spotlightHero {
+  background: radial-gradient(circle at 80% 50%, #be123c 0%, #881337 100%);
+  box-shadow: 0 30px 60px -15px rgba(136, 19, 55, 0.5);
+}
+
+:global([data-theme="dark"]) .spotlightTitle {
+  background: linear-gradient(180deg, #ffffff 20%, #fda4af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="dark"]) .spotlightBadge {
+  color: #fca5a5;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Dept Headers */
+:global([data-theme="dark"]) .deptTitle {
+  color: #fb7185;
+  /* Rose-400 */
+}
+
+:global([data-theme="dark"]) .deptLine {
+  background: rgba(251, 113, 133, 0.2);
+}
+
+/* Category Titles */
+:global([data-theme="dark"]) .categoryTitle {
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .countBadge {
+  color: #fecdd3;
+  background: rgba(244, 63, 94, 0.2);
+}
+
+/* Card Internals */
+:global([data-theme="dark"]) .cardTitle {
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .metaItem {
+  color: #a3a3a3;
+}
+
+:global([data-theme="dark"]) .courseCodeBadge {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+}
+
+:global([data-theme="dark"]) .iconAction {
+  background: rgba(255, 255, 255, 0.05);
+  color: #d4d4d4;
+}
+
+:global([data-theme="dark"]) .iconAction:hover {
+  background: #f43f5e;
+  color: white;
+}
+
+/* Apply/Load More Button */
+:global([data-theme="dark"]) .applyBtn {
+  background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+  box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+}
+
+:global([data-theme="dark"]) .applyBtn:hover {
+  box-shadow: 0 12px 30px rgba(244, 63, 94, 0.5);
+}
+
+/* Tabs */
+:global([data-theme="dark"]) .deptTab {
+  color: #a3a3a3;
+}
+
+:global([data-theme="dark"]) .deptTab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:global([data-theme="dark"]) .deptTabActive {
+  background: #f43f5e;
+  color: white;
+  box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
 }
 
 :global([data-theme="dark"]) .cardTitle {
@@ -1574,4 +1690,62 @@
     margin-top: 0;
     padding: 0 20px;
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                   ROSE BACKPACK & TITLE GLOW UPDATES                       */
+/* -------------------------------------------------------------------------- */
+
+/* Fix for Selected (Added) Cards - Remove White BG & Fix Hover */
+:global([data-theme="dark"]) .cardSelected {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8)) !important;
+  border-color: #10b981 !important;
+  /* Emerald for Added */
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Ensure Hover doesn't revert to Red */
+:global([data-theme="dark"]) .cardSelected:hover {
+  border-color: #34d399 !important;
+  /* Brighter Green */
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.3) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(10, 10, 10, 0.9)) !important;
+}
+
+/* Fix Top Gradient Strip on Hover for Added Cards */
+:global([data-theme="dark"]) .cardSelected:hover .cardHeaderStrip {
+  background: linear-gradient(90deg, #10b981, #d1fae5) !important;
+  /* Emerald -> Pale Green */
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+}
+
+:global([data-theme="dark"]) .cardSelected .cardTitle {
+  color: #10b981;
+  /* Green title for added items? Or keep white? Let's keep white */
+  color: #fff;
+}
+
+:global([data-theme="dark"]) .floatingBackpack:hover {
+  border-color: #f43f5e;
+  box-shadow: 0 15px 50px rgba(244, 63, 94, 0.4);
+}
+
+:global([data-theme="dark"]) .backpackText {
+  color: #fff;
+}
+
+:global([data-theme="dark"]) .backpackCount {
+  background: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+}
+
+/* Page Title Glow (Aurora) */
+:global([data-theme="dark"]) .head h1 {
+  background: linear-gradient(to right, #ffffff, #f43f5e, #fda4af);
+  /* White -> Rose -> Pink */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  text-shadow: 0 0 30px rgba(244, 63, 94, 0.3);
 }

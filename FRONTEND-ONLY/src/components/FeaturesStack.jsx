@@ -11,7 +11,7 @@ const features = [
         mockup: <TreeMockup />,
         link: "/pages/tree",
         color: "#fff",
-        accent: "var(--primary)" // Burgundy
+        accent: "#06B6D4" // Cyan/Blue
     },
     {
         title: "Academic Standing",
@@ -19,7 +19,7 @@ const features = [
         mockup: <GPAMockup />,
         link: "/pages/gpa",
         color: "#fff",
-        accent: "var(--secondary)" // Gold
+        accent: "#10B981" // Emerald/Green
     },
     {
         title: "Smart Sequence Planner",
@@ -27,7 +27,7 @@ const features = [
         mockup: <PlannerMockup />,
         link: "/pages/planner",
         color: "#fff",
-        accent: "#7C3AED" // Vibrant Violet
+        accent: "#8B5CF6" // Violet/Purple
     },
     {
         title: "Complete Course Catalog",
@@ -35,7 +35,7 @@ const features = [
         mockup: <CatalogMockup />,
         link: "/pages/courses",
         color: "#fff",
-        accent: "#7a1d2f" // Dark Burgundy
+        accent: "#F472B6" // Pink/Rose
     },
     {
         title: "Seat Finder",
@@ -43,7 +43,7 @@ const features = [
         mockup: <SeatMockup />,
         link: "/pages/seat-finder",
         color: "#fff",
-        accent: "#db9e1e" // Gold
+        accent: "#F59E0B" // Amber/Orange
     }
 ];
 
@@ -65,8 +65,8 @@ export default function FeaturesStack() {
                             {/* Visual Side (Dynamic Premium Gradient) */}
                             <div style={{
                                 position: 'relative',
-                                background: `linear-gradient(135deg, ${feat.accent}12 0%, #FAFAFA 100%)`, // Subtle tint of accent
-                                borderRight: '1px solid rgba(0,0,0,0.04)',
+                                background: 'var(--bg-panel)', // Restored to clean background
+                                borderRight: '1px solid var(--nav-border)',
                                 overflow: 'hidden',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -88,13 +88,13 @@ export default function FeaturesStack() {
                                 </div>
                             </div>
 
-                            {/* Content Side (Clean White) */}
+                            {/* Content Side (Clean White via Variables) */}
                             <div style={{
                                 padding: '48px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
-                                background: 'white'
+                                background: 'var(--bg-panel)'
                             }}>
                                 <h3 style={{
                                     fontFamily: 'var(--font-inter), system-ui, sans-serif',
@@ -102,14 +102,14 @@ export default function FeaturesStack() {
                                     fontWeight: 700,
                                     marginBottom: '12px',
                                     letterSpacing: '-0.02em',
-                                    color: '#1a1a1a',
+                                    color: 'var(--ink-primary)',
                                     lineHeight: 1.15
                                 }}>
                                     {feat.title}
                                 </h3>
                                 <p style={{
                                     fontSize: '16px', // Sleeker text
-                                    color: '#666',
+                                    color: 'var(--ink-secondary)',
                                     lineHeight: 1.6,
                                     maxWidth: '92%',
                                     fontWeight: 500

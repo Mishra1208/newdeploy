@@ -1,3 +1,7 @@
+/* ========================================================================== */
+/*                               DEFAULT (LIGHT/BASE)                         */
+/* ========================================================================== */
+
 .footer {
     background: linear-gradient(180deg, #110508 0%, #1a060a 100%);
     border-top: 1px solid rgba(145, 35, 56, 0.2);
@@ -49,6 +53,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 700;
 }
 
 .brandDesc {
@@ -109,6 +114,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    font-weight: 400;
 }
 
 .link:hover {
@@ -179,5 +185,131 @@
         flex-direction: column;
         gap: 16px;
         text-align: center;
+    }
+}
+
+
+/* ========================================================================== */
+/*                            AURORA DARK MODE OVERRIDES                      */
+/* ========================================================================== */
+
+:global([data-theme="dark"]) .footer {
+    background: #030303;
+    border-top: none;
+}
+
+/* The Aurora Border */
+:global([data-theme="dark"]) .footer::before {
+    background: linear-gradient(90deg,
+            #a855f7 0%,
+            #f43f5e 30%,
+            #fbbf24 60%,
+            #10b981 100%);
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    height: 2px;
+}
+
+:global([data-theme="dark"]) .link {
+    font-weight: 500;
+}
+
+/* Specific Link Hovers - Overriding Light Mode default hover */
+:global([data-theme="dark"]) .link:hover {
+    color: #fff;
+    /* Basic Fallback */
+}
+
+/* Brand */
+:global([data-theme="dark"]) .brandName {
+    background: linear-gradient(90deg, #fff 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* Section Specific Glows */
+:global([data-theme="dark"]) .linkCatalog:hover {
+    color: #f43f5e !important;
+    text-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkPlanner:hover {
+    color: #a855f7 !important;
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkTree:hover {
+    color: #3b82f6 !important;
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkGpa:hover {
+    color: #10b981 !important;
+    text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkSeat:hover {
+    color: #fbbf24 !important;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkResource:hover {
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transform: translateX(4px);
+}
+
+/* Status Badge */
+:global([data-theme="dark"]) .statusBadge {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+:global([data-theme="dark"]) .statusBadge:hover {
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+:global([data-theme="dark"]) .statusDot {
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    animation: pulse 2s infinite;
+}
+
+/* Bottom Bar Glow */
+:global([data-theme="dark"]) .bottom {
+    color: #fff;
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .bottom div {
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    opacity: 0.9;
+    transition: all 0.3s;
+}
+
+:global([data-theme="dark"]) .bottom div:hover {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+    opacity: 1;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

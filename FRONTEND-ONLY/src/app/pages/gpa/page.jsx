@@ -252,9 +252,9 @@ export default function GPACalculator() {
                     </div>
 
                     {/* Secondary 4.0 Scale Display */}
-                    <div style={{ textAlign: 'center', marginBottom: 32, padding: 12, background: 'rgba(0,0,0,0.03)', borderRadius: 12, border: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div className={styles.secondaryScaleBox}>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Standard 4.0 Scale</div>
-                        <div style={{ fontSize: 28, fontWeight: 800, color: '#333', fontFamily: 'Outfit, sans-serif' }}>
+                        <div className={styles.statNum} style={{ fontSize: 28, marginTop: 4 }}>
                             {semesterGPA_40.toFixed(2)}
                         </div>
                         {hasCumulativeData && <div style={{ fontSize: 10, color: '#888', marginTop: 4 }}>(Semester only)</div>}
@@ -407,9 +407,9 @@ function GPAGauge({ value, max = 4.3 }) {
         <svg viewBox="0 0 200 110" width="100%" height="100%">
             <defs>
                 <linearGradient id="gpaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#912338" /> {/* Burgundy */}
-                    <stop offset="50%" stopColor="#db9e1e" /> {/* Gold */}
-                    <stop offset="100%" stopColor="#22c55e" /> {/* Green Success */}
+                    <stop offset="0%" stopColor="var(--gauge-stop-1)" />
+                    <stop offset="50%" stopColor="var(--gauge-stop-2)" />
+                    <stop offset="100%" stopColor="var(--gauge-stop-3)" />
                 </linearGradient>
             </defs>
             {/* Background Arc */}

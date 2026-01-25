@@ -234,20 +234,12 @@ export default function PlannerPage() {
   return (
     <div style={{ position: 'relative', minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
       {/* Premium Background Decor */}
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute', top: '-10%', left: '-10%', width: '50%', height: '50%',
-          background: '#912338', opacity: 0.03, borderRadius: '9999px', filter: 'blur(120px)'
-        }} />
-        <div style={{
-          position: 'absolute', top: '20%', right: '-10%', width: '40%', height: '60%',
-          background: '#C5A059', opacity: 0.05, borderRadius: '9999px', filter: 'blur(100px)'
-        }} />
+      {/* Premium Background Decor */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#912338] dark:bg-violet-600 opacity-[0.03] dark:opacity-[0.2] rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] bg-[#C5A059] dark:bg-pink-500 opacity-[0.05] dark:opacity-[0.15] rounded-full blur-[100px]" />
         {/* Extra center glow for depth */}
-        <div style={{
-          position: 'absolute', bottom: '-20%', left: '20%', width: '60%', height: '40%',
-          background: '#912338', opacity: 0.02, borderRadius: '9999px', filter: 'blur(140px)'
-        }} />
+        <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[40%] bg-[#912338] dark:bg-violet-900 opacity-[0.02] dark:opacity-[0.2] rounded-full blur-[140px]" />
       </div>
 
       <motion.main

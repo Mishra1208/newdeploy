@@ -21,8 +21,8 @@ export const TreeMockup = () => (
             <svg width="200" height="200" viewBox="0 0 200 200" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
                 <defs>
                     <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#7a1d2f" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="#7a1d2f" stopOpacity="0.8" />
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.8" />
                     </linearGradient>
                     <filter id="glow">
                         <feGaussianBlur stdDeviation="4" result="coloredBlur" />
@@ -56,7 +56,7 @@ export const TreeMockup = () => (
                         cx={node.cx}
                         cy={node.cy}
                         r="6"
-                        fill="#7a1d2f"
+                        fill="var(--primary)"
                         style={{
                             opacity: 0,
                             animation: `popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards ${node.delay}`,
@@ -119,7 +119,7 @@ export const GPAMockup = () => (
                 <circle
                     cx="80" cy="80" r="70"
                     fill="none"
-                    stroke="#db9e1e"
+                    stroke="var(--secondary)"
                     strokeWidth="12"
                     strokeLinecap="round"
                     strokeDasharray="440"
@@ -157,7 +157,7 @@ export const CatalogMockup = () => (
                     left: i * 10,
                     width: '100%',
                     height: '100%',
-                    background: i === 2 ? '#7a1d2f' : '#fff',
+                    background: i === 2 ? 'var(--primary)' : '#fff',
                     border: '1px solid rgba(0,0,0,0.1)',
                     borderRadius: 12,
                     boxShadow: '0 10px 30px rgba(0,0,0,0.1)',

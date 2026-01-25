@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion"; // Added
 import styles from "./courses.module.css";
 import { fetchCourses, fetchSubjects } from "@/lib/mockApi"; // ← add fetchSubjects
 import AddButton from "@/components/AddButton";
@@ -330,19 +331,87 @@ function CoursesContent() {
     }).slice(0, 2); // Max 2 tags to avoid clutter
   }
 
-  // --- Floating Backpack Widget ---
+  // --- Floating Backpack Widget (Fixed Shape + Manual Close) ---
   const FloatingBackpack = ({ count }) => {
+    const [expanded, setExpanded] = useState(false);
+
+    // Auto-open on count change (only open, no auto-close)
+    useEffect(() => {
+      if (count > 0) setExpanded(true);
+    }, [count]);
+
     if (count === 0) return null;
+
     return (
-      <div
-        key={count}
+      <motion.div
+        layout
         className={styles.floatingBackpack}
-        onClick={() => router.push("/pages/planner")}
+        initial={{ borderRadius: 28, width: 56, height: 56 }}
+        animate={{
+          width: expanded ? "auto" : 56,
+          height: 56,
+          borderRadius: 28,
+          padding: 0 // Reset padding for geometric precision
+        }}
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "flex-start",
+          overflow: "hidden", minWidth: 56
+        }}
+        onClick={() => !expanded && setExpanded(true)}
       >
-        <span className={styles.backpackIcon}>🎒</span>
-        <span className={styles.backpackText}>{count} Course{count !== 1 ? "s" : ""} in Planner</span>
-        <span className={styles.backpackCount}>GO</span>
-      </div>
+        {/* Icon Container - Always 56x56 Centered */}
+        <motion.div
+          layout
+          style={{
+            width: 56, height: 56,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0, cursor: "pointer"
+          }}
+        >
+          <span style={{ fontSize: 24 }}>🎒</span>
+        </motion.div>
+
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "auto" }}
+              exit={{ opacity: 0, width: 0 }}
+              style={{ display: "flex", alignItems: "center", gap: 12, paddingRight: 20, whiteSpace: "nowrap" }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+                <span className={styles.backpackText} style={{ fontSize: 14 }}>{count} Courses</span>
+                <span className={styles.backpackText} style={{ fontSize: 11, opacity: 0.6, fontWeight: 600 }}>in Planner</span>
+              </div>
+
+              <button
+                className={styles.backpackCount}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push("/pages/planner");
+                }}
+              >
+                GO
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setExpanded(false);
+                }}
+                style={{
+                  background: 'transparent', border: 'none', color: 'inherit',
+                  cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center',
+                  opacity: 0.7
+                }}
+                title="Close"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     );
   };
 

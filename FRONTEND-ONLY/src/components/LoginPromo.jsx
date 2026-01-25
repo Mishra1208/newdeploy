@@ -44,44 +44,38 @@ export default function LoginPromo() {
             }}
         >
             {/* --- Floating Elements --- */}
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 top: '-10%',
                 right: '10%',
                 fontSize: '80px',
-                opacity: 0.1,
                 y: capY,
                 rotate: 15,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 🎓
             </motion.div>
 
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 bottom: '15%',
                 right: '5%',
                 fontSize: '60px',
-                opacity: 0.08,
                 y: scrollY,
                 rotate: -10,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 📜
             </motion.div>
 
-            <motion.div style={{
+            <motion.div className={styles.floatingEmoji} style={{
                 position: 'absolute',
                 top: '5%',
                 left: '8%',
                 fontSize: '50px',
-                opacity: 0.1,
                 y: bookY,
                 rotate: 20,
-                zIndex: 0,
-                pointerEvents: 'none'
+                zIndex: 0
             }}>
                 📚
             </motion.div>
@@ -110,7 +104,7 @@ export default function LoginPromo() {
                     letterSpacing: '-0.04em',
                     marginBottom: '24px',
                     lineHeight: 1.1,
-                    color: '#111'
+                    color: 'var(--ink-primary)'
                 }}>
                     <motion.div style={{ y: textY }}>
                         Save Your Progress. <br />
@@ -126,7 +120,7 @@ export default function LoginPromo() {
 
                 <motion.p className={styles.promoText} style={{
                     fontSize: '22px',
-                    color: '#555',
+                    color: 'var(--ink-secondary)',
                     lineHeight: 1.6,
                     maxWidth: '640px',
                     margin: '0 auto 48px auto',

@@ -35,12 +35,12 @@ export default function Footer() {
         <div>
           <div className={`${styles.colTitle} ${display.className}`}>Product</div>
           <ul className={styles.linkList}>
-            <li><Link href="/pages/courses" className={styles.link}>Course Catalog</Link></li>
-            <li><Link href="/pages/planner" className={styles.link}>Degree Planner</Link></li>
-            <li><Link href="/pages/tree" className={styles.link}>Prerequisite Tree</Link></li>
-            <li><Link href="/pages/gpa" className={styles.link}>GPA Calculator</Link></li>
+            <li><Link href="/pages/courses" className={`${styles.link} ${styles.linkCatalog}`}>Course Catalog</Link></li>
+            <li><Link href="/pages/planner" className={`${styles.link} ${styles.linkPlanner}`}>Degree Planner</Link></li>
+            <li><Link href="/pages/tree" className={`${styles.link} ${styles.linkTree}`}>Prerequisite Tree</Link></li>
+            <li><Link href="/pages/gpa" className={`${styles.link} ${styles.linkGpa}`}>GPA Calculator</Link></li>
             <li>
-              <Link href="/pages/seat-finder" className={styles.link}>
+              <Link href="/pages/seat-finder" className={`${styles.link} ${styles.linkSeat}`}>
                 Seat Finder <span className={styles.newBadge}>New</span>
               </Link>
             </li>
@@ -51,10 +51,10 @@ export default function Footer() {
         <div>
           <div className={`${styles.colTitle} ${display.className}`}>Resources</div>
           <ul className={styles.linkList}>
-            <li><Link href="/about" className={styles.link}>About Us</Link></li>
-            <li><Link href="/about#team" className={styles.link}>Team</Link></li>
-            <li><Link href="/about" className={styles.link}>Manifesto</Link></li>
-            <li><Link href="/contact" className={styles.link}>Contact</Link></li>
+            <li><Link href="/about" className={`${styles.link} ${styles.linkResource}`}>About Us</Link></li>
+            <li><Link href="/about#team" className={`${styles.link} ${styles.linkResource}`}>Team</Link></li>
+            <li><Link href="/about" className={`${styles.link} ${styles.linkResource}`}>Manifesto</Link></li>
+            <li><Link href="/contact" className={`${styles.link} ${styles.linkResource}`}>Contact</Link></li>
           </ul>
         </div>
 
@@ -62,8 +62,8 @@ export default function Footer() {
         <div>
           <div className={`${styles.colTitle} ${display.className}`}>Status</div>
           <ul className={styles.linkList}>
-            <li><Link href="/pages/privacy" className={styles.link}>Privacy Policy</Link></li>
-            <li><Link href="/pages/terms" className={styles.link}>Terms of Service</Link></li>
+            <li><Link href="/pages/privacy" className={`${styles.link} ${styles.linkResource}`}>Privacy Policy</Link></li>
+            <li><Link href="/pages/terms" className={`${styles.link} ${styles.linkResource}`}>Terms of Service</Link></li>
             <li>
               <button
                 onClick={() => {
@@ -72,7 +72,7 @@ export default function Footer() {
                     window.location.reload();
                   } catch (e) { console.error(e) }
                 }}
-                className={styles.link}
+                className={`${styles.link} ${styles.linkResource}`}
                 style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit' }}
               >
                 Cookie Settings

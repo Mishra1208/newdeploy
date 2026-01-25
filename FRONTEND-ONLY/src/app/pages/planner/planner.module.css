@@ -418,3 +418,124 @@
   font-size: 13px;
   font-weight: 500;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                        CHROMATIC DARK MODE (VIOLET)                        */
+/* -------------------------------------------------------------------------- */
+
+/* Title Aurora */
+[data-theme="dark"] .head h1 {
+  background: linear-gradient(to right, #ffffff, #8b5cf6, #ec4899);
+  /* White -> Violet -> Pink */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+[data-theme="dark"] .subtitle {
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+/* Stats Cards */
+[data-theme="dark"] .statCard {
+  background: rgba(20, 20, 20, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .statLabel {
+  color: #737373;
+}
+
+[data-theme="dark"] .statValue {
+  color: #c4b5fd;
+  /* Soft Violet */
+}
+
+/* Board Columns (The Docks) */
+[data-theme="dark"] .column {
+  background: rgba(10, 10, 10, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .colTitle {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .countBadge {
+  color: #e9d5ff;
+  background: rgba(139, 92, 246, 0.2);
+}
+
+/* Drag Over State */
+[data-theme="dark"] .columnDragOver {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Course Cards */
+[data-theme="dark"] .card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(20, 20, 20, 0.5));
+  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .card:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 20, 20, 0.6));
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+  transform: translateY(-3px) scale(1.02);
+}
+
+[data-theme="dark"] .cardTitle {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .cardMeta {
+  color: #a3a3a3;
+}
+
+[data-theme="dark"] .code {
+  color: #c4b5fd;
+}
+
+[data-theme="dark"] .credits {
+  background: rgba(139, 92, 246, 0.2);
+  color: #ddd6fe;
+}
+
+/* Buttons */
+[data-theme="dark"] .ghostBtn {
+  color: #d4d4d4;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .ghostBtn:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  color: #c4b5fd;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="dark"] .exportBtn {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+[data-theme="dark"] .exportBtn:hover:not(:disabled) {
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+  filter: brightness(1.1);
+}
+
+/* Empty States */
+[data-theme="dark"] .emptyState p {
+  color: #737373;
+}
+
+[data-theme="dark"] .emptySlot {
+  color: #525252;
+  border-color: rgba(255, 255, 255, 0.05);
+}
