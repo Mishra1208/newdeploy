@@ -182,7 +182,7 @@ export default function PremiumNavbar() {
                         socialItems={socialItems}
                         displaySocials={true}
                         displayItemNumbering={true}
-                        menuButtonColor={hidden ? "#ffffff" : "#912338"}
+                        menuButtonColor="#ffffff"
                         openMenuButtonColor="#ffffff"
                         changeMenuColorOnOpen={true}
                         colors={['#f8fafc', '#f1f5f9']}
