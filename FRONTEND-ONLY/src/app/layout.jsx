@@ -89,6 +89,7 @@ export default async function RootLayout({ children }) {
         <body>
           <PremiumNavbar />
           <main className="site-main" style={{ paddingTop: 100 }}>{children}</main>
+          <CookieBanner />
           <Footer />
           <ChatWidget />
           <AnalyticsWrapper />

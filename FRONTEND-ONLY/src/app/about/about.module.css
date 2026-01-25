@@ -563,7 +563,7 @@
 }
 
 :global([data-theme="dark"]) .heroSection::before {
-  background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, rgba(58, 123, 213, 0.1) 40%, transparent 80%);
+  background: radial-gradient(circle, rgba(145, 35, 56, 0.25) 0%, rgba(197, 160, 89, 0.1) 40%, transparent 80%);
   opacity: 0.6;
 }
 
@@ -575,15 +575,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 40px rgba(145, 35, 56, 0.2);
-}
-
-:global([data-theme="dark"]) .claraHeader {
-  color: #ffffff;
-  background: linear-gradient(135deg, #ffffff 0%, #00d2ff 50%, #3a7bd5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 40px rgba(0, 210, 255, 0.1);
 }
 
 :global([data-theme="dark"]) .h2 {

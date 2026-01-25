@@ -499,8 +499,9 @@ h5 {
 }
 
 [data-theme="dark"] .nav-dropdown-menu {
-  background: #1e293b;
+  background: #080808;
   border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
 .dropdown-item {
