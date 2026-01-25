@@ -136,11 +136,7 @@ export default function ContactPage() {
                                         initial={{ scale: 0.8, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
                                         transition={{ type: "spring", stiffness: 200 }}
-                                        style={{
-                                            width: 80, height: 80, background: '#10b981', borderRadius: '50%',
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px',
-                                            color: 'white'
-                                        }}
+                                        className={styles.successIcon}
                                     >
                                         <Sparkles size={40} />
                                     </motion.div>
@@ -150,11 +146,11 @@ export default function ContactPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4 }}
                                     >
-                                        <h3 className={display.className} style={{ fontSize: 24, marginBottom: 12 }}>Message Sent!</h3>
-                                        <p style={{ color: '#64748b' }}>Thanks for reaching out. We've added your details to our list and will be in touch shortly.</p>
+                                        <h3 className={`${display.className} ${styles.successTitle}`} style={{ fontSize: 24, marginBottom: 12 }}>Message Sent!</h3>
+                                        <p className={styles.successText}>Thanks for reaching out. We've added your details to our list and will be in touch shortly.</p>
                                         <button
                                             onClick={() => setSubmitted(false)}
-                                            style={{ marginTop: 24, padding: '10px 20px', background: '#f1f5f9', border: 'none', borderRadius: 8, fontWeight: 600, cursor: 'pointer' }}
+                                            className={styles.resetBtn}
                                         >
                                             Send another
                                         </button>
@@ -243,7 +239,7 @@ export default function ContactPage() {
                                 )}
                             </button>
 
-                            <p style={{ marginTop: 16, fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>
+                            <p className={styles.formFooterText}>
                                 By clicking Submit, you agree to join our contributors list.
                             </p>
                         </form>

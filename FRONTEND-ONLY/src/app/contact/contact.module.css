@@ -207,3 +207,161 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(145, 35, 56, 0.2);
 }
+/* ================= STELLAR SUNSET DARK MODE ================= */
+
+:global([data-theme="dark"]) .page {
+    background: #000000; /* Pure Void */
+}
+
+:global([data-theme="dark"]) .title {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .royalGradientText {
+    background: linear-gradient(135deg, #ffffff 0%, #a78bfa 40%, #fbbf24 80%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
+}
+
+:global([data-theme="dark"]) .subtitle {
+    color: #94a3b8; /* Muted Slate */
+}
+
+/* Method Cards - Glass & Violet */
+:global([data-theme="dark"]) .methodCard {
+    background: rgba(15, 15, 15, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .methodCard:hover {
+    background: rgba(25, 25, 25, 0.8);
+    border-color: #a78bfa; /* Lavender focus */
+    box-shadow: 0 10px 40px rgba(167, 139, 250, 0.1);
+}
+
+:global([data-theme="dark"]) .iconBox {
+    background: rgba(167, 139, 250, 0.1);
+    color: #a78bfa;
+}
+
+:global([data-theme="dark"]) .methodLabel {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .methodValue {
+    color: #94a3b8;
+}
+
+/* Form Card - Premium Ingot */
+:global([data-theme="dark"]) .formCard {
+    background: rgba(8, 8, 8, 0.75);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 30px 60px -10px rgba(0, 0, 0, 0.8),
+        inset 0 0 1px 1px rgba(255, 255, 255, 0.03);
+}
+
+:global([data-theme="dark"]) .label {
+    color: #e2e8f0;
+}
+
+:global([data-theme="dark"]) .input,
+:global([data-theme="dark"]) .select,
+:global([data-theme="dark"]) .textarea {
+    background: #111;
+    border-color: #222;
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .input:focus,
+:global([data-theme="dark"]) .select:focus,
+:global([data-theme="dark"]) .textarea:focus {
+    background: #151515;
+    border-color: #fbbf24; /* Sunset Amber */
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1);
+}
+
+:global([data-theme="dark"]) .input::placeholder,
+:global([data-theme="dark"]) .textarea::placeholder {
+    color: #4b5563;
+}
+
+:global([data-theme="dark"]) .submitBtn {
+    background: linear-gradient(135deg, #f59e0b 0%, #912338 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(145, 35, 56, 0.3);
+}
+
+:global([data-theme="dark"]) .submitBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(145, 35, 56, 0.5);
+    background: linear-gradient(135deg, #fbbf24 0%, #912338 100%);
+}
+
+/* --- Success State Styling --- */
+.successIcon {
+    width: 80px;
+    height: 80px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: white;
+}
+
+.successTitle {
+    color: #1a1a1a;
+}
+
+.successText {
+    color: #64748b;
+}
+
+.resetBtn {
+    margin-top: 24px;
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.formFooterText {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* --- Dark Mode Success State --- */
+:global([data-theme="dark"]) .successIcon {
+    background: #0ea5e9; /* Sky Blue glow */
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
+}
+
+:global([data-theme="dark"]) .successTitle {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .successText {
+    color: #94a3b8;
+}
+
+:global([data-theme="dark"]) .resetBtn {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .resetBtn:hover {
+    background: #2a2a2a;
+}
