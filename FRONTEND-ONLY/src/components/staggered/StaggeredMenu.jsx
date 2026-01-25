@@ -1,7 +1,37 @@
 "use client";
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
+
+// --- Shared Theme Logic ---
+function readTheme() {
+    if (typeof window === "undefined") return "light";
+    const dom = document.documentElement.getAttribute("data-theme");
+    if (dom === "dark" || dom === "light") return dom;
+
+    try {
+        const ls = localStorage.getItem("theme");
+        if (ls === "dark" || ls === "light") return ls;
+    } catch { }
+
+    try {
+        const m = document.cookie.match(/(?:^|; )theme=(dark|light)/);
+        if (m && m[1]) return m[1];
+    } catch { }
+
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function applyTheme(next) {
+    const root = document.documentElement;
+    root.dataset.theme = next;
+    root.style.colorScheme = next;
+
+    try { localStorage.setItem("theme", next); } catch { }
+    try {
+        document.cookie = `theme=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    } catch { }
+}
 
 export const StaggeredMenu = ({
     position = 'right',
@@ -40,6 +70,20 @@ export const StaggeredMenu = ({
     const toggleBtnRef = useRef(null);
     const busyRef = useRef(false);
     const itemEntranceTweenRef = useRef(null);
+
+    // Theme state
+    const [theme, setTheme] = useState("light");
+
+    useEffect(() => {
+        const t = readTheme();
+        setTheme(t);
+    }, []);
+
+    const toggleTheme = () => {
+        const next = theme === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        applyTheme(next);
+    };
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
@@ -84,6 +128,7 @@ export const StaggeredMenu = ({
         const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'));
         const socialTitle = panel.querySelector('.sm-socials-title');
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
+        const themeToggle = panel.querySelector('.sm-theme-toggle-wrap');
 
         const layerStates = layers.map(el => ({ el, start: Number(gsap.getProperty(el, 'xPercent')) }));
         const panelStart = Number(gsap.getProperty(panel, 'xPercent'));
@@ -99,6 +144,9 @@ export const StaggeredMenu = ({
         }
         if (socialLinks.length) {
             gsap.set(socialLinks, { y: 25, opacity: 0 });
+        }
+        if (themeToggle) {
+            gsap.set(themeToggle, { y: 20, opacity: 0 });
         }
 
         const tl = gsap.timeline({ paused: true });
@@ -173,6 +221,18 @@ export const StaggeredMenu = ({
                     socialsStart + 0.04
                 );
             }
+            if (themeToggle) {
+                tl.to(
+                    themeToggle,
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    },
+                    socialsStart + 0.2
+                );
+            }
         }
 
         openTlRef.current = tl;
@@ -221,8 +281,10 @@ export const StaggeredMenu = ({
                 }
                 const socialTitle = panel.querySelector('.sm-socials-title');
                 const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
+                const themeToggle = panel.querySelector('.sm-theme-toggle-wrap');
                 if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
                 if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+                if (themeToggle) gsap.set(themeToggle, { y: 20, opacity: 0 });
                 busyRef.current = false;
             }
         });
@@ -409,11 +471,11 @@ export const StaggeredMenu = ({
                             </li>
                         )}
                     </ul>
-                    {displaySocials && socialItems && socialItems.length > 0 && (
-                        <div className="sm-socials" aria-label="Social links">
+                    {displaySocials && (
+                        <div className="sm-socials" aria-label="Social links and theme">
                             <h3 className="sm-socials-title">Connect</h3>
                             <ul className="sm-socials-list" role="list">
-                                {socialItems.map((s, i) => (
+                                {socialItems && socialItems.map((s, i) => (
                                     <li key={s.label + i} className="sm-socials-item">
                                         <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
                                             {s.label}
@@ -421,6 +483,33 @@ export const StaggeredMenu = ({
                                     </li>
                                 ))}
                             </ul>
+
+                            <div className="sm-theme-toggle-wrap">
+                                <button
+                                    className="sm-theme-toggle"
+                                    onClick={toggleTheme}
+                                    aria-label="Toggle theme"
+                                    title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                                >
+                                    <span className="sm-theme-label">Theme</span>
+                                    <div className="sm-theme-switch">
+                                        <div className={`sm-theme-indicator ${theme}`}>
+                                            {theme === 'dark' ? (
+                                                <svg className="sm-moon" viewBox="0 0 24 24" width="14" height="14">
+                                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" />
+                                                </svg>
+                                            ) : (
+                                                <svg className="sm-sun" viewBox="0 0 24 24" width="14" height="14">
+                                                    <circle cx="12" cy="12" r="4" fill="currentColor" />
+                                                    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                                        <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M4.93 4.93l-1.41 1.41M20.48 20.48l-1.41-1.41M19.07 4.93l1.41 1.41M4.93 19.07l1.41-1.41" />
+                                                    </g>
+                                                </svg>
+                                            )}
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
