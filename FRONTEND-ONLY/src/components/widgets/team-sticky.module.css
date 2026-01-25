@@ -193,3 +193,54 @@
         justify-content: center;
     }
 }
+/* ================= DARK MODE OVERRIDES ================= */
+
+:global([data-theme="dark"]) .heading {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(145, 35, 56, 0.2);
+}
+
+:global([data-theme="dark"]) .gradientText {
+    background: linear-gradient(90deg, #ffffff 0%, #db9e1e 50%, #ff6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="dark"]) .intro {
+    color: #94a3b8; /* Muted Slate */
+}
+
+:global([data-theme="dark"]) .name {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .teamItem {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .teamItem:first-child {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .avatarWrapper {
+    background: #111;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+:global([data-theme="dark"]) .teamItem:hover .avatarWrapper {
+    border-color: #db9e1e;
+    box-shadow: 0 0 30px rgba(219, 158, 30, 0.2);
+}
+
+:global([data-theme="dark"]) .role {
+    background: rgba(145, 35, 56, 0.2);
+    color: #ffb1b1;
+}
+
+:global([data-theme="dark"]) .kicker {
+    background: rgba(255, 255, 255, 0.05);
+    color: #db9e1e;
+    border: 1px solid rgba(219, 158, 30, 0.2);
+}

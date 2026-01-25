@@ -177,3 +177,59 @@
         font-size: 3rem;
     }
 }
+
+/* ================= THEVOID DARK MODE (Chromatic True Black) ================= */
+
+:global([data-theme="dark"]) .heading {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .gradientText {
+    background: linear-gradient(90deg, #ffffff 0%, #db9e1e 50%, #ff6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="dark"]) .intro {
+    color: #94a3b8;
+    /* Muted Slate */
+}
+
+:global([data-theme="dark"]) .itemTitle {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .itemDesc {
+    color: #94a3b8;
+}
+
+/* Number Styling - Premium Luminous Outline */
+:global([data-theme="dark"]) .number {
+    -webkit-text-stroke: 1px rgba(219, 158, 30, 0.6);
+    /* Gold Luminous Stroke */
+    color: transparent;
+    text-shadow: 0 0 15px rgba(219, 158, 30, 0.2);
+}
+
+:global([data-theme="dark"]) .featureItem:hover .number {
+    color: rgba(219, 158, 30, 0.15);
+    -webkit-text-stroke: 1px #db9e1e;
+    text-shadow: 0 0 25px rgba(219, 158, 30, 0.5);
+}
+
+/* Borders */
+:global([data-theme="dark"]) .featureItem {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .featureItem:first-child {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .kicker {
+    background: rgba(255, 255, 255, 0.05);
+    color: #db9e1e;
+    border: 1px solid rgba(219, 158, 30, 0.2);
+}

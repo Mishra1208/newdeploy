@@ -144,6 +144,7 @@ export default function AboutPage() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
+        style={{ marginTop: 40 }}
       >
         <p className={styles.bodyText} style={{ textAlign: 'center', marginBottom: 40, opacity: 0.8 }}>
           The visualization below demonstrates how we bridge scattered data points into one fluid experience.

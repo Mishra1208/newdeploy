@@ -15,6 +15,8 @@ export default function OriginScribble({ displayClass }) {
             // 1. Setup Strokes
             gsap.utils.toArray('.scribble-path').forEach(path => {
                 try {
+                    // Ensure strokeDasharray/offset are set via JS for animation
+                    // But colors are handled by CSS now
                     const len = path.getTotalLength();
                     path.style.strokeDasharray = len;
                     path.style.strokeDashoffset = len;
@@ -28,12 +30,12 @@ export default function OriginScribble({ displayClass }) {
                 c1: '.chunk-1',
                 c2: '.chunk-2',
                 c3: '.chunk-3',
-                c4: '.chunk-4', // Arrow
-                p1: '.path-1', // 15 tabs
-                p2: '.path-2', // crash prone
-                p3: '.path-3', // nightmare
-                p4: '.path-4', // fixed it
-                p5: '.path-5', // arrow
+                c4: '.chunk-4',
+                p1: '.path-1',
+                p2: '.path-2',
+                p3: '.path-3',
+                p4: '.path-4',
+                p5: '.path-5',
             };
 
             const tl = gsap.timeline({
@@ -108,11 +110,12 @@ export default function OriginScribble({ displayClass }) {
             position: 'relative',
             width: '100%',
             maxWidth: '700px',
-            height: '210px', // Tight gap maintained
+            height: '210px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-start',
         },
+        // Removed inline color
         chunk: {
             position: 'absolute',
             top: 0,
@@ -122,7 +125,6 @@ export default function OriginScribble({ displayClass }) {
             fontSize: "2.2rem",
             lineHeight: "1.5",
             fontWeight: 600,
-            color: 'var(--ink-secondary)',
             opacity: 0,
             transform: 'translateY(30px)',
             willChange: 'transform, opacity'
@@ -166,7 +168,7 @@ export default function OriginScribble({ displayClass }) {
                         <span style={s.highlightSpan}>
                             15 tabs open
                             <svg style={{ ...s.svgOverlay, top: '90%', transform: 'scale(1.1)' }} viewBox="0 0 200 20" preserveAspectRatio="none">
-                                <path className="scribble-path path-1" d="M5,10 C50,12 150,8 195,10 M190,12 C140,14 60,8 10,12" fill="none" stroke="#912338" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className="scribble-path path-1" d="M5,10 C50,12 150,8 195,10 M190,12 C140,14 60,8 10,12" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </span>{' '}
                         just to pick a schedule.
@@ -178,24 +180,24 @@ export default function OriginScribble({ displayClass }) {
                         <span style={s.highlightSpan}>
                             crash-prone SIS
                             <svg style={{ ...s.svgOverlay, top: '85%', left: '0%', transform: 'scale(1.1)' }} viewBox="0 0 200 30" preserveAspectRatio="none">
-                                <path className="scribble-path path-2" d="M5,15 Q15,5 25,15 T45,15 T65,15 T85,15 T105,15 T125,15 T145,15 T165,15 T185,15" fill="none" stroke="rgba(145, 35, 56, 0.4)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className="scribble-path path-2" d="M5,15 Q15,5 25,15 T45,15 T65,15 T85,15 T105,15 T125,15 T145,15 T165,15 T185,15" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </span>{' '}
                         and old threads...<br />it was a{' '}
                         <span style={{ ...s.highlightSpan, padding: '0 10px' }}>
                             nightmare
                             <svg style={{ ...s.svgOverlay, top: '-25%', left: '-15%', width: '130%', height: '150%' }} viewBox="0 0 120 70" preserveAspectRatio="none">
-                                <path className="scribble-path path-3" d="M30,35 C20,10 50,5 80,10 C110,15 115,40 100,55 C80,70 40,65 25,50 C15,40 25,20 50,15" fill="none" stroke="#db9e1e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className="scribble-path path-3" d="M30,35 C20,10 50,5 80,10 C110,15 115,40 100,55 C80,70 40,65 25,50 C15,40 25,20 50,15" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </span>.
                     </div>
 
                     {/* 3. FIXED IT */}
                     <div className="scribble-chunk chunk-3" style={s.chunk}>
-                        <span style={{ ...s.highlightSpan, fontWeight: 700, color: '#912338' }}>
+                        <span className="fixed-it-text" style={{ ...s.highlightSpan, fontWeight: 700 }}>
                             <span style={{ position: 'relative', zIndex: 2 }}>So we fixed it.</span>
                             <svg style={{ ...s.svgOverlay, top: '-15%', left: '-8%', width: '116%', height: '130%', zIndex: 0 }} viewBox="0 0 160 60" preserveAspectRatio="none">
-                                <path className="scribble-path path-4" d="M5,10 L155,5 L150,55 L5,50 L8,12" fill="rgba(219, 158, 30, 0.15)" stroke="#db9e1e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className="scribble-path path-4" d="M5,10 L155,5 L150,55 L5,50 L8,12" fill="rgba(219, 158, 30, 0.15)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </span>{' '}
                         <br />
@@ -205,24 +207,25 @@ export default function OriginScribble({ displayClass }) {
 
                 {/* Footer Arrow (Chunk 4) */}
                 <div className="scribble-chunk chunk-4" style={{
-                    marginTop: '0px',
-                    height: '120px',
+                    marginTop: '-20px',
+                    height: '100px',
                     textAlign: 'center',
                     opacity: 0,
                     transform: 'translateY(10px)'
                 }}>
                     <svg width="60" height="80" viewBox="0 0 60 80" style={{ transform: 'rotate(10deg)', margin: '0 auto', display: 'block' }}>
-                        <path className="scribble-path path-5" d="M25,5 Q45,35 30,70 M30,70 L15,55 M30,70 L50,60" fill="none" stroke="#912338" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <path className="scribble-path path-5" d="M25,5 Q45,35 30,70 M30,70 L15,55 M30,70 L50,60" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <div style={{
+                    <div className="caffeine-pill" style={{
                         display: 'inline-block',
-                        background: 'rgba(145, 35, 56, 0.08)',
-                        color: '#912338',
+                        background: 'rgba(139, 92, 246, 0.15)',
+                        color: '#a78bfa',
                         padding: '12px 30px',
                         borderRadius: '40px',
                         fontSize: '1rem',
                         fontWeight: 700,
-                        marginTop: '20px'
+                        marginTop: '10px',
+                        border: '1px solid rgba(139, 92, 246, 0.2)'
                     }}>
                         1,200+ hours of caffeine & code
                     </div>
@@ -231,16 +234,50 @@ export default function OriginScribble({ displayClass }) {
             </div>
 
             <style jsx>{`
+                /* Chunk Colors */
+                .scribble-chunk {
+                    color: var(--ink-secondary);
+                }
+                .fixed-it-text {
+                    color: #912338;
+                }
+                
+                /* SVG Strokes - Default (Light Mode) */
+                .path-1 { stroke: #912338; }
+                .path-2 { stroke: rgba(145, 35, 56, 0.4); }
+                .path-3 { stroke: #db9e1e; }
+                .path-4 { stroke: #db9e1e; }
+                .path-5 { stroke: #912338; }
+
+                /* Title Gradient - Light */
                 .origin-title-gradient {
                     background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                 }
+
+                /* --- DARK MODE OVERRIDES --- */
                 :global([data-theme="dark"]) .origin-title-gradient {
-                    background: linear-gradient(135deg, #ffffff 0%, #a5a5a5 100%);
+                    background: linear-gradient(135deg, #ffffff 0%, #db9e1e 50%, #ff6b6b 100%);
                     -webkit-background-clip: text;
+                    background-clip: text;
                     -webkit-text-fill-color: transparent;
                 }
+                
+                :global([data-theme="dark"]) .scribble-chunk {
+                   color: #cbd5e1; /* Silver Gray */
+                }
+
+                :global([data-theme="dark"]) .fixed-it-text {
+                   color: #db9e1e; /* Pure Gold focus */
+                }
+
+                :global([data-theme="dark"]) .path-1 { stroke: #ff6b6b; stroke-width: 4; }
+                :global([data-theme="dark"]) .path-2 { stroke: rgba(255, 107, 107, 0.4); stroke-width: 4; }
+                :global([data-theme="dark"]) .path-3 { stroke: #fcd34d; stroke-width: 4; } 
+                :global([data-theme="dark"]) .path-4 { stroke: #fcd34d; stroke-width: 4; }
+                :global([data-theme="dark"]) .path-5 { stroke: #ff6b6b; stroke-width: 4; }
+
                  @media (max-width: 768px) {
                     .scribble-chunk {
                         font-size: 1.6rem !important;
