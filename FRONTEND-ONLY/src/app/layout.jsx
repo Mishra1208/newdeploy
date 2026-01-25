@@ -61,11 +61,9 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // FORCED LIGHT MODE (User Request)
-  // const cookieStore = await cookies();
-  // const themeCookie = cookieStore.get("theme")?.value;
-  // const initialTheme = themeCookie === "dark" ? "dark" : "light";
-  const initialTheme = "light";
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get("theme")?.value;
+  const initialTheme = themeCookie === "dark" ? "dark" : "light";
 
   return (
     <ClerkThemeProvider initialTheme={initialTheme}>
@@ -76,13 +74,11 @@ export default async function RootLayout({ children }) {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
             rel="stylesheet"
           />
-          {/* Prevents first-paint flash; FORCED LIGHT MODE for now.
-             The hydrator will enforce localStorage on the client after mount. */}
           <Script id="theme-init" strategy="beforeInteractive">{`
   (function () {
     try {
-      // FORCE LIGHT MODE
-      var theme = 'light';
+      var localTheme = localStorage.getItem('theme');
+      var theme = localTheme || '${initialTheme}';
       var root = document.documentElement;
       root.dataset.theme = theme;
       root.style.colorScheme = theme;

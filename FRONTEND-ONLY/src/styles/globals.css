@@ -45,17 +45,29 @@
 }
 
 [data-theme="dark"] {
-  --bg-page: #0f172a;
-  /* Deep Slate */
-  --bg-panel: #1e293b;
-  --bg-soft: #334155;
+  /* Premium Deep Black Theme (CentralHQ Style) */
+  --bg-page: #050505;
+  /* Deepest Black */
+  --bg-panel: #0a0a0a;
+  /* Soft Black */
+  --bg-soft: #1a1a1a;
+  /* Medium Black */
 
-  --ink-primary: #f8fafc;
-  --ink-secondary: #cbd5e1;
-  --ink-dim: #64748b;
+  /* Typography - Cream/High Contrast */
+  --ink-primary: #F4F0E6;
+  /* Cream White */
+  --ink-secondary: #a3a3a3;
+  /* Neutral Grey */
+  --ink-dim: #525252;
 
-  --nav-bg: rgba(30, 41, 59, 0.85);
-  --nav-border: rgba(255, 255, 255, 0.05);
+  /* Glassmorphism */
+  --nav-bg: rgba(5, 5, 5, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.08);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -323,12 +335,14 @@ h5 {
 }
 
 [data-theme="dark"] .premium-nav {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(5, 5, 5, 0.85);
+  /* Deep Black Glass */
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .premium-nav.scrolled {
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(5, 5, 5, 0.95);
+  /* Deep Black Scrolled */
 }
 
 .premium-nav-inner {
