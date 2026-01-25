@@ -19,7 +19,7 @@ function readTheme() {
         if (m && m[1]) return m[1];
     } catch { }
 
-    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return "light";
 }
 
 function applyTheme(next) {
