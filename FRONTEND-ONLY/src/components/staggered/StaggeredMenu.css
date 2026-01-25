@@ -361,7 +361,23 @@
         width: 100%;
     }
 
+    .staggered-menu-panel {
+        padding: 5em 2em 2em 2em;
+        /* Reduced top padding */
+    }
+
+    .sm-panel-inner {
+        gap: 1rem;
+        /* Reduced gap */
+    }
+
     .sm-panel-item {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        /* Smaller text */
+    }
+
+    .sm-socials {
+        padding-top: 1rem;
+        /* Compact footer */
     }
 }
