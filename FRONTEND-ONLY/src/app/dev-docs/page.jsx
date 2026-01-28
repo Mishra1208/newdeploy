@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Folder, File, Terminal, Server, Layers, Globe, Database, Shield, Check, Star, GitBranch, Rocket, Settings, Lock } from "lucide-react";
+import { ChevronRight, Folder, File, Terminal, Server, Layers, Globe, Database, Shield, Check, Star, GitBranch, Rocket, Settings, Lock, Eye, EyeOff } from "lucide-react";
 
 // ... (abbrev) ...
 
@@ -57,6 +57,7 @@ export default function DevDocs() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUser, setCurrentUser] = useState(""); // Track who logged in
     const [passwordInput, setPasswordInput] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -69,6 +70,7 @@ export default function DevDocs() {
             if (savedUser) setCurrentUser(savedUser);
         }
     }, []);
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -121,15 +123,23 @@ export default function DevDocs() {
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-4">
-                        <div>
+                        <div className="relative">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 value={passwordInput}
                                 onChange={(e) => setPasswordInput(e.target.value)}
                                 placeholder="Enter Access Key"
-                                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition font-mono text-sm"
+                                className="w-full bg-black/50 border border-white/10 rounded-xl pl-4 pr-12 py-3 text-white focus:outline-none focus:border-purple-500 transition font-mono text-sm"
                                 autoFocus
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
                         {error && (
