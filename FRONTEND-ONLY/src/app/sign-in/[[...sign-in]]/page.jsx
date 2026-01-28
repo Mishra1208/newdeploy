@@ -61,6 +61,19 @@ export default function Page() {
                 background: "#fff"
             }}>
                 <SignIn />
+
+                {/* Admin Link */}
+                <div style={{ marginTop: "32px", textAlign: "center" }}>
+                    <p style={{ fontSize: "0.9rem", color: "#86868b" }}>
+                        Administrator?{" "}
+                        <a
+                            href="/dev-docs"
+                            style={{ color: "#9333ea", fontWeight: 600, textDecoration: "none", transition: "opacity 0.2s" }}
+                        >
+                            Access Developer Console &rarr;
+                        </a>
+                    </p>
+                </div>
             </div>
 
             <style jsx global>{`
