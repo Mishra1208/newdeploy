@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import styles from "./ChatWidget.module.css";
 
 const API = "/api/chat";
@@ -78,6 +78,10 @@ function Typewriter({ text, speed = 20, onComplete }) {
 /* --------------------------------- component --------------------------------- */
 export default function ChatWidget() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/dev-docs")) return null;
+
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
