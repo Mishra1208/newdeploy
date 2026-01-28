@@ -484,56 +484,56 @@ export default function DevDocs() {
 
                         {/* 1.7 GIT & VERSION CONTROL */}
                         <section id="git" className={activeSection === 'git' ? 'block' : 'hidden'}>
-                            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                                <GitBranch className="text-purple-500" /> Git & Version Control
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                                <GitBranch className="text-purple-600 dark:text-purple-500" /> Git & Version Control
                             </h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {/* Workflow Info */}
                                 <div className="space-y-6">
-                                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                                        <h3 className="text-xl font-bold text-blue-400 mb-4">Current Workflow</h3>
-                                        <p className="text-gray-300 text-sm mb-4">
-                                            Repository: <a href="https://github.com/Mishra1208/newdeploy" target="_blank" className="text-purple-400 underline font-mono">Mishra1208/newdeploy</a>
+                                    <div className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none">
+                                        <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4">Current Workflow</h3>
+                                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                                            Repository: <a href="https://github.com/Mishra1208/newdeploy" target="_blank" className="text-purple-600 dark:text-purple-400 underline font-mono">Mishra1208/newdeploy</a>
                                             <br />
                                             We use a <strong>Feature Branch Workflow</strong>.
-                                            Direct commits to <code>main</code> are allowed only for hotfixes.
+                                            Direct commits to <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">main</code> are allowed only for hotfixes.
                                             For major changes, create a new branch, work on it, and then merge.
                                         </p>
                                         <div className="space-y-2">
                                             <div className="flex items-center gap-3 text-sm">
-                                                <div className="px-2 py-1 rounded bg-purple-500/20 text-purple-400 font-mono text-xs">main</div>
-                                                <span className="text-gray-500">Production-ready code. Always stable.</span>
+                                                <div className="px-2 py-1 rounded bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 font-mono text-xs">main</div>
+                                                <span className="text-gray-600 dark:text-gray-500">Production-ready code. Always stable.</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-sm">
-                                                <div className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-400 font-mono text-xs">design-overhaul</div>
-                                                <span className="text-gray-500">Active branch for UI rework.</span>
+                                                <div className="px-2 py-1 rounded bg-yellow-100 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-mono text-xs">design-overhaul</div>
+                                                <span className="text-gray-600 dark:text-gray-500">Active branch for UI rework.</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="p-6 rounded-2xl bg-red-900/10 border border-red-500/20">
-                                        <h3 className="text-xl font-bold text-red-400 mb-4">Emergency & Recovery</h3>
-                                        <ul className="space-y-3 text-sm text-gray-400">
+                                    <div className="p-6 rounded-2xl bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-500/20">
+                                        <h3 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">Emergency & Recovery</h3>
+                                        <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                                             <li>
-                                                <strong className="text-red-200">Undo commit (keep changes):</strong>
-                                                <div className="font-mono bg-black/40 p-2 rounded mt-1 text-xs">git reset --soft HEAD~1</div>
+                                                <strong className="text-red-700 dark:text-red-200">Undo commit (keep changes):</strong>
+                                                <div className="font-mono bg-white dark:bg-black/40 p-2 rounded mt-1 text-xs border border-red-100 dark:border-transparent">git reset --soft HEAD~1</div>
                                             </li>
                                             <li>
-                                                <strong className="text-red-200">Discard all local changes:</strong>
-                                                <div className="font-mono bg-black/40 p-2 rounded mt-1 text-xs">git checkout .</div>
+                                                <strong className="text-red-700 dark:text-red-200">Discard all local changes:</strong>
+                                                <div className="font-mono bg-white dark:bg-black/40 p-2 rounded mt-1 text-xs border border-red-100 dark:border-transparent">git checkout .</div>
                                             </li>
                                             <li>
-                                                <strong className="text-red-200">Check history:</strong>
-                                                <div className="font-mono bg-black/40 p-2 rounded mt-1 text-xs">git log --oneline --graph</div>
+                                                <strong className="text-red-700 dark:text-red-200">Check history:</strong>
+                                                <div className="font-mono bg-white dark:bg-black/40 p-2 rounded mt-1 text-xs border border-red-100 dark:border-transparent">git log --oneline --graph</div>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 {/* Common Commands */}
-                                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                                    <h3 className="text-xl font-bold text-orange-400 mb-4">Essential Commands</h3>
+                                <div className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none">
+                                    <h3 className="text-xl font-bold text-orange-600 dark:text-orange-400 mb-4">Essential Commands</h3>
                                     <div className="space-y-4">
                                         <CmdItem cmd="git branch feature-name" desc="Create a new branch." />
                                         <CmdItem cmd="git checkout feature-name" desc="Switch to that branch." />
@@ -550,30 +550,30 @@ export default function DevDocs() {
 
                         {/* 1.8 DEPLOYMENTS & DOMAINS */}
                         <section id="deploy" className={activeSection === 'deploy' ? 'block' : 'hidden'}>
-                            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                                <Rocket className="text-purple-500" /> Deployments & Domains
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                                <Rocket className="text-purple-600 dark:text-purple-500" /> Deployments & Domains
                             </h2>
 
                             <div className="space-y-8">
                                 {/* Frontend Deployment */}
-                                <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
+                                <div className="p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none">
                                     <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-2xl font-bold text-white">Frontend Deployment (Vercel)</h3>
-                                        <div className="px-3 py-1 rounded-full bg-white/10 text-xs font-bold uppercase">Next.js App</div>
+                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Frontend Deployment (Vercel)</h3>
+                                        <div className="px-3 py-1 rounded-full bg-gray-100 dark:bg-white/10 text-xs font-bold uppercase text-gray-600 dark:text-gray-300">Next.js App</div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-4">
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Infrastructure</div>
-                                                <p className="text-gray-300">Hosted on <a href="https://vercel.com/dashboard" target="_blank" className="text-white font-bold hover:underline">Vercel</a>. Handles the Next.js App Router, serverless API routes, and global CDN.</p>
+                                                <p className="text-gray-600 dark:text-gray-300">Hosted on <a href="https://vercel.com/dashboard" target="_blank" className="text-gray-900 dark:text-white font-bold hover:underline">Vercel</a>. Handles the Next.js App Router, serverless API routes, and global CDN.</p>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Git Integration</div>
-                                                <p className="text-gray-300">Continuous Deployment (CD) linked to the <code>main</code> branch of our GitHub repository.</p>
+                                                <p className="text-gray-600 dark:text-gray-300">Continuous Deployment (CD) linked to the <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">main</code> branch of our GitHub repository.</p>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Live URL</div>
-                                                <a href="https://www.conuplanner.com/" target="_blank" className="text-purple-400 hover:text-purple-300 font-mono text-sm">
+                                                <a href="https://www.conuplanner.com/" target="_blank" className="text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 font-mono text-sm">
                                                     https://www.conuplanner.com/
                                                 </a>
                                             </div>
@@ -581,9 +581,9 @@ export default function DevDocs() {
                                         <div className="space-y-4">
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Triggering a Build</div>
-                                                <ul className="space-y-2 text-sm text-gray-400 list-disc pl-4">
-                                                    <li><strong className="text-white">Push to Main:</strong> Triggers Production build (conuplanner.com).</li>
-                                                    <li><strong className="text-white">Push to Branch:</strong> Triggers Preview build (unique URL).</li>
+                                                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 list-disc pl-4">
+                                                    <li><strong className="text-gray-900 dark:text-white">Push to Main:</strong> Triggers Production build (conuplanner.com).</li>
+                                                    <li><strong className="text-gray-900 dark:text-white">Push to Branch:</strong> Triggers Preview build (unique URL).</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -591,23 +591,23 @@ export default function DevDocs() {
                                 </div>
 
                                 {/* Backend Deployment */}
-                                <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
+                                <div className="p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none">
                                     <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-2xl font-bold text-white">Backend Deployment (Render)</h3>
-                                        <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold uppercase">Express Server</div>
+                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Backend Deployment (Render)</h3>
+                                        <div className="px-3 py-1 rounded-full bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 text-xs font-bold uppercase">Express Server</div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-4">
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Infrastructure</div>
-                                                <p className="text-gray-300">
-                                                    The <code>conu-community-server</code> runs as a Web Service on <a href="https://dashboard.render.com/" target="_blank" className="text-white font-bold hover:underline">Render</a>.
+                                                <p className="text-gray-600 dark:text-gray-300">
+                                                    The <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">conu-community-server</code> runs as a Web Service on <a href="https://dashboard.render.com/" target="_blank" className="text-gray-900 dark:text-white font-bold hover:underline">Render</a>.
                                                     It stays awake to handle scraping requests (Puppeteer/GraphQL) that are too heavy for Vercel Serverless.
                                                 </p>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Service URL</div>
-                                                <a href="https://newdeploy-zibv.onrender.com" target="_blank" className="text-green-400 hover:text-green-300 font-mono text-sm break-all">
+                                                <a href="https://newdeploy-zibv.onrender.com" target="_blank" className="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 font-mono text-sm break-all">
                                                     https://newdeploy-zibv.onrender.com
                                                 </a>
                                             </div>
@@ -615,10 +615,10 @@ export default function DevDocs() {
                                         <div className="space-y-4">
                                             <div>
                                                 <div className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Deployment Logic</div>
-                                                <ul className="space-y-2 text-sm text-gray-400 list-disc pl-4">
-                                                    <li><strong className="text-white">Root Directory:</strong> Configured to deploy from <code>/conu-community-server</code>.</li>
-                                                    <li><strong className="text-white">Build Command:</strong> <code>npm install</code></li>
-                                                    <li><strong className="text-white">Start Command:</strong> <code>node server.js</code></li>
+                                                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 list-disc pl-4">
+                                                    <li><strong className="text-gray-900 dark:text-white">Root Directory:</strong> Configured to deploy from <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">/conu-community-server</code>.</li>
+                                                    <li><strong className="text-gray-900 dark:text-white">Build Command:</strong> <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">npm install</code></li>
+                                                    <li><strong className="text-gray-900 dark:text-white">Start Command:</strong> <code className="bg-gray-100 dark:bg-white/10 px-1 rounded">node server.js</code></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -626,17 +626,17 @@ export default function DevDocs() {
                                 </div>
 
                                 {/* Domains */}
-                                <div className="p-8 rounded-3xl bg-blue-900/10 border border-blue-500/20">
+                                <div className="p-8 rounded-3xl bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-500/20">
                                     <div className="flex items-center justify-between mb-4">
-                                        <h3 className="text-2xl font-bold text-blue-400">Domain Management</h3>
-                                        <div className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold uppercase">
+                                        <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400">Domain Management</h3>
+                                        <div className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase">
                                             Automated SSL
                                         </div>
                                     </div>
-                                    <p className="text-gray-300 mb-4">
+                                    <p className="text-gray-600 dark:text-gray-300 mb-4">
                                         Our custom domain is configured directly in Vercel settings.
                                     </p>
-                                    <ul className="space-y-2 text-sm text-gray-400 list-disc pl-4">
+                                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 list-disc pl-4">
                                         <li>Vercel automatically provisions and renews <strong>SSL Certificates</strong> (HTTPS).</li>
                                         <li>It handles DNS routing to the nearest edge location for the user.</li>
                                     </ul>
@@ -646,10 +646,10 @@ export default function DevDocs() {
 
                         {/* 2. PAGE GUIDE (Dictionary) */}
                         <section id="page-guide" className={activeSection === 'page-guide' ? 'block' : 'hidden'}>
-                            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                                <File className="text-purple-500" /> Page & Route Dictionary
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                                <File className="text-purple-600 dark:text-purple-500" /> Page & Route Dictionary
                             </h2>
-                            <p className="text-gray-400 mb-8 max-w-3xl">
+                            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl">
                                 A complete map of every user-facing page, where the code lives, and how it gets its data.
                             </p>
 
