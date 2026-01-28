@@ -10,6 +10,8 @@ export default function LoginPage() {
             minHeight: '82vh',
             padding: '40px 20px',
             position: 'relative',
+            flexDirection: 'column', // Stack children vertically
+            gap: '2rem', // Add space between SignIn and link
             overflow: 'hidden'
         }}>
             {/* Visual Flair: Matching the Hero's dynamic background style */}
@@ -26,6 +28,19 @@ export default function LoginPage() {
             }} />
 
             <SignIn />
+
+            {/* Admin Link */}
+            <div style={{ textAlign: "center", zIndex: 1 }}>
+                <p style={{ fontSize: "0.9rem", color: "#6b7280" }}>
+                    Administrator?{" "}
+                    <a
+                        href="/dev-docs"
+                        style={{ color: "#9333ea", fontWeight: 600, textDecoration: "none", transition: "opacity 0.2s" }}
+                    >
+                        Access Developer Console &rarr;
+                    </a>
+                </p>
+            </div>
         </div>
     );
 }
