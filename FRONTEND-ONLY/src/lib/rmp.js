@@ -10,9 +10,9 @@ const RMP_AUTH_HEADER = 'Basic dGVzdDp0ZXN0'; // Standard RMP public auth
 const CONCORDIA_ID = 'U2Nob29sLTE4NDQz'; // Concordia University (Montreal)
 
 const SEARCH_QUERY = `
-  query NewSearchTeachersQuery($text: String!, $schoolID: ID!) {
+  query NewSearchTeachersQuery($text: String!) {
     newSearch {
-      teachers(query: { text: $text, schoolID: $schoolID }) {
+      teachers(query: { text: $text }) {
         edges {
           node {
             id
@@ -41,59 +41,60 @@ const SEARCH_QUERY = `
  * @returns {Promise<Array>} List of matching professors
  */
 export async function findProfessorByName(name) {
-    if (!name) return [];
+  if (!name) return [];
 
-    try {
-        const response = await fetch(RMP_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': RMP_AUTH_HEADER,
-            },
-            body: JSON.stringify({
-                query: SEARCH_QUERY,
-                variables: {
-                    text: name,
-                    schoolID: CONCORDIA_ID
-                }
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`RMP API responded with ${response.status}`);
+  try {
+    const response = await fetch(RMP_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': RMP_AUTH_HEADER,
+      },
+      body: JSON.stringify({
+        query: SEARCH_QUERY,
+        variables: {
+          text: name
         }
+      })
+    });
 
-        const data = await response.json();
-        const teachers = data?.data?.newSearch?.teachers?.edges?.map(e => e.node) || [];
-
-        // Enrich data with standardized fields for frontend compatibility
-        return teachers.map(t => ({
-            ...t,
-            name: `${t.firstName} ${t.lastName}`,
-            quality: t.avgRating,
-            difficulty: t.avgDifficulty,
-            wouldTakeAgain: t.wouldTakeAgainPercent,
-            dept: t.department,
-            schoolName: t.school?.name,
-            url: `https://www.ratemyprofessors.com/professor/${t.legacyId || getLegacyId(t.id)}`
-        }));
-
-    } catch (error) {
-        console.error("RMP GraphQL Error:", error);
-        return [];
+    if (!response.ok) {
+      throw new Error(`RMP API responded with ${response.status}`);
     }
+
+    const data = await response.json();
+    const teachers = data?.data?.newSearch?.teachers?.edges?.map(e => e.node) || [];
+
+    // Enrich data with standardized fields for frontend compatibility
+    return teachers.map(t => ({
+      ...t,
+      firstName: (t.firstName || "").trim(),
+      lastName: (t.lastName || "").trim(),
+      name: `${(t.firstName || "").trim()} ${(t.lastName || "").trim()}`,
+      quality: t.avgRating,
+      difficulty: t.avgDifficulty,
+      wouldTakeAgain: t.wouldTakeAgainPercent,
+      dept: t.department,
+      schoolName: t.school?.name,
+      url: `https://www.ratemyprofessors.com/professor/${t.legacyId || getLegacyId(t.id)}`
+    }));
+
+  } catch (error) {
+    console.error("RMP GraphQL Error:", error);
+    return [];
+  }
 }
 
 /**
  * decode RMP ID if legacyId is missing
  */
 function getLegacyId(id) {
-    if (!id) return null;
-    try {
-        const decoded = atob(id);
-        if (decoded.includes('-')) return decoded.split('-')[1];
-    } catch (e) {
-        return null;
-    }
+  if (!id) return null;
+  try {
+    const decoded = atob(id);
+    if (decoded.includes('-')) return decoded.split('-')[1];
+  } catch (e) {
     return null;
+  }
+  return null;
 }

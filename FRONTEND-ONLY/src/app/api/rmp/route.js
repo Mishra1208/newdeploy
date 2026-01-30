@@ -23,16 +23,26 @@ export async function GET(request) {
             });
         }
 
-        // Scoring logic (similar to backend but simplified for GraphQL)
-        const nameLc = name.toLowerCase();
+        // Scoring logic: Prefer Concordia + Full Name Match + High Rating Count
+        const nameLc = name.toLowerCase().trim();
         const scored = results.map(r => {
             let score = 0;
-            const fullName = `${r.firstName} ${r.lastName}`.toLowerCase();
-            if (fullName === nameLc) score += 3;
-            else if (fullName.startsWith(nameLc)) score += 2;
-            else if (fullName.includes(nameLc)) score += 1;
+            const fullName = `${r.firstName} ${r.lastName}`.toLowerCase().trim();
+            const school = (r.schoolName || "").toLowerCase();
 
-            if (r.numRatings > 0) score += 1;
+            // Name match
+            if (fullName === nameLc) score += 10;
+            else if (fullName.startsWith(nameLc)) score += 5;
+            else if (fullName.includes(nameLc)) score += 2;
+
+            // School match (MASSIVE BOOST for Concordia)
+            // Some entries are "Concordia University", "Concordia University (Montreal)", etc.
+            if (school.includes("concordia")) score += 20;
+
+            // Popularity boost
+            if (r.numRatings > 0) score += 2;
+            score += Math.min(5, (r.numRatings || 0) / 50);
+
             return { score, r };
         }).sort((a, b) => b.score - a.score);
 

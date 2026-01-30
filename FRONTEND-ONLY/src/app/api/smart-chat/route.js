@@ -159,11 +159,32 @@ export async function POST(req) {
 
         /* -------------------------- 1. RMP HANDLER -------------------------- */
         if (intent === INTENTS.RMP) {
-            const data = await fetchRMP(entity);
-            if (data && data.top) {
-                return NextResponse.json({ html: buildRMPCard(data.top) });
+            const results = await findProfessorByName(entity);
+            if (!results || results.length === 0) {
+                return NextResponse.json({ reply: `I searched for professor "${entity}" but couldn't find a match on RateMyProfessors.` });
             }
-            return NextResponse.json({ reply: `I searched for professor "${entity}" but couldn't find a match on RateMyProfessors.` });
+
+            // Scoring logic: Prefer Concordia + Full Name Match + High Rating Count
+            const nameLc = entity.toLowerCase().trim();
+            const scored = results.map(r => {
+                let score = 0;
+                const fullName = r.name.toLowerCase().trim();
+                const school = (r.schoolName || "").toLowerCase();
+
+                if (fullName === nameLc) score += 10;
+                else if (fullName.startsWith(nameLc)) score += 5;
+                else if (fullName.includes(nameLc)) score += 2;
+
+                if (school.includes("concordia")) score += 20;
+
+                if (r.numRatings > 0) score += 2;
+                score += Math.min(5, (r.numRatings || 0) / 50);
+
+                return { score, r };
+            }).sort((a, b) => b.score - a.score);
+
+            const top = scored[0].r;
+            return NextResponse.json({ html: buildRMPCard(top) });
         }
 
         /* ------------------------ 2. REDDIT HANDLER ------------------------- */
