@@ -338,7 +338,7 @@ export default function DevDocs() {
                                     <ul className="space-y-4">
                                         <StatusItem text="Course Search (7,900+ Courses)" active />
                                         <StatusItem text="Prerequisite Tree Visualization" active />
-                                        <StatusItem text="Seat Finder (Puppeteer Scraper)" active />
+                                        <StatusItem text="Seat Finder (Open/Closed Only)" active />
                                         <StatusItem text="GPA Calculator (Semester & CGPA)" active />
                                         <StatusItem text="Smart Chat Widget (RMP Support)" active />
                                         <StatusItem text="Dark Mode / Chromatic Themes" active />
@@ -357,6 +357,7 @@ export default function DevDocs() {
                                         <StatusItem text="Calendar Integration (Google/Apple Export)" />
                                         <StatusItem text="Anonymous Course Reviews Section" />
                                         <StatusItem text="User Profiles & Saved Schedules" />
+                                        <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" highlight />
                                     </ul>
                                 </div>
                             </div>
