@@ -135,6 +135,12 @@ export default function PremiumNavbar() {
                             >
                                 <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
                                 <Link href="/pages/courses/descriptions" className="dropdown-item">Course Descriptions</Link>
+                                <Link href="/pages/professor-comparison" className="dropdown-item flex items-center justify-between">
+                                    Professor Insights & Comparison
+                                    <span className="ml-2 px-1.5 py-0.5 text-[10px] bg-blue-600 text-white rounded-md font-bold tracking-tighter animate-pulse uppercase">
+                                        New
+                                    </span>
+                                </Link>
                             </motion.div>
                         </div>
 

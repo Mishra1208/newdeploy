@@ -341,6 +341,7 @@ export default function DevDocs() {
                                         <StatusItem text="Seat Finder (Open/Closed Only)" active />
                                         <StatusItem text="GPA Calculator (Semester & CGPA)" active />
                                         <StatusItem text="Smart Chat Widget (RMP Support)" active />
+                                        <StatusItem text="RMP Scraper Optimization (GraphQL)" active highlight />
                                         <StatusItem text="Dark Mode / Chromatic Themes" active />
                                     </ul>
                                 </div>
@@ -353,11 +354,27 @@ export default function DevDocs() {
                                     </h3>
                                     <ul className="space-y-4">
                                         <StatusItem text="Email Verification (Supabase/Resend)" />
-                                        <StatusItem text="RMP Scraper Optimization (GraphQL)" highlight />
                                         <StatusItem text="Calendar Integration (Google/Apple Export)" />
-                                        <StatusItem text="Anonymous Course Reviews Section" />
+                                        <StatusItem text="Anonymous Course Reviews Section" highlight />
                                         <StatusItem text="User Profiles & Saved Schedules" />
                                         <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" highlight />
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* UI REFINEMENT STRATEGY */}
+                            <div className="mt-8 p-8 rounded-3xl bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-500/20">
+                                <h3 className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-4 flex items-center gap-3">
+                                    <Settings className="animate-spin-slow" /> UI Refinement & Strategy
+                                </h3>
+                                <div className="space-y-4 text-gray-700 dark:text-gray-300">
+                                    <p>
+                                        We are actively exploring <strong className="text-orange-700 dark:text-orange-400">Chakra UI</strong> integration specifically to elevate our <strong>typography and layout consistency</strong>.
+                                    </p>
+                                    <ul className="list-disc pl-5 space-y-2 text-sm">
+                                        <li>Improve text hierarchy and readability for course descriptions.</li>
+                                        <li>Implement cleaner, more professional spacing across complex components.</li>
+                                        <li>Maintain our custom "Tech-Elegant" animations while adopting more refined typography defaults.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -587,6 +604,21 @@ export default function DevDocs() {
                                                     <li><strong className="text-gray-900 dark:text-white">Push to Branch:</strong> Triggers Preview build (unique URL).</li>
                                                 </ul>
                                             </div>
+
+                                            <div className="p-4 rounded-xl bg-purple-100 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-500/30">
+                                                <h4 className="text-sm font-bold text-purple-700 dark:text-purple-400 mb-2 flex items-center gap-2">
+                                                    <GitBranch size={14} /> Professor Analytics Deployment
+                                                </h4>
+                                                <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+                                                    The redesign and comparison features are currently on the <code className="bg-white/50 dark:bg-black/50 px-1 rounded font-mono">feature/professor-analytics-redesign</code> branch.
+                                                    <strong> MUST be merged to main before New Term starts.</strong>
+                                                </p>
+                                                <div className="font-mono text-[10px] bg-white dark:bg-black/50 p-2 rounded border border-purple-200 dark:border-white/10 space-y-1">
+                                                    <div>git checkout main</div>
+                                                    <div>git merge feature/professor-analytics-redesign</div>
+                                                    <div>git push origin main</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -708,6 +740,16 @@ export default function DevDocs() {
                                     file="src/app/about/page.jsx"
                                     desc="Team info, mission statement, and origins."
                                     coordination="STATIC: Presentation only."
+                                />
+
+                                {/* Professor Insights */}
+                                <PageCard
+                                    title="Professor Insights & Comparison"
+                                    route="/pages/professor-comparison"
+                                    file="src/app/pages/professor-comparison/page.jsx"
+                                    desc="Detailed professor data and side-by-side comparison tool."
+                                    coordination="SYNC: Pushed to 'feature/professor-analytics-redesign' branch. Needs main merge."
+                                    highlight
                                 />
 
                                 {/* API: Smart Chat */}
@@ -1026,9 +1068,14 @@ function CmdItem({ cmd, desc }) {
     )
 }
 
-function PageCard({ title, route, file, desc, coordination, isApi }) {
+function PageCard({ title, route, file, desc, coordination, isApi, highlight }) {
     return (
-        <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-6 hover:bg-gray-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
+        <div className={`relative bg-white dark:bg-white/5 border ${highlight ? 'border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/50' : 'border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none'} rounded-xl p-6 hover:bg-gray-50 dark:hover:bg-white/10 transition-all duration-300`}>
+            {highlight && (
+                <div className="absolute -top-3 -right-3 px-3 py-1 bg-purple-600 text-white text-[10px] font-black uppercase tracking-tighter rounded-lg shadow-lg border border-purple-400 z-10 animate-bounce">
+                    New Update
+                </div>
+            )}
             <div className="flex items-start justify-between mb-4">
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
