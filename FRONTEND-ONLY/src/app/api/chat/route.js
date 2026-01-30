@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "node:path";
+import { findProfessorByName } from "@/lib/rmp";
 
 /* ---------------------------------- DATA ---------------------------------- */
 let COURSE_INDEX = null, CODE_MAP = null;
@@ -84,12 +85,13 @@ const COMMUNITY_API = process.env.COMMUNITY_API_URL || "http://localhost:4000";
 
 async function fetchRMP(name) {
   try {
-    const url = new URL("/api/rmp", COMMUNITY_API);
-    url.searchParams.set("name", name);
-    const r = await fetch(url.toString());
-    if (!r.ok) return null;
-    return await r.json();
-  } catch (e) { return null; }
+    const results = await findProfessorByName(name);
+    if (!results || results.length === 0) return null;
+    return { top: results[0] };
+  } catch (e) {
+    console.error("Chat RMP Fetch Error:", e);
+    return null;
+  }
 }
 
 async function fetchReddit(course, query) {
