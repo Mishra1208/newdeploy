@@ -31,17 +31,17 @@ export async function GET(request) {
             const school = (r.schoolName || "").toLowerCase();
 
             // Name match
-            if (fullName === nameLc) score += 10;
-            else if (fullName.startsWith(nameLc)) score += 5;
-            else if (fullName.includes(nameLc)) score += 2;
+            if (fullName === nameLc) score += 20;
+            else if (fullName.startsWith(nameLc)) score += 10;
+            else if (fullName.includes(nameLc)) score += 5;
 
             // School match (MASSIVE BOOST for Concordia)
             // Some entries are "Concordia University", "Concordia University (Montreal)", etc.
-            if (school.includes("concordia")) score += 20;
+            if (school.includes("concordia")) score += 30;
 
-            // Popularity boost
-            if (r.numRatings > 0) score += 2;
-            score += Math.min(5, (r.numRatings || 0) / 50);
+            // Popularity boost (Pick the one with actual data)
+            if (r.numRatings > 0) score += 5;
+            score += Math.min(10, (r.numRatings || 0) / 10); // Each 10 ratings = 1 point, up to 10
 
             return { score, r };
         }).sort((a, b) => b.score - a.score);

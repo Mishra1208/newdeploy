@@ -7,12 +7,13 @@
 
 const RMP_ENDPOINT = 'https://www.ratemyprofessors.com/graphql';
 const RMP_AUTH_HEADER = 'Basic dGVzdDp0ZXN0'; // Standard RMP public auth
-const CONCORDIA_ID = 'U2Nob29sLTE4NDQz'; // Concordia University (Montreal)
+const CONCORDIA_ID = 'U2Nob29sLTE0MjI='; // Concordia University Montreal (Main)
+const CONCORDIA_ID_NEW = 'U2Nob29sLTE4NDQz'; // Concordia University (Secondary/New)
 
 const SEARCH_QUERY = `
-  query NewSearchTeachersQuery($text: String!) {
+  query NewSearchTeachersQuery($text: String!, $schoolID: ID) {
     newSearch {
-      teachers(query: { text: $text }) {
+      teachers(query: { text: $text, schoolID: $schoolID }, first: 50) {
         edges {
           node {
             id
@@ -38,9 +39,10 @@ const SEARCH_QUERY = `
 /**
  * findProfessorByName
  * @param {string} name 
+ * @param {string} schoolID (Optional)
  * @returns {Promise<Array>} List of matching professors
  */
-export async function findProfessorByName(name) {
+export async function findProfessorByName(name, schoolID = null) {
   if (!name) return [];
 
   try {
@@ -53,7 +55,8 @@ export async function findProfessorByName(name) {
       body: JSON.stringify({
         query: SEARCH_QUERY,
         variables: {
-          text: name
+          text: name,
+          schoolID: schoolID
         }
       })
     });
