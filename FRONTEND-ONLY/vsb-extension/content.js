@@ -224,7 +224,7 @@ function downloadICS(content) {
 }
 
 function getWinter2026Events() {
-    // Hardcoded from Concordia Standard Dates
+    // Hardcoded from Concordia Undergraduate Calendar Winter 2026
     return [
         {
             title: "🎓 First Day of Class (Winter)",
@@ -240,11 +240,32 @@ function getWinter2026Events() {
             description: "Last day to drop courses with full refund."
         },
         {
+            title: "📚 Reading Week (No Classes)",
+            start: "20260302", // Mar 2
+            end: "20260309", // Ends Mar 8 (so end date is Mar 9 exclusive for some calendars, or handle as dates)
+            allDay: true,
+            description: "Mid-term break. University open usually, but no classes."
+        },
+        {
+            title: "🏫 President's Holiday (Closed)",
+            start: "20260306", // Mar 6
+            end: "20260307",
+            allDay: true,
+            description: "University Closed."
+        },
+        {
             title: "⚠️ DISC Deadline (Academic Drop)",
             start: "20260323", // Mar 23
             end: "20260324",
             allDay: true,
             description: "Last day to discontinue courses (grade shows as DISC)."
+        },
+        {
+            title: "🐣 Easter Holiday (Closed)",
+            start: "20260403", // Apr 3 (Good Friday)
+            end: "20260407", // Apr 6 (Easter Monday) -> End is Apr 7 00:00
+            allDay: true,
+            description: "University Closed for Easter Weekend."
         },
         {
             title: "🏁 Last Day of Class",

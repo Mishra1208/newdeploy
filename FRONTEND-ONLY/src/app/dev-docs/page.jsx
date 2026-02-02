@@ -353,11 +353,14 @@ export default function DevDocs() {
                                         Coming Soon
                                     </h3>
                                     <ul className="space-y-4">
+                                        <StatusItem text='VSB Calendar Exporter (Chrome Extension)' highlight />
+                                        <StatusItem text='The "Holy Grail" Elective Finder' highlight />
+                                        <StatusItem text='1-Click Auto-Plan (Prerequisite-Aware)' highlight />
                                         <StatusItem text="Email Verification (Supabase/Resend)" />
                                         <StatusItem text="Calendar Integration (Google/Apple Export)" />
-                                        <StatusItem text="Anonymous Course Reviews Section" highlight />
+                                        <StatusItem text="Anonymous Course Reviews Section" />
                                         <StatusItem text="User Profiles & Saved Schedules" />
-                                        <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" highlight />
+                                        <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" />
                                     </ul>
                                 </div>
                             </div>
