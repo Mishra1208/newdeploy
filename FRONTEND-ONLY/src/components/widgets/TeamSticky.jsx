@@ -22,6 +22,7 @@ const TEAM = [
         name: "Aryan Kotecha",
         role: "Backend Architect",
         avatar: "/team/aryan.JPG",
+        hidden: true,
         links: {
             github: "https://github.com/aryann2212",
             instagram: "https://www.instagram.com/aryann.__.__?igsh=ZDJiNGJzY2syaDNu",
@@ -111,7 +112,7 @@ export default function TeamSticky() {
                 {/* Right Column: Scrolling List */}
                 <div className={styles.rightColumn}>
                     <div className={styles.list}>
-                        {TEAM.map((member, i) => (
+                        {TEAM.filter(member => !member.hidden).map((member, i) => (
                             <TeamItem key={member.name} member={member} index={i} />
                         ))}
                     </div>
