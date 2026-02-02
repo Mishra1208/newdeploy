@@ -1,29 +1,88 @@
+/* Keyframes for the Entrance Animation */
+@keyframes slideDownBounce {
+  0% {
+    top: -100px;
+    opacity: 0;
+  }
+
+  60% {
+    top: 30px;
+    opacity: 1;
+  }
+
+  80% {
+    top: 15px;
+  }
+
+  100% {
+    top: 20px;
+  }
+}
+
+@keyframes gentlePulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(145, 35, 56, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 25px rgba(145, 35, 56, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 4px 15px rgba(145, 35, 56, 0.4);
+  }
+}
+
 .conu-export-btn-floating {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  /* Moved to Top */
+  left: 50%;
+  /* Center Horizontally */
+  transform: translateX(-50%);
+  /* Center Horizontally */
+
   width: auto;
-  min-width: 150px;
+  min-width: 200px;
+  /* Slightly wider */
+
   background-color: #912338;
   /* Concordia Maroon */
   color: white;
-  border: none;
-  padding: 12px 24px;
+  border: 2px solid white;
+  /* Pop effect */
+
+  padding: 16px 32px;
+  /* Larger click area */
   border-radius: 50px;
-  font-weight: bold;
-  font-size: 14px;
+
+  font-family: 'Arial', sans-serif;
+  font-weight: 800;
+  /* Extra Bold */
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, background 0.2s;
   z-index: 2147483647;
-  /* Max Z-Index to stay on top */
+  /* Max Z-Index */
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
+
+  /* Animations */
+  animation: slideDownBounce 0.8s ease-out forwards, gentlePulse 2s infinite 1s;
 }
 
 .conu-export-btn-floating:hover {
   background-color: #7a1d2e;
-  transform: scale(1.05);
+  transform: translateX(-50%) scale(1.05);
+  /* Maintain centering on hover */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.conu-export-btn-floating:active {
+  transform: translateX(-50%) scale(0.95);
 }
