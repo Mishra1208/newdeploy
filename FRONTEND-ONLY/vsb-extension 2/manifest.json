@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "ConuPlanner VSB Exporter",
+    "version": "1.0",
+    "description": "Export your Concordia University schedule to Google/Apple Calendar with one click.",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://vsb.concordia.ca/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "styles.css"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "ConuPlanner Exporter"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ]
+}

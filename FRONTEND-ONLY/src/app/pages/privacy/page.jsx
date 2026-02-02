@@ -99,7 +99,7 @@ export default function PrivacyPage() {
                         <p>
                             You have the right to request full deletion of your synced account data at any time. For privacy inquiries or to report a vulnerability, contact the development team directly at:
                         </p>
-                        <a href="mailto:mishranarendra1208@gmail.com" className={styles.emailLink}>mishranarendra1208@gmail.com</a>
+                        <a href="mailto:contact.conuplanner@gmail.com" className={styles.emailLink}>contact.conuplanner@gmail.com</a>
                     </PolicySection>
 
                 </div>

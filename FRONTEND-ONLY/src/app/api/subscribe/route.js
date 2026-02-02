@@ -28,7 +28,7 @@ export async function POST(req) {
         // 1. Check if email already exists
         const getRows = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'Sheet1!A:A', // Read only column A (Emails)
+            range: 'Sheet2!A:A', // Read only column A (Emails)
         });
 
         // Normalize existing emails to lowercase for comparison
@@ -43,7 +43,7 @@ export async function POST(req) {
         // 2. Append if unique
         const response = await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'Sheet1!A:B',
+            range: 'Sheet2!A:B',
             valueInputOption: 'USER_ENTERED', // Raw input option
             requestBody: {
                 values: [

@@ -30,7 +30,7 @@ export default function ContactPage() {
        TODO: PASTE YOUR DEPLOYED GOOGLE SCRIPT WEB APP URL HERE
        Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     */
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyR0Sk7Zo1fIqlUHWztNHKZj-6ywIbBNTh8iCYj1KfYWdavUySG-cOIYvsTvJuQFwPW/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS7dsgA_3Fv72I0CcCMwPKjeGAvHTbRZwL9AtLtiB7wIhq-K2JjrRBQhsqCybsv_Rs/exec";
 
     const [dotLottie, setDotLottie] = useState(null);
     const [animationComplete, setAnimationComplete] = useState(false);
@@ -96,7 +96,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <span className={styles.methodLabel}>Email us</span>
-                                <span className={styles.methodValue}>mishranarendra1208@gmail.com</span>
+                                <span className={styles.methodValue}>contact.conuplanner@gmail.com</span>
                             </div>
                         </div>
 
