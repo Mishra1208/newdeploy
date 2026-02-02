@@ -361,6 +361,17 @@ export default function DevDocs() {
                                         <StatusItem text="Anonymous Course Reviews Section" />
                                         <StatusItem text="User Profiles & Saved Schedules" />
                                         <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" />
+                                        <li className="p-4 rounded-xl bg-purple-100 dark:bg-purple-800/20 border border-purple-200 dark:border-purple-500/30">
+                                            <div className="flex items-start gap-3">
+                                                <div className="mt-1">🤖</div>
+                                                <div>
+                                                    <div className="font-bold text-gray-800 dark:text-gray-200 text-sm">Automated Term Dates Scraper</div>
+                                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+                                                        Scrape <a href="https://www.concordia.ca/students/undergraduate/undergraduate-academic-dates.html#fall2026" target="_blank" className="text-purple-600 underline">Concordia Academic Dates</a> to auto-populate future holidays/deadlines (Summer 2026+) instead of manual hardcoding.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
