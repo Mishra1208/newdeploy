@@ -328,50 +328,63 @@ export default function DevDocs() {
                                 <Shield className="text-purple-600 dark:text-purple-500" /> Status & Roadmap
                             </h2>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                 {/* LIVE FEATURES */}
-                                <div className="p-8 rounded-3xl bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-500/20">
-                                    <h3 className="text-2xl font-bold text-green-600 dark:text-green-400 mb-6 flex items-center gap-3">
-                                        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                                <div className="p-6 rounded-3xl bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-500/20">
+                                    <h3 className="text-xl font-bold text-green-600 dark:text-green-400 mb-6 flex items-center gap-3">
+                                        <div className="w-3 h-3 rounded-full bg-green-500" />
                                         Live & Operational
                                     </h3>
-                                    <ul className="space-y-4">
+                                    <ul className="space-y-3">
                                         <StatusItem text="Course Search (7,900+ Courses)" active />
                                         <StatusItem text="Prerequisite Tree Visualization" active />
                                         <StatusItem text="Seat Finder (Open/Closed Only)" active />
                                         <StatusItem text="GPA Calculator (Semester & CGPA)" active />
                                         <StatusItem text="Smart Chat Widget (RMP Support)" active />
-                                        <StatusItem text="RMP Scraper Optimization (GraphQL)" active highlight />
+                                        <StatusItem text="RMP Scraper Optimization (GraphQL)" active />
                                         <StatusItem text="Dark Mode / Chromatic Themes" active />
+                                        <StatusItem text="Dev Docs Hotfix (Auth)" active highlight />
+                                    </ul>
+                                </div>
+
+                                {/* READY FOR PRODUCTION (STAGED) */}
+                                <div className="p-6 rounded-3xl bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-500/20">
+                                    <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-6 flex items-center gap-3">
+                                        <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
+                                        Ready to Merge
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        <StatusItem text="VSB Calendar Exporter (Extension)" active highlight />
+                                        <StatusItem text="Automated Term Dates Scraper" active highlight />
+                                        <StatusItem text="Extension Premium UI & Branding" active />
+                                        <StatusItem text="Extension Packaging Script" active />
+                                        <li className="p-3 rounded-xl bg-blue-100 dark:bg-blue-800/20 border border-blue-200 dark:border-blue-500/30 mt-4">
+                                            <div className="flex items-start gap-3">
+                                                <div className="mt-0.5">🚀</div>
+                                                <div>
+                                                    <div className="font-bold text-gray-800 dark:text-gray-200 text-xs uppercase tracking-wider">Merge Strategy</div>
+                                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+                                                        These features are verified on <code>fix/vsb-final-polish</code>. Merge to <code>main</code> to deploy live.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
 
                                 {/* FUTURE ROADMAP */}
-                                <div className="p-8 rounded-3xl bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-500/20">
-                                    <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-6 flex items-center gap-3">
+                                <div className="p-6 rounded-3xl bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-500/20">
+                                    <h3 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-6 flex items-center gap-3">
                                         <div className="w-3 h-3 rounded-full bg-purple-500" />
                                         Coming Soon
                                     </h3>
-                                    <ul className="space-y-4">
-                                        <StatusItem text='VSB Calendar Exporter (Chrome Extension)' highlight />
+                                    <ul className="space-y-3">
                                         <StatusItem text='The "Holy Grail" Elective Finder' highlight />
                                         <StatusItem text='1-Click Auto-Plan (Prerequisite-Aware)' highlight />
                                         <StatusItem text="Email Verification (Supabase/Resend)" />
                                         <StatusItem text="Calendar Integration (Google/Apple Export)" />
                                         <StatusItem text="Anonymous Course Reviews Section" />
                                         <StatusItem text="User Profiles & Saved Schedules" />
-                                        <StatusItem text="Detailed Seat Sniper (Live Seat Counts)" />
-                                        <li className="p-4 rounded-xl bg-purple-100 dark:bg-purple-800/20 border border-purple-200 dark:border-purple-500/30">
-                                            <div className="flex items-start gap-3">
-                                                <div className="mt-1">🤖</div>
-                                                <div>
-                                                    <div className="font-bold text-gray-800 dark:text-gray-200 text-sm">Automated Term Dates Scraper</div>
-                                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                                                        Scrape <a href="https://www.concordia.ca/students/undergraduate/undergraduate-academic-dates.html#fall2026" target="_blank" className="text-purple-600 underline">Concordia Academic Dates</a> to auto-populate future holidays/deadlines (Summer 2026+) instead of manual hardcoding.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
