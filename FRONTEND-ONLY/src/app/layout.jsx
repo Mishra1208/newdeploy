@@ -5,6 +5,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import Script from "next/script";
 import { cookies } from "next/headers";
 import ChatWidget from "@/components/ChatWidget";
+import { Inter, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "@/styles/globals.css";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import PremiumNavbar from "@/components/PremiumNavbar";
@@ -12,6 +13,10 @@ import ClerkThemeProvider from "@/components/ClerkThemeProvider";
 import CookieBanner from "@/components/CookieBanner";
 import AnalyticsWrapper from "@/components/AnalyticsWrapper";
 import { GoogleAnalytics } from '@next/third-parties/google';
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
 
 export const metadata = {
   title: "ConU Planner - Your Academic Weapon | Concordia Course Planning",
@@ -67,13 +72,9 @@ export default async function RootLayout({ children }) {
 
   return (
     <ClerkThemeProvider initialTheme={initialTheme}>
-      <html lang="en" data-theme={initialTheme} suppressHydrationWarning>
+      <html lang="en" data-theme={initialTheme} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${jakarta.variable}`}>
         <head>
           <meta name="google-site-verification" content="7mjp32Xg9XKtiijFf44nzkbc8aSe7N9W6kRjZqhK5Oo" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
-            rel="stylesheet"
-          />
           <Script id="theme-init" strategy="beforeInteractive">{`
   (function () {
     try {

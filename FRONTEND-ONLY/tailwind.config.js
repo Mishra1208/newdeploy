@@ -10,8 +10,9 @@ module.exports = {
                 foreground: "var(--foreground)",
             },
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-                display: ['Outfit', 'sans-serif'], // Matching your existing font usage
+                sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
+                display: ['var(--font-outfit)', 'Outfit', 'sans-serif'],
+                premium: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'sans-serif'],
             },
         },
     },
