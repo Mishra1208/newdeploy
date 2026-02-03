@@ -817,346 +817,358 @@ const ACADEMIC_DATES = {
 
 // --- Main Injection Logic ---
 function init() {
-    console.log("ConuPlanner VSB Extension Loaded (Debug Mode)");
+  console.log("ConuPlanner VSB Extension Loaded (Debug Mode)");
 
-    // Inject immediately to test visibility
-    injectFloatingButton();
+  // Inject immediately to test visibility
+  injectFloatingButton();
 }
 
 function injectFloatingButton() {
-    const existingBtn = document.getElementById(BUTTON_ID);
-    if (existingBtn) return;
+  const existingBtn = document.getElementById(BUTTON_ID);
+  if (existingBtn) return;
 
-    const btn = document.createElement("button");
-    btn.id = BUTTON_ID;
-    btn.innerHTML = "📅 Export Schedule";
-    btn.className = "conu-export-btn-floating";
-    btn.onclick = parseAndExport;
+  const btn = document.createElement("button");
+  btn.id = BUTTON_ID;
 
-    document.body.appendChild(btn);
-    console.log("Floating Export button injected into Body");
+  // Create Icon Image
+  const iconUrl = chrome.runtime.getURL("icon.png");
+  const img = document.createElement("img");
+  img.src = iconUrl;
+  img.style.height = "24px";
+  img.style.width = "auto";
+  img.style.marginRight = "8px";
+
+  // Combine Icon + Text
+  btn.appendChild(img);
+  btn.appendChild(document.createTextNode("EXPORT SCHEDULE"));
+
+  btn.className = "conu-export-btn-floating";
+  btn.onclick = parseAndExport;
+
+  document.body.appendChild(btn);
+  console.log("Floating Export button injected into Body");
 }
 
 // --- Parsing & ICS Generation ---
 function parseAndExport() {
-    try {
-        const scheduleData = scrapeSchedule();
+  try {
+    const scheduleData = scrapeSchedule();
 
-        if (!scheduleData || scheduleData.length === 0) {
-            alert("Could not find any visible courses.\n\nPlease ensure you have selected a schedule and the 'Schedule Results' pane is visible.");
-            return;
-        }
-
-        const icsContent = generateICS(scheduleData);
-        downloadICS(icsContent);
-    } catch (e) {
-        console.error("ConuPlanner Export Error:", e);
-        alert("Error parsing schedule: " + e.message + "\n\nCheck console for details.");
+    if (!scheduleData || scheduleData.length === 0) {
+      alert("Could not find any visible courses.\n\nPlease ensure you have selected a schedule and the 'Schedule Results' pane is visible.");
+      return;
     }
+
+    const icsContent = generateICS(scheduleData);
+    downloadICS(icsContent);
+  } catch (e) {
+    console.error("ConuPlanner Export Error:", e);
+    alert("Error parsing schedule: " + e.message + "\n\nCheck console for details.");
+  }
 }
 
 function scrapeSchedule() {
-    const courses = [];
+  const courses = [];
 
-    // 1. Detect Term Name
-    const termHeader = document.querySelector(".term_label, .term_header")?.innerText || document.body.innerText;
-    let detectedTerm = "Winter term 2026"; // Default
+  // 1. Detect Term Name
+  const termHeader = document.querySelector(".term_label, .term_header")?.innerText || document.body.innerText;
+  let detectedTerm = "Winter term 2026"; // Default
 
-    // Simple heuristic: check if any key exists in the text
-    const terms = Object.keys(ACADEMIC_DATES);
-    for (const t of terms) {
-        if (termHeader.includes(t) || termHeader.includes(t.replace("term ", ""))) {
-            detectedTerm = t;
-            break;
-        }
+  // Simple heuristic: check if any key exists in the text
+  const terms = Object.keys(ACADEMIC_DATES);
+  for (const t of terms) {
+    if (termHeader.includes(t) || termHeader.includes(t.replace("term ", ""))) {
+      detectedTerm = t;
+      break;
     }
-    console.log(`VSB Export: Detected Term "${detectedTerm}"`);
+  }
+  console.log(`VSB Export: Detected Term "${detectedTerm}"`);
 
-    // 2. Get Academic Dates & Determine Term Start/End
-    const academicEvents = getTermEvents(detectedTerm);
+  // 2. Get Academic Dates & Determine Term Start/End
+  const academicEvents = getTermEvents(detectedTerm);
 
-    // Find Term Start (Classes begin)
-    const classesStartEvent = academicEvents.find(e => e.description.toLowerCase().includes("classes begin"));
-    let termStartDate = new Date("2026-01-12T00:00:00"); // Fallback
-    if (classesStartEvent) {
-        // YYYYMMDD -> YYYY-MM-DD
-        const ds = classesStartEvent.start;
-        termStartDate = new Date(`${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}T00:00:00`);
+  // Find Term Start (Classes begin)
+  const classesStartEvent = academicEvents.find(e => e.description.toLowerCase().includes("classes begin"));
+  let termStartDate = new Date("2026-01-12T00:00:00"); // Fallback
+  if (classesStartEvent) {
+    // YYYYMMDD -> YYYY-MM-DD
+    const ds = classesStartEvent.start;
+    termStartDate = new Date(`${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}T00:00:00`);
+  }
+
+  // Find Term End (Classes end / Exams end) for RRULE
+  const classesEndEvent = academicEvents.find(e => e.description.toLowerCase().includes("classes end"));
+  let recurrenceEnd = "20260413T235959Z"; // Fallback
+  if (classesEndEvent) {
+    const ds = classesEndEvent.start;
+    recurrenceEnd = `${ds}T235959Z`;
+  }
+
+  // 3. Scrape Courses
+  const courseBoxes = document.querySelectorAll(".course_box");
+  console.log(`VSB Export (Final Polish): Found ${courseBoxes.length} course boxes.`);
+
+  courseBoxes.forEach(box => {
+    // 1. Get Course Title (e.g., "COMP 346")
+    const titleEl = box.querySelector(".course_title, h4, .header_cell");
+    if (!titleEl) return;
+
+    let titleRaw = titleEl.innerText.split("\n")[0].trim();
+    const titleMatch = titleRaw.match(/([A-Z]{4}\s+\d{3,4})/);
+    const title = titleMatch ? titleMatch[0] : titleRaw;
+
+    // 2. Extract Ordered Time Strings
+    const hoursDiv = box.querySelector("#hoursInLegend, .hours-legend");
+    const timeText = hoursDiv ? hoursDiv.innerText : box.innerText;
+
+    // REGEX: Allows "Tue, Thu" or "Mon" explicitly
+    const fullTimeRegex = /([A-Za-z, \s]+)\s*:\s*(\d{1,2}:\d{2})\s*(AM|PM)?\s*to\s*(\d{1,2}:\d{2})\s*(AM|PM)?/gi;
+    const timeSegments = [];
+    let match;
+    while ((match = fullTimeRegex.exec(timeText)) !== null) {
+      timeSegments.push({
+        dayStr: match[1].trim(), // "Tue, Thu"
+        startStr: match[2],
+        ampm1: match[3],
+        endStr: match[4],
+        ampm2: match[5]
+      });
     }
 
-    // Find Term End (Classes end / Exams end) for RRULE
-    const classesEndEvent = academicEvents.find(e => e.description.toLowerCase().includes("classes end"));
-    let recurrenceEnd = "20260413T235959Z"; // Fallback
-    if (classesEndEvent) {
-        const ds = classesEndEvent.start;
-        recurrenceEnd = `${ds}T235959Z`;
+    // 3. Extract Ordered Components (LEC, TUT, LAB)
+    const componentRows = [];
+    const selectionTable = box.querySelector(".vsbselectionnew .selection_table");
+    if (selectionTable) {
+      const rows = selectionTable.querySelectorAll("tr");
+      rows.forEach(row => {
+        const typeEl = row.querySelector(".type_block");
+        if (typeEl) {
+          const type = typeEl.innerText.trim(); // "LEC", "TUT"
+          const locationEl = row.querySelector(".location_block");
+          const location = locationEl ? locationEl.innerText.trim() : "Concordia University";
+          componentRows.push({ type, location });
+        }
+      });
     }
 
-    // 3. Scrape Courses
-    const courseBoxes = document.querySelectorAll(".course_box");
-    console.log(`VSB Export (Final Polish): Found ${courseBoxes.length} course boxes.`);
+    // 4. Pair Them Up (Time[i] <-> Component[i])
+    timeSegments.forEach((seg, index) => {
+      let comp = componentRows[index];
+      if (!comp && componentRows.length > 0) {
+        comp = componentRows[Math.min(index, componentRows.length - 1)];
+      }
+      if (!comp) comp = { type: "LEC", location: "Concordia" };
 
-    courseBoxes.forEach(box => {
-        // 1. Get Course Title (e.g., "COMP 346")
-        const titleEl = box.querySelector(".course_title, h4, .header_cell");
-        if (!titleEl) return;
+      // Time Parse
+      const start24 = convertTo24Hour(seg.startStr, seg.ampm1 || seg.ampm2);
+      const end24 = convertTo24Hour(seg.endStr, seg.ampm2 || seg.ampm1);
+      const dayMap = { "Mon": "MO", "Tue": "TU", "Wed": "WE", "Thu": "TH", "Fri": "FR", "Sat": "SA", "Sun": "SU" };
+      const days = seg.dayStr.split(",").map(d => d.trim());
+      const byDay = days.map(d => dayMap[d.substring(0, 3)]).filter(Boolean).join(",");
+      const firstDayStr = days[0].substring(0, 3); // "Tue"
 
-        let titleRaw = titleEl.innerText.split("\n")[0].trim();
-        const titleMatch = titleRaw.match(/([A-Z]{4}\s+\d{3,4})/);
-        const title = titleMatch ? titleMatch[0] : titleRaw;
+      // Calculate Start Date based on Term Start
+      const startDate = parseDateTime(start24, firstDayStr, termStartDate);
+      // End date is just for the first event duration, so reuse same day
+      const endDate = startDate.split('T')[0] + `T${end24}:00`;
 
-        // 2. Extract Ordered Time Strings
-        const hoursDiv = box.querySelector("#hoursInLegend, .hours-legend");
-        const timeText = hoursDiv ? hoursDiv.innerText : box.innerText;
+      // Deduplicate
+      // FIX 2: Compare against the raw properties (title, type, start) 
+      // because we haven't constructed the appended title yet.
+      const isDuplicate = courses.some(c =>
+        c.title === title &&
+        c.type === comp.type &&
+        c.start === startDate &&
+        c.rrule.includes(byDay)
+      );
 
-        // REGEX: Allows "Tue, Thu" or "Mon" explicitly
-        const fullTimeRegex = /([A-Za-z, \s]+)\s*:\s*(\d{1,2}:\d{2})\s*(AM|PM)?\s*to\s*(\d{1,2}:\d{2})\s*(AM|PM)?/gi;
-        const timeSegments = [];
-        let match;
-        while ((match = fullTimeRegex.exec(timeText)) !== null) {
-            timeSegments.push({
-                dayStr: match[1].trim(), // "Tue, Thu"
-                startStr: match[2],
-                ampm1: match[3],
-                endStr: match[4],
-                ampm2: match[5]
-            });
-        }
-
-        // 3. Extract Ordered Components (LEC, TUT, LAB)
-        const componentRows = [];
-        const selectionTable = box.querySelector(".vsbselectionnew .selection_table");
-        if (selectionTable) {
-            const rows = selectionTable.querySelectorAll("tr");
-            rows.forEach(row => {
-                const typeEl = row.querySelector(".type_block");
-                if (typeEl) {
-                    const type = typeEl.innerText.trim(); // "LEC", "TUT"
-                    const locationEl = row.querySelector(".location_block");
-                    const location = locationEl ? locationEl.innerText.trim() : "Concordia University";
-                    componentRows.push({ type, location });
-                }
-            });
-        }
-
-        // 4. Pair Them Up (Time[i] <-> Component[i])
-        timeSegments.forEach((seg, index) => {
-            let comp = componentRows[index];
-            if (!comp && componentRows.length > 0) {
-                comp = componentRows[Math.min(index, componentRows.length - 1)];
-            }
-            if (!comp) comp = { type: "LEC", location: "Concordia" };
-
-            // Time Parse
-            const start24 = convertTo24Hour(seg.startStr, seg.ampm1 || seg.ampm2);
-            const end24 = convertTo24Hour(seg.endStr, seg.ampm2 || seg.ampm1);
-            const dayMap = { "Mon": "MO", "Tue": "TU", "Wed": "WE", "Thu": "TH", "Fri": "FR", "Sat": "SA", "Sun": "SU" };
-            const days = seg.dayStr.split(",").map(d => d.trim());
-            const byDay = days.map(d => dayMap[d.substring(0, 3)]).filter(Boolean).join(",");
-            const firstDayStr = days[0].substring(0, 3); // "Tue"
-
-            // Calculate Start Date based on Term Start
-            const startDate = parseDateTime(start24, firstDayStr, termStartDate);
-            // End date is just for the first event duration, so reuse same day
-            const endDate = startDate.split('T')[0] + `T${end24}:00`;
-
-            // Deduplicate
-            // FIX 2: Compare against the raw properties (title, type, start) 
-            // because we haven't constructed the appended title yet.
-            const isDuplicate = courses.some(c =>
-                c.title === title &&
-                c.type === comp.type &&
-                c.start === startDate &&
-                c.rrule.includes(byDay)
-            );
-
-            if (!isDuplicate) {
-                courses.push({
-                    title: title, // FIX 3: Store CLEAN title "COMP 346" (don't append type yet)
-                    type: comp.type,
-                    start: startDate, // "YYYY-MM-DDTHH:MM:00"
-                    end: endDate,
-                    rrule: `FREQ=WEEKLY;UNTIL=${recurrenceEnd};BYDAY=${byDay}`,
-                    location: comp.location,
-                    description: `Course: ${title}\nType: ${comp.type}\nRoom: ${comp.location}`
-                });
-                console.log(`Exporting: ${title} (${comp.type}) starting ${startDate}`);
-            }
+      if (!isDuplicate) {
+        courses.push({
+          title: title, // FIX 3: Store CLEAN title "COMP 346" (don't append type yet)
+          type: comp.type,
+          start: startDate, // "YYYY-MM-DDTHH:MM:00"
+          end: endDate,
+          rrule: `FREQ=WEEKLY;UNTIL=${recurrenceEnd};BYDAY=${byDay}`,
+          location: comp.location,
+          description: `Course: ${title}\nType: ${comp.type}\nRoom: ${comp.location}`
         });
+        console.log(`Exporting: ${title} (${comp.type}) starting ${startDate}`);
+      }
     });
+  });
 
-    // Handle Online Courses (unchanged)
-    const onlineMsg = document.querySelector(".timetableMsg");
-    if (onlineMsg) {
-        const onlineLabels = onlineMsg.querySelectorAll(".minilabel");
-        onlineLabels.forEach(label => {
-            const courseCode = label.innerText.trim();
-            if (courseCode) {
-                // Online courses start on term start
-                const startStr = termStartDate.toISOString().split('T')[0];
-                // For end, just next day
-                const endStr = new Date(termStartDate.getTime() + 86400000).toISOString().split('T')[0];
+  // Handle Online Courses (unchanged)
+  const onlineMsg = document.querySelector(".timetableMsg");
+  if (onlineMsg) {
+    const onlineLabels = onlineMsg.querySelectorAll(".minilabel");
+    onlineLabels.forEach(label => {
+      const courseCode = label.innerText.trim();
+      if (courseCode) {
+        // Online courses start on term start
+        const startStr = termStartDate.toISOString().split('T')[0];
+        // For end, just next day
+        const endStr = new Date(termStartDate.getTime() + 86400000).toISOString().split('T')[0];
 
-                courses.push({
-                    title: courseCode,
-                    type: "ONL",
-                    start: startStr,
-                    end: endStr,
-                    allDay: true,
-                    rrule: `FREQ=WEEKLY;UNTIL=${recurrenceEnd};BYDAY=MO`, // Default to Monday
-                    location: "ONLINE - Econcordia",
-                    description: `Online Class: ${courseCode}\nNo scheduled time.`
-                });
-            }
+        courses.push({
+          title: courseCode,
+          type: "ONL",
+          start: startStr,
+          end: endStr,
+          allDay: true,
+          rrule: `FREQ=WEEKLY;UNTIL=${recurrenceEnd};BYDAY=MO`, // Default to Monday
+          location: "ONLINE - Econcordia",
+          description: `Online Class: ${courseCode}\nNo scheduled time.`
         });
-    }
+      }
+    });
+  }
 
-    return [...courses, ...academicEvents];
+  return [...courses, ...academicEvents];
 }
 
 // ... unchanged helpers ...
 
 function extractTextDeep(node) {
-    let text = [];
-    if (node.nodeType === 3) return [node.textContent.trim()];
-    node.childNodes.forEach(child => text.push(...extractTextDeep(child)));
-    return text.filter(t => t.length > 0);
+  let text = [];
+  if (node.nodeType === 3) return [node.textContent.trim()];
+  node.childNodes.forEach(child => text.push(...extractTextDeep(child)));
+  return text.filter(t => t.length > 0);
 }
 
 function generateICS(events) {
-    let icsLines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//ConuPlanner//VSB Exporter//EN",
-        "CALSCALE:GREGORIAN"
-    ];
+  let icsLines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ConuPlanner//VSB Exporter//EN",
+    "CALSCALE:GREGORIAN"
+  ];
 
-    events.forEach(event => {
-        icsLines.push("BEGIN:VEVENT");
-        // FIX 4: Correct Summary Formatting "COMP 346 (LEC UU)"
-        icsLines.push(`SUMMARY:${event.title} (${event.type})`);
+  events.forEach(event => {
+    icsLines.push("BEGIN:VEVENT");
+    // FIX 4: Correct Summary Formatting "COMP 346 (LEC UU)"
+    icsLines.push(`SUMMARY:${event.title} (${event.type})`);
 
-        if (event.allDay) {
-            // All-Day Event Format: DTSTART;VALUE=DATE:YYYYMMDD
-            const startStr = event.start.replace(/-/g, "");
-            const endStr = event.end.replace(/-/g, "");
-            icsLines.push(`DTSTART;VALUE=DATE:${startStr}`);
-            icsLines.push(`DTEND;VALUE=DATE:${endStr}`);
-        } else {
-            // Standard Event Format: DTSTART:YYYYMMDDTHHMMSSZ
-            icsLines.push(`DTSTART:${sanitizeDate(event.start)}`);
-            icsLines.push(`DTEND:${sanitizeDate(event.end)}`);
-        }
+    if (event.allDay) {
+      // All-Day Event Format: DTSTART;VALUE=DATE:YYYYMMDD
+      const startStr = event.start.replace(/-/g, "");
+      const endStr = event.end.replace(/-/g, "");
+      icsLines.push(`DTSTART;VALUE=DATE:${startStr}`);
+      icsLines.push(`DTEND;VALUE=DATE:${endStr}`);
+    } else {
+      // Standard Event Format: DTSTART:YYYYMMDDTHHMMSSZ
+      icsLines.push(`DTSTART:${sanitizeDate(event.start)}`);
+      icsLines.push(`DTEND:${sanitizeDate(event.end)}`);
+    }
 
-        if (event.rrule) icsLines.push(`RRULE:${event.rrule}`);
-        if (event.location) icsLines.push(`LOCATION:${event.location}`);
-        if (event.description) icsLines.push(`DESCRIPTION:${event.description.replace(/\n/g, "\\n")}`);
+    if (event.rrule) icsLines.push(`RRULE:${event.rrule}`);
+    if (event.location) icsLines.push(`LOCATION:${event.location}`);
+    if (event.description) icsLines.push(`DESCRIPTION:${event.description.replace(/\n/g, "\\n")}`);
 
-        icsLines.push("END:VEVENT");
-    });
+    icsLines.push("END:VEVENT");
+  });
 
-    icsLines.push("END:VCALENDAR");
-    return icsLines.join("\r\n");
+  icsLines.push("END:VCALENDAR");
+  return icsLines.join("\r\n");
 }
 
 function sanitizeDate(isoString) {
-    // Input: 2026-01-12T11:45:00 -> Output: 20260112T114500 (Floating Time)
-    // REMOVED 'Z' so it uses Local Time (EST) instead of UTC
-    return isoString.replace(/[-:]/g, "").split(".")[0];
+  // Input: 2026-01-12T11:45:00 -> Output: 20260112T114500 (Floating Time)
+  // REMOVED 'Z' so it uses Local Time (EST) instead of UTC
+  return isoString.replace(/[-:]/g, "").split(".")[0];
 }
 
 function downloadICS(content) {
-    const blob = new Blob([content], { type: "text/calendar" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "conuplanner-schedule.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const blob = new Blob([content], { type: "text/calendar" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "conuplanner-schedule.ics";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function getTermEvents(termName) {
-    const rawEvents = ACADEMIC_DATES[termName] || [];
+  const rawEvents = ACADEMIC_DATES[termName] || [];
 
-    return rawEvents.map(evt => {
-        // Parse date "Mon, Jan. 12, 2026"
-        const cleanDate = evt.fullDate.replace(/^[A-Za-z]{3},\s+/, '');
-        const d = new Date(cleanDate);
+  return rawEvents.map(evt => {
+    // Parse date "Mon, Jan. 12, 2026"
+    const cleanDate = evt.fullDate.replace(/^[A-Za-z]{3},\s+/, '');
+    const d = new Date(cleanDate);
 
-        if (isNaN(d.getTime())) return null;
+    if (isNaN(d.getTime())) return null;
 
-        const yyyymmdd = d.toISOString().split('T')[0].replace(/-/g, '');
+    const yyyymmdd = d.toISOString().split('T')[0].replace(/-/g, '');
 
-        return {
-            title: `📅 ${evt.description}`, // Add emoji to distinguish
-            start: yyyymmdd,
-            end: yyyymmdd, // One day event
-            allDay: true,
-            description: evt.description
-        };
-    }).filter(Boolean);
+    return {
+      title: `📅 ${evt.description}`, // Add emoji to distinguish
+      start: yyyymmdd,
+      end: yyyymmdd, // One day event
+      allDay: true,
+      description: evt.description
+    };
+  }).filter(Boolean);
 }
 
 function convertTo24Hour(timePart, modifier) {
-    let [hours, minutes] = timePart.split(':');
-    hours = parseInt(hours, 10);
+  let [hours, minutes] = timePart.split(':');
+  hours = parseInt(hours, 10);
 
-    if (!modifier) {
-        if (hours < 8 || hours === 12) modifier = "PM";
-        else modifier = "AM";
-    }
+  if (!modifier) {
+    if (hours < 8 || hours === 12) modifier = "PM";
+    else modifier = "AM";
+  }
 
-    modifier = modifier.toUpperCase();
+  modifier = modifier.toUpperCase();
 
-    if (modifier === 'PM' && hours < 12) hours += 12;
-    if (modifier === 'AM' && hours === 12) hours = 0;
+  if (modifier === 'PM' && hours < 12) hours += 12;
+  if (modifier === 'AM' && hours === 12) hours = 0;
 
-    return `${hours.toString().padStart(2, '0')}:${minutes}`;
+  return `${hours.toString().padStart(2, '0')}:${minutes}`;
 }
 
 function parseDateTime(time24, dayStr, termStartDate) {
-    const dayMap = { "Sun": 0, "Mon": 1, "Tue": 2, "Wed": 3, "Thu": 4, "Fri": 5, "Sat": 6 };
-    // Normalize Day to 3 chars
-    const normalizedDay = dayStr.charAt(0).toUpperCase() + dayStr.slice(1, 3).toLowerCase(); // "Mon"
-    const targetDayIndex = dayMap[normalizedDay]; // 0-6
+  const dayMap = { "Sun": 0, "Mon": 1, "Tue": 2, "Wed": 3, "Thu": 4, "Fri": 5, "Sat": 6 };
+  // Normalize Day to 3 chars
+  const normalizedDay = dayStr.charAt(0).toUpperCase() + dayStr.slice(1, 3).toLowerCase(); // "Mon"
+  const targetDayIndex = dayMap[normalizedDay]; // 0-6
 
-    if (targetDayIndex === undefined) {
-        // Fallback to today if parsing fails
-        return `${termStartDate.toISOString().split('T')[0]}T${time24}:00`;
-    }
+  if (targetDayIndex === undefined) {
+    // Fallback to today if parsing fails
+    return `${termStartDate.toISOString().split('T')[0]}T${time24}:00`;
+  }
 
-    const currentDayIndex = termStartDate.getDay(); // 0-6
+  const currentDayIndex = termStartDate.getDay(); // 0-6
 
-    // Calculate days to add: (Target - Current + 7) % 7
-    let daysToAdd = (targetDayIndex - currentDayIndex + 7) % 7;
+  // Calculate days to add: (Target - Current + 7) % 7
+  let daysToAdd = (targetDayIndex - currentDayIndex + 7) % 7;
 
-    // Create new date instance
-    const resultDate = new Date(termStartDate);
-    resultDate.setDate(resultDate.getDate() + daysToAdd);
+  // Create new date instance
+  const resultDate = new Date(termStartDate);
+  resultDate.setDate(resultDate.getDate() + daysToAdd);
 
-    // Format YYYY-MM-DD
-    const yyyy = resultDate.getFullYear();
-    const mm = String(resultDate.getMonth() + 1).padStart(2, '0');
-    const dd = String(resultDate.getDate()).padStart(2, '0');
+  // Format YYYY-MM-DD
+  const yyyy = resultDate.getFullYear();
+  const mm = String(resultDate.getMonth() + 1).padStart(2, '0');
+  const dd = String(resultDate.getDate()).padStart(2, '0');
 
-    return `${yyyy}-${mm}-${dd}T${time24}:00`;
+  return `${yyyy}-${mm}-${dd}T${time24}:00`;
 }
 
 function detectTypeByDuration(start24, end24) {
-    // Helper to guess LEC vs TUT
-    try {
-        const [h1, m1] = start24.split(":").map(Number);
-        const [h2, m2] = end24.split(":").map(Number);
-        const diffMinutes = (h2 * 60 + m2) - (h1 * 60 + m1);
+  // Helper to guess LEC vs TUT
+  try {
+    const [h1, m1] = start24.split(":").map(Number);
+    const [h2, m2] = end24.split(":").map(Number);
+    const diffMinutes = (h2 * 60 + m2) - (h1 * 60 + m1);
 
-        if (diffMinutes <= 65) return "TUT";
-        if (diffMinutes > 160) return "LAB"; // > 2h40m
-        return "LEC";
-    } catch (e) {
-        return "LEC"; // Default
-    }
+    if (diffMinutes <= 65) return "TUT";
+    if (diffMinutes > 160) return "LAB"; // > 2h40m
+    return "LEC";
+  } catch (e) {
+    return "LEC"; // Default
+  }
 }
 
 // Run immediately
@@ -1164,8 +1176,8 @@ init();
 
 // Also run on dynamic updates just in case the body gets wiped (unlikely but safe)
 const observer = new MutationObserver(() => {
-    if (!document.getElementById(BUTTON_ID)) {
-        injectFloatingButton();
-    }
+  if (!document.getElementById(BUTTON_ID)) {
+    injectFloatingButton();
+  }
 });
 observer.observe(document.body, { childList: true, subtree: true });
