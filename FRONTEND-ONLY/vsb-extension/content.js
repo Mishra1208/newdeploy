@@ -830,13 +830,18 @@ function injectFloatingButton() {
   const btn = document.createElement("button");
   btn.id = BUTTON_ID;
 
-  // Create Icon Image
+  // Create Icon Image with White Circle Background for Visibility
   const iconUrl = chrome.runtime.getURL("icon.png");
   const img = document.createElement("img");
   img.src = iconUrl;
-  img.style.height = "24px";
-  img.style.width = "auto";
-  img.style.marginRight = "8px";
+  img.style.height = "32px"; // Increased size
+  img.style.width = "32px";
+  img.style.objectFit = "contain";
+  img.style.backgroundColor = "white"; // White background for contrast
+  img.style.borderRadius = "50%"; // Circular
+  img.style.padding = "4px"; // Padding inside circle
+  img.style.marginRight = "12px"; // Increased spacing
+  img.style.boxShadow = "0 2px 4px rgba(0,0,0,0.2)"; // Subtle shadow for depth
 
   // Combine Icon + Text
   btn.appendChild(img);
