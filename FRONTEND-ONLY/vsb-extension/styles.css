@@ -36,53 +36,70 @@
 .conu-export-btn-floating {
   position: fixed;
   top: 20px;
-  /* Moved to Top */
   left: 50%;
-  /* Center Horizontally */
   transform: translateX(-50%);
-  /* Center Horizontally */
 
   width: auto;
-  min-width: 200px;
-  /* Slightly wider */
+  min-width: 240px;
+  /* Slightly wider for presence */
 
-  background-color: #912338;
-  /* Concordia Maroon */
+  /* Premium Gradient Background */
+  background: linear-gradient(135deg, #912338 0%, #6d1020 100%);
   color: white;
-  border: 2px solid white;
-  /* Pop effect */
 
-  padding: 16px 32px;
-  /* Larger click area */
+  /* Premium Border & Shape */
+  border: 3px solid #ffffff;
   border-radius: 50px;
 
-  font-family: 'Arial', sans-serif;
+  /* Deep Premium Shadow */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    /* Subtle depth */
+    0 10px 20px rgba(109, 16, 32, 0.4),
+    /* Colored glow */
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  /* Outline definition */
+
+  padding: 14px 36px;
+
+  /* Typography */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 800;
-  /* Extra Bold */
-  font-size: 16px;
+  font-size: 17px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  /* Premium spacing */
 
   cursor: pointer;
   z-index: 2147483647;
-  /* Max Z-Index */
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 
-  /* Animations */
-  animation: slideDownBounce 0.8s ease-out forwards, gentlePulse 2s infinite 1s;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Bouncy transition */
+
+  /* Entrance Animation */
+  animation: slideDownBounce 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 .conu-export-btn-floating:hover {
-  background-color: #7a1d2e;
-  transform: translateX(-50%) scale(1.05);
-  /* Maintain centering on hover */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #a32840 0%, #7d1225 100%);
+  /* Lighter gradient */
+  transform: translateX(-50%) translateY(-2px) scale(1.02);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    0 15px 30px rgba(145, 35, 56, 0.5),
+    /* Stronger Glow */
+    0 0 0 4px rgba(255, 255, 255, 0.2);
+  /* Outer ring glow */
 }
 
 .conu-export-btn-floating:active {
-  transform: translateX(-50%) scale(0.95);
+  transform: translateX(-50%) translateY(1px) scale(0.98);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 5px 10px rgba(109, 16, 32, 0.3);
 }
