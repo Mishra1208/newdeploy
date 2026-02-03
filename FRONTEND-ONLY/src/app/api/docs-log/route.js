@@ -36,10 +36,10 @@ export async function POST(req) {
         const USERS = {
             [process.env.DEV_PASS_NARENDRA || "mishra1208.ld"]: "Narendra",
             [process.env.DEV_PASS_NEELENDRA || "neelendra-mishra.ui"]: "Neelendra",
-            [process.env.DEV_PASS_ARYAN || "aryann2212.be"]: "Aryan",
+            // [process.env.DEV_PASS_ARYAN || "aryann2212.be"]: "Aryan",
             [process.env.DEV_PASS_ADITYA || "aditya108.be"]: "Aditya",
             // Keep the old master password as a fallback/admin
-            [process.env.DEV_DOCS_PASSWORD || "concordia"]: "Admin"
+            [process.env.DEV_DOCS_PASSWORD || "CUplanner.26"]: "Admin"
         };
 
         const matchedUser = USERS[password];
