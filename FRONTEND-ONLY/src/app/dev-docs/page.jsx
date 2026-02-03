@@ -343,7 +343,6 @@ export default function DevDocs() {
                                         <StatusItem text="Smart Chat Widget (RMP Support)" active />
                                         <StatusItem text="RMP Scraper Optimization (GraphQL)" active />
                                         <StatusItem text="Dark Mode / Chromatic Themes" active />
-                                        <StatusItem text="Dev Docs Hotfix (Auth)" active highlight />
                                     </ul>
                                 </div>
 
@@ -382,7 +381,6 @@ export default function DevDocs() {
                                         <StatusItem text='The "Holy Grail" Elective Finder' highlight />
                                         <StatusItem text='1-Click Auto-Plan (Prerequisite-Aware)' highlight />
                                         <StatusItem text="Email Verification (Supabase/Resend)" />
-                                        <StatusItem text="Calendar Integration (Google/Apple Export)" />
                                         <StatusItem text="Anonymous Course Reviews Section" />
                                         <StatusItem text="User Profiles & Saved Schedules" />
                                     </ul>
