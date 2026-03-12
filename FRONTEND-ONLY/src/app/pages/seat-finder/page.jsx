@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NewsletterSignup from '@/components/NewsletterSignup';
 
 export default function SeatFinderPage() {
-    const [term, setTerm] = useState('2254'); // Default to Winter 2026
+    const [term, setTerm] = useState('2261'); // Default to Summer 2026
     const [subject, setSubject] = useState('');
     const [number, setNumber] = useState('');
     const [results, setResults] = useState(null);
@@ -12,11 +12,7 @@ export default function SeatFinderPage() {
     const [error, setError] = useState('');
 
     const isTermAvailable = (t) => {
-        // Winter 2026 (2254) is currently open
-        if (t === '2254') return true;
-
-        // Future terms (Summer 2026, Fall 2026, Winter 2027) unlock on March 1st, 2026
-        // Course Cart Access Date from Screenshot
+        // Terms unlock on March 1st, 2026
         const UNLOCK_DATE = new Date('2026-03-01T00:00:00');
         const now = new Date();
 
@@ -106,7 +102,6 @@ export default function SeatFinderPage() {
                                     }}
                                     className="bg-white dark:bg-[#111] text-slate-800 dark:text-white font-bold text-lg py-2 pl-4 pr-10 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm outline-none appearance-none w-full cursor-pointer hover:border-[#912338]/30 dark:hover:border-amber-500/30 focus:border-[#912338] dark:focus:border-amber-500 focus:ring-4 focus:ring-[#912338]/5 dark:focus:ring-amber-500/10 transition-all"
                                 >
-                                    <option value="2254">Winter 2026</option>
                                     <option value="2261">Summer 2026</option>
                                     <option value="2262">Fall 2026</option>
                                     <option value="2263">Fall/Win 2026-27</option>
