@@ -54,15 +54,13 @@ export default function Footer() {
                 aria-label="Copy Email"
               >
                 {copied ? (
-                  <div className={styles.successAnimationContainer}>
-                    <CheckCircle size={18} className={styles.checkIcon} />
-                  </div>
+                  <CheckCircle size={20} className={styles.checkIcon} />
                 ) : (
-                  <Mail size={18} className={styles.mailIcon} />
+                  <Mail size={20} className={styles.mailIcon} />
                 )}
               </button>
               <span className={styles.tooltipText}>
-                {copied ? "Email Copied!" : "contact.conuplanner@gmail.com"}
+                {copied ? "Email Copied!" : "Copy Email"}
               </span>
             </div>
 
