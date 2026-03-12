@@ -1,0 +1,541 @@
+/* ================= Typography & Variables ================= */
+.wrap {
+  max-width: 1440px;
+  margin: 40px auto;
+  padding: 0 40px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ================= Header Section ================= */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.head h1 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--ink-dim);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ================= Stats Cards ================= */
+.statsRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 56px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px 32px;
+  min-width: 200px;
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:global([data-theme="light"]) .statCard {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.statLabel {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-dim);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.statValue {
+  font-family: 'Outfit', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+/* ================= Planner Board ================= */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 20px;
+    margin: 20px auto;
+  }
+
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .actions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .board {
+    grid-template-columns: 1fr;
+  }
+
+  .column {
+    min-height: auto;
+  }
+}
+
+/* ================= Term Columns (The Docks) ================= */
+.column {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 28px;
+  padding: 12px;
+  min-height: 600px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+:global([data-theme="light"]) .column {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.columnDragOver {
+  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
+}
+
+.colHeader {
+  padding: 12px 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.colTitle {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0;
+}
+
+.countBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-dim);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+.colList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* ================= Course Cards ================= */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  cursor: grab;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+:global([data-theme="light"]) .card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="light"]) .card:hover {
+  background: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.12);
+}
+
+.card:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.cardDragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+  border: 2px dashed var(--accent);
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.code {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.credits {
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--accent);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 16px;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardMeta {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardMeta::before {
+  content: '•';
+  color: var(--accent);
+}
+
+.removeBtn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.05);
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.card:hover .removeBtn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.removeBtn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ================= Buttons ================= */
+.exportBtn {
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.exportBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4);
+}
+
+.exportBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.ghostBtn {
+  padding: 14px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Slightly clearer border */
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.0);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+:global([data-theme="light"]) .ghostBtn {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ghostBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+:global([data-theme="light"]) .ghostBtn:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.ghostBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exportBtn.downloaded {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: none;
+  opacity: 1 !important;
+  /* Override disabled opacity */
+  cursor: default !important;
+}
+
+.exportBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+/* ================= Empty States ================= */
+.emptyState {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 80px;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.emptyState h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  margin: 0 0 12px;
+}
+
+.emptyState p {
+  color: var(--ink-dim);
+  font-size: 16px;
+  margin-bottom: 32px;
+  max-width: 400px;
+}
+
+.emptySlot {
+  border: 2px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        CHROMATIC DARK MODE (VIOLET)                        */
+/* -------------------------------------------------------------------------- */
+
+/* Title Aurora */
+[data-theme="dark"] .head h1 {
+  background: linear-gradient(to right, #ffffff, #8b5cf6, #ec4899);
+  /* White -> Violet -> Pink */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+[data-theme="dark"] .subtitle {
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+/* Stats Cards */
+[data-theme="dark"] .statCard {
+  background: rgba(20, 20, 20, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .statLabel {
+  color: #737373;
+}
+
+[data-theme="dark"] .statValue {
+  color: #c4b5fd;
+  /* Soft Violet */
+}
+
+/* Board Columns (The Docks) */
+[data-theme="dark"] .column {
+  background: rgba(10, 10, 10, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .colTitle {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .countBadge {
+  color: #e9d5ff;
+  background: rgba(139, 92, 246, 0.2);
+}
+
+/* Drag Over State */
+[data-theme="dark"] .columnDragOver {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Course Cards */
+[data-theme="dark"] .card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(20, 20, 20, 0.5));
+  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .card:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 20, 20, 0.6));
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+  transform: translateY(-3px) scale(1.02);
+}
+
+[data-theme="dark"] .cardTitle {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .cardMeta {
+  color: #a3a3a3;
+}
+
+[data-theme="dark"] .code {
+  color: #c4b5fd;
+}
+
+[data-theme="dark"] .credits {
+  background: rgba(139, 92, 246, 0.2);
+  color: #ddd6fe;
+}
+
+/* Buttons */
+[data-theme="dark"] .ghostBtn {
+  color: #d4d4d4;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .ghostBtn:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  color: #c4b5fd;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="dark"] .exportBtn {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+[data-theme="dark"] .exportBtn:hover:not(:disabled) {
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+  filter: brightness(1.1);
+}
+
+/* Empty States */
+[data-theme="dark"] .emptyState p {
+  color: #737373;
+}
+
+[data-theme="dark"] .emptySlot {
+  color: #525252;
+  border-color: rgba(255, 255, 255, 0.05);
+}

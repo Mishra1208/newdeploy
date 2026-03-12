@@ -1,0 +1,23 @@
+
+var nMaxSavedStates=5;
+var sHistURL="https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_SELF_SERVICE.CU_STUDENT_RECORD.GBL?page=CU_STUDENT_RECORD&Page=CU_STUDENT_RECORD&Action=U&ForceSearch=Y&EMPLID=40224303";
+var bCloseModal = false;
+var bICList = false;
+var bHtml5Doc = true;
+var bClearBackState=false;
+var bPageTransfered=false;
+var bTransferAnimate=false;
+var bCleanHtml = false;
+var bDefer = true;
+document.deferFldArr_win0 = new Array();
+document.hiddenFldArr_win0 =new Array('ICType','ICElementNum','ICStateNum','ICAction','ICModelCancel','ICXPos','ICYPos','ResponsetoDiffFrame','TargetFrameName','FacetPath','PrmtTbl','PrmtTbl_fn','PrmtTbl_fv','TA_SkipFldNms','ICFocus','ICSaveWarningFilter','ICChanged','ICSkipPending','ICAutoSave','ICResubmit','ICSID','ICActionPrompt','ICTypeAheadID','ICBcDomData','ICPanelName','ICFind','ICAddCount','ICAppClsData');
+document.chgFldArr_win0 = new Array();
+AddToHistory('Student Record', '', 'returntolastpage@0', 'CU_STUDENT_RECORD', 18, 0, 1, 0,'', 0, '', 0);
+corsHistoryTansaction();
+var bCleanHtml = false;
+var bDefer = true;
+document.hiddenFldArr_win0 =new Array('ICType','ICElementNum','ICStateNum','ICAction','ICModelCancel','ICXPos','ICYPos','ResponsetoDiffFrame','TargetFrameName','FacetPath','PrmtTbl','PrmtTbl_fn','PrmtTbl_fv','TA_SkipFldNms','ICFocus','ICSaveWarningFilter','ICChanged','ICSkipPending','ICAutoSave','ICResubmit','ICSID','ICActionPrompt','ICTypeAheadID','ICBcDomData','ICPanelName','ICFind','ICAddCount','ICAppClsData');
+document.chgFldArr_win0 = new Array();
+var bCDATA = false;
+var bAccessibleLayout = false;
+var bLoadCompleted = true;

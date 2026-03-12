@@ -1,0 +1,1 @@
+var ghmob = jQuery.noConflict(true);

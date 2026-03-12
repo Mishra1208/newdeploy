@@ -1,0 +1,642 @@
+/* components/ChatWidget.module.css */
+/* --- Variables & Theme --- */
+.container {
+  --panel-width: 420px;
+  --primary: #912338;
+  /* Burgundy */
+  --primary-dark: #7a1d2f;
+  --gold: #db9e1e;
+  --gold-dark: #b8861b;
+  --primary-gradient: linear-gradient(135deg, #912338 0%, #7a1d2f 100%);
+  --secondary-gradient: linear-gradient(135deg, #db9e1e 0%, #b8861b 100%);
+  --premium-gradient: linear-gradient(135deg, #912338 0%, #db9e1e 100%);
+  /* Gold */
+
+  /* GLASSMORPHISM COLORS */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(145, 35, 56, 0.1);
+  --glass-shadow: 0 8px 32px rgba(145, 35, 56, 0.15);
+
+  --msg-ai-bg: #fff;
+  --msg-ai-text: #1f2937;
+  --msg-user-bg: #912338;
+  --msg-user-text: #fff;
+  --font-family: 'Inter', sans-serif;
+
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Dark Mode Overrides */
+/* Dark Mode Overrides */
+:global([data-theme="dark"]) .container {
+  --glass-bg: #0f172a;
+  --glass-border: #334155;
+  --msg-ai-bg: #1e293b;
+  --msg-ai-text: #f1f5f9;
+  --msg-user-bg: #912338;
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+:global(body.staggered-menu-open) .container {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* --- FAB (Floating Action Button) --- */
+/* --- FAB (Floating Action Button) --- */
+.fab {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 10000;
+  animation: float 6s ease-in-out infinite;
+}
+
+.fab:hover {
+  transform: scale(1.15) rotate(8deg);
+  filter: drop-shadow(0 12px 24px rgba(145, 35, 56, 0.4));
+}
+
+.fabIcon {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 20px rgba(145, 35, 56, 0.3));
+  transition: filter 0.3s;
+}
+
+.fab:hover .fabIcon {
+  filter: drop-shadow(0 12px 28px rgba(219, 158, 30, 0.5));
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* --- Main Panel --- */
+.panel {
+  width: var(--panel-width);
+  height: 650px;
+  max-height: calc(100vh - 140px);
+  max-width: calc(100vw - 40px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  box-shadow: var(--glass-shadow), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 24px;
+  overscroll-behavior: contain;
+
+  /* Entry Animation */
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  animation: panelEnter 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes panelEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- Header --- */
+.header {
+  padding: 20px 24px;
+  background: var(--primary-gradient);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1h2v2H1V1zm4 4h2v2H5V5zm4 4h2v2H9V9z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+
+.title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  line-height: 1.2;
+}
+
+.title::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(74, 222, 128, 0.1);
+  }
+}
+
+.close {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 1.2rem;
+}
+
+.close:hover {
+  background: white;
+  color: var(--primary);
+  transform: rotate(90deg);
+}
+
+/* --- Messages Area --- */
+.messages {
+  flex: 1;
+  min-height: 0;
+  /* Critical for flex scrolling */
+  overflow-y: scroll;
+  /* Force scrollbar track */
+  overflow-x: hidden;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--glass-bg);
+
+  /* Prevent scroll chaining to parent/body */
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+
+  /* PREMIUM SCROLLBAR - ALWAYS VISIBLE */
+  scrollbar-width: thin;
+  scrollbar-color: #912338 rgba(0, 0, 0, 0.05);
+}
+
+/* Force scrollbar to always show */
+.messages::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  display: block;
+  /* Forces display */
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 99px;
+  margin-block: 4px;
+  /* Space top/bottom */
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(145, 35, 56, 0.4);
+  /* Subtle burgundy */
+  border-radius: 99px;
+  border: none;
+  min-height: 40px;
+  transition: background 0.2s;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(145, 35, 56, 0.8);
+  /* Solid burgundy on hover */
+}
+
+/* Message Bubbles */
+.msgUser,
+.msgAi {
+  max-width: 88%;
+  display: flex;
+  flex-direction: column;
+}
+
+.msgAi {
+  align-self: flex-start;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: 4px;
+  background: white;
+  padding: 3px;
+  box-shadow: 0 2px 8px rgba(145, 35, 56, 0.15), 0 0 0 2px var(--gold);
+  transition: all 0.3s;
+}
+
+.avatar:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 4px 12px rgba(145, 35, 56, 0.25), 0 0 0 3px var(--gold), 0 0 20px rgba(219, 158, 30, 0.3);
+}
+
+.msgUser {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.msgText {
+  padding: 16px 20px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(15px);
+  animation: bubbleEnter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bubbleEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msgAi .msgText {
+  background: var(--msg-ai-bg);
+  /* Pure White for clean look */
+  color: var(--msg-ai-text);
+  border: 1px solid rgba(145, 35, 56, 0.08);
+  /* Super subtle burgundy border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  border-bottom-left-radius: 4px;
+}
+
+.msgUser .msgText {
+  background: var(--msg-user-bg);
+  /* Solid Burgundy for primary action */
+  color: var(--msg-user-text);
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 12px rgba(145, 35, 56, 0.2);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.msgUser .msgText::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(219, 158, 30, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.msgUser .msgText:hover::before {
+  left: 100%;
+}
+
+/* --- Chips --- */
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  animation: bubbleEnter 0.5s 0.1s ease-out forwards;
+  opacity: 0;
+}
+
+.actionChip {
+  background: #fff;
+  border: 1px solid rgba(145, 35, 56, 0.15);
+  color: var(--primary);
+  /* Burgundy Text */
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(145, 35, 56, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.3;
+}
+
+/* Icon injection for chips */
+.actionChip::before {
+  content: '🎓';
+  font-size: 0.9em;
+}
+
+.actionChip:hover {
+  background: var(--primary);
+  /* Solid Burgundy on hover */
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(145, 35, 56, 0.25);
+  border-color: transparent;
+}
+
+:global([data-theme="dark"]) .actionChip {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="dark"]) .actionChip:hover {
+  background: #912338;
+  /* Burgundy */
+  color: #fff;
+  border-color: rgba(219, 158, 30, 0.5);
+  box-shadow: 0 8px 24px rgba(145, 35, 56, 0.4);
+}
+
+
+
+/* --- Input Area --- */
+.inputRow {
+  padding: 16px 20px 24px;
+  background: #f8fafc;
+  /* Solid Slate 50 */
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+:global([data-theme="dark"]) .inputRow {
+  background: #0f172a;
+  /* Solid Slate 900 */
+  border-top: 1px solid var(--glass-border);
+}
+
+.input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(145, 35, 56, 0.1);
+  border-radius: 24px;
+  padding: 15px 22px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: inherit;
+  resize: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(145, 35, 56, 0.04);
+  font-weight: 500;
+}
+
+:global([data-theme="dark"]) .input {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 24px rgba(145, 35, 56, 0.15), 0 0 0 2px var(--primary), 0 0 20px rgba(219, 158, 30, 0.2);
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+
+:global([data-theme="dark"]) .input:focus {
+  background: rgba(30, 41, 59, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--primary);
+}
+
+.send {
+  background: var(--premium-gradient);
+  border: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(145, 35, 56, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  position: relative;
+}
+
+.send::after {
+  content: '➤';
+  font-size: 20px;
+  transform: translateX(2px);
+  display: block;
+}
+
+.send:hover:not(:disabled) {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 28px rgba(145, 35, 56, 0.4), 0 0 20px rgba(219, 158, 30, 0.3);
+}
+
+.send:active:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+/* --- Typing Animation --- */
+.typing {
+  display: flex;
+  gap: 6px;
+  padding: 20px 24px;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+  box-shadow: 0 0 8px rgba(145, 35, 56, 0.3);
+}
+
+.typingText {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-left: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+/* --- PREMIUM CARD STYLES (Global) --- */
+/* These styles target the injected HTML from route.js */
+
+:global(.premium-card) {
+  margin-top: 12px;
+  background: transparent;
+  /* Removed white bg */
+  border-radius: 24px;
+  border: none;
+  /* Removed border */
+  overflow: visible;
+  /* Allow shadows/glows if any, though we removed box-shadow */
+  box-shadow: none;
+  /* Removed shadow */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+}
+
+:global(.premium-card):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Card */
+:global([data-theme="dark"]) :global(.premium-card) {
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* Card Header */
+:global(.card-header) {
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafc, #fff) !important;
+  border-radius: 20px;
+  /* Added radius since card container is transparent */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow for the header block */
+}
+
+:global([data-theme="dark"]) :global(.card-header) {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+}
+
+.hint {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.55;
+  padding-bottom: 8px;
+  margin-top: 8px;
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* --- Progress Bar --- */
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+}
+
+:global(.progress-track) {
+  background: rgba(0, 0, 0, 0.06);
+  height: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+:global([data-theme="dark"]) :global(.progress-track) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:global(.progress-fill) {
+  height: 100%;
+  border-radius: 10px;
+  animation: fillBar 1s ease-out forwards;
+}

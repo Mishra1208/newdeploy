@@ -1,0 +1,2 @@
+
+ PTRTE_CheckImages('','','CompanyInfo'); 

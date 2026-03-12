@@ -1,0 +1,4 @@
+
+ghAddConfig({
+onlyPUXFrame: false,
+}, 'page');

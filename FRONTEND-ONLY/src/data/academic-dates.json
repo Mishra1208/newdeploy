@@ -1,0 +1,812 @@
+{
+  "Fall term 2025": [
+    {
+      "month": "December 2025",
+      "date": "Mon, Dec. 1",
+      "description": "Last day to apply for Quebec resident status, fall term 2025",
+      "fullDate": "Mon, Dec. 1, 2025"
+    },
+    {
+      "month": "December 2025",
+      "date": "Mon, Dec. 1",
+      "description": "Last day of classes, fall term",
+      "fullDate": "Mon, Dec. 1, 2025"
+    },
+    {
+      "month": "December 2025",
+      "date": "Wed, Dec. 3",
+      "description": "Examinations begin",
+      "fullDate": "Wed, Dec. 3, 2025"
+    },
+    {
+      "month": "December 2025",
+      "date": "Thu, Dec. 18",
+      "description": "Examinations end",
+      "fullDate": "Thu, Dec. 18, 2025"
+    },
+    {
+      "month": "December 2025",
+      "date": "Thu, Dec. 18",
+      "description": "Aide financière aux études (AFE) end of funding, fall term",
+      "fullDate": "Thu, Dec. 18, 2025"
+    },
+    {
+      "month": "December 2025",
+      "date": "Mon, Dec. 22",
+      "description": "Holiday period, university closed (December 22 to January 4)",
+      "fullDate": "Mon, Dec. 22, 2025"
+    }
+  ],
+  "Winter term 2026": [
+    {
+      "month": "January 2026",
+      "date": "Mon, Jan. 12",
+      "description": "Classes begin, winter term 2026",
+      "fullDate": "Mon, Jan. 12, 2026"
+    },
+    {
+      "month": "January 2026",
+      "date": "Mon, Jan. 12",
+      "description": "Classes resume, fall/winter term 2025-26",
+      "fullDate": "Mon, Jan. 12, 2026"
+    },
+    {
+      "month": "January 2026",
+      "date": "Thu, Jan. 15",
+      "description": "Last day to apply for spring 2026 graduation",
+      "fullDate": "Thu, Jan. 15, 2026"
+    },
+    {
+      "month": "January 2026",
+      "date": "Thu, Jan. 15",
+      "description": "Last day to apply for DEF (Deferred) or MED (Medical) notation for courses ending in December 2025",
+      "fullDate": "Thu, Jan. 15, 2026"
+    },
+    {
+      "month": "January 2026",
+      "date": "Mon, Jan. 26",
+      "description": "Last day to add winter-term courses",
+      "fullDate": "Mon, Jan. 26, 2026"
+    },
+    {
+      "month": "January 2026",
+      "date": "Mon, Jan. 26",
+      "description": "Deadline for withdrawal with tuition refund (DNE) from winter-term courses",
+      "fullDate": "Mon, Jan. 26, 2026"
+    },
+    {
+      "month": "February 2026",
+      "date": "Sun, Feb. 1",
+      "description": "Last day to apply for supplemental examinations for courses ending in December 2025\n            \n            (graduating students only)",
+      "fullDate": "Sun, Feb. 1, 2026"
+    },
+    {
+      "month": "February 2026",
+      "date": "Sun, Feb. 1",
+      "description": "Last day to apply for re-evaluation of courses ending in December 2025",
+      "fullDate": "Sun, Feb. 1, 2026"
+    },
+    {
+      "month": "February 2026",
+      "date": "Sun, Feb. 1",
+      "description": "Last day to apply for late completion of courses ending in December 2025",
+      "fullDate": "Sun, Feb. 1, 2026"
+    },
+    {
+      "month": "February 2026",
+      "date": "Sun, Feb. 15",
+      "description": "Last day for submission of late completion work for courses ending in December 2025\n            \n            (application deadline February 1)",
+      "fullDate": "Sun, Feb. 15, 2026"
+    },
+    {
+      "month": "February 2026",
+      "date": "Fri, Feb. 27",
+      "description": "Last day to submit required documentation to register with the Access Centre for Students with Disabilities and request exam accommodations for the Winter 2026 final examination period",
+      "fullDate": "Fri, Feb. 27, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Sun, Mar. 1",
+      "description": "Last day to apply for admission to undergraduate programs, full-time regular session 2026-27",
+      "fullDate": "Sun, Mar. 1, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Sun, Mar. 1",
+      "description": "Last day to apply for degree transfer, fall term 2026\n            \n            (for currently registered students to transfer into a different degree in any faculty)",
+      "fullDate": "Sun, Mar. 1, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Mon, Mar. 2",
+      "description": "Reading week begins",
+      "fullDate": "Mon, Mar. 2, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Mon, Mar. 2",
+      "description": "Replacement examinations begin",
+      "fullDate": "Mon, Mar. 2, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Mon, Mar. 2",
+      "description": "Supplemental examinations begin for courses ending in December 2025\n            \n            (graduating students only)",
+      "fullDate": "Mon, Mar. 2, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Thu, Mar. 5",
+      "description": "Replacement and supplemental examinations end",
+      "fullDate": "Thu, Mar. 5, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Fri, Mar. 6",
+      "description": "President’s Holiday, university closed",
+      "fullDate": "Fri, Mar. 6, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Sun, Mar. 8",
+      "description": "Reading week ends",
+      "fullDate": "Sun, Mar. 8, 2026"
+    },
+    {
+      "month": "March 2026",
+      "date": "Mon, Mar. 23",
+      "description": "Last day for academic withdrawal (DISC) from two-term (/3) and winter-term (/4) courses",
+      "fullDate": "Mon, Mar. 23, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Wed, Apr. 1",
+      "description": "Last day to apply for Quebec resident status, winter term 2026",
+      "fullDate": "Wed, Apr. 1, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Fri, Apr. 3",
+      "description": "Easter holidays, university closed (April 3 - April 6)\n            \n            (see April 14, 2026)",
+      "fullDate": "Fri, Apr. 3, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Tue, Apr. 7",
+      "description": "Last day for instructor-scheduled tests or examinations",
+      "fullDate": "Tue, Apr. 7, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Mon, Apr. 13",
+      "description": "Last day of classes, fall/winter and winter terms 2025-26",
+      "fullDate": "Mon, Apr. 13, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Tue, Apr. 14",
+      "description": "Make-up day for classes scheduled on April 3 and 4",
+      "fullDate": "Tue, Apr. 14, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Thu, Apr. 16",
+      "description": "Examinations begin",
+      "fullDate": "Thu, Apr. 16, 2026"
+    },
+    {
+      "month": "April 2026",
+      "date": "Thu, Apr. 30",
+      "description": "Aide financière aux études (AFE) end of funding, winter term",
+      "fullDate": "Thu, Apr. 30, 2026"
+    }
+  ],
+  "Summer term 2026": [
+    {
+      "month": "May 2026",
+      "date": "Sun, May 3",
+      "description": "Examinations end",
+      "fullDate": "Sun, May 3, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Sun, May 10",
+      "description": "Last day to apply for DEF (Deferred) or MED (Medical) notation for courses ending in April 2026",
+      "fullDate": "Sun, May 10, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Mon, May 11",
+      "description": "Classes begin, first‑term and two‑term summer session courses",
+      "fullDate": "Mon, May 11, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Fri, May 15",
+      "description": "Last day to apply for late completion of courses ending in April 2026",
+      "fullDate": "Fri, May 15, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Mon, May 18",
+      "description": "Journée nationale des patriotes (Quebec), Victoria Day (elsewhere in Canada), university closed",
+      "fullDate": "Mon, May 18, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Tue, May 19",
+      "description": "Last day to add first‑term and two‑term summer session courses",
+      "fullDate": "Tue, May 19, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Tue, May 19",
+      "description": "Deadline for withdrawal with tuition refund (DNE) from first‑term and two‑term summer session courses",
+      "fullDate": "Tue, May 19, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Fri, May 29",
+      "description": "Last day to submit required documentation to register with the Access Centre for Students with Disabilities and request exam accommodations for the Summer 1 2026 final examination period",
+      "fullDate": "Fri, May 29, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "Sat, May 30",
+      "description": "Last day for submission of late‑completion work for courses ending in April 2026\n            \n            (application deadline May 15)",
+      "fullDate": "Sat, May 30, 2026"
+    },
+    {
+      "month": "May 2026",
+      "date": "TBD",
+      "description": "Spring convocations. Please see concordia.ca/graduation-convocation",
+      "fullDate": "TBD, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Wed, June 10",
+      "description": "Last day for academic withdrawal (DISC) from first‑term summer session courses",
+      "fullDate": "Wed, June 10, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Mon, June 15",
+      "description": "Last day to apply for supplemental examinations for courses taken during the regular session 2025‑26",
+      "fullDate": "Mon, June 15, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Mon, June 15",
+      "description": "Last day to apply for re-evaluation of courses ending in April 2026",
+      "fullDate": "Mon, June 15, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Mon, June 15",
+      "description": "Last day for instructor‑scheduled tests or examinations for first‑term summer session courses",
+      "fullDate": "Mon, June 15, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Mon, June 22",
+      "description": "Last day of classes, first‑term summer session",
+      "fullDate": "Mon, June 22, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Tue, June 23",
+      "description": "Examinations begin, first‑term summer session finals",
+      "fullDate": "Tue, June 23, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Tue, June 23",
+      "description": "Reading week begins, two‑term summer session",
+      "fullDate": "Tue, June 23, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Wed, June 24",
+      "description": "Fête nationale, university closed",
+      "fullDate": "Wed, June 24, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Tue, June 30",
+      "description": "Examinations end, first‑term summer session finals",
+      "fullDate": "Tue, June 30, 2026"
+    },
+    {
+      "month": "June 2026",
+      "date": "Tue, June 30",
+      "description": "Reading week for two-term summer session ends",
+      "fullDate": "Tue, June 30, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Wed, July 1",
+      "description": "Canada Day, university closed",
+      "fullDate": "Wed, July 1, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Thu, July 2",
+      "description": "Classes begin, second‑term summer session",
+      "fullDate": "Thu, July 2, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Thu, July 9",
+      "description": "Last day to add second-term summer session courses",
+      "fullDate": "Thu, July 9, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Thu, July 9",
+      "description": "Deadline for withdrawal with tuition refund (DNE) from second‑term summer session",
+      "fullDate": "Thu, July 9, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Wed, July 15",
+      "description": "Last day to apply for fall 2026 graduation",
+      "fullDate": "Wed, July 15, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Wed, July 22",
+      "description": "Last day for academic withdrawal (DISC) from two-term summer session courses",
+      "fullDate": "Wed, July 22, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Fri, July 24",
+      "description": "Last day to submit required documentation to register with the Access Centre for Students with Disabilities and request exam accommodations for the Summer 2 2026 final examination period",
+      "fullDate": "Fri, July 24, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Wed, July 29",
+      "description": "Registration start date for returning and newly authorized Independent students, fall 2026 term",
+      "fullDate": "Wed, July 29, 2026"
+    },
+    {
+      "month": "July 2026",
+      "date": "Fri, July 31",
+      "description": "Last day for academic withdrawal (DISC) from second-term summer session courses",
+      "fullDate": "Fri, July 31, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Sat, Aug. 1",
+      "description": "Last day to apply for Quebec resident status for summer session 2026",
+      "fullDate": "Sat, Aug. 1, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Wed, Aug. 5",
+      "description": "Last day for instructor‑scheduled tests or examinations for two‑term and second‑term summer session courses",
+      "fullDate": "Wed, Aug. 5, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Wed, Aug. 12",
+      "description": "Last day of classes, two-term and second-term summer session courses",
+      "fullDate": "Wed, Aug. 12, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Thu, Aug. 13",
+      "description": "Examinations begin, two-term and second-term summer session finals",
+      "fullDate": "Thu, Aug. 13, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Tue, Aug. 18",
+      "description": "Examinations end, two-term and second-term summer session finals",
+      "fullDate": "Tue, Aug. 18, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Wed, Aug. 19",
+      "description": "Replacement and supplemental examinations begin, regular session 2025-26",
+      "fullDate": "Wed, Aug. 19, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Sat, Aug. 22",
+      "description": "Replacement and supplemental examinations end, regular session 2025-26",
+      "fullDate": "Sat, Aug. 22, 2026"
+    },
+    {
+      "month": "August 2026",
+      "date": "Mon, Aug. 31",
+      "description": "Last day to apply for DEF (Deferred) or MED (Medical) notation for courses taken during the summer session 2026",
+      "fullDate": "Mon, Aug. 31, 2026"
+    }
+  ],
+  "Fall term 2026": [
+    {
+      "month": "September 2026",
+      "date": "Tue, Sep. 1",
+      "description": "Last day to apply for late completion of courses taken during the summer session 2026",
+      "fullDate": "Tue, Sep. 1, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Mon, Sep. 7",
+      "description": "Labour Day, university closed",
+      "fullDate": "Mon, Sep. 7, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Tue, Sep. 8",
+      "description": "Classes begin, fall and fall/winter terms 2026-27",
+      "fullDate": "Tue, Sep. 8, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Tue, Sep. 15",
+      "description": "Last day for submission of late‑completion work for summer session 2026 courses\n            \n            (application deadline September 1)",
+      "fullDate": "Tue, Sep. 15, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Wed, Sep. 16",
+      "description": "Last day to apply for supplemental examinations for courses taken during the summer session 2026",
+      "fullDate": "Wed, Sep. 16, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Thu, Sep. 17",
+      "description": "Registration start date for newly admitted students, winter 2027 term. New students admitted for winter 2027 can register any time after admission and advising criteria have been satisfied",
+      "fullDate": "Thu, Sep. 17, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Mon, Sep. 21",
+      "description": "Last day to add fall-term and two-term courses",
+      "fullDate": "Mon, Sep. 21, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Mon, Sep. 21",
+      "description": "Deadline for withdrawal with tuition refund (DNE) from fall-term and two-term courses",
+      "fullDate": "Mon, Sep. 21, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "Sat, Sep. 26",
+      "description": "Replacement and supplemental examinations, summer session 2026 courses",
+      "fullDate": "Sat, Sep. 26, 2026"
+    },
+    {
+      "month": "September 2026",
+      "date": "TBD",
+      "description": "Fall convocations. Please see concordia.ca/graduation-convocation",
+      "fullDate": "TBD, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Thu, Oct. 1",
+      "description": "Last day to apply for re-evaluation of courses taken during the summer session 2026",
+      "fullDate": "Thu, Oct. 1, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Mon, Oct. 5",
+      "description": "Quebec Election Day, no classes held",
+      "fullDate": "Mon, Oct. 5, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Sat, Oct. 10",
+      "description": "Reading week begins",
+      "fullDate": "Sat, Oct. 10, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Mon, Oct. 12",
+      "description": "Thanksgiving Day, university closed",
+      "fullDate": "Mon, Oct. 12, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Fri, Oct. 16",
+      "description": "Reading week ends",
+      "fullDate": "Fri, Oct. 16, 2026"
+    },
+    {
+      "month": "October 2026",
+      "date": "Fri, Oct. 23",
+      "description": "Last day to submit required documentation to register with the Access Centre for Students with Disabilities and request exam accommodations for the fall 2026 final examination period",
+      "fullDate": "Fri, Oct. 23, 2026"
+    },
+    {
+      "month": "November 2026",
+      "date": "Sun, Nov. 1",
+      "description": "Last day to apply for admission to undergraduate programs, winter term 2027",
+      "fullDate": "Sun, Nov. 1, 2026"
+    },
+    {
+      "month": "November 2026",
+      "date": "Sun, Nov. 1",
+      "description": "Last day to apply for degree transfer, winter term 2027\n            \n            (For currently registered students to transfer into the Faculty of Arts and Science or the Gina Cody School of Engineering and Computer Science or the John Molson School of Business)",
+      "fullDate": "Sun, Nov. 1, 2026"
+    },
+    {
+      "month": "November 2026",
+      "date": "Mon, Nov. 16",
+      "description": "Last day for academic withdrawal (DISC) from fall-term courses (/2)",
+      "fullDate": "Mon, Nov. 16, 2026"
+    },
+    {
+      "month": "November 2026",
+      "date": "Tue, Nov. 24",
+      "description": "Registration start date for newly authorized independent students, winter term 2027",
+      "fullDate": "Tue, Nov. 24, 2026"
+    },
+    {
+      "month": "November 2026",
+      "date": "Mon, Nov. 30",
+      "description": "Last day for instructor-scheduled tests or examinations",
+      "fullDate": "Mon, Nov. 30, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Tue, Dec. 1",
+      "description": "Last day to apply for Quebec resident status, fall term 2026",
+      "fullDate": "Tue, Dec. 1, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Mon, Dec. 7",
+      "description": "Last day of classes, fall term",
+      "fullDate": "Mon, Dec. 7, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Tue, Dec. 8",
+      "description": "Make-up day for classes cancelled due to Quebec provincial election on October 5",
+      "fullDate": "Tue, Dec. 8, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Wed, Dec. 9",
+      "description": "Examinations begin",
+      "fullDate": "Wed, Dec. 9, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Tue, Dec. 22",
+      "description": "Examinations end",
+      "fullDate": "Tue, Dec. 22, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Tue, Dec. 22",
+      "description": "Aide financière aux études (AFE) end of funding, fall term",
+      "fullDate": "Tue, Dec. 22, 2026"
+    },
+    {
+      "month": "December 2026",
+      "date": "Thu, Dec. 24",
+      "description": "Holiday period, university closed (December 24 to January 4)",
+      "fullDate": "Thu, Dec. 24, 2026"
+    }
+  ],
+  "Winter term 2027": [
+    {
+      "month": "January 2027",
+      "date": "Mon, Jan. 11",
+      "description": "Classes begin, winter term 2027",
+      "fullDate": "Mon, Jan. 11, 2027"
+    },
+    {
+      "month": "January 2027",
+      "date": "Mon, Jan. 11",
+      "description": "Classes resume, fall/winter term 2026-27",
+      "fullDate": "Mon, Jan. 11, 2027"
+    },
+    {
+      "month": "January 2027",
+      "date": "Fri, Jan. 15",
+      "description": "Last day to apply for spring 2027 graduation",
+      "fullDate": "Fri, Jan. 15, 2027"
+    },
+    {
+      "month": "January 2027",
+      "date": "Fri, Jan. 15",
+      "description": "Last day to apply for DEF (Deferred) or MED (Medical) notation for courses ending in December 2026",
+      "fullDate": "Fri, Jan. 15, 2027"
+    },
+    {
+      "month": "January 2027",
+      "date": "Mon, Jan. 25",
+      "description": "Last day to add winter-term courses",
+      "fullDate": "Mon, Jan. 25, 2027"
+    },
+    {
+      "month": "January 2027",
+      "date": "Mon, Jan. 25",
+      "description": "Deadline for withdrawal with tuition refund (DNE) from winter-term courses",
+      "fullDate": "Mon, Jan. 25, 2027"
+    },
+    {
+      "month": "February 2027",
+      "date": "Mon, Feb. 1",
+      "description": "Last day to apply for supplemental examinations for courses ending in December 2026\n            \n            (graduating students only)",
+      "fullDate": "Mon, Feb. 1, 2027"
+    },
+    {
+      "month": "February 2027",
+      "date": "Mon, Feb. 1",
+      "description": "Last day to apply for re-evaluation of courses ending in December 2026",
+      "fullDate": "Mon, Feb. 1, 2027"
+    },
+    {
+      "month": "February 2027",
+      "date": "Mon, Feb. 1",
+      "description": "Last day to apply for late completion of courses ending in December 2026",
+      "fullDate": "Mon, Feb. 1, 2027"
+    },
+    {
+      "month": "February 2027",
+      "date": "Mon, Feb. 15",
+      "description": "Last day for submission of late completion work for courses ending in December 2026\n            \n            (application deadline February 1)",
+      "fullDate": "Mon, Feb. 15, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 1",
+      "description": "Last day to apply for admission to undergraduate programs, full-time regular session 2027-28",
+      "fullDate": "Mon, Mar. 1, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 1",
+      "description": "Last day to apply for degree transfer, fall term 2027\n            \n            (for currently registered students to transfer into a different degree in any faculty)",
+      "fullDate": "Mon, Mar. 1, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 1",
+      "description": "Reading week begins",
+      "fullDate": "Mon, Mar. 1, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 1",
+      "description": "Replacement examinations begin",
+      "fullDate": "Mon, Mar. 1, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 1",
+      "description": "Supplemental examinations begin for courses ending in December 2026\n            \n            (graduating students only)",
+      "fullDate": "Mon, Mar. 1, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Thu, Mar. 4",
+      "description": "Replacement and supplemental examinations end",
+      "fullDate": "Thu, Mar. 4, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Fri, Mar. 5",
+      "description": "Last day to submit required documentation to register with the Access Centre for Students with Disabilities and request exam accommodations for the Winter 2027 final examination period",
+      "fullDate": "Fri, Mar. 5, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Fri, Mar. 5",
+      "description": "President’s Holiday, university closed",
+      "fullDate": "Fri, Mar. 5, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Sun, Mar. 7",
+      "description": "Reading week ends",
+      "fullDate": "Sun, Mar. 7, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Mon, Mar. 22",
+      "description": "Last day for academic withdrawal (DISC) from two-term (/3) and winter-term (/4) courses",
+      "fullDate": "Mon, Mar. 22, 2027"
+    },
+    {
+      "month": "March 2027",
+      "date": "Fri, Mar. 26",
+      "description": "Easter holidays, university closed (March 26 – March 29)\n            \n            (see April 13, 2027)",
+      "fullDate": "Fri, Mar. 26, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Thu, Apr. 1",
+      "description": "Last day to apply for Quebec resident status, winter term 2027",
+      "fullDate": "Thu, Apr. 1, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Mon, Apr. 5",
+      "description": "Last day for instructor-scheduled tests or examinations",
+      "fullDate": "Mon, Apr. 5, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Mon, Apr. 12",
+      "description": "Last day of classes, fall/winter and winter terms 2026-27",
+      "fullDate": "Mon, Apr. 12, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Tue, Apr. 13",
+      "description": "Make-up day for classes scheduled on March 26 and 27",
+      "fullDate": "Tue, Apr. 13, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Thu, Apr. 15",
+      "description": "Examinations begin",
+      "fullDate": "Thu, Apr. 15, 2027"
+    },
+    {
+      "month": "April 2027",
+      "date": "Fri, Apr. 30",
+      "description": "Aide financière aux études (AFE) end of funding, winter term",
+      "fullDate": "Fri, Apr. 30, 2027"
+    }
+  ],
+  "Summer term 2027": [
+    {
+      "month": "May 2027",
+      "date": "Sun, May 2",
+      "description": "Examinations end",
+      "fullDate": "Sun, May 2, 2027"
+    },
+    {
+      "month": "May 2027",
+      "date": "Mon, May 10",
+      "description": "Last day to apply for DEF (Deferred) or MED (Medical) notation for courses ending in April 2027",
+      "fullDate": "Mon, May 10, 2027"
+    },
+    {
+      "month": "May 2027",
+      "date": "Sat, May 15",
+      "description": "Last day to apply for late completion of courses ending in April 2027",
+      "fullDate": "Sat, May 15, 2027"
+    },
+    {
+      "month": "May 2027",
+      "date": "Mon, May 24",
+      "description": "Journée nationale des patriotes (Quebec), Victoria Day (elsewhere in Canada), university closed",
+      "fullDate": "Mon, May 24, 2027"
+    },
+    {
+      "month": "May 2027",
+      "date": "Sun, May 30",
+      "description": "Last day for submission of late‑completion work for courses ending in April 2027\n            \n            (application deadline May 15)",
+      "fullDate": "Sun, May 30, 2027"
+    },
+    {
+      "month": "May 2027",
+      "date": "TBD",
+      "description": "Spring convocations. Please see concordia.ca/graduation-convocation",
+      "fullDate": "TBD, 2027"
+    },
+    {
+      "month": "June 2027",
+      "date": "Tue, June 15",
+      "description": "Last day to apply for supplemental examinations for courses taken during the regular session 2026-27",
+      "fullDate": "Tue, June 15, 2027"
+    },
+    {
+      "month": "June 2027",
+      "date": "Tue, June 15",
+      "description": "Last day to apply for re-evaluation of courses ending in April 2027",
+      "fullDate": "Tue, June 15, 2027"
+    }
+  ]
+}

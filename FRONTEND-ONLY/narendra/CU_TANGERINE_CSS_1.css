@@ -1,0 +1,46 @@
+
+
+
+div#pthdr2logoswan.culogo::before {
+    content: url(/cs/pscsprd/cache_1/CU_LOGO_1.PNG);
+    left: 4px;
+    position: relative;
+    top: 16px;
+    direction: ltr;
+}
+
+
+
+#pthdr2container.pthdr2container{
+    background: url(/cs/pscsprd/cache_1/CU_PT_HEADERBG_CSS_1.PNG) no-repeat;
+   background-size: cover;
+}
+
+
+
+span#ptgreetingmessage.greeting, #pthdr2syslinks.pthdr2syslinks .PSHYPERLINK {
+    color: #ffffff;
+}
+
+div#pthdr2syslinks.pthdr2syslinks{
+  padding-top:30px;
+  height:100%;
+}
+
+span#ptgreetingmessage.greeting {
+  padding-top:30px;
+  height:100%;
+}
+
+div#pthdr2syslinks div.pthdr2sep  {
+    color:#ffffff;
+    background-color: #ffffff;
+}
+
+
+
+#ptdropdownmenu> #pthnavcontainer {
+   background-image: none;
+   background-color: #d3e1e9;
+}
+

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form</title>
+</head>
+<body>
+
+  <form id="contactForm">
+    <label for="fullname">Full Name</label><br />
+    <input type="text" id="fullname" name="fullname" /><br /><br />
+
+    <label for="email">Email</label><br />
+    <input type="email" id="email" name="email" required /><br /><br />
+
+    <label ford="contact">Contact</label><br />
+    <input type="tel" id="contact" name="contact" /><br /><br />
+
+    <label for="help">How can you help?</label><br />
+    <select id="help" name="help">
+      <option value="">-- Select an option --</option>
+      <option value="support">Support</option>
+      <option value="partnership">Partnership</option>
+      <option value="feedback">Feedback</option>
+      <option value="other">Other</option>
+    </select><br /><br />
+
+    <label for="idea">Idea / Suggestion</label><br />
+    <input type="text" id="idea" name="idea" /><br /><br />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZZIpaJkNLcF6baYdJtyzT2uODxqx8W5E",
+      authDomain: "fir-81042.firebaseapp.com",
+      projectId: "fir-81042",
+      storageBucket: "fir-81042.firebasestorage.app",
+      messagingSenderId: "942779892605",
+      appId: "1:942779892605:web:221512cb80561da1f8c214"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // After verification → send to Google Sheets
+    onAuthStateChanged(auth, async (user) => {
+      if (user && user.emailVerified) {
+        const data = JSON.parse(localStorage.getItem("pendingFormData"));
+        if (!data) return;
+
+        const formData = new FormData();
+        Object.keys(data).forEach(key => formData.append(key, data[key]));
+
+        await fetch("https://script.google.com/macros/s/AKfycbxlnFQJuH_9DTp9aL3meptimtUEWhffDr_9Kz0hvUAzw3MpUkh-AFCi8dQLyRoqMp9B/exec", {
+          method: "POST",
+          body: formData
+        });
+
+        alert("Email verified! Your response is now saved.");
+        localStorage.removeItem("pendingFormData");
+      }
+    });
+
+    // On submit → send verification email
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const formDataObj = Object.fromEntries(new FormData(this));
+
+      try {
+        const password = Math.random().toString(36).slice(-8);
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCred.user);
+
+        localStorage.setItem("pendingFormData", JSON.stringify(formDataObj));
+        alert("Verification email sent! Check your inbox, click verify, then refresh this page.");
+
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>

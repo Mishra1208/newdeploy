@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" class='chrome mac pc standard psc_dir-ltr psc_form-xlarge'>
+<!--
+Copyright (c) 2000, 2024, Oracle and/or its affiliates. -->
+<head>
+<script data-filename="freemarker-variables" src="https://campus.concordia.ca/res/pscsprd/2de12cad99e4c83d0f21af42dcfab673/freemarker-variables.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/res/pscsprd/cd311331a6c887f414f48ea204db053f/mobiscroll/3.2.3/css/mobiscroll.custom-3.2.3.min.css" />
+<script src="/res/pscsprd/6aa7a77b2823ff47527d503c15aacdd2/jq/3.5.1/jquery.min.js"></script>
+<script data-filename="appsian-jqm-slim" src="https://campus.concordia.ca/res/pscsprd/ac2cd0d74ca88e7ea2a0b03c028b11db/appsian-jqm-slim.js"></script>
+
+<script data-filename="headopen" src="https://campus.concordia.ca/res/pscsprd/eeeee1eb10350889cd33260fa3aec3d4/headopen.js"></script>
+
+<script src="/res/pscsprd/fbd3367469932134f35db0c6e76ac681/mobiscroll/3.2.3/js/mobiscroll.custom-3.2.3.min.js"></script>
+<script data-filename="jqnoconflict" src="https://campus.concordia.ca/res/pscsprd/23faefd1f952ebdb6a64dae437d7f78e/jqnoconflict.js"></script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/ef3d205eee732bf6109bdebddbe62f20/inline.js"></script>
+
+
+<link rel="stylesheet" href="https://campus.concordia.ca/cs/pscsprd/cache_1/PSSTYLEREQ_1.css" type="text/css">
+<link rel="stylesheet" href="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_PRCS_USER_NOTIFY_CSS_1.css" type="text/css">
+
+<link rel="stylesheet" href="https://campus.concordia.ca/cs/pscsprd/cache_1/CU_TANGERINE_CSS_1.css" type="text/css">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/d9adf5bb8543f6c8f3de7a04b5896f84/inline.js" language="JavaScript"></script>
+
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/b8fa3b7867ba0ddbd6fa2141e2ead0db/inline.js" language="JavaScript"></script>
+
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_COMMON_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_AJAX_NET_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_ISCROSSDOMAINNS6_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_SAVEWARNINGSCRIPT_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_IFRAME_HDR_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_RC_SERVICE_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_RC_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_RC_MENU_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/37acf404a3280e5c729511456494b21a/inline.js"></script>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_COMMON_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_AJAX_NET_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_IFRAME_HDR_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_ISCROSSDOMAINNS6_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_SAVEWARNINGSCRIPT_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/6bc974266e886561e07ae9d76ee2f376/inline.js"></script>
+
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PTMAF_PUSH_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/CU_TTS_HELP_LINK_JS_MIN_1.js">
+</script>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/e0fa8a992801d3fa799486e0429b6def/inline.js" language="javascript"></script>
+
+
+<link type="text/css" rel="stylesheet" href="https://campus.concordia.ca/res/pscsprd/7582e6cb4cd936ef2dd0fa365bbab595/inline.css" />
+
+<title>My Academic Requirements</title>
+<script data-filename="appsian-config" src="https://campus.concordia.ca/res/pscsprd/13a9ce1c8751d286ca8536e7aa59d99a/appsian-config.js"></script>
+
+<link rel="apple-touch-icon" href="https://campus.concordia.ca/pscsprd/cu_ux//apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon.ico" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-16x16.png" sizes="16x16" />
+<script data-filename="branding_kurogo" src="https://campus.concordia.ca/res/pscsprd/a5d8bad2b1c11d7d309dc8eecbbc7688/branding_kurogo.js"></script>
+
+<script data-filename="branding_pux_frame" src="https://campus.concordia.ca/res/pscsprd/d817526ef2bd4cf253f5de1dd81179a7/branding_pux_frame.js"></script>
+
+<script data-filename="havedate_headclose" src="https://campus.concordia.ca/res/pscsprd/615ee649f79c435b35b03f40e5dcf77c/havedate_headclose.js"></script>
+
+<script data-filename="modules_headclose" src="https://campus.concordia.ca/res/pscsprd/f511264b23d11e52020dd3cc3294066b/modules_headclose.js"></script>
+<!--<link rel="stylesheet" href="https://use.fontawesome.com/32f63bd069.css" />-->
+<link rel="stylesheet" href="https://sis-webhost.concordia.ca/ux/cu_fonts.css" />
+
+<link rel="apple-touch-icon" href="https://campus.concordia.ca/pscsprd/cu_ux//apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon.ico" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-16x16.png" sizes="16x16" />
+<script data-filename="branding_kurogo" src="https://campus.concordia.ca/res/pscsprd/a5d8bad2b1c11d7d309dc8eecbbc7688/branding_kurogo.js"></script>
+
+<script data-filename="branding_pux_frame" src="https://campus.concordia.ca/res/pscsprd/d817526ef2bd4cf253f5de1dd81179a7/branding_pux_frame.js"></script>
+
+<link rel="stylesheet" href="https://campus.concordia.ca/res/pscsprd/7d1bea4a407d112fb16d19a185fdeab2/inline.css" /></head>
+<body class="PSPAGE" id="ptifrmtemplate"><a class="skip-main" href="#gh-main-content">Skip to main content</a>
+<div data-role="page" id="jqm_main_page" class="ui-page">
+<div data-role="header" class="ui-header ui-header-fixed" data-position="fixed" role="banner">
+<div class="ui-btn ui-btn-left">
+<a href="#gh-main-nav-panel" data-icon="fa fa-bars" id="nav-breadcrumbs-button" class="ui-btn gh-btn ui-btn-icon-left" data-role="none">
+<span class="ui-btn-inner">
+<span class="ui-btn-text">Navigation</span>
+<span class="ui-icon fa fa-bars" aria-hidden="true"></span>
+</span>
+</a>
+</div>
+<div class="ui-title">
+<a href="#" target="gh-top" data-icon="logo" id="nav-home-button" class="ui-btn gh-btn ui-btn-icon-left" data-role="none">
+<span class="ui-btn-inner">
+<span class="ui-btn-text">PeopleUX</span>
+<span class="ui-icon ui-icon-logo"></span>
+</span>
+</a>
+</div>
+<div class="ui-btn ui-btn-right logout">
+<a href="#" data-icon="fa fa-power-off" id="nav-options-button" target="gh-top" class="ui-btn gh-btn ui-btn-icon-left" data-role="none">
+<span class="ui-btn-inner">
+<span class="ui-btn-text">Logout</span>
+<span class="ui-icon fa fa-power-off" aria-hidden="true"></span>
+</span>
+</a>
+</div>
+</div><!-- end of data-role="header" -->
+<div data-role="panel" id="gh-main-nav-panel" data-display="push" data-position="left">
+<div data-role="collapsible"><ul id="gh-main-nav" class="gh-listview"></ul></div>
+</div>
+<div class="ui-panel-content-wrap">
+<div id="gh-main-content" data-role="content" role="main" class="ui-content" data-gh-server-content="true" data-gh-server-fluid="false">
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/e1c06d85ae7b8b032bef47e42e4c08f9/inline.js"></script>
+
+
+<div><!--Begin pagelet: Nav URL: https%3A%2F%2Fcampus.concordia.ca%2Fpsc%2Fpscsprd%2FEMPLOYEE%2FSA%2Fs%2FWEBLIB_PT_NAV.ISCRIPT1.FieldFormula.IScript_PT_NAV_INFRAME%3Fnavtype%3Ddropdown%26c%3D4AK5vy%252bxPB9P1WYxz1H7Hy8RgRAiX7lqS2HXi8A6jNpZ91TwBVtYLA%253d%253d-->
+<div class="ptprtlcontainer">
+<nav id="pthnavcontainer" aria-label="Drop-Down Menu">
+<div role="menubar">
+<ul class="pthnav" role="menu">
+<li id="pthnavbc_MYFAVORITES" class="pthnavbarfldr"><a id="pthnavbca_MYFAVORITES" role="menuitem" aria-haspopup="true" class="pthnavbcanchor" href="">Favorites</a></li>
+
+<li id="pthnavfavsep" role="presentation">&nbsp;</li>
+
+<li id="pthnavbc_PORTAL_ROOT_OBJECT" class="pthnavbarfldr"><a id="pthnavbca_PORTAL_ROOT_OBJECT" role="menuitem" aria-haspopup="true" class="pthnavbcanchor" href="">Main Menu</a> 
+
+<div id="pthnavfly_PORTAL_ROOT_OBJECT" class="pthnavflyout pthnavbarhide" role="menu">
+<div class="pthnavflyoutscroll" role="presentation">
+<ul class="pthnavscrollul">
+<li class="pthnavfakeli">&nbsp;</li>
+</ul>
+</div>
+
+<div class="pthnavshadow" role="presentation">
+<div id="pthnavsort_PORTAL_ROOT_OBJECT" class="pthnavsort pthnavsortnone" title="Sort Menu"><a href="" role="button" class="pthnavHideSortTxt">Menu not sorted. Click to sort in ascending order.</a></div>
+
+<div class="pthnavscrollup" role="presentation">&nbsp;</div>
+
+<div class="pthnavscroll" role="menu">
+<ul id="pthnavroot">
+<li class="pthnavfldr pthnav-mouse" id="CU_ACADEMIC"><a id="fldra_CU_ACADEMIC" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=CU_ACADEMIC&amp;FolderPath=PORTAL_ROOT_OBJECT.CU_ACADEMIC&amp;IsFolder=true">Academic</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="CO_EMPLOYEE_SELF_SERVICE"><a id="fldra_CO_EMPLOYEE_SELF_SERVICE" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=CO_EMPLOYEE_SELF_SERVICE&amp;FolderPath=PORTAL_ROOT_OBJECT.CO_EMPLOYEE_SELF_SERVICE&amp;IsFolder=true">Self Service</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="HCAD_STUDENT_ADMISSIONS"><a id="fldra_HCAD_STUDENT_ADMISSIONS" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=HCAD_STUDENT_ADMISSIONS&amp;FolderPath=PORTAL_ROOT_OBJECT.HCAD_STUDENT_ADMISSIONS&amp;IsFolder=true">Student Admissions</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="HCSR_RECORDS_AND_REGISTRATION"><a id="fldra_HCSR_RECORDS_AND_REGISTRATION" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=HCSR_RECORDS_AND_REGISTRATION&amp;FolderPath=PORTAL_ROOT_OBJECT.HCSR_RECORDS_AND_REGISTRATION&amp;IsFolder=true">Records and Enrollment</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="HCSR_CURRICULUM_MANAGEMENT"><a id="fldra_HCSR_CURRICULUM_MANAGEMENT" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=HCSR_CURRICULUM_MANAGEMENT&amp;FolderPath=PORTAL_ROOT_OBJECT.HCSR_CURRICULUM_MANAGEMENT&amp;IsFolder=true">Curriculum Management</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="PT_PEOPLETOOLS"><a id="fldra_PT_PEOPLETOOLS" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=PT_PEOPLETOOLS&amp;FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS&amp;IsFolder=true">PeopleTools</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="CU_AAWS_FOLDER"><a id="fldra_CU_AAWS_FOLDER" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=CU_AAWS_FOLDER&amp;FolderPath=PORTAL_ROOT_OBJECT.CU_AAWS_FOLDER&amp;IsFolder=true">Concordia Admission</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavfldr pthnav-mouse" id="CU_EXT_LINK_FOLDER"><a id="fldra_CU_EXT_LINK_FOLDER" role="menuitem" aria-haspopup="true" class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?pt_fname=CU_EXT_LINK_FOLDER&amp;FolderPath=PORTAL_ROOT_OBJECT.CU_EXT_LINK_FOLDER&amp;IsFolder=true">Concordia External Link</a>
+<div class="pthnavfldrimg" title="FAN page (shift + enter)">&nbsp;</div>
+
+<div class="pthnavrightarrow">&nbsp;</div>
+</li>
+
+<li class="pthnavcref pthnav-mouse" id="crefli_ADMN_SC_SP_APPSIAN_ACADEMIC"><a class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?scname=ADMN_APPSIAN_ACADEMIC&amp;FolderPath=PORTAL_ROOT_OBJECT.ADMN_SC_SP_APPSIAN_ACADEMIC&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem">Appsian Academic</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+
+<li class="pthnavcref pthnav-mouse" id="crefli_ADMN_SC_SP_APPSIAN_ENROL"><a class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?scname=ADMN_APPSIAN_ENROL&amp;FolderPath=PORTAL_ROOT_OBJECT.ADMN_SC_SP_APPSIAN_ENROL&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem">Appsian Enrol</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+
+<li class="pthnavcref pthnav-mouse" id="crefli_ADMN_SC_SP_APPSIAN_FINANCE"><a class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?scname=ADMN_APPSIAN_FINANCE&amp;FolderPath=PORTAL_ROOT_OBJECT.ADMN_SC_SP_APPSIAN_FINANCE&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem">Appsian Finance</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+
+<li class="pthnavcref pthnav-mouse" id="crefli_ADMN_SC_SP_APPSIAN_PERSONAL"><a class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/s/WEBLIB_PTPP_SC.HOMEPAGE.FieldFormula.IScript_AppHP?scname=ADMN_APPSIAN_PERSONAL&amp;FolderPath=PORTAL_ROOT_OBJECT.ADMN_SC_SP_APPSIAN_PERSONAL&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem">Appsian Personal</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+
+<li class="pthnavcref pthnav-mouse" id="crefli_CU_MY_PORTAL"><a class="ptntop" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/e/?url=https%3a%2f%2fmy.concordia.ca%2fpsp%2fupprpr9%2f%3fcmd%3dlogin%26languageCd%3dENG&amp;FolderPath=PORTAL_ROOT_OBJECT.CU_MY_PORTAL&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem">MyConcordia</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+</ul>
+</div>
+
+<div class="pthnavscrolldown">&nbsp;</div>
+</div>
+</div>
+</li>
+
+<li id="pthnavbc" class="pthnavbcltr">
+<div id="pthbcScrollPrev" class="pthbcprev"></div>
+
+<div id="pthbcScroll" class="pthbcscroll">
+<ul dir="ltr" id="pthbcUlScroll">
+<li role="presentation" class="pthnavhiearchysep pthbcdispiblock">&nbsp;</li>
+
+<li id="pthnavbc_CO_EMPLOYEE_SELF_SERVICE" class="pthnavbarfldr pthbcdispiblock"><a id="pthnavbca_CO_EMPLOYEE_SELF_SERVICE" class="pthnavbcanchor" role="menuitem" aria-haspopup="true" href="../../../EMPLOYEE/SA/s/WEBLIB_PT_NAV.ISCRIPT1.FieldFormula.IScript_PT_NAV_INFRAME?pt_fname=CO_EMPLOYEE_SELF_SERVICE&amp;c=4AK5vy%2bxPB9P1WYxz1H7Hy8RgRAiX7lqS2HXi8A6jNpZ91TwBVtYLA%3d%3d&amp;FolderPath=PORTAL_ROOT_OBJECT.CO_EMPLOYEE_SELF_SERVICE&amp;IsFolder=true">Self Service</a></li>
+
+<li role="presentation" class="pthnavhiearchysep pthbcdispiblock">&nbsp;</li>
+
+<li id="pthnavbc_HCCC_DEGPROG_GRAD" class="pthnavbarfldr pthbcdispiblock"><a id="pthnavbca_HCCC_DEGPROG_GRAD" class="pthnavbcanchor" role="menuitem" aria-haspopup="true" href="../../../EMPLOYEE/SA/s/WEBLIB_PT_NAV.ISCRIPT1.FieldFormula.IScript_PT_NAV_INFRAME?pt_fname=HCCC_DEGPROG_GRAD&amp;c=4AK5vy%2bxPB9P1WYxz1H7Hy8RgRAiX7lqS2HXi8A6jNpZ91TwBVtYLA%3d%3d&amp;FolderPath=PORTAL_ROOT_OBJECT.CO_EMPLOYEE_SELF_SERVICE.HCCC_DEGPROG_GRAD&amp;IsFolder=true">Degree Progress/Graduation</a></li>
+
+<li class="pthnavhiearchysep pthbcdispiblock" role="presentation">&nbsp;</li>
+
+<li class="pthnavbarcref pthbcdispiblock" id="pthnavbccref_HC_SAA_SS_DPR_ADB_GBL"><a href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SAA_SS_DPR_ADB.GBL?FolderPath=PORTAL_ROOT_OBJECT.CO_EMPLOYEE_SELF_SERVICE.HCCC_DEGPROG_GRAD.HC_SAA_SS_DPR_ADB_GBL&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder" role="menuitem" id="pthnavbccrefanc_HC_SAA_SS_DPR_ADB_GBL">My Academic Requirements</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+</ul>
+</div>
+
+<div id="pthbcScrollNext" class="pthbcnext"></div>
+</li>
+</ul>
+</div>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_HNAV_JS_MIN_1.js">
+</script>
+
+ 
+
+<div id="pthnavblock">&nbsp;</div>
+
+<div id="ptabnclonebc">
+<ul>
+<li id="ptabnsepbc" class="pthnavhiearchysep pthbcdispiblock">&nbsp;</li>
+
+<li id="ptabnfldrbc" class="pthnavbarfldr pthbcdispiblock"><a class="pthnavbcanchor" href="#">&nbsp;</a></li>
+
+<li id="ptabncrefbc" class="pthnavbarcref pthbcdispiblock"><a href="#">&nbsp;</a>
+<div class="pthnavcrefimg">&nbsp;</div>
+</li>
+
+<li id="ptabnportalfldrbc" class="pthnavbarcref pthbcdispiblock pthnavbarabnfldr ptabnportalfldr"><a class="pthnavbcanchor" href="#">&nbsp;</a></li>
+</ul>
+</div>
+
+<div id="ptabnrscontainer" class="ptabnconthide ptabnlayoutmargin">
+<form id="ptabn" name="ptabn" method="post" action="" target="TargetContent">
+<div class="ptabnheader">
+<div id="ptabntdiv"><span id="ptabnsrchtitle" class="PSSRCHSUBTITLE">Recent Search Results</span></div>
+
+<div id="ptabnsadiv"><a id="ptabnsrchagain" href="" class="PSHYPERLINK">Refine Search</a></div>
+</div>
+</form>
+
+<div id="ptabnsp" class="ptabnsrchprompt" title="Recent Search Results"><a id="ptabn_SRCHPROMPT" href=""><span class="pthnavHideTxt pthnavHideTop">Search Prompt Popup</span></a></div>
+
+<div id="ptabnprevresults">&nbsp;</div>
+</div>
+
+<ul style="display:none;">
+<li id="pthnavmrs_" class="pthnavcref pthnav-mouse"><a href="">mrs</a>
+<div class="pthnavmrsimg">&nbsp;</div>
+</li>
+</ul>
+
+<input type="hidden" name="pthnavsid" id="pthnavsid" value="nngLQXbKBjwHMaFShCmFLuvDTI4%3d"></nav>
+</div>
+
+<!--End pagelet: Nav --></div>
+
+<div><!--Begin pagelet: UniversalNavigation URL: https%3A%2F%2Fcampus.concordia.ca%2Fpsc%2Fpscsprd%2FEMPLOYEE%2FSA%2Fs%2FWEBLIB_PT_NAV.ISCRIPT1.FieldFormula.IScript_UniHeader_Frame%3Fc%3D4AK5vy%252bxPB9P1WYxz1H7Hy8RgRAiX7lqS2HXi8A6jNpZ91TwBVtYLA%253d%253d-->
+<div class="ptprtlcontainer">
+<header id="ptbr_header_container" role="banner" aria-label="Universal Navigation Header">
+<div id="pthnavbc_skipnav"><a href="#" onclick="javascript:ptCommonObj2.skipToMainContent(); return false;" id="skipnav">Skip to Main Content</a></div>
+
+<div id="CU_HEADER_TANGERINE" class="">
+<div id="pthdr2container" class="pthdr2container">
+<div id="pthdr2logoswan" class="culogo">&nbsp;</div>
+
+<div id="pthdr2syslinks" class="pthdr2syslinks"><a id="pthdr2home" class="PSHYPERLINK" title="Home" target="_top" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/h/?tab=DEFAULT" onclick="bcUpdater.removeStoredData(bcUpdater.isMenuCrefNav); if ((typeof ptIframeHdr != 'undefined') &amp;&amp; (ptIframeHdr)) {return ptIframeHdr.hdrLinkClicked(this);} else {saveWarning(&quot;&quot;, null, &quot;_top&quot;, this.href); return false;}" proxied="false"><span>Home</span></a>
+<div class="pthdr2sep"><!--divider--></div>
+
+<a id="pthdr2atf" class="PSHYPERLINK" title="Add to Favorites" target="_top" href="../../../EMPLOYEE/SA/s/WEBLIB_PTIFRAME.ISCRIPT1.FieldFormula.IScript_PT_Popup" onclick="if ((typeof ptIframeHdr != 'undefined') &amp;&amp; (ptIframeHdr)) {return ptIframeHdr.hdrLinkClicked(this);} else {saveWarning(&quot;&quot;, null, &quot;_top&quot;, this.href); return false;}" name="AddToFavorites"><span>Add to Favorites</span></a>
+<div class="pthdr2sep"><!--divider--></div>
+
+<a id="pthdr2logout" class="PSHYPERLINK" title="Sign Out" target="_top" href="https://campus.concordia.ca/psp/pscsprd/EMPLOYEE/SA/?cmd=logout" onclick="if ((typeof ptIframeHdr != 'undefined') &amp;&amp; (ptIframeHdr)) {return ptIframeHdr.hdrLinkClicked(this);} else {saveWarning(&quot;&quot;, null, &quot;_top&quot;, this.href); return false;}"><span>Sign Out</span></a></div>
+</div>
+
+<div id="ptdropdownmenu" class="ptdropdownmenu">
+<div id="pthdr2navloc">&nbsp;</div>
+</div>
+</div>
+
+<div id="ptifrmpopup" style="display:none;">
+<div id="ptpopup" role="alertdialog" aria-labelledby="ptpopoptitle" aria-describedby="ptpopupmsgtext">
+<div id="ptpopupcontainer">
+<div id="ptpopuptitlebar" class="ptpopuptitlebar">
+<p id="ptpopoptitle" class="PTPOPUP_TITLE">&nbsp;</p>
+
+<div id="ptpopupclose" title="Close">&nbsp;</div>
+</div>
+
+<div id="ptpopupcontentcontainer">
+<table role="presentation" width="100%" id="ptpopuplayouttbl">
+<tbody>
+<tr>
+<td>
+<div id="ptpopupcontent">
+<div id="ptiframatfcontent">
+<div class="ptifrmatftitle"><h1 class="PAPAGETITLE">Add to Favorites</h1></div>
+
+<div class="ptifrmatfinstruct"><span class="PAPAGEINSTRUCTIONS">Please Enter a Unique Description for this Favorite</span></div>
+
+<div id="ptifrmatfinput"><label for="ptifrmatfdescr" id="ptifrmatflbl" class="PSEDITBOXLABEL ui-input-text">*Description</label> <input id="ptifrmatfdescr" name="ptifrmatfdescr" class="PSEDITBOX" tabindex="0" type="text" value="My Academic Requirements" size="30" maxlength="30" uninav="false" uninavtargetfav="" lnode="" rnode="" uninavcrefname="HC_SAA_SS_DPR_ADB_GBL" uninavcreflbl="My Academic Requirements"> 
+
+<div class="ptifrmatfbtns">
+<div><a class="PSPUSHBUTTON Left" style="border:0;"><span><input id="ptifrmatfok" class="PSPUSHBUTTONTBOK" type="button" tabindex="0" value="OK" title="OK"></span></a></div>
+
+<div><a class="PSPUSHBUTTON Left" style="border:0;"><span><input id="ptifrmatfcancel" class="PSPUSHBUTTONTBOK" type="button" tabindex="0" value="Cancel" title="Cancel"></span></a></div>
+</div>
+
+<input type="hidden" id="ptifrmatfname" value="HC_SAA_SS_DPR_ADB_GBL"> <input type="hidden" name="ptatfsid" id="ptatfsid" value="nngLQXbKBjwHMaFShCmFLuvDTI4%3d"> <textarea type="hidden" id="ptifrmatflist" rows="80" cols="20"></textarea></div>
+</div>
+</div>
+
+<div id="ptpopupmsg">
+<div id="ptpopupmsgtext" class="popupText">&nbsp;</div>
+
+<div id="ptpopupmsgbuttons">
+<div><a class="PSPUSHBUTTON Left" onclick="javascript:if(event.target.id == this.firstChild.firstChild.id) { return true; } else return((this.firstChild &amp;&amp; this.firstChild.firstChild) != null ? this.firstChild.firstChild.click() : false);"><span><input id="ptpopupmsgbtn1" class="PSPUSHBUTTONTBOK" type="button" value="OK" tabindex="0" title="OK"></span></a> <a class="PSPUSHBUTTON Left" onclick="javascript:if(event.target.id == this.firstChild.firstChild.id) { return true; } else return((this.firstChild &amp;&amp; this.firstChild.firstChild) != null ? this.firstChild.firstChild.click() : false);"><span><input id="ptpopupmsgbtn2" class="PSPUSHBUTTONTBOK" type="button" value="Cancel" tabindex="0" title="Cancel"></span></a></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="ptpopupshadow">&nbsp;</div>
+</div>
+</div>
+</header>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/4becbd55156349f3c3bff40394aaf0a6/inline.js"></script>
+
+
+<div id="WAIT_empty" class="ptWaitEmpty" style="display:none;position:absolute;"><img id="processing" align="left" alt="Processing... please wait" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_PROCESSING_1.gif"></div>
+
+<div id="Delayed_empty" style="visibility: hidden; position:absolute;left:auto;top:-10000px; width:1px; height:1px;overflow:hidden;" aria-relevant="text additions" aria-live="assertive" aria-atomic="true">&nbsp;</div>
+
+<script type="text/javascript" src="https://campus.concordia.ca/res/pscsprd/397846a5079540be6554140d23b7c72d/inline.js"></script>
+
+</div>
+
+<!--End pagelet: UniversalNavigation --></div>
+
+<div id="ptifrmcontent">
+<div id="ptifrmtarget"><iframe id="ptifrmtgtframe" name="TargetContent" title="Main Content" frameborder="0" scrolling="auto" onload="ptrc.onLoadTC()" src="https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SAA_SS_DPR_ADB.GBL?PORTALPARAM_PTCNAV=HC_SAA_SS_DPR_ADB_GBL&amp;EOPP.SCNode=SA&amp;EOPP.SCPortal=EMPLOYEE&amp;EOPP.SCName=ADMN_APPSIAN_ACADEMIC&amp;EOPP.SCLabel=&amp;EOPP.SCPTcname=ADMN_SC_SP_APPSIAN_ACADEMIC&amp;FolderPath=PORTAL_ROOT_OBJECT.PORTAL_BASE_DATA.CO_NAVIGATION_COLLECTIONS.ADMN_APPSIAN_ACADEMIC.ADMN_S202007091055595132175560&amp;IsFolder=false&amp;PortalActualURL=https%3a%2f%2fcampus.concordia.ca%2fpsc%2fpscsprd%2fEMPLOYEE%2fSA%2fc%2fSA_LEARNER_SERVICES.SAA_SS_DPR_ADB.GBL&amp;PortalContentURL=https%3a%2f%2fcampus.concordia.ca%2fpsc%2fpscsprd%2fEMPLOYEE%2fSA%2fc%2fSA_LEARNER_SERVICES.SAA_SS_DPR_ADB.GBL&amp;PortalContentProvider=SA&amp;PortalCRefLabel=My%20Academic%20Requirements&amp;PortalRegistryName=EMPLOYEE&amp;PortalServletURI=https%3a%2f%2fcampus.concordia.ca%2fpsp%2fpscsprd%2f&amp;PortalURI=https%3a%2f%2fcampus.concordia.ca%2fpsc%2fpscsprd%2f&amp;PortalHostNode=SA&amp;NoCrumbs=yes&amp;PortalKeyStruct=yes"></iframe></div>
+
+<div id="ptifrmrc" class="ptifrmrcstd">
+<div id="ptrcTCSpacer">&nbsp;</div>
+
+<div id="ptifrmresizeupmask">&nbsp;</div>
+
+<div id="ptifrmsep">
+<div id="ptifrmrchandle" class="ptifrmhandle">&nbsp;</div>
+</div>
+
+<div id="ptifrmresizedownmask">&nbsp;</div>
+
+<!-- <table id="ptrctitlebar" class="ptrctitlebar" cols="6" >-->
+<table bup-cols="6" role="presentation" width="100%" id="ptrctitlebar" class="ptrctitlebar">
+<tr>
+<td bup-width="16"><a id="ptrccollapse_expand" class="ptrcexpand" title="Collapse Related Content" tabindex="0" onclick="ptrc.rcBodyToggle();" onkeypress="if (event.keyCode != 13) return; ptrc.rcBodyToggle();">&nbsp;</a></td>
+<td bup-width="180" align="left">
+<h2 class="ptrctitlebar">Related Content</h2>
+</td>
+<td bup-valign="bottom" align="right">
+<div id="rcMenuOnRC">&nbsp;</div>
+</td>
+<td colspan="1" bup-width="17" align="right">&nbsp;</td>
+<td colspan="1" bup-width="70" align="right" class="PTCPRCBFRAMERIGHTSEC"><a class="PTCPRCBFRAMEREFRESH" onclick="ptrc.onRefresh();" onmouseover="ptrc.onHoverRefresh();" onmouseout="ptrc.onMouseoutRefresh();" onkeydown="if (event.keyCode != 13) return; ptrc.onRefresh();" tabindex="0"><img class="ptrcimg ptrcpgltrefresh" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_REFRESH_NEW_1.png" id="ptrcrefresh" alt="Refresh"> <img class="ptrcimg ptrcpgltrefresh" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_REFRESH_ONHOVER_1.png" id="ptrcrefreshonhover" alt="Refresh" style="display:none"></a> <a class="PTCPRCBFRAMESETTINGS" aria-haspopup="true" tabindex="0" id="ptrcdropdownicon_RelatedContent" onclick=" ptrc.mopen(event);" onkeydown="ptrc.mkeyevents(event);" onmouseout="ptrc.mclosetime();" title="Pagelet Settings"><img id="ptsrc_dropdownicon_RelatedContent" class="ptrcPgltcontrolsdropdown" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PTAL_PGLT_DROPDOWN_1.GIF" alt="Pagelet Settings"></a> <!-- pagelet controls dropdown--> 
+
+<div id="ptrcDropDowndiv_RelatedContent" class="ptrcPgltControls">
+<ul id="ptrcControls_RelatedContent" class="ptrcPgltControls ptrcPgltcontrolshadowabove">
+<li>
+<div id="ptrcDropdown_RelatedContent" onmouseover="javascript:ptrc.mcancelclosetime()" onmouseout="javascript:ptrc.mclosetime()" onkeydown="javascript:ptrc.mkeybclosercmenu(event)" style="z-index:200" aria-labelledby="ptrcdropdownicon_RelatedContent" role="menu"><a role="menuitem" onclick="ptrc.onNewWindow();" onkeydown="ptrc.marrowkeys(event,'newwin');" class="ptrcimg" tabindex="0" id="ptrcnewwin">New Window</a> <a role="menuitem" onclick="ptrc.onHideRC('true');" onkeydown="ptrc.marrowkeys(event,'hide');" class="ptrcimg" tabindex="0" id="ptrcclose">Close</a></div>
+</li>
+</ul>
+</div>
+
+<!-- pagelet controls finished--></td>
+<td colspan="1" bup-width="20" align="right">&nbsp;</td>
+</tr>
+</table>
+
+<div id="ptrctitleline">&nbsp;</div>
+
+<iframe name="RelatedContent" id="RelatedContent" title="Related Content" frameborder="0" scrolling="no" onload="ptrc.onLoadRC()" onmouseover="setupTimeout2()" src=""></iframe></div>
+
+<div class="vRCPgltAreaContainer vRCPgltArea_hidden" id="vRCPgltAreaContainer">
+<div class="vRCPgltArea vRCPgltArea_docked" id="vRCPgltArea" style="right: 13px;">
+<table bup-border="0" role="presentation" bup-cellspacing="0" bup-width="10" width="100%" class="ltr" bup-cellpadding="0" bup-height="10">
+<tr>
+<td bup-width="100%" bup-valign="bottom" align="center" class="vRCNoPadding" bup-height="100%">
+
+
+<table bup-border="0" bup-cellspacing="0" role="presentation" width="100%" class="vRCNoPadding" bup-cellpadding="0"><tr><td>
+
+
+<table bup-border="0" bup-cellspacing="0" role="presentation" width="100%" id="vRCPgltAreaBody" class="vRCPgltAreaBody" bup-cellpadding="0"><tr><td bup-valign="top" id="vRCPgltAreaHideContainer" class="vRCPgltAreaResizeBar"><a onclick="if ((typeof RCPage != 'undefined') &amp;&amp; (RCPage)) RCPage.onHidePageletArea();" href="javascript:void(0)" tabindex="0" class="PSHYPERLINK" name="ptalPgltAreaHide" id="vRCPgltAreaHide" title="Collapse Related Content"><img hspace="0" height="24" border="0" width="21" vspace="0" class="vRCActionIcon vRCCollapseicon vRCPgltAreaHideIcon" alt="Collapse Related Content" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_RC_COLLAPSE_NEW_1.gif"></a></td>
+<td bup-valign="middle" id="vRCPgltAreaResizeBar" class="vRCPgltAreaResizeBar vRCPgltAreaResize">
+<div class="vRCPgltAreaResizeMiddlediv">&nbsp;</div>
+</td>
+<td bup-valign="top" align="center" class="vRCPgltAreaBorderTopMiddle">
+
+
+<table bup-border="0" bup-cellspacing="0" role="presentation" width="100%" id="vRCPgltAreaHeader" class="vRCPgltAreaHeader" bup-cellpadding="0"><tr><td bup-valign="bottom" class="vRCPgltAreaGroupsBar">
+<div class="vRCPageletGroupsDiv" id="vRCPageletGroupsDiv">
+
+
+<table bup-border="0" bup-cellspacing="0" role="presentation" width="100%" bup-cellpadding="0"><tr><td bup-nowrap="nowrap">
+<div id="SrcMenuOnRC" class="vRCHidden">&nbsp;</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<div class="vRCPgltAreaFrameDiv" id="vRCPgltAreaFrameDiv"><iframe name="SRelatedContent" id="SRelatedContent" title="Related Content" frameborder="0" scrolling="no" onmouseover="setupTimeout2()" onload="ptrc.onLoadRC()" src=""></iframe></div>
+</td>
+</tr>
+</table>
+</td>
+<td bup-valign="top" id="vRCPgltAreaBodyAnchor" class="vRCPgltAreaBodyAnchor vRCPgltAreaBorderTopLeft vRCHidden"><a onclick="if ((typeof RCPage != 'undefined') &amp;&amp; (RCPage)) RCPage.onShowPageletArea();" href="javascript:void(0)" tabindex="0" class="PSHYPERLINK" title="Expand Related Content" name="ptalPgltAreaShow" id="vRCPgltAreaShow" style="display: none;"><img hspace="0" height="22" border="0" width="14" vspace="0" class="vRCActionIcon vRCExpandicon vRCPgltAreaShowIcon" alt="Expand Related Content" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_RC_EXPAND_NEW_1.gif"></a></td>
+<td bup-valign="middle" id="vRCPgltAreaBodyShow" class="vRCPgltAreaBodyAnchor vRCPgltAreaBorderTopLeft vRCPgltAreaBar">
+<div class="vRCPgltAreaResizeMiddlediv">&nbsp;</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+</div>
+
+<script type="text/javascript" src="https://campus.concordia.ca/cs/pscsprd/cache_1/PT_HNAV_TEMPLATE_JS_MIN_1.js">
+</script>
+</div>
+<link rel="apple-touch-icon" href="https://campus.concordia.ca/pscsprd/cu_ux//apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon.ico" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-16x16.png" sizes="16x16" />
+<script data-filename="branding_kurogo" src="https://campus.concordia.ca/res/pscsprd/a5d8bad2b1c11d7d309dc8eecbbc7688/branding_kurogo.js"></script>
+
+<script data-filename="branding_pux_frame" src="https://campus.concordia.ca/res/pscsprd/d817526ef2bd4cf253f5de1dd81179a7/branding_pux_frame.js"></script>
+<script src="https://campus.concordia.ca/res/pscsprd/ff4ce5c5d63be7704437e5d3a70c59cf/inline.js" filename="global_bodyend"></script>
+
+
+<link rel="apple-touch-icon" href="https://campus.concordia.ca/pscsprd/cu_ux//apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon.ico" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://campus.concordia.ca/pscsprd/cu_ux//favicon-16x16.png" sizes="16x16" />
+<script data-filename="branding_kurogo" src="https://campus.concordia.ca/res/pscsprd/a5d8bad2b1c11d7d309dc8eecbbc7688/branding_kurogo.js"></script>
+
+<script data-filename="branding_pux_frame" src="https://campus.concordia.ca/res/pscsprd/d817526ef2bd4cf253f5de1dd81179a7/branding_pux_frame.js"></script>
+
+</div><!-- end of data-role="content" -->
+</div><!-- end of content-wrapper -->
+<script data-filename="bodyclose" src="https://campus.concordia.ca/res/pscsprd/a97d2441c865442cc9267e2afd654872/bodyclose.js"></script>
+
+<script data-filename="bodyclose-setpagename" src="https://campus.concordia.ca/res/pscsprd/f3ce3524dfecb26713b162a7d83a3568/bodyclose-setpagename.js"></script>
+
+<div class="gh-loader" aria-live="assertive" data-gh-server-loader="true">
+<div class="gh-loader-popup" aria-hidden="true">
+<div class="gh-loader-popup-inner">
+<div class="gh-loader-spinner" aria-hidden="true"></div>
+<div class="gh-loader-popup-title">Loading</div>
+</div>
+</div>
+</div>
+</div><!-- end of data-role="page" -->
+<script data-filename="modules_bodyclose" src="https://campus.concordia.ca/res/pscsprd/09336976d5756560e61035346ff38dfa/modules_bodyclose.js"></script>
+</body>
+</html>
+

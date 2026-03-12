@@ -1,0 +1,251 @@
+/* Feature Network - Premium Radial Layout */
+
+.networkContainer {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    overflow: visible;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ambientGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(145, 35, 56, 0.05) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.networkGrid {
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+    gap: 40px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 80px;
+    /* Spacing between nodes */
+}
+
+.centerColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+/* --- Hub --- */
+.hubCore {
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hubLogo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hubLogo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.hubRing {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1px dashed rgba(145, 35, 56, 0.2);
+    animation: spinSlow 20s linear infinite;
+}
+
+.hubRingOuter {
+    position: absolute;
+    inset: -25px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 160, 89, 0.1);
+    /* Gold tint */
+    animation: spinSlow 30s linear infinite reverse;
+}
+
+@keyframes spinSlow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Nodes --- */
+.nodeWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 5;
+}
+
+.column:first-child .nodeWrapper {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.column:last-child .nodeWrapper {
+    flex-direction: row-reverse;
+    /* Try to mirror, but keep text align logic separate */
+    justify-content: flex-start;
+}
+
+.nodeCard {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    padding: 24px 32px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    min-width: 280px;
+    max-width: 320px;
+}
+
+.nodeCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(145, 35, 56, 0.08);
+    /* Maroon glow */
+    border-color: rgba(145, 35, 56, 0.1);
+}
+
+.nodeCard h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.nodeCard p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.nodeDot {
+    width: 12px;
+    height: 12px;
+    background: #912338;
+    /* Maroon */
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px rgba(145, 35, 56, 0.2);
+    flex-shrink: 0;
+}
+
+/* --- Beam SVG --- */
+.beamSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+}
+
+.beamPathBase {
+    stroke: rgba(0, 0, 0, 0.06);
+    stroke-width: 1;
+    fill: none;
+}
+
+.beamPathActive {
+    stroke: url(#beamGradient);
+    /* Will rely on globally defined gradient or specific stroke */
+    stroke: #912338;
+    /* Fallback solid maroon */
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 6 6;
+    animation: dashFlow 20s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes dashFlow {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .networkGrid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .hubCore {
+        display: none;
+        /* Hide center hub on mobile */
+    }
+
+    .column {
+        gap: 24px;
+        align-items: center;
+    }
+
+    .nodeWrapper {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .nodeCard {
+        text-align: center;
+    }
+
+    .nodeDot,
+    .beamSvg {
+        display: none;
+    }
+}

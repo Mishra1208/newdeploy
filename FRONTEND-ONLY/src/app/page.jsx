@@ -1,0 +1,227 @@
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import styles from "./home.module.css";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
+import { Space_Grotesk, Inter } from "next/font/google";
+import { SignedOut, SignInButton } from "@clerk/nextjs";
+
+// --- Components ---
+import MagneticButton from "@/components/widgets/MagneticButton";
+import TrustedMarquee from "@/components/widgets/TrustedMarquee";
+import TiltCard from "@/components/widgets/TiltCard";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import ChangelogTimeline from "@/components/ChangelogTimeline";
+import LoginPromo from "@/components/LoginPromo";
+
+const display = Space_Grotesk({ subsets: ["latin"], weight: ["700"] });
+const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-inter" });
+
+// --- Mockup Components moved to @/components/FeatureMockups.jsx ---
+
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    }
+  }
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
+export default function HomePage() {
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const placeholders = ["COMP 352", "Electives", "GPA Prediction", "SOEN 287"];
+
+  // Workflow Cycle: Plan (Purple) -> Search (Blue) -> Add (Green) -> Done (Pink)
+  const [workflowIndex, setWorkflowIndex] = useState(0);
+  const workflowSteps = [
+    { text: "Plan.", color: "#a78bfa" },
+    { text: "Search.", color: "#22d3ee" },
+    { text: "Add.", color: "#4ade80" },
+    { text: "Done.", color: "#f472b6" }
+  ];
+
+  useEffect(() => {
+    // Cycle placeholder for Omnibar
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+    }, 3000);
+
+    // Cycle workflow words
+    const workflowInterval = setInterval(() => {
+      setWorkflowIndex((prev) => (prev + 1) % workflowSteps.length);
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(workflowInterval);
+    };
+  }, []);
+
+  // Force refresh v2
+  return (
+    <main className={`${styles.page} ${body.className}`}>
+
+      {/* Precision Background */}
+      <div className={styles.gridBackground} />
+
+      {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION --- */}
+      <section className={styles.hero}>
+
+        {/* Pro Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={styles.proBadge}
+        >
+          <span style={{ color: "var(--secondary)" }}>✨</span> UNOFFICIAL • PREMIUM • FREE
+        </motion.div>
+
+        {/* Main Title */}
+        <motion.h1
+          className={styles.title}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "circOut" }}
+        >
+          Your Academic <br />
+          <span className={styles.gradientText}>Weapon.</span>
+        </motion.h1>
+
+        {/* Rotating Action Text */}
+        <motion.div
+          className={styles.workflowRow}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <span className={styles.workflowStatic}>Plan. Track. Crush.</span>
+        </motion.div>
+
+        {/* Subtitle / Status */}
+        <motion.p
+          className={styles.heroSubtitle}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <span className={styles.statusDot}></span> System Operational • Used by 5,000+ Students
+        </motion.p>
+
+        {/* Command Palette */}
+        <div className={styles.omnibarContainer}>
+          <div className={styles.searchIcon}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="text"
+            className={styles.commandPalette}
+            placeholder={`Search for "${placeholders[placeholderIndex]}"...`}
+            readOnly
+            onClick={() => window.location.href = '/pages/courses'}
+            style={{ cursor: "text" }}
+          />
+          <div style={{
+            position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
+            display: 'flex', gap: 6, pointerEvents: 'none'
+          }}>
+            <span style={{ padding: '2px 6px', background: 'var(--background)', borderRadius: 4, fontSize: 12, border: '1px solid rgba(0,0,0,0.1)', opacity: 0.6 }}>⌘K</span>
+          </div>
+        </div>
+
+        <div className={styles.ctaRow} style={{ justifyContent: 'center', marginTop: 32 }}>
+          <MagneticButton className={styles.btnPrimary} onClick={() => window.location.href = '/pages/courses'}>
+            Browse Catalog
+          </MagneticButton>
+          <MagneticButton className={styles.btnGhost} onClick={() => window.location.href = '/pages/planner'}>
+            Try Planner
+          </MagneticButton>
+        </div>
+      </section>
+
+      {/* --- FEATURE SHOWCASE (BENTO Grid) --- */}
+      <section style={{ marginBottom: 60 }}>
+        <TrustedMarquee />
+      </section>
+
+      {/* --- FEATURE SHOWCASE (BENTO Grid) --- */}
+      {/* --- FEATURE SHOWCASE (CHANGELOG TIMELINE) --- */}
+      <section style={{ marginBottom: 120 }}>
+        <ChangelogTimeline />
+      </section>
+
+      {/* --- LOGIN PROMO WIDGET (Only for SignedOut) --- */}
+      <SignedOut>
+        <LoginPromo />
+      </SignedOut>
+
+      {/* --- NEWSLETTER SIGNUP --- */}
+      <NewsletterSignup />
+
+    </main >
+  );
+}
+
+// Helper Component for Parallax Elements
+function FloatingElement({ symbol, top, left, right, bottom, delay, speed }) {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 500 * speed]);
+
+  return (
+    <motion.div
+      style={{
+        position: 'absolute',
+        top, left, right, bottom,
+        y: y,
+        fontSize: '4rem',
+        zIndex: 0,
+        filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))',
+        pointerEvents: 'none'
+      }}
+      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{
+        delay: 0.5 + delay,
+        duration: 1,
+        type: "spring"
+      }}
+    >
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          rotate: [0, 5, -5, 0]
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: delay * 2
+        }}
+      >
+        {symbol}
+      </motion.div>
+    </motion.div>
+  );
+}

@@ -1,0 +1,687 @@
+/* src/app/pages/gpa/gpa.module.css */
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  /* Slightly wider */
+  margin: 0 auto;
+  padding: 40px 24px 120px;
+  position: relative;
+  overflow: hidden;
+  /* For background abstract shapes if added */
+  --gauge-stop-1: #ef4444;
+  /* Red */
+  --gauge-stop-2: #f59e0b;
+  /* Orange */
+  --gauge-stop-3: #10b981;
+  /* Green */
+}
+
+[data-theme="dark"] .wrap {
+  --gauge-stop-1: #06b6d4;
+  /* Cyan */
+  --gauge-stop-2: #10b981;
+  /* Emerald */
+  --gauge-stop-3: #bef264;
+  /* Lime */
+}
+
+/* Background Abstract Blob (Optional, can be in page or here) */
+.wrap::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(145, 35, 56, 0.08) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.intro {
+  margin-bottom: 48px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.desc {
+  color: #666;
+  font-size: 18px;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 500;
+}
+
+/* Layout */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  /* Wider Result Column */
+  gap: 40px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .resultCard {
+    position: static !important;
+    top: auto !important;
+    order: -1;
+    /* Show results on top on mobile? Or stick to bottom? Let's keep normal order for now or top if crucial */
+  }
+}
+
+/* === Grade Cards (Left Col) === */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gradeCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gradeCard {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-end;
+  /* Align inputs to bottom */
+  gap: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gradeCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: transparent;
+  transition: background 0.3s;
+}
+
+.gradeCard:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  border-color: rgba(145, 35, 56, 0.15);
+  /* Burgundy Tint */
+}
+
+.gradeCard:focus-within::before {
+  background: var(--primary);
+  /* Burgundy Accent Bar */
+}
+
+/* Card Inputs Layout */
+.cardMain {
+  flex: 1;
+  display: flex;
+  /* Changed from grid to flex for inline */
+  align-items: flex-end;
+  /* Align bottom */
+  gap: 16px;
+  flex-wrap: nowrap;
+  /* Force single line on desktop */
+}
+
+@media (max-width: 768px) {
+  .gradeCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cardMain {
+    flex-wrap: wrap;
+  }
+
+  /* On mobile, stack them nicely */
+  .cardMain> :first-child {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.rowMeta {
+  display: flex;
+  gap: 16px;
+  flex: 0 0 auto;
+  /* Stop shrinking */
+  min-width: 200px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #1a1a1a;
+  /* Dark Contrast as requested */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.inputGroup {
+  position: relative;
+  flex: 1;
+  /* Code takes remaining space */
+}
+
+/* Inputs */
+.input,
+.select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: #912338;
+  /* Maroon Text for visibility */
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  min-height: 48px;
+  transition: all 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(145, 35, 56, 0.15);
+}
+
+.input::placeholder {
+  color: #adb5bd;
+  font-weight: 500;
+}
+
+/* Remove Button */
+.removeBtn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: rgba(145, 35, 56, 0.05);
+  /* Slight tint background */
+  color: #912338;
+  /* Maroon Icon */
+  transition: all 0.2s;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  /* Align perfectly with input height */
+}
+
+.removeBtn:hover {
+  background: #912338;
+  color: white;
+  border-color: #912338;
+}
+
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  justify-content: flex-start;
+}
+
+.addBtn,
+.clearBtn {
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  font-size: 15px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.addBtn {
+  background: var(--primary);
+  /* Burgundy */
+  color: white;
+  box-shadow: 0 8px 20px rgba(145, 35, 56, 0.3);
+}
+
+.addBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(145, 35, 56, 0.4);
+  filter: brightness(1.1);
+}
+
+.clearBtn {
+  background: #fff;
+  color: #666;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.clearBtn:hover {
+  background: #f8f8f8;
+  color: #333;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* === Result HUD (Right Col) === */
+.resultCard {
+  background: linear-gradient(145deg, #ffffff, #fdfdfd);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 32px;
+  padding: 40px 32px;
+  text-align: center;
+  position: sticky;
+  top: 120px;
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+  /* Detail border */
+}
+
+/* Premium Header in Card */
+.resultHeader {
+  margin-bottom: 32px;
+}
+
+.resultTitle {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  /* Gold */
+  margin-bottom: 8px;
+}
+
+/* Gauge Overhaul */
+.gaugeContainer {
+  position: relative;
+  width: 240px;
+  margin: 0 auto 8px;
+  /* Reduced from 32px to bring overlay closer but safe */
+}
+
+.gpaOverlay {
+  position: absolute;
+  bottom: -20px;
+  /* Push text down further */
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0px;
+}
+
+.gpaValue {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #1a1a1a;
+  background: linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+  /* Push down away from arc */
+}
+
+.gpaLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Stats Grid */
+.statGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statBox {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.2s;
+}
+
+.statBox:hover {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.08);
+  /* slight highlight */
+}
+
+.statLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 4px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.statNum {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  /* Burgundy Numbers */
+  font-family: 'Outfit', sans-serif;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
+  margin: 0 0 32px;
+}
+
+/* Optional Inputs */
+.cumulativeSection {
+  text-align: left;
+  background: rgba(145, 35, 56, 0.03);
+  /* Tiny Burgundy Tint */
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(145, 35, 56, 0.08);
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cumInputs {
+  display: flex;
+  gap: 16px;
+}
+
+.inputStack {
+  flex: 1;
+}
+
+.inputStack label {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.inputHud {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.2s;
+}
+
+.inputHud:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(145, 35, 56, 0.1);
+}
+
+/* Autocomplete */
+.suggestions {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  padding: 4px;
+}
+
+.suggestion {
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.1s;
+}
+
+.suggestion:hover {
+  background: #f3f4f6;
+}
+
+.code {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.creditsHint {
+  color: #888;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        CHROMATIC DARK MODE (EMERALD)                       */
+/* -------------------------------------------------------------------------- */
+
+[data-theme="dark"] .wrap {
+  background: #000000;
+}
+
+/* Aurora Backdrop */
+[data-theme="dark"] .wrap::before {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+/* Intro Text */
+[data-theme="dark"] .intro h1 {
+  background: linear-gradient(to right, #ffffff, #22d3ee, #34d399, #a3e635);
+  /* White -> Cyan -> Emerald -> Lime */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+[data-theme="dark"] .desc {
+  color: #a3a3a3;
+}
+
+/* Grade Cards (Dark Glass) */
+[data-theme="dark"] .gradeCard {
+  background: rgba(20, 20, 20, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .fieldLabel {
+  color: #d4d4d4;
+}
+
+/* Inputs */
+[data-theme="dark"] .input,
+[data-theme="dark"] .select {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .input:focus,
+[data-theme="dark"] .select:focus {
+  border-color: #10B981;
+  /* Emerald */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Remove Button */
+[data-theme="dark"] .removeBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ef4444;
+  /* bright red icon */
+}
+
+[data-theme="dark"] .removeBtn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+/* Action Buttons */
+[data-theme="dark"] .addBtn {
+  background: #10B981;
+  /* Emerald */
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+[data-theme="dark"] .addBtn:hover {
+  background: #059669;
+  filter: brightness(1.2);
+}
+
+[data-theme="dark"] .clearBtn {
+  background: transparent;
+  color: #a3a3a3;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .clearBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+/* Result HUD */
+[data-theme="dark"] .resultCard {
+  background: rgba(10, 10, 10, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 50px rgba(16, 185, 129, 0.1);
+  /* Green Ambient Glow */
+}
+
+[data-theme="dark"] .resultTitle {
+  color: #10B981;
+  /* Emerald Text */
+}
+
+[data-theme="dark"] .gpaValue {
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #a7f3d0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Stats */
+[data-theme="dark"] .statBox {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .statBox:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .statLabel {
+  color: #737373;
+}
+
+[data-theme="dark"] .statNum {
+  color: #34d399;
+  /* Emerald Light */
+}
+
+/* Cumulative Section */
+[data-theme="dark"] .cumulativeSection {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.1);
+}
+
+[data-theme="dark"] .cardTitle {
+  color: #34d399;
+}
+
+[data-theme="dark"] .inputHud {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+[data-theme="dark"] .inputHud:focus {
+  border-color: #10B981;
+}
+
+/* Autocomplete Dark Mode */
+[data-theme="dark"] .suggestions {
+  background: #171717;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .suggestion:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .code {
+  color: #34d399;
+}
+
+/* Secondary Scale Box (Extracted from inline) */
+.secondaryScaleBox {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .secondaryScaleBox {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}

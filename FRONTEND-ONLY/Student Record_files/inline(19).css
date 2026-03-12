@@ -1,0 +1,63 @@
+
+    #backButton{
+        display: none!important;
+    }
+    [data-gh-page="CU_STUDENT_RECORD"] p{
+        color: navy;
+        font-weight: bold;
+    }
+    [data-gh-page="CU_STUDENT_RECORD"] .watermark {
+        width: 100%;
+    }
+    [data-gh-page="CU_STUDENT_RECORD"] td.CUProgStat,
+    [data-gh-page="CU_STUDENT_RECORD"] td.CUProg,
+    [data-gh-page="CU_STUDENT_RECORD"] td.CUPlan {
+        padding: 0 !important;
+    }
+
+@media screen and (max-width: 1100px){
+    [data-gh-page="CU_STUDENT_RECORD"] .watermark {
+        background-repeat: repeat;
+        background-size: 100% auto;
+        width: 100%;
+    }
+}
+
+@media print {
+    [data-gh-page="CU_STUDENT_RECORD"] [data-role="page"], 
+    [data-gh-page="CU_STUDENT_RECORD"] .ui-mobile .ui-page[data-role="page"]{
+        overflow: visible !important;
+        display: block !important
+    }
+    .ui-page .ui-table thead, .ui-page .ui-table thead th{
+        background: #fff;
+    }
+    .ui-page .ui-table thead th{
+        color: #000;
+        font-weight: bold !important;
+    }
+    .ui-table-cell-label {
+        display: none !important;
+    }
+    .ui-page .ghtables-full.table-stroke tbody td,
+    .ui-page .ghtables-full.table-stroke tbody th,
+    .ui-page .ui-table tbody tr,
+    .ui-page .ui-table.table-stroke thead td,
+    .ui-page .ui-table.table-stroke thead th {
+        border: none !important;
+    }
+    .ui-page .ui-table thead th,
+    .ui-page .ui-table thead th a,
+    .ui-page .ui-table thead th a.ui-link,
+    .ui-page .ui-table thead th a:link,
+    .ui-page .ui-table thead th a:visited,
+    .ui-page .ui-table thead th a:hover {
+        color: #000;
+        font-weight: normal;
+    }
+
+    .ui-btn-hidden,
+    .ui-btn {
+        display: none !important;
+    }
+}

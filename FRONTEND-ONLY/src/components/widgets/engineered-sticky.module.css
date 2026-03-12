@@ -1,0 +1,235 @@
+/* Engineered Sticky - Trawelt Inspired Layout */
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 24px;
+}
+
+.stickyWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    position: relative;
+}
+
+/* --- Left Column (Sticky) --- */
+.leftColumn {
+    position: relative;
+    height: 100%;
+    /* Full height of container to allow sticky to track */
+}
+
+.stickyContent {
+    position: sticky;
+    top: 150px;
+    /* Pin 150px from top */
+    padding-right: 40px;
+}
+
+.kicker {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #912338;
+    /* Maroon */
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    background: rgba(145, 35, 56, 0.08);
+    /* Maroon tint */
+    padding: 8px 16px;
+    border-radius: 40px;
+}
+
+.heading {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    color: #1a1a1a;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+}
+
+.gradientText {
+    background: linear-gradient(90deg, #1a1a1a 0%, #912338 50%, #C5A059 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.intro {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #555;
+    max-width: 90%;
+}
+
+/* --- Right Column (Scrolling List) --- */
+.rightColumn {
+    position: relative;
+    padding-top: 20px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.featureItem {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 40px;
+    padding: 60px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.featureItem:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.numberWrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 6px;
+}
+
+.number {
+    font-size: 4rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(145, 35, 56, 0.3);
+    /* Outline text */
+    position: relative;
+    font-weight: 800;
+    transition: all 0.4s ease;
+}
+
+/* Optional: Fill number on hover */
+.featureItem:hover .number {
+    color: rgba(145, 35, 56, 0.1);
+    -webkit-text-stroke: 1px #912338;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.itemTitle {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+}
+
+.itemDesc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    max-width: 90%;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 1024px) {
+    .stickyWrapper {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .stickyContent {
+        position: relative;
+        /* Disable sticky on mobile */
+        top: 0;
+        padding-right: 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .leftColumn,
+    .rightColumn {
+        width: 100%;
+    }
+
+    .heading {
+        margin-bottom: 16px;
+    }
+
+    .intro {
+        margin: 0 auto;
+    }
+
+    /* List adjustments */
+    .featureItem {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    .numberWrapper {
+        justify-content: center;
+    }
+
+    .number {
+        font-size: 3rem;
+    }
+}
+
+/* ================= THEVOID DARK MODE (Chromatic True Black) ================= */
+
+:global([data-theme="dark"]) .heading {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .gradientText {
+    background: linear-gradient(90deg, #ffffff 0%, #db9e1e 50%, #ff6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="dark"]) .intro {
+    color: #94a3b8;
+    /* Muted Slate */
+}
+
+:global([data-theme="dark"]) .itemTitle {
+    color: #ffffff;
+}
+
+:global([data-theme="dark"]) .itemDesc {
+    color: #94a3b8;
+}
+
+/* Number Styling - Premium Luminous Outline */
+:global([data-theme="dark"]) .number {
+    -webkit-text-stroke: 1px rgba(219, 158, 30, 0.6);
+    /* Gold Luminous Stroke */
+    color: transparent;
+    text-shadow: 0 0 15px rgba(219, 158, 30, 0.2);
+}
+
+:global([data-theme="dark"]) .featureItem:hover .number {
+    color: rgba(219, 158, 30, 0.15);
+    -webkit-text-stroke: 1px #db9e1e;
+    text-shadow: 0 0 25px rgba(219, 158, 30, 0.5);
+}
+
+/* Borders */
+:global([data-theme="dark"]) .featureItem {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .featureItem:first-child {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .kicker {
+    background: rgba(255, 255, 255, 0.05);
+    color: #db9e1e;
+    border: 1px solid rgba(219, 158, 30, 0.2);
+}

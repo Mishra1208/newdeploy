@@ -1,0 +1,23 @@
+
+#pthdr2container.pthdr2container {white-space:nowrap;}
+
+#pthdr2container.pthdr2container .greeting {display:inline-block; margin:0 1em; vertical-align:super;}
+
+#ptsearchbox.ptsearchbox {display:inline-block; margin-top:1.3em; margin-left:100px;}
+#ptsearchbox.ptsearchbox #ipthdr2linksgbl {margin:0;}
+#ptsearchbox.ptsearchbox #pthdr2srch {margin-left:0px;}
+#ptsearchbox.ptsearchbox td.globeBar {width:1em; padding:0;}
+#ptsearchbox.ptsearchbox table.search_box {margin-top:-1.3em;}
+#ptsearchbox.ptsearchbox td.globeBar table.search_box {margin-top:0;}
+
+#pthdr2syslinks.pthdr2syslinks {overflow:hidden; position:absolute; top:0; right:0; float:right; margin:0; padding:0;}
+#pthdr2syslinks.pthdr2syslinks a.PSHYPERLINK {margin:0 1em;}
+#pthdr2syslinks.pthdr2syslinks a.PSHYPERLINK:hover {text-decoration:none;}
+#pthdr2syslinks.pthdr2syslinks .pthdr2sep {display:inline-block; margin-top:2px; height:12px;}
+
+#pthdr2perslinks.pthdr2perslinks {white-space:nowrap; vertical-align: middle; text-align:right; padding:0 0.5em;}
+#pthdr2perslinks.pthdr2perslinks .pttablinks {display:inline-block; margin:0.5em 0; margin-left:2em; white-space:nowrap;}
+
+#pthomepagetabline {background-image:url(/cs/pscsprd/cache_1/PT_HOME_TAB_LINE_CSS_1.JPG); height:26px; margin-top:4px;}
+#pthomepagetabline ul {list-style:none; margin:0; padding:0;}
+#pthomepagetabline li {float:left; margin:0 0.5em; padding:3px 1em 0 1em; height:20px; display:inline-block; border-color:#C9CED5; border-style:solid; border-width:0 1px;}

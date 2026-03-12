@@ -1,0 +1,72 @@
+TOTAL: 120
+IP: 24
+REQUIREMENTS:
+- ADMISSIONS DEFICIENCY UGRD (RG 21517) (1): 24 req, 21 taken, 0 children
+  Courses: 6
+- ADMISSIONS DEFICIENCY UGRD (RG 21517) (2): 48 req, 48 taken, 2 children
+  Courses: 18
+    > Unknown Requirement (Lvl ?): 0
+    > ESL 204 (Lvl ?): 48
+      >> Unknown Requirement (Lvl ?): 0
+      >> Unknown Requirement (Lvl ?): 48
+- COURSES NOT APPLIED TOWARD ANY REQUIREMENT (RG 20799): 0 req, 0 taken, 3 children
+  Courses: 17
+    > Exemptions & Unused Transfer Credits (Lvl ?): 0
+      >> Unknown Requirement (Lvl ?): 0
+      >> Unknown Requirement (Lvl ?): 0
+    > Courses NOT transferred from a previous Concordia program (Lvl ?): 0
+      >> Unknown Requirement (Lvl ?): 0
+    > Unused & Repeated courses (Lvl ?): 0
+      >> Unknown Requirement (Lvl ?): 0
+- BACHELOR OF ARTS MAJOR IN PSYCHOLOGY (RG 20597): 42 req, 0 taken, 6 children
+  Courses: 60
+    > Unknown Requirement (Lvl ?): 0
+    > Core Requirements (12 credits) (Lvl ?): 12
+      >> Unknown Requirement (Lvl ?): 12
+      >> Unknown Requirement (Lvl ?): 27
+    > TIER 1: Social,Personality and Culture & Developmental Content Areas (6 credits) (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 24
+    > TIER 1: Behavioural Neuroscience & Cognitive Science Content Areas (6 credits) (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 27
+    > Any TIER 1 content area (3 credits) (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 18
+    > Psychology electives at the 300 or 400 level (15 credits) (Lvl ?): 15
+      >> Unknown Requirement (Lvl ?): 15
+      >> Unknown Requirement (Lvl ?): 0
+- GENERAL EDUCATION AND ELECTIVES  FOR A&S: SCIENCE SECTOR (RG 021814): 78 req, 0 taken, 8 children
+  Courses: 67
+    > General Education Requirement for Science Sector (6 credits) (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 36
+    > Unknown Requirement (Lvl ?): 0
+    > Mathematics (3 credits) (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 0
+    > BIOL 201 or 202 (3 credits) (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 18
+    > PSYC 200 (6 credits) (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 36
+    > ECP Elective Courses (18 credits) (Lvl ?): 18
+      >> Unknown Requirement (Lvl ?): 18
+      >> Unknown Requirement (Lvl ?): 48
+    > Unknown Requirement (Lvl ?): 0
+    > Electives (42 credits) (Lvl ?): 42
+      >> Unknown Requirement (Lvl ?): 42
+      >> Unknown Requirement (Lvl ?): 39
+- MINOR IN LAW AND SOCIETY (RG 20316): 24 req, 0 taken, 4 children
+  Courses: 52
+    > Unknown Requirement (Lvl ?): 0
+    > ANTH/HIST/POLI/SOCI 285 (3 credits) (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 3
+      >> Unknown Requirement (Lvl ?): 27
+    > Chosen from ANTH 202, HIST 205, POLI/SCPA 204, SOCI 261 (6 credits) (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 6
+      >> Unknown Requirement (Lvl ?): 36
+    > Elective courses (15 credits) (Lvl ?): 15
+      >> Unknown Requirement (Lvl ?): 15
+      >> Unknown Requirement (Lvl ?): 45

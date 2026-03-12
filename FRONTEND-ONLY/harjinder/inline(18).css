@@ -1,0 +1,4 @@
+
+[data-gh-page="SAA_SS_DPR_ADB"] [data-pnlfldid] > div[style^="width"] {
+	width: auto !important;
+}
