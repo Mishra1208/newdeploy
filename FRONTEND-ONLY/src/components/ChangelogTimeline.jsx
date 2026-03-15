@@ -10,6 +10,19 @@ const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable
 
 const changelogData = [
     {
+        date: "Mar 15, 2026",
+        version: "v2.5",
+        title: "Bulletproof Sync & Extension Delivery",
+        description: "A crucial reliability patch to keep your academic timeline perfectly intact, alongside our final Chrome Extension push.",
+        color: "#0ea5e9", // Sky Blue
+        features: [
+            "Squashed a bug: all your planned courses now safely and beautifully sync to the cloud instantly",
+            "Upgraded the Chrome Extension to aggressively fetch your grades on initial page load",
+            "Broadened extension table recognition to survive any Concordia portal CSS updates",
+            "Finalized Extension v2.5 without localhost permissions for the Chrome Web Store"
+        ]
+    },
+    {
         date: "Feb 26, 2026",
         version: "v2.4",
         title: "Chrome Extension Ultimate",
