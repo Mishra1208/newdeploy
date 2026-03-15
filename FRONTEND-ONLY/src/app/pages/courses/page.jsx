@@ -56,9 +56,12 @@ function broadcastPlannerChange() {
 /* -------------------------------- component ------------------------------- */
 import { Suspense } from "react";
 
+import { useUser } from "@clerk/nextjs";
+
 function CoursesContent() {
   const params = useSearchParams();
   const router = useRouter();
+  const { user, isLoaded } = useUser();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -171,6 +174,15 @@ function CoursesContent() {
     const next = dedupeByOffering([...list, course]);
     saveList(next);
 
+    if (isLoaded && user) {
+      user.update({
+        unsafeMetadata: {
+          ...user.unsafeMetadata,
+          planner: next
+        }
+      }).catch(err => console.error("Cloud Sync Error:", err));
+    }
+
     setSelectedKeys((prev) => {
       const s = new Set(prev);
       s.add(key);
@@ -187,6 +199,15 @@ function CoursesContent() {
     const list = loadList();
     const next = list.filter((i) => courseKey(i) !== key);
     saveList(next);
+
+    if (isLoaded && user) {
+      user.update({
+        unsafeMetadata: {
+          ...user.unsafeMetadata,
+          planner: next
+        }
+      }).catch(err => console.error("Cloud Sync Error:", err));
+    }
 
     setSelectedKeys((prev) => {
       const s = new Set(prev);
