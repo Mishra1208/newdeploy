@@ -4,12 +4,12 @@ import { getFirestore, collection, addDoc, getDocs, deleteDoc, query, where, doc
 import { initializeApp, getApps, getApp } from "firebase/app";
 
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCCIm5WlmYVBtJrgEFGqA1A981ednQ2th8",
     authDomain: "conuplanner-auth.firebaseapp.com",
     projectId: "conuplanner-auth",
     storageBucket: "conuplanner-auth.firebasestorage.app",
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "172147914882",
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:172147914882:web:59ea8770d3de2d543b9c9b",
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
