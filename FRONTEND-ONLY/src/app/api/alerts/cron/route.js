@@ -54,38 +54,38 @@ export async function GET(req) {
             
             console.log(`Scraping for ${subject} ${courseNumber} (Term: ${term})...`);
             try {
-                // TEMPORARY TEST OVERRIDE: FORCE EMAIL SEND
-                // const scrapedSections = await scrapeConcordiaSeats(term, subject, courseNumber);
+                const scrapedSections = await scrapeConcordiaSeats(term, subject, courseNumber);
                 
-                // for (const section of scrapedSections) {
-                //    if (section.status.toLowerCase() === 'open') {
+                // 4. Check if any of the scraped sections exist in our alerts list AND are now 'Open'
+                for (const section of scrapedSections) {
+                    if (section.status.toLowerCase() === 'open') {
                         // Find all users waiting for this specific classNumber
-                        const triggeredAlerts = alerts; // Force trigger all alerts
+                        const triggeredAlerts = alerts.filter(a => a.classNumber.toString() === section.classNbr.toString());
                         
                         for (const alert of triggeredAlerts) {
-                            console.log(`TEST OVERRIDE: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
+                            console.log(`SEAT OPEN: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
                             
                             // 5. Send Email via Resend
                             await resend.emails.send({
-                                from: 'ConU Planner Alerts <onboarding@resend.dev>', // MUST BE ONBOARDING UNTIL DOMAIN IS VERIFIED
+                                from: 'ConU Planner Alerts <alerts@conuplanner.com>',
                                 to: [alert.email],
-                                subject: `⏰ TEST ALERT: ${subject} ${courseNumber} is now OPEN!`,
+                                subject: `⏰ Seat Alert: ${subject} ${courseNumber} is now OPEN!`,
                                 react: SeatAlertTemplate({
                                     subject: subject,
                                     courseNumber: courseNumber,
-                                    classNumber: alert.classNumber,
+                                    classNumber: section.classNbr,
                                     term: term === '2261' ? 'Summer 2026' : (term === '2262' ? 'Fall 2026' : 'Winter 2027')
                                 })
                             });
 
                             emailsSent.push(alert.email);
 
-                            // Do NOT delete the alert right now since this is just a test
-                            // await deleteSeatAlert(alert.id);
-                            // console.log(`Deleted fulfilled alert ${alert.id}`);
+                            // 6. Delete the fulfilled alert from Firestore
+                            await deleteSeatAlert(alert.id);
+                            console.log(`Deleted fulfilled alert ${alert.id}`);
                         }
-                 //   }
-                // }
+                    }
+                }
             } catch (err) {
                 console.error(`Failed to scrape ${subject} ${courseNumber}:`, err);
                 // Continue to next course even if one fails
