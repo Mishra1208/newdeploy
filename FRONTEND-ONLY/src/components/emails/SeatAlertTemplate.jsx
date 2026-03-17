@@ -15,7 +15,19 @@ export default function SeatAlertTemplate({
             <Body style={main}>
                 <Container style={container}>
                     <Section style={headerSection}>
-                        <Text style={logoText}>ConU Planner</Text>
+                        <Row>
+                            <Column style={{ width: "40px" }}>
+                                <Img
+                                    src="https://www.conuplanner.com/logo-light.svg"
+                                    width="32"
+                                    height="32"
+                                    alt="ConU Planner Logo"
+                                />
+                            </Column>
+                            <Column>
+                                <Text style={logoText}>ConU Planner</Text>
+                            </Column>
+                        </Row>
                     </Section>
                     
                     <Heading style={heading}>🚨 Seat Alert: {subject} {courseNumber}</Heading>
@@ -34,7 +46,13 @@ export default function SeatAlertTemplate({
                         </Button>
                     </Section>
 
+                    <Text style={paragraph}>
+                        Thanks,<br />
+                        <strong>Team ConUPlanner.com</strong>
+                    </Text>
+
                     <Hr style={hr} />
+
 
                     <Text style={footer}>
                         This alert was generated automatically by ConU Planner's Seat Finder automation.
