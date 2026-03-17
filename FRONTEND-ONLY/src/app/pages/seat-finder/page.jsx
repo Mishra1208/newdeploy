@@ -1,15 +1,64 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '@clerk/nextjs';
 import NewsletterSignup from '@/components/NewsletterSignup';
 
 export default function SeatFinderPage() {
+    const { user } = useUser();
     const [term, setTerm] = useState('2261'); // Default to Summer 2026
     const [subject, setSubject] = useState('');
     const [number, setNumber] = useState('');
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    
+    // Alert Modal State
+    const [alertTarget, setAlertTarget] = useState(null);
+    const [alertEmail, setAlertEmail] = useState('');
+    const [alertLoading, setAlertLoading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState({ type: '', text: '' });
+
+    useEffect(() => {
+        if (user?.primaryEmailAddress?.emailAddress) {
+            setAlertEmail(user.primaryEmailAddress.emailAddress);
+        }
+    }, [user]);
+
+    const handleSubscribeAlert = async (e) => {
+        e.preventDefault();
+        if (!alertEmail || !alertTarget) return;
+
+        setAlertLoading(true);
+        setAlertMessage({ type: '', text: '' });
+
+        try {
+            const res = await fetch('/api/alerts/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: alertEmail.toLowerCase().trim(),
+                    term,
+                    subject: subject.toUpperCase(),
+                    courseNumber: number,
+                    classNumber: alertTarget.classNbr
+                }),
+            });
+
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || data.message || 'Failed to subscribe');
+
+            setAlertMessage({ type: 'success', text: 'Alert set! We will email you the exact second this class opens.' });
+            setTimeout(() => {
+                setAlertTarget(null);
+                setAlertMessage({ type: '', text: '' });
+            }, 3000);
+        } catch (err) {
+            setAlertMessage({ type: 'error', text: err.message });
+        } finally {
+            setAlertLoading(false);
+        }
+    };
 
     const isTermAvailable = (t) => {
         // Terms unlock on March 1st, 2026
@@ -228,7 +277,20 @@ export default function SeatFinderPage() {
                                                         className="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
                                                     >
                                                         <td className="px-8 py-6">
-                                                            <StatusBadge status={section.status} />
+                                                            <div className="flex items-center gap-4">
+                                                                <StatusBadge status={section.status} />
+                                                                {(section.status === 'Closed' || section.status === 'Waitlist') && (
+                                                                    <button 
+                                                                        onClick={() => {
+                                                                            setAlertTarget(section);
+                                                                            setAlertMessage({ type: '', text: '' });
+                                                                        }}
+                                                                        className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 hover:bg-[#912338] hover:text-white dark:hover:bg-amber-500 dark:hover:text-black transition-colors"
+                                                                    >
+                                                                        <span>🔔</span> Alert Me
+                                                                    </button>
+                                                                )}
+                                                            </div>
                                                         </td>
                                                         <td className="px-8 py-6">
                                                             <div className="font-bold text-slate-800 dark:text-slate-200 text-lg group-hover:text-[#912338] dark:group-hover:text-amber-500 transition-colors">{section.section}</div>
@@ -251,6 +313,78 @@ export default function SeatFinderPage() {
                 </div>
 
             </div>
+
+            {/* Alert Modal Overlay */}
+            <AnimatePresence>
+                {alertTarget && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm"
+                        onClick={() => setAlertTarget(null)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-white dark:bg-[#111] border border-slate-100 dark:border-white/10 p-8 rounded-3xl shadow-2xl w-full max-w-md relative"
+                        >
+                            <button 
+                                onClick={() => setAlertTarget(null)}
+                                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+
+                            <div className="w-12 h-12 bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-500 rounded-full flex items-center justify-center mb-6">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                            </div>
+
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Set Seat Alert</h3>
+                            <p className="text-slate-600 dark:text-slate-400 mb-6 font-medium">
+                                We'll email you the exact second a seat opens for <strong className="text-slate-900 dark:text-slate-200">{subject.toUpperCase()} {number} (Class {alertTarget.classNbr})</strong>.
+                            </p>
+
+                            {alertMessage.text && (
+                                <div className={`p-4 rounded-xl mb-6 font-medium text-sm border ${
+                                    alertMessage.type === 'success' 
+                                        ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800' 
+                                        : 'bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800'
+                                }`}>
+                                    {alertMessage.text}
+                                </div>
+                            )}
+
+                            <form onSubmit={handleSubscribeAlert} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                                    <input 
+                                        type="email"
+                                        required
+                                        value={alertEmail}
+                                        onChange={(e) => setAlertEmail(e.target.value)}
+                                        placeholder="student@concordia.ca"
+                                        className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#912338] dark:focus:border-amber-500 font-medium text-slate-900 dark:text-white transition-colors"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={alertLoading || alertMessage.type === 'success'}
+                                    className="w-full bg-[#912338] dark:bg-amber-500 hover:bg-[#7a1d2f] dark:hover:bg-amber-600 text-white dark:text-black font-bold py-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                                >
+                                    {alertLoading ? (
+                                        <div className="w-5 h-5 border-2 border-white/30 dark:border-black/30 border-t-white dark:border-t-black rounded-full animate-spin" />
+                                    ) : (
+                                        "Set Alert"
+                                    )}
+                                </button>
+                            </form>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

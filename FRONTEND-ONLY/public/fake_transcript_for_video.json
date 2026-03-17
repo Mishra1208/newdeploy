@@ -1,0 +1,147 @@
+{
+  "overallCumGPA": 3.75,
+  "programName": "BEng Software Engineering",
+  "totalCreditsEarned": 55.0,
+  "terms": [
+    {
+      "term": "Fall 2023",
+      "termGPA": 4.1,
+      "cumGPA": 4.1,
+      "courses": [
+        {
+          "code": "BCEE 231",
+          "title": "Structured Programming and Applications for Building and Civil Engineers",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A+"
+        },
+        {
+          "code": "ENGR 213",
+          "title": "Applied Ordinary Differential Equations",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A+"
+        },
+        {
+          "code": "PHYS 205",
+          "title": "Electricity and Magnetism",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A"
+        },
+        {
+          "code": "MATH 203",
+          "title": "Differential & Integral Calculus I",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A"
+        }
+      ]
+    },
+    {
+      "term": "Winter 2024",
+      "termGPA": 3.2,
+      "cumGPA": 3.65,
+      "courses": [
+        {
+          "code": "COMP 248",
+          "title": "Object-Oriented Programming I",
+          "credits": 3,
+          "earned": 3,
+          "grade": "C+"
+        },
+        {
+          "code": "COMP 232",
+          "title": "Mathematics for Computer Science",
+          "credits": 3,
+          "earned": 3,
+          "grade": "B"
+        },
+        {
+          "code": "ENGR 233",
+          "title": "Applied Advanced Calculus",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A-"
+        },
+        {
+          "code": "ENCS 282",
+          "title": "Technical Writing and Communication",
+          "credits": 3,
+          "earned": 3,
+          "grade": "B+"
+        }
+      ]
+    },
+    {
+      "term": "Fall 2024",
+      "termGPA": 3.8,
+      "cumGPA": 3.7,
+      "courses": [
+        {
+          "code": "COMP 249",
+          "title": "Object-Oriented Programming II",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A-"
+        },
+        {
+          "code": "SOEN 228",
+          "title": "System Hardware",
+          "credits": 4,
+          "earned": 4,
+          "grade": "A"
+        },
+        {
+          "code": "ENGR 201",
+          "title": "Professional Practice and Responsibility",
+          "credits": 1.5,
+          "earned": 1.5,
+          "grade": "A"
+        },
+        {
+          "code": "ECON 201",
+          "title": "Introduction to Microeconomics",
+          "credits": 3,
+          "earned": 3,
+          "grade": "B+"
+        }
+      ]
+    },
+    {
+      "term": "Winter 2025",
+      "termGPA": 4.0,
+      "cumGPA": 3.75,
+      "courses": [
+        {
+          "code": "ELEC 273",
+          "title": "Basic Circuit Analysis",
+          "credits": 3.5,
+          "earned": 3.5,
+          "grade": "A+"
+        },
+        {
+          "code": "SOEN 341",
+          "title": "Software Process",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A-"
+        },
+        {
+          "code": "COMP 352",
+          "title": "Data Structures and Algorithms",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A"
+        },
+        {
+          "code": "ENGR 301",
+          "title": "Engineering Management Principles and Economics",
+          "credits": 3,
+          "earned": 3,
+          "grade": "A"
+        }
+      ]
+    }
+  ]
+}

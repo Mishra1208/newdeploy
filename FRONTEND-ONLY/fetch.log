@@ -1,0 +1,213 @@
+02:40:26.547336 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+02:40:26.548289 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+02:40:26.549602 git.c:476               trace: built-in: git fetch origin main
+02:40:26.552813 run-command.c:673       trace: run_command: GIT_DIR=.git git remote-https origin https://github.com/Mishra1208/newdeploy.git
+02:40:26.552871 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git remote-https origin https://github.com/Mishra1208/newdeploy.git
+02:40:26.557688 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+02:40:26.558369 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+02:40:26.558758 git.c:773               trace: exec: git-remote-https origin https://github.com/Mishra1208/newdeploy.git
+02:40:26.558769 run-command.c:673       trace: run_command: git-remote-https origin https://github.com/Mishra1208/newdeploy.git
+02:40:26.558793 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-remote-https origin https://github.com/Mishra1208/newdeploy.git
+02:40:26.563746 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-remote-https
+02:40:26.564083 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+02:40:26.569674 http.c:889              == Info: Couldn't find host github.com in the .netrc file; using defaults
+02:40:26.588589 http.c:889              == Info: Host github.com:443 was resolved.
+02:40:26.588608 http.c:889              == Info: IPv6: (none)
+02:40:26.588612 http.c:889              == Info: IPv4: 140.82.114.3
+02:40:26.588636 http.c:889              == Info:   Trying 140.82.114.3:443...
+02:40:26.608874 http.c:889              == Info: Connected to github.com (140.82.114.3) port 443
+02:40:26.608921 http.c:889              == Info: ALPN: curl offers h2,http/1.1
+02:40:26.609046 http.c:889              == Info: (304) (OUT), TLS handshake, Client hello (1):
+02:40:26.611745 http.c:889              == Info:  CAfile: /etc/ssl/cert.pem
+02:40:26.611755 http.c:889              == Info:  CApath: none
+02:40:26.630142 http.c:889              == Info: (304) (IN), TLS handshake, Server hello (2):
+02:40:26.630315 http.c:889              == Info: (304) (IN), TLS handshake, Unknown (8):
+02:40:26.630345 http.c:889              == Info: (304) (IN), TLS handshake, Certificate (11):
+02:40:26.632279 http.c:889              == Info: (304) (IN), TLS handshake, CERT verify (15):
+02:40:26.632397 http.c:889              == Info: (304) (IN), TLS handshake, Finished (20):
+02:40:26.632522 http.c:889              == Info: (304) (OUT), TLS handshake, Finished (20):
+02:40:26.632533 http.c:889              == Info: SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+02:40:26.632538 http.c:889              == Info: ALPN: server accepted h2
+02:40:26.632545 http.c:889              == Info: Server certificate:
+02:40:26.632553 http.c:889              == Info:  subject: CN=github.com
+02:40:26.632558 http.c:889              == Info:  start date: Mar  6 00:00:00 2026 GMT
+02:40:26.632562 http.c:889              == Info:  expire date: Jun  3 23:59:59 2026 GMT
+02:40:26.632569 http.c:889              == Info:  subjectAltName: host "github.com" matched cert's "github.com"
+02:40:26.632576 http.c:889              == Info:  issuer: C=GB; O=Sectigo Limited; CN=Sectigo Public Server Authentication CA DV E36
+02:40:26.632579 http.c:889              == Info:  SSL certificate verify ok.
+02:40:26.632634 http.c:889              == Info: using HTTP/2
+02:40:26.632672 http.c:889              == Info: [HTTP/2] [1] OPENED stream for https://github.com/Mishra1208/newdeploy.git/info/refs?service=git-upload-pack
+02:40:26.632690 http.c:889              == Info: [HTTP/2] [1] [:method: GET]
+02:40:26.632693 http.c:889              == Info: [HTTP/2] [1] [:scheme: https]
+02:40:26.632695 http.c:889              == Info: [HTTP/2] [1] [:authority: github.com]
+02:40:26.632698 http.c:889              == Info: [HTTP/2] [1] [:path: /Mishra1208/newdeploy.git/info/refs?service=git-upload-pack]
+02:40:26.632700 http.c:889              == Info: [HTTP/2] [1] [user-agent: git/2.50.1]
+02:40:26.632703 http.c:889              == Info: [HTTP/2] [1] [accept: */*]
+02:40:26.632705 http.c:889              == Info: [HTTP/2] [1] [accept-encoding: deflate, gzip]
+02:40:26.632707 http.c:889              == Info: [HTTP/2] [1] [pragma: no-cache]
+02:40:26.632710 http.c:889              == Info: [HTTP/2] [1] [git-protocol: version=2]
+02:40:26.632733 http.c:836              => Send header, 0000000204 bytes (0x000000cc)
+02:40:26.632738 http.c:848              => Send header: GET /Mishra1208/newdeploy.git/info/refs?service=git-upload-pack HTTP/2
+02:40:26.632740 http.c:848              => Send header: Host: github.com
+02:40:26.632743 http.c:848              => Send header: User-Agent: git/2.50.1
+02:40:26.632746 http.c:848              => Send header: Accept: */*
+02:40:26.632749 http.c:848              => Send header: Accept-Encoding: deflate, gzip
+02:40:26.632752 http.c:848              => Send header: Pragma: no-cache
+02:40:26.632754 http.c:848              => Send header: Git-Protocol: version=2
+02:40:26.632756 http.c:848              => Send header:
+02:40:26.632764 http.c:889              == Info: Request completely sent off
+02:40:26.660298 http.c:836              <= Recv header, 0000000013 bytes (0x0000000d)
+02:40:26.660322 http.c:848              <= Recv header: HTTP/2 401
+02:40:26.660330 http.c:836              <= Recv header, 0000000026 bytes (0x0000001a)
+02:40:26.660334 http.c:848              <= Recv header: server: GitHub-Babel/3.0
+02:40:26.660338 http.c:836              <= Recv header, 0000000054 bytes (0x00000036)
+02:40:26.660342 http.c:848              <= Recv header: content-security-policy: default-src 'none'; sandbox
+02:40:26.660346 http.c:836              <= Recv header, 0000000041 bytes (0x00000029)
+02:40:26.660349 http.c:848              <= Recv header: content-type: text/plain; charset=UTF-8
+02:40:26.660353 http.c:836              <= Recv header, 0000000040 bytes (0x00000028)
+02:40:26.660356 http.c:848              <= Recv header: www-authenticate: Basic realm="GitHub"
+02:40:26.660360 http.c:836              <= Recv header, 0000000020 bytes (0x00000014)
+02:40:26.660362 http.c:848              <= Recv header: content-length: 21
+02:40:26.660365 http.c:836              <= Recv header, 0000000037 bytes (0x00000025)
+02:40:26.660368 http.c:848              <= Recv header: date: Sun, 15 Mar 2026 06:40:26 GMT
+02:40:26.660371 http.c:836              <= Recv header, 0000000059 bytes (0x0000003b)
+02:40:26.660373 http.c:848              <= Recv header: x-github-request-id: C86D:1C691B:35E61C9:465A360:69B6545A
+02:40:26.660376 http.c:836              <= Recv header, 0000000023 bytes (0x00000017)
+02:40:26.660379 http.c:848              <= Recv header: x-frame-options: DENY
+02:40:26.660382 http.c:836              <= Recv header, 0000000073 bytes (0x00000049)
+02:40:26.660385 http.c:848              <= Recv header: strict-transport-security: max-age=31536000; includeSubDomains; preload
+02:40:26.660388 http.c:836              <= Recv header, 0000000002 bytes (0x00000002)
+02:40:26.660391 http.c:848              <= Recv header:
+02:40:26.660404 http.c:889              == Info: Connection #0 to host github.com left intact
+02:40:26.660435 run-command.c:673       trace: run_command: 'git credential-osxkeychain get'
+02:40:26.660441 run-command.c:765       trace: start_command: /bin/sh -c 'git credential-osxkeychain get' 'git credential-osxkeychain get'
+02:40:26.669132 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+02:40:26.669737 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+02:40:26.670161 git.c:773               trace: exec: git-credential-osxkeychain get
+02:40:26.670173 run-command.c:673       trace: run_command: git-credential-osxkeychain get
+02:40:26.670194 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-credential-osxkeychain get
+02:40:26.687630 http.c:889              == Info: Found bundle for host: 0x1030fed00 [can multiplex]
+02:40:26.687680 http.c:889              == Info: Re-using existing connection with host github.com
+02:40:26.687697 http.c:889              == Info: Server auth using Basic with user '163802600'
+02:40:26.687734 http.c:889              == Info: [HTTP/2] [3] OPENED stream for https://github.com/Mishra1208/newdeploy.git/info/refs?service=git-upload-pack
+02:40:26.687741 http.c:889              == Info: [HTTP/2] [3] [:method: GET]
+02:40:26.687745 http.c:889              == Info: [HTTP/2] [3] [:scheme: https]
+02:40:26.687748 http.c:889              == Info: [HTTP/2] [3] [:authority: github.com]
+02:40:26.687753 http.c:889              == Info: [HTTP/2] [3] [:path: /Mishra1208/newdeploy.git/info/refs?service=git-upload-pack]
+02:40:26.687756 http.c:889              == Info: [HTTP/2] [3] [authorization: Basic <redacted>]
+02:40:26.687759 http.c:889              == Info: [HTTP/2] [3] [user-agent: git/2.50.1]
+02:40:26.687761 http.c:889              == Info: [HTTP/2] [3] [accept: */*]
+02:40:26.687764 http.c:889              == Info: [HTTP/2] [3] [accept-encoding: deflate, gzip]
+02:40:26.687766 http.c:889              == Info: [HTTP/2] [3] [pragma: no-cache]
+02:40:26.687768 http.c:889              == Info: [HTTP/2] [3] [git-protocol: version=2]
+02:40:26.687906 http.c:836              => Send header, 0000000295 bytes (0x00000127)
+02:40:26.687914 http.c:848              => Send header: GET /Mishra1208/newdeploy.git/info/refs?service=git-upload-pack HTTP/2
+02:40:26.687916 http.c:848              => Send header: Host: github.com
+02:40:26.687919 http.c:848              => Send header: Authorization: Basic <redacted>
+02:40:26.687921 http.c:848              => Send header: User-Agent: git/2.50.1
+02:40:26.687923 http.c:848              => Send header: Accept: */*
+02:40:26.687925 http.c:848              => Send header: Accept-Encoding: deflate, gzip
+02:40:26.687927 http.c:848              => Send header: Pragma: no-cache
+02:40:26.687929 http.c:848              => Send header: Git-Protocol: version=2
+02:40:26.687931 http.c:848              => Send header:
+02:40:26.687946 http.c:889              == Info: Request completely sent off
+02:40:26.744070 http.c:836              <= Recv header, 0000000013 bytes (0x0000000d)
+02:40:26.744116 http.c:848              <= Recv header: HTTP/2 200
+02:40:26.744127 http.c:836              <= Recv header, 0000000026 bytes (0x0000001a)
+02:40:26.744133 http.c:848              <= Recv header: server: GitHub-Babel/3.0
+02:40:26.744140 http.c:836              <= Recv header, 0000000059 bytes (0x0000003b)
+02:40:26.744144 http.c:848              <= Recv header: content-type: application/x-git-upload-pack-advertisement
+02:40:26.744150 http.c:836              <= Recv header, 0000000054 bytes (0x00000036)
+02:40:26.744155 http.c:848              <= Recv header: content-security-policy: default-src 'none'; sandbox
+02:40:26.744159 http.c:836              <= Recv header, 0000000040 bytes (0x00000028)
+02:40:26.744163 http.c:848              <= Recv header: expires: Fri, 01 Jan 1980 00:00:00 GMT
+02:40:26.744167 http.c:836              <= Recv header, 0000000018 bytes (0x00000012)
+02:40:26.744170 http.c:848              <= Recv header: pragma: no-cache
+02:40:26.744174 http.c:836              <= Recv header, 0000000053 bytes (0x00000035)
+02:40:26.744178 http.c:848              <= Recv header: cache-control: no-cache, max-age=0, must-revalidate
+02:40:26.744192 http.c:836              <= Recv header, 0000000023 bytes (0x00000017)
+02:40:26.744197 http.c:848              <= Recv header: vary: Accept-Encoding
+02:40:26.744200 http.c:836              <= Recv header, 0000000037 bytes (0x00000025)
+02:40:26.744219 http.c:848              <= Recv header: date: Sun, 15 Mar 2026 06:40:26 GMT
+02:40:26.744223 http.c:836              <= Recv header, 0000000059 bytes (0x0000003b)
+02:40:26.744228 http.c:848              <= Recv header: x-github-request-id: C86D:1C691B:35E6204:465A3AF:69B6545A
+02:40:26.744232 http.c:836              <= Recv header, 0000000023 bytes (0x00000017)
+02:40:26.744235 http.c:848              <= Recv header: x-frame-options: DENY
+02:40:26.744238 http.c:836              <= Recv header, 0000000073 bytes (0x00000049)
+02:40:26.744242 http.c:848              <= Recv header: strict-transport-security: max-age=31536000; includeSubDomains; preload
+02:40:26.744247 http.c:836              <= Recv header, 0000000002 bytes (0x00000002)
+02:40:26.744250 http.c:848              <= Recv header:
+02:40:26.747368 http.c:889              == Info: Connection #0 to host github.com left intact
+02:40:26.747394 run-command.c:673       trace: run_command: 'git credential-osxkeychain store'
+02:40:26.747402 run-command.c:765       trace: start_command: /bin/sh -c 'git credential-osxkeychain store' 'git credential-osxkeychain store'
+02:40:26.757415 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+02:40:26.758106 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+02:40:26.758532 git.c:773               trace: exec: git-credential-osxkeychain store
+02:40:26.758549 run-command.c:673       trace: run_command: git-credential-osxkeychain store
+02:40:26.758576 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-credential-osxkeychain store
+02:40:26.762958 http.c:889              == Info: Found bundle for host: 0x1030fed00 [can multiplex]
+02:40:26.762996 http.c:889              == Info: Re-using existing connection with host github.com
+02:40:26.763014 http.c:889              == Info: Server auth using Basic with user '163802600'
+02:40:26.763060 http.c:889              == Info: [HTTP/2] [5] OPENED stream for https://github.com/Mishra1208/newdeploy.git/git-upload-pack
+02:40:26.763066 http.c:889              == Info: [HTTP/2] [5] [:method: POST]
+02:40:26.763070 http.c:889              == Info: [HTTP/2] [5] [:scheme: https]
+02:40:26.763073 http.c:889              == Info: [HTTP/2] [5] [:authority: github.com]
+02:40:26.763077 http.c:889              == Info: [HTTP/2] [5] [:path: /Mishra1208/newdeploy.git/git-upload-pack]
+02:40:26.763082 http.c:889              == Info: [HTTP/2] [5] [authorization: Basic <redacted>]
+02:40:26.763085 http.c:889              == Info: [HTTP/2] [5] [user-agent: git/2.50.1]
+02:40:26.763087 http.c:889              == Info: [HTTP/2] [5] [accept-encoding: deflate, gzip]
+02:40:26.763090 http.c:889              == Info: [HTTP/2] [5] [content-type: application/x-git-upload-pack-request]
+02:40:26.763093 http.c:889              == Info: [HTTP/2] [5] [accept: application/x-git-upload-pack-result]
+02:40:26.763096 http.c:889              == Info: [HTTP/2] [5] [git-protocol: version=2]
+02:40:26.763099 http.c:889              == Info: [HTTP/2] [5] [content-length: 312]
+02:40:26.763281 http.c:836              => Send header, 0000000367 bytes (0x0000016f)
+02:40:26.763288 http.c:848              => Send header: POST /Mishra1208/newdeploy.git/git-upload-pack HTTP/2
+02:40:26.763290 http.c:848              => Send header: Host: github.com
+02:40:26.763293 http.c:848              => Send header: Authorization: Basic <redacted>
+02:40:26.763295 http.c:848              => Send header: User-Agent: git/2.50.1
+02:40:26.763297 http.c:848              => Send header: Accept-Encoding: deflate, gzip
+02:40:26.763300 http.c:848              => Send header: Content-Type: application/x-git-upload-pack-request
+02:40:26.763302 http.c:848              => Send header: Accept: application/x-git-upload-pack-result
+02:40:26.763304 http.c:848              => Send header: Git-Protocol: version=2
+02:40:26.763307 http.c:848              => Send header: Content-Length: 312
+02:40:26.763324 http.c:848              => Send header:
+02:40:26.763328 http.c:889              == Info: upload completely sent off: 312 bytes
+02:40:26.907712 http.c:836              <= Recv header, 0000000013 bytes (0x0000000d)
+02:40:26.907813 http.c:848              <= Recv header: HTTP/2 200
+02:40:26.907858 http.c:836              <= Recv header, 0000000026 bytes (0x0000001a)
+02:40:26.907878 http.c:848              <= Recv header: server: GitHub-Babel/3.0
+02:40:26.907894 http.c:836              <= Recv header, 0000000052 bytes (0x00000034)
+02:40:26.907904 http.c:848              <= Recv header: content-type: application/x-git-upload-pack-result
+02:40:26.907917 http.c:836              <= Recv header, 0000000054 bytes (0x00000036)
+02:40:26.907930 http.c:848              <= Recv header: content-security-policy: default-src 'none'; sandbox
+02:40:26.907940 http.c:836              <= Recv header, 0000000040 bytes (0x00000028)
+02:40:26.907952 http.c:848              <= Recv header: expires: Fri, 01 Jan 1980 00:00:00 GMT
+02:40:26.907968 http.c:836              <= Recv header, 0000000018 bytes (0x00000012)
+02:40:26.907979 http.c:848              <= Recv header: pragma: no-cache
+02:40:26.907990 http.c:836              <= Recv header, 0000000053 bytes (0x00000035)
+02:40:26.907998 http.c:848              <= Recv header: cache-control: no-cache, max-age=0, must-revalidate
+02:40:26.908008 http.c:836              <= Recv header, 0000000023 bytes (0x00000017)
+02:40:26.908017 http.c:848              <= Recv header: vary: Accept-Encoding
+02:40:26.908027 http.c:836              <= Recv header, 0000000037 bytes (0x00000025)
+02:40:26.908038 http.c:848              <= Recv header: date: Sun, 15 Mar 2026 06:40:26 GMT
+02:40:26.908049 http.c:836              <= Recv header, 0000000059 bytes (0x0000003b)
+02:40:26.908057 http.c:848              <= Recv header: x-github-request-id: C86D:1C691B:35E62AB:465A4A0:69B6545A
+02:40:26.908066 http.c:836              <= Recv header, 0000000023 bytes (0x00000017)
+02:40:26.908074 http.c:848              <= Recv header: x-frame-options: DENY
+02:40:26.908084 http.c:836              <= Recv header, 0000000073 bytes (0x00000049)
+02:40:26.908096 http.c:848              <= Recv header: strict-transport-security: max-age=31536000; includeSubDomains; preload
+02:40:26.908108 http.c:836              <= Recv header, 0000000002 bytes (0x00000002)
+02:40:26.908119 http.c:848              <= Recv header:
+02:40:26.908253 http.c:889              == Info: Connection #0 to host github.com left intact
+02:40:26.911797 run-command.c:673       trace: run_command: git rev-list --objects --stdin --not --exclude-hidden=fetch --all --quiet --alternate-refs
+02:40:26.911970 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git rev-list --objects --stdin --not --exclude-hidden=fetch --all --quiet --alternate-refs
+From https://github.com/Mishra1208/newdeploy
+ * branch            main       -> FETCH_HEAD
+ + b46fde5...3924b17 main       -> origin/main  (forced update)
+02:41:29.818013 run-command.c:1541      run_processes_parallel: preparing to run up to 1 tasks
+02:41:29.818039 run-command.c:1568      run_processes_parallel: done
+02:41:29.818046 run-command.c:673       trace: run_command: git maintenance run --auto --no-quiet --detach
+02:41:29.818072 run-command.c:765       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git maintenance run --auto --no-quiet --detach
+02:41:29.821549 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+02:41:29.821923 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+02:41:29.822241 git.c:476               trace: built-in: git maintenance run --auto --no-quiet --detach
