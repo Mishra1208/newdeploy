@@ -56,9 +56,9 @@ export async function GET(req) {
             try {
                 const scrapedSections = await scrapeConcordiaSeats(term, subject, courseNumber);
                 
-                // 4. Check if any of the scraped sections exist in our alerts list AND are now 'Open'
+                // 4. Check if any of the scraped sections exist in our alerts list AND are now 'Open' or 'Waitlisted'
                 for (const section of scrapedSections) {
-                    if (section.status.toLowerCase() === 'open') {
+                    if (section.status.toLowerCase() === 'open' || section.status.toLowerCase() === 'waitlist') {
                         // Find all users waiting for this specific classNumber
                         const triggeredAlerts = alerts.filter(a => a.classNumber.toString() === section.classNbr.toString());
                         
