@@ -290,25 +290,17 @@ export default function ChangelogTimeline() {
         }} className={body.className}>
 
             <div style={{ textAlign: "center", marginBottom: "64px" }}>
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                <h2
                     className={display.className}
                     style={{ fontSize: "36px", color: "var(--ink-primary)", marginBottom: "16px" }}
                 >
                     Evolution of ConU Planner
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
+                </h2>
+                <p
                     style={{ fontSize: "16px", color: "var(--ink-secondary)", maxWidth: "500px", margin: "0 auto" }}
                 >
                     A continuous journey to build the ultimate academic toolkit. See how the platform has grown to empower students.
-                </motion.p>
+                </p>
             </div>
 
             <div className="changelog-container" style={{ position: "relative" }}>
