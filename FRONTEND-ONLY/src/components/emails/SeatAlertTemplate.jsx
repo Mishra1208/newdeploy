@@ -14,11 +14,11 @@ export default function SeatAlertTemplate({
                 <Container style={container}>
                     <Section style={headerSection}>
                         <Row>
-                            <Column style={{ width: "40px" }}>
+                            <Column style={{ width: "80px" }}>
                                 <Img
                                     src="https://www.conuplanner.com/logo.png"
-                                    width="32"
-                                    height="32"
+                                    width="64"
+                                    height="64"
                                     alt="ConU Planner Logo"
                                 />
                             </Column>
