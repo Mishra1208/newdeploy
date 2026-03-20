@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { Html, Head, Preview, Body, Container, Section, Text, Heading, Button, Img, Hr } from '@react-email/components';
-
+import { Html, Head, Preview, Body, Container, Section, Text, Heading, Button, Img, Hr, Row, Column } from '@react-email/components';
 export default function SeatAlertTemplate({ 
     subject = "COMP", 
     courseNumber = "248", 
