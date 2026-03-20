@@ -289,7 +289,7 @@ export default function ChangelogTimeline() {
             padding: "40px 20px"
         }} className={body.className}>
 
-            <div style={{ textAlign: "center", marginBottom: "64px" }}>
+            <div style={{ textAlign: "center", marginBottom: "64px", position: "relative", zIndex: 10 }}>
                 <h2
                     className={display.className}
                     style={{ fontSize: "36px", color: "var(--ink-primary)", marginBottom: "16px", opacity: 1, visibility: "visible" }}
