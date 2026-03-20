@@ -292,9 +292,9 @@ export default function ChangelogTimeline() {
             <div style={{ textAlign: "center", marginBottom: "64px" }}>
                 <h2
                     className={display.className}
-                    style={{ fontSize: "36px", color: "var(--ink-primary)", marginBottom: "16px" }}
+                    style={{ fontSize: "36px", color: "var(--ink-primary)", marginBottom: "16px", opacity: 1, visibility: "visible" }}
                 >
-                    Evolution of ConU Planner
+                    The Evolution of ConU Planner
                 </h2>
                 <p
                     style={{ fontSize: "16px", color: "var(--ink-secondary)", maxWidth: "500px", margin: "0 auto" }}
