@@ -16,7 +16,7 @@ export default function SeatAlertTemplate({
                         <Row>
                             <Column style={{ width: "40px" }}>
                                 <Img
-                                    src="https://www.conuplanner.com/logo-light.svg"
+                                    src="https://www.conuplanner.com/logo.png"
                                     width="32"
                                     height="32"
                                     alt="ConU Planner Logo"
