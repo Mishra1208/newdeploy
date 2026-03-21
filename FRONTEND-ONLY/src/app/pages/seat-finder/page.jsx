@@ -343,9 +343,15 @@ export default function SeatFinderPage() {
                             </div>
 
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Set Seat Alert</h3>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6 font-medium">
+                            <p className="text-slate-600 dark:text-slate-400 mb-4 font-medium">
                                 We'll email you the exact second a seat opens for <strong className="text-slate-900 dark:text-slate-200">{subject.toUpperCase()} {number} (Class {alertTarget.classNbr})</strong>.
                             </p>
+
+                            <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-4 mb-6">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    <strong className="text-slate-700 dark:text-slate-300">Important Note:</strong> Once we notify you that a class has opened, your alert subscription is complete. If the seat is taken before you register, you can set a new alert here on ConU Planner.
+                                </p>
+                            </div>
 
                             {alertMessage.text && (
                                 <div className={`p-4 rounded-xl mb-6 font-medium text-sm border ${
