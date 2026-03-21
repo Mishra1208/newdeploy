@@ -432,6 +432,39 @@ export default function DevDocs() {
                                 </div>
                             </div>
 
+                            {/* UPCOMING MAJOR EXTENSION FEATURES */}
+                            <div className="mt-8 p-8 rounded-3xl bg-pink-50 dark:bg-pink-900/10 border border-pink-200 dark:border-pink-500/20">
+                                <h3 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4 flex items-center gap-3">
+                                    <Rocket className="w-6 h-6 animate-pulse" /> Upcoming Extension Features
+                                </h3>
+                                
+                                <div className="space-y-6 text-gray-700 dark:text-gray-300">
+                                    
+                                    {/* Feature 1 */}
+                                    <div className="p-5 rounded-2xl bg-white dark:bg-black/50 border border-pink-100 dark:border-pink-500/10 shadow-sm dark:shadow-none">
+                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">1. Live Prerequisite Checking (The "Red/Green" Filter)</h4>
+                                        <p className="text-sm mb-3 xl:leading-relaxed"><strong>The Idea:</strong> Prevent students from wasting time looking at classes they aren't eligible for. The extension will read their unofficial transcript and inject color-coded overlays directly onto the Concordia Class Search page.</p>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                            <li><strong>Logic:</strong> Extension scrapes the transcript tab, saves passed classes to memory, then cross-references course prerequisites when browsing VSB.</li>
+                                            <li><strong>Implementation:</strong> Use DOM MutationObservers in the Chrome Extension to detect when VSB loads course tiles. Inject CSS styles (grey-out/red border for missing prereqs, gold border for required sequence courses).</li>
+                                            <li><strong>Dependencies:</strong> ConU Planner prerequisite logic map, Chrome Extension manifest v3, Content Scripts.</li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Feature 2 */}
+                                    <div className="p-5 rounded-2xl bg-white dark:bg-black/50 border border-pink-100 dark:border-pink-500/10 shadow-sm dark:shadow-none">
+                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">2. The "Friend Radar" on VSB</h4>
+                                        <p className="text-sm mb-3 xl:leading-relaxed"><strong>The Idea:</strong> A social layer that lets students see if their friends are enrolled in the exact section they are currently viewing on the Concordia portal.</p>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                            <li><strong>Logic:</strong> Users add friends via a new <code className="bg-gray-100 dark:bg-white/10 px-1 rounded text-pink-600 dark:text-pink-400 font-mono">/friends</code> page. The extension scrapes the active section ID on VSB and sends a silent GET request to our DB to check if any linked friends are in that section.</li>
+                                            <li><strong>Implementation:</strong> 1) Create a <code className="bg-gray-100 dark:bg-white/10 px-1 rounded text-pink-600 dark:text-pink-400 font-mono">Friends</code> table in Supabase. 2) Build Clerk-authenticated friend-request UI on frontend. 3) Extension content script injects a small profile picture tooltip next to the course tile if the API returns a match.</li>
+                                            <li><strong>Dependencies:</strong> React state for friends list, Supabase Edge Functions for fast queries, Chrome Extension API messaging.</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
                         </section>
 
