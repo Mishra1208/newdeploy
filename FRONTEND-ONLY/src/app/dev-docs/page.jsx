@@ -381,9 +381,9 @@ export default function DevDocs() {
                                         Coming Soon
                                     </h3>
                                     <ul className="space-y-3">
+                                        <StatusItem text="Live Prerequisite Checker (Red/Green Filter)" active highlight />
+                                        <StatusItem text="Friend Radar (VSB Social Overlay)" active highlight />
                                         <StatusItem text="Professor Compass (RMP Overlay in VSB)" active highlight />
-                                        <StatusItem text="Seat Sniper (Background Seat Alerts)" active highlight />
-                                        <StatusItem text="Classmate Finder (Social Overlay)" active highlight />
                                         <StatusItem text="Moodle File Downloader (ZIP Bundle)" highlight />
                                         <StatusItem text="Moodle Calendar Sync (.ics)" highlight />
                                         <StatusItem text="Student Social Network (Chat & Friends)" highlight />
