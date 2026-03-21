@@ -16,10 +16,10 @@ const changelogData = [
         description: "The highly requested Seat Finder is officially here. Automate your enrollment process and never miss a course drop again.",
         color: "#f43f5e", // Rose
         features: [
-            "Search for real-time course capacity across all future terms",
-            "Set 'Seat Alerts' to monitor closed or waitlisted sections automatically",
-            "Receive an instant email notification the precise second a seat opens up",
-            "Powered by reliable cloud infrastructure handling the monitoring for you"
+            "Advanced State-Tracking: Set alerts for Closed or Waitlisted sections, and we remember your starting status",
+            "Closed ➔ Waitlist: Receive a 'Waitlist Available' email the second a waitlist spot opens",
+            "Waitlist ➔ Open: Receive a 'Seat is Open' email the precise second a real seat opens up",
+            "Closed ➔ Open: Receive a 'Seat is Open' email instantly if a class jumps straight to open"
         ],
         link: "/pages/seat-finder",
         linkLabel: "Try Seat Finder"
