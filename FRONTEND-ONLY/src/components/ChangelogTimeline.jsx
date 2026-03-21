@@ -10,6 +10,21 @@ const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable
 
 const changelogData = [
     {
+        date: "Mar 20, 2026",
+        version: "v2.6",
+        title: "Seat Finder & Automated Alerts",
+        description: "The highly requested Seat Finder is officially here. Automate your enrollment process and never miss a course drop again.",
+        color: "#f43f5e", // Rose
+        features: [
+            "Search for real-time course capacity across all future terms",
+            "Set 'Seat Alerts' to monitor closed or waitlisted sections automatically",
+            "Receive an instant email notification the precise second a seat opens up",
+            "Powered by reliable cloud infrastructure handling the monitoring for you"
+        ],
+        link: "/pages/seat-finder",
+        linkLabel: "Try Seat Finder"
+    },
+    {
         date: "Mar 15, 2026",
         version: "v2.5",
         title: "Bulletproof Sync & Extension Delivery",
