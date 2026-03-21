@@ -41,7 +41,8 @@ export default function SeatFinderPage() {
                     term,
                     subject: subject.toUpperCase(),
                     courseNumber: number,
-                    classNumber: alertTarget.classNbr
+                    classNumber: alertTarget.classNbr,
+                    initialStatus: alertTarget.status ? alertTarget.status.toLowerCase() : 'unknown'
                 }),
             });
 

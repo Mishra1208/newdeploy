@@ -4,7 +4,7 @@ import { addSeatAlert } from '@/lib/firebase/firestore';
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { email, term, subject, courseNumber, classNumber } = body;
+        const { email, term, subject, courseNumber, classNumber, initialStatus = 'unknown' } = body;
 
         // Validation
         if (!email || !term || !subject || !courseNumber || !classNumber) {
@@ -29,7 +29,8 @@ export async function POST(req) {
             term,
             subject,
             courseNumber,
-            classNumber
+            classNumber,
+            initialStatus
         });
 
         if (!result.success) {
