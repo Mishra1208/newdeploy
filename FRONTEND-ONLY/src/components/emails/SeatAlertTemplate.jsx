@@ -4,34 +4,28 @@ export default function SeatAlertTemplate({
     courseNumber = "248", 
     classNumber = "1234", 
     term = "Fall 2026",
-    actionUrl = "https://hub.concordia.ca"
+    actionUrl = "https://hub.concordia.ca",
+    status = "open"
 }) {
     return (
         <Html>
             <Head />
-            <Preview>A seat just opened in {subject} {courseNumber}!</Preview>
+            <Preview>{status.toLowerCase() === 'waitlist' ? `A waitlist spot opened in ${subject} ${courseNumber}!` : `A seat just opened in ${subject} ${courseNumber}!`}</Preview>
             <Body style={main}>
                 <Container style={container}>
                     <Section style={headerSection}>
-                        <Row>
-                            <Column style={{ width: "80px" }}>
-                                <Img
-                                    src="https://www.conuplanner.com/logo.png"
-                                    width="64"
-                                    height="64"
-                                    alt="ConU Planner Logo"
-                                />
-                            </Column>
-                            <Column>
-                                <Text style={logoText}>ConU Planner</Text>
-                            </Column>
-                        </Row>
+                        <Img
+                            src="https://www.conuplanner.com/logo.png"
+                            width="180"
+                            alt="ConU Planner Logo"
+                            style={{ display: "block", margin: "0 auto" }}
+                        />
                     </Section>
                     
-                    <Heading style={heading}>🚨 Seat Alert: {subject} {courseNumber}</Heading>
+                    <Heading style={heading}>{status.toLowerCase() === 'waitlist' ? `⏳ Waitlist Alert: ${subject} ${courseNumber}` : `🚨 Seat Alert: ${subject} ${courseNumber}`}</Heading>
                     
                     <Text style={paragraph}>
-                        Great news! We've been monitoring the waitlists and a seat just opened up for <strong>{subject} {courseNumber}</strong> (Class # {classNumber}) for {term}.
+                        Great news! We've been monitoring the sections and a {status.toLowerCase() === 'waitlist' ? 'waitlist spot' : 'seat'} just opened up for <strong>{subject} {courseNumber}</strong> (Class # {classNumber}) for {term}.
                     </Text>
 
                     <Text style={paragraph}>
