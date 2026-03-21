@@ -56,21 +56,20 @@ export async function GET(req) {
             try {
                 const scrapedSections = await scrapeConcordiaSeats(term, subject, courseNumber);
                 
-                // 4. Check if any of the scraped sections exist in our alerts list AND are now 'Open' or 'Waitlisted'
+                // 4. Check if any of the scraped sections exist in our alerts list AND are now 'Open'
                 for (const section of scrapedSections) {
-                    if (section.status.toLowerCase() === 'open' || section.status.toLowerCase() === 'waitlist') {
+                    if (section.status.toLowerCase() === 'open') {
                         // Find all users waiting for this specific classNumber
                         const triggeredAlerts = alerts.filter(a => a.classNumber.toString() === section.classNbr.toString());
                         
                         for (const alert of triggeredAlerts) {
-                            const isWaitlist = section.status.toLowerCase() === 'waitlist';
-                            console.log(`${isWaitlist ? 'WAITLIST' : 'SEAT'} OPEN: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
+                            console.log(`SEAT OPEN: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
                             
                             // 5. Send Email via Resend
                             await resend.emails.send({
                                 from: 'ConU Planner Alerts <alerts@conuplanner.com>',
                                 to: [alert.email],
-                                subject: isWaitlist ? `⏳ Waitlist Alert: ${subject} ${courseNumber} has a WAITLIST spot!` : `⏰ Seat Alert: ${subject} ${courseNumber} is now OPEN!`,
+                                subject: `⏰ Seat Alert: ${subject} ${courseNumber} is now OPEN!`,
                                 react: SeatAlertTemplate({
                                     subject: subject,
                                     courseNumber: courseNumber,
