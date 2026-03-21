@@ -63,18 +63,20 @@ export async function GET(req) {
                         const triggeredAlerts = alerts.filter(a => a.classNumber.toString() === section.classNbr.toString());
                         
                         for (const alert of triggeredAlerts) {
-                            console.log(`SEAT OPEN: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
+                            const isWaitlist = section.status.toLowerCase() === 'waitlist';
+                            console.log(`${isWaitlist ? 'WAITLIST' : 'SEAT'} OPEN: Sending email to ${alert.email} for ${subject} ${courseNumber}`);
                             
                             // 5. Send Email via Resend
                             await resend.emails.send({
                                 from: 'ConU Planner Alerts <alerts@conuplanner.com>',
                                 to: [alert.email],
-                                subject: `⏰ Seat Alert: ${subject} ${courseNumber} is now OPEN!`,
+                                subject: isWaitlist ? `⏳ Waitlist Alert: ${subject} ${courseNumber} has a WAITLIST spot!` : `⏰ Seat Alert: ${subject} ${courseNumber} is now OPEN!`,
                                 react: SeatAlertTemplate({
                                     subject: subject,
                                     courseNumber: courseNumber,
                                     classNumber: section.classNbr,
-                                    term: term === '2261' ? 'Summer 2026' : (term === '2262' ? 'Fall 2026' : 'Winter 2027')
+                                    term: term === '2261' ? 'Summer 2026' : (term === '2262' ? 'Fall 2026' : 'Winter 2027'),
+                                    status: section.status.toLowerCase()
                                 })
                             });
 
