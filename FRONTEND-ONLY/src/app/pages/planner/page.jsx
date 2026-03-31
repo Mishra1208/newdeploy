@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { exportPlannerToExcel } from "@/lib/exportPlannerExcel";
 import Link from "next/link";
@@ -59,6 +59,8 @@ export default function PlannerPage() {
   const [downloadStatus, setDownloadStatus] = useState("idle"); // idle | downloading | downloaded
   const router = useRouter();
   const { user, isLoaded } = useUser();
+  const searchParams = useSearchParams();
+  const isBeta = searchParams.get("beta") === "true";
   const [hydrated, setHydrated] = useState(false);
 
   // --- Cloud Sync Helper ---
@@ -330,8 +332,8 @@ export default function PlannerPage() {
           </div>
         </header>
 
-        {/* Schedule Engine Bridge Banner (Temporarily Hidden for Deployment) */}
-        {false && (
+        {/* Schedule Engine Bridge Banner (Hidden from public, visible with ?beta=true) */}
+        {isBeta && (
           <motion.div 
              className="w-full bg-gradient-to-r from-[#912338]/90 via-[#7a1d2f] to-[#912338]/90 p-[1px] rounded-2xl mb-8 shadow-lg shadow-rose-900/10"
              initial={{ opacity: 0, y: -10 }}
