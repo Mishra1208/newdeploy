@@ -11,7 +11,8 @@
             "all_frames": true,
             "js": [
                 "content.js",
-                "rmp_injector.js"
+                "rmp_injector.js",
+                "peoplesoft_scraper.js"
             ],
             "css": [
                 "styles.css"
@@ -29,16 +30,33 @@
             "css": [
                 "styles.css"
             ]
+        },
+        {
+            "matches": [
+                "https://www.conuplanner.com/*",
+                "http://localhost:*/*"
+            ],
+            "all_frames": false,
+            "js": [
+                "bridge.js"
+            ]
         }
     ],
     "action": {
         "default_popup": "popup.html",
         "default_title": "ConuPlanner Exporter"
     },
-    "permissions": [],
+    "permissions": ["storage"],
     "host_permissions": [
-        "https://www.conuplanner.com/*"
+        "https://www.conuplanner.com/*",
+        "https://campus.concordia.ca/*"
     ],
+    "externally_connectable": {
+        "matches": [
+            "https://www.conuplanner.com/*",
+            "http://localhost:*/*"
+        ]
+    },
     "background": {
         "service_worker": "background.js"
     },
