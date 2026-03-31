@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShineBorder } from "@/components/ui/ShineBorder";
 
@@ -21,6 +22,55 @@ export default function ScheduleBuilderBeta() {
   const [gridItems, setGridItems] = useState([]);
   const [clashingIds, setClashingIds] = useState(new Set());
   const [isFetching, setIsFetching] = useState(false);
+  
+  // Cloud Sync
+  const [hydrated, setHydrated] = useState(false);
+  const ENGINE_KEY = "conu-engine:selected";
+
+  // 1. Cloud Hydration
+  useEffect(() => {
+    if (isLoaded && user && !hydrated) {
+      const cloudData = user.unsafeMetadata?.scheduleEngine;
+      if (cloudData) {
+        console.log("☁️ Restoring Schedule Engine from Cloud");
+        setCartItems(cloudData.cartItems || []);
+        setGridItems(cloudData.gridItems || []);
+      } else {
+        try {
+          const local = JSON.parse(localStorage.getItem(ENGINE_KEY));
+          if (local) { setCartItems(local.cartItems || []); setGridItems(local.gridItems || []); }
+        } catch (e) {}
+      }
+      setHydrated(true);
+    } else if (isLoaded && !user && !hydrated) {
+      try {
+        const local = JSON.parse(localStorage.getItem(ENGINE_KEY));
+        if (local) { setCartItems(local.cartItems || []); setGridItems(local.gridItems || []); }
+      } catch (e) {}
+      setHydrated(true);
+    }
+  }, [isLoaded, user, hydrated]);
+
+  // 2. Continuous Cloud Save (Debounced)
+  useEffect(() => {
+    if (!hydrated) return; // Prevent overwriting cloud with empty state on initial boot
+    const payload = { cartItems, gridItems };
+    localStorage.setItem(ENGINE_KEY, JSON.stringify(payload));
+    
+    // Clerk rate limits rapid updates, so we debounce the cloud push by 2 seconds
+    const syncTimer = setTimeout(() => {
+      if (isLoaded && user) {
+        user.update({
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
+            scheduleEngine: payload
+          }
+        }).catch(err => console.error("Engine Sync Error", err));
+      }
+    }, 2000);
+    
+    return () => clearTimeout(syncTimer);
+  }, [cartItems, gridItems, hydrated, isLoaded]);
   
   // Custom Search State
   const [searchSubject, setSearchSubject] = useState("COMP");
@@ -109,6 +159,16 @@ export default function ScheduleBuilderBeta() {
     const itemData = e.dataTransfer.getData("application/json");
     if (itemData) {
       const item = JSON.parse(itemData);
+      
+      // Prerequisite Defense Engine
+      if (item.prerequisites && item.prerequisites !== "None") {
+          const confirmed = window.confirm(`⚠️ PREREQUISITE LOCK DETECTED:\n\n${item.prerequisites}\n\nConcordia requires you to fulfill this requirement before enrollment. Do you confirm you have met these rules?`);
+          if (!confirmed) {
+              console.log("User aborted prerequisite-locked drop.");
+              return; // Halt drop safely
+          }
+      }
+      
       // Remove from cart, add to grid
       setCartItems(prev => prev.filter(i => i.id !== item.id));
       setGridItems(prev => {
@@ -252,9 +312,41 @@ export default function ScheduleBuilderBeta() {
             <p className="text-gray-500 text-lg">The ultimate visual drag-and-drop sequence planner.</p>
           </div>
           
-          <div className="flex items-center gap-4 mt-4 md:mt-0">
+          <div className="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
             <SignedIn>
-              <UserButton afterSignOutUrl="/" />
+              <button
+                className="px-4 py-2 rounded-full border border-emerald-500/30 text-emerald-600 bg-emerald-50 text-xs font-bold shadow-sm cursor-default"
+                onClick={() => alert("Cloud Sync is actively bridging your local Canvas to your profile. You're protected! 🌩️")}
+              >
+                Sync Active ✅
+              </button>
+            </SignedIn>
+            
+            <SignedOut>
+              <Link href="/login">
+                <button className="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs font-bold shadow-sm transition-all focus:ring-2 focus:ring-[#912338]/20 bg-white">
+                  Cloud Sync (Login)
+                </button>
+              </Link>
+            </SignedOut>
+
+            <button
+               onClick={() => {
+                   if (window.confirm("Are you sure you want to completely wipe your Cartesian calendar block?")) {
+                       setCartItems([]);
+                       setGridItems([]);
+                   }
+               }}
+               className="px-4 py-2 rounded-full border border-rose-200 text-rose-700 hover:bg-rose-50 border-[1.5px] text-xs font-bold shadow-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white"
+               disabled={!cartItems.length && !gridItems.length}
+            >
+               Clear Board
+            </button>
+
+            <SignedIn>
+              <div className="ml-2 scale-90 border border-gray-200 rounded-full p-0.5 bg-white">
+                <UserButton afterSignOutUrl="/" />
+              </div>
             </SignedIn>
           </div>
         </header>
@@ -412,8 +504,13 @@ export default function ScheduleBuilderBeta() {
                                                             <span className="opacity-70">⏱️</span> {item.days} {item.startTime}-{item.endTime}
                                                         </div>
                                                         {item.prof !== "TBA" && (
-                                                          <div className="text-gray-500 mt-1 truncate text-xs font-medium">
+                                                          <div className="text-gray-500 mt-1 truncate text-[11px] font-medium">
                                                               👨‍🏫 {item.prof}
+                                                          </div>
+                                                        )}
+                                                        {item.prerequisites && item.prerequisites !== "None" && (
+                                                          <div className="mt-2 text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200/50 rounded-md p-2 leading-tight shadow-sm">
+                                                              ⚠️ {item.prerequisites}
                                                           </div>
                                                         )}
                                                     </div>

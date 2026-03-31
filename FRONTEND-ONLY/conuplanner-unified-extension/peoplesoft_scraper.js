@@ -102,6 +102,27 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
             if (overlay) overlay.innerHTML = "<div style='position: fixed; bottom: 0; left: 0; width: 100%; background: #2e7d32; color: white; padding: 15px; text-align: center; z-index: 999999; font-weight: bold;'>✅ EXTRACTION COMPLETE! Translating " + rows.length + " classes...</div>";
             
             // --- REAL DATA EXTRACTION ALGORITHM ---
+            let extractedPrereq = "None";
+            try {
+                // Aggressively scan the entire document for generic Prerequisite text blocks often hidden in headers above the results table
+                const pNodes = Array.from(document.querySelectorAll('span, p, div')).filter(el => {
+                    const txt = el.innerText || "";
+                    return (txt.includes("Prerequisite") || txt.includes("Prereq")) && txt.length < 500 && !txt.includes("Class Search");
+                });
+                if (pNodes.length > 0) {
+                    // Try to catch the rigorously formatted PeopleSoft requisite ID
+                    const explicitNode = pNodes.find(n => n.id && n.id.includes("REQUISITE"));
+                    extractedPrereq = explicitNode ? explicitNode.innerText.trim() : pNodes[0].innerText.trim();
+                    
+                    // If we somehow grabbed a massive wrapper div, safely slice it down
+                    if (extractedPrereq.includes("\n")) {
+                        extractedPrereq = extractedPrereq.split("\n").find(line => line.includes("Prerequisite") || line.includes("Prereq")) || extractedPrereq;
+                    }
+                }
+            } catch (e) {
+                console.log("Failed to parse prerequisites", e);
+            }
+
             const parsedClasses = [];
             
             rows.forEach(tr => {
@@ -154,7 +175,8 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                         startTime: startTimeStr,
                         endTime: endTimeStr,
                         room: "TBA",
-                        prof: "TBA"
+                        prof: "TBA",
+                        prerequisites: extractedPrereq
                     });
                 } catch (e) {
                     console.log("Failed to parse row", tr, e);
