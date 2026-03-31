@@ -330,36 +330,38 @@ export default function PlannerPage() {
           </div>
         </header>
 
-        {/* Schedule Engine Bridge Banner */}
-        <motion.div 
-           className="w-full bg-gradient-to-r from-[#912338]/90 via-[#7a1d2f] to-[#912338]/90 p-[1px] rounded-2xl mb-8 shadow-lg shadow-rose-900/10"
-           initial={{ opacity: 0, y: -10 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ delay: 0.2 }}
-        >
-           <div className="bg-white rounded-[15px] p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-             {/* Subtle internal gradient glow */}
-             <div className="absolute top-0 right-0 w-64 h-64 bg-rose-50 rounded-full blur-3xl opacity-50 pointer-events-none -mr-20 -mt-20"></div>
+        {/* Schedule Engine Bridge Banner (Temporarily Hidden for Deployment) */}
+        {false && (
+          <motion.div 
+             className="w-full bg-gradient-to-r from-[#912338]/90 via-[#7a1d2f] to-[#912338]/90 p-[1px] rounded-2xl mb-8 shadow-lg shadow-rose-900/10"
+             initial={{ opacity: 0, y: -10 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.2 }}
+          >
+             <div className="bg-white rounded-[15px] p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+               {/* Subtle internal gradient glow */}
+               <div className="absolute top-0 right-0 w-64 h-64 bg-rose-50 rounded-full blur-3xl opacity-50 pointer-events-none -mr-20 -mt-20"></div>
 
-             <div className="z-10 max-w-2xl">
-                <div className="flex items-center gap-3 mb-2">
-                   <h2 className="text-2xl font-black text-[#912338] tracking-tight">Ready to plot your schedule?</h2>
-                   <span className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest shadow-sm">NEW</span>
-                </div>
-                <p className="text-gray-600 font-medium">
-                  You've planned your degree—now visualize your literal week. Import exactly what you created here into the all-new <strong>Schedule Engine</strong>. It features live seating capacities, professor ratings, intelligent prerequisite scanning, and a visual drag-and-drop Cartesian calendar!
-                </p>
+               <div className="z-10 max-w-2xl">
+                  <div className="flex items-center gap-3 mb-2">
+                     <h2 className="text-2xl font-black text-[#912338] tracking-tight">Ready to plot your schedule?</h2>
+                     <span className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest shadow-sm">NEW</span>
+                  </div>
+                  <p className="text-gray-600 font-medium">
+                    You've planned your degree—now visualize your literal week. Import exactly what you created here into the all-new <strong>Schedule Engine</strong>. It features live seating capacities, professor ratings, intelligent prerequisite scanning, and a visual drag-and-drop Cartesian calendar!
+                  </p>
+               </div>
+               
+               <div className="z-10 shrink-0">
+                  <Link href="/pages/schedule-builder">
+                    <button className="px-8 py-4 bg-[#912338] hover:bg-[#7a1d2f] text-white rounded-xl font-bold uppercase tracking-widest transition-all shadow-md hover:shadow-xl hover:-translate-y-1 flex items-center gap-2 text-sm whitespace-nowrap">
+                      Launch Engine 🚀
+                    </button>
+                  </Link>
+               </div>
              </div>
-             
-             <div className="z-10 shrink-0">
-                <Link href="/pages/schedule-builder">
-                  <button className="px-8 py-4 bg-[#912338] hover:bg-[#7a1d2f] text-white rounded-xl font-bold uppercase tracking-widest transition-all shadow-md hover:shadow-xl hover:-translate-y-1 flex items-center gap-2 text-sm whitespace-nowrap">
-                    Launch Engine 🚀
-                  </button>
-                </Link>
-             </div>
-           </div>
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Stats Section */}
         < div className={styles.statsRow} >
