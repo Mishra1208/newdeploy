@@ -176,8 +176,10 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                     let section = "Unknown";
                     if (sectionRaw.includes("-")) {
                         const parts = sectionRaw.split("\n")[0].split("-"); 
-                        section = parts[0].trim();
-                        type = parts[1].trim();
+                        // Concordia notoriously uses variable dashes (e.g., "AA-LEC" vs "AI-X-LAB").
+                        // The true architectural TYPE (LEC, TUT, LAB) is always strictly the LAST element.
+                        type = parts[parts.length - 1].trim(); 
+                        section = parts.slice(0, parts.length - 1).join("-").trim();
                     }
                     
                     let days = "TBA";

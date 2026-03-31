@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShineBorder } from "@/components/ui/ShineBorder";
+import { toPng } from "html-to-image";
 
 const COURSE_COLORS = [
   { bg: "bg-[#f8f1e6]", border: "border-[#C5A059]", borderSide: "border-l-[#C5A059]", text: "text-amber-900" }, // Concordia Gold
@@ -24,6 +25,49 @@ export default function ScheduleBuilderBeta() {
   const [isFetching, setIsFetching] = useState(false);
   const [deepFetching, setDeepFetching] = useState(null);
   const deepTargetRef = useRef(null);
+  const calendarRef = useRef(null);
+  const [isExporting, setIsExporting] = useState(false);
+  
+  const handleExportPNG = () => {
+    setIsExporting(true);
+    setTimeout(async () => {
+      if (calendarRef.current === null) {
+          setIsExporting(false);
+          return;
+      }
+      try {
+        const dataUrl = await toPng(calendarRef.current, { 
+          cacheBust: true, 
+          backgroundColor: '#ffffff',
+          pixelRatio: 2 // High-Resolution Export
+        });
+        const link = document.createElement('a');
+        link.download = `conuplanner-schedule-${new Date().getTime()}.png`;
+        link.href = dataUrl;
+        link.click();
+      } catch (err) {
+        console.error('Snapshot Engine failed:', err);
+        alert('Failed to capture calendar. Please try again.');
+      } finally {
+        setIsExporting(false);
+      }
+    }, 150);
+  };
+  
+  // Local Data Index matching
+  const [courseDirectory, setCourseDirectory] = useState({});
+  useEffect(() => {
+    fetch('/course_index.json')
+      .then(r => r.json())
+      .then(d => {
+        const dict = {};
+        if (d.list) {
+            d.list.forEach(c => dict[c.code] = c.title);
+        }
+        setCourseDirectory(dict);
+      })
+      .catch(e => console.error(e));
+  }, []);
   
   // Cloud Sync
   const [hydrated, setHydrated] = useState(false);
@@ -83,7 +127,20 @@ export default function ScheduleBuilderBeta() {
   
   // Advanced Cart States
   const lastSearchRef = useRef({ subject: "COMP", catalog: "248", term: "Summer 2026" });
-  const [courseColorsMap, setCourseColorsMap] = useState({});
+  // Re-engineered deterministic colour mapping based purely on physical items
+  const courseColorsMap = useMemo(() => {
+     const codesSet = new Set();
+     [...cartItems, ...gridItems].forEach(item => {
+         if (item.courseCode) codesSet.add(item.courseCode);
+     });
+     // Sorting guarantees color stability across page reloads!
+     const uniqueCodes = Array.from(codesSet).sort(); 
+     const map = {};
+     uniqueCodes.forEach((code, i) => {
+         map[code] = COURSE_COLORS[i % COURSE_COLORS.length];
+     });
+     return map;
+  }, [cartItems, gridItems]);
   const [expandedFolders, setExpandedFolders] = useState({});
 
   // Constants for Visual Calendar
@@ -578,23 +635,31 @@ export default function ScheduleBuilderBeta() {
           </div>
 
           {/* ZONE B: Visual Calendar Grid */}
-          <div className="col-span-1 lg:col-span-3 bg-white rounded-3xl shadow-sm border border-gray-100 p-6 flex flex-col h-full overflow-hidden">
+          <div 
+            ref={calendarRef}
+            className={`col-span-1 lg:col-span-3 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col ${isExporting ? 'h-auto overflow-visible p-8' : 'h-full overflow-hidden p-6'}`}
+          >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 Calendar Canvas
               </h2>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 bg-gray-50 text-gray-600 rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition">
-                  Check Clashes
-                </button>
-                <button className="px-4 py-2 bg-[#912338] text-white rounded-xl text-sm font-semibold shadow-md hover:bg-[#7a1d2f] transition">
-                  Finalize & Export
-                </button>
-              </div>
+              {!isExporting && (
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-gray-50 text-gray-600 rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition shadow-sm">
+                    Check Clashes
+                  </button>
+                  <button 
+                    onClick={handleExportPNG}
+                    className="px-4 py-2 bg-[#912338] text-white rounded-xl text-sm font-semibold shadow-md hover:bg-[#7a1d2f] transition flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/40"
+                  >
+                    📸 Export PNG
+                  </button>
+                </div>
+              )}
             </div>
 
             <div 
-              className="flex-1 border border-gray-200 rounded-2xl flex relative overflow-y-auto bg-gray-50/50"
+              className={`border border-gray-200 rounded-2xl flex relative bg-gray-50/50 shadow-inner ${isExporting ? 'h-auto overflow-visible min-h-[1050px]' : 'flex-1 overflow-y-auto'}`}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
@@ -642,8 +707,9 @@ export default function ScheduleBuilderBeta() {
                         
                         const startMins = getMinutesFromStart(item.startTime);
                         const endMins = getMinutesFromStart(item.endTime);
+                        const durationMins = endMins - startMins;
                         const topPercent = (startMins / TOTAL_MINUTES) * 100;
-                        const heightPercent = ((endMins - startMins) / TOTAL_MINUTES) * 100;
+                        const heightPercent = (durationMins / TOTAL_MINUTES) * 100;
                         const isClashing = clashingIds.has(item.id);
                         
                         // Pick color based on Map
@@ -655,7 +721,8 @@ export default function ScheduleBuilderBeta() {
                             animate={{ scale: 1, opacity: 1 }}
                             key={`${item.id}-${day.id}`}
                             onClick={() => handleRemoveFromGrid(item)}
-                            className={`absolute left-1 right-1 rounded-lg p-2 overflow-hidden shadow-sm cursor-pointer border hover:shadow-md hover:scale-[1.02] transition-all z-20 group
+                            className={`absolute left-1 right-1 rounded-xl overflow-hidden shadow-sm cursor-pointer border hover:shadow-md hover:scale-[1.02] transition-all z-20 group flex flex-col justify-between
+                              ${durationMins <= 75 ? 'p-1.5' : 'p-2'}
                               ${isClashing 
                                 ? "bg-red-50 border-red-500 animate-pulse text-red-900 shadow-[0_0_15px_rgba(239,68,68,0.5)]" 
                                 : `${colorTheme.bg} ${colorTheme.border} ${colorTheme.text}`}`}
@@ -665,15 +732,32 @@ export default function ScheduleBuilderBeta() {
                               minHeight: '2.5rem'
                             }}
                           >
-                            <div className="font-extrabold uppercase tracking-wide opacity-70 text-[10px] sm:text-[11px] font-sans">
-                                {item.courseCode}
-                            </div>
-                            <div className="font-bold truncate text-[12px] sm:text-[14px] leading-tight mt-0.5">
-                                {item.type} {item.section}
+                            <div className="flex justify-between items-start">
+                                <div className={`font-extrabold uppercase tracking-wide opacity-90 font-sans ${durationMins < 60 ? 'text-[9px]' : 'text-[11px]'}`}>
+                                    {item.courseCode}
+                                </div>
+                                <div className={`opacity-90 font-bold shrink-0 bg-white/40 rounded-md shadow-sm border border-black/5 ${durationMins < 60 ? 'text-[8.5px] px-1 py-0' : 'text-[10px] px-1'}`}>
+                                    {item.startTime}-{item.endTime}
+                                </div>
                             </div>
                             
-                            <div className="opacity-80 truncate text-[11px] mt-1.5 flex items-center gap-1">
-                                {item.room !== "TBA" ? `📍 ${item.room}` : ""}
+                            <div className={`font-bold leading-tight opacity-95 flex-shrink bg-transparent overflow-hidden ${
+                                durationMins <= 75 ? "text-[10px] line-clamp-1 mt-0.5" : 
+                                durationMins <= 90 ? "text-[11px] line-clamp-2 mt-1" : 
+                                "text-[13px] sm:text-[14px] line-clamp-3 mt-1"
+                            }`}>
+                                {courseDirectory[item.courseCode] || "Loading..."}
+                            </div>
+                            
+                            <div className={`flex flex-wrap items-center font-bold opacity-90 overflow-hidden ${durationMins <= 75 ? 'mt-0.5 text-[9px] gap-1' : 'mt-auto pt-1 text-[11px] gap-1.5'}`}>
+                                <div className={`bg-white/50 rounded-md shadow-sm border border-black/5 uppercase tracking-wide flex items-center gap-1 ${durationMins <= 75 ? 'px-1 py-0' : 'px-1.5 py-0.5'}`}>
+                                    <span className="opacity-95 text-[10px] font-black">{item.type}</span> <span className="truncate">{item.section}</span>
+                                </div>
+                                {item.room !== "TBA" && durationMins >= 60 && (
+                                    <div className={`bg-black/5 rounded-md border border-black/5 truncate max-w-[100px] ${durationMins <= 75 ? 'px-1 py-0 text-[8.5px]' : 'px-1.5 py-0.5'}`} title={item.room}>
+                                        📍 {item.room}
+                                    </div>
+                                )}
                             </div>
                             
                             {/* Hover delete indicator */}
@@ -715,10 +799,12 @@ export default function ScheduleBuilderBeta() {
                         className={`group relative overflow-hidden flex items-center gap-4 px-4 py-2.5 rounded-xl border border-gray-200 cursor-pointer shadow-sm hover:shadow-md transition-all ${colorTheme.bg.replace('50', '50/80')}`}
                       >
                          <div className={`w-1.5 absolute left-0 top-0 bottom-0 ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0].replace('50', '400')}`} />
-                         <div className="flex flex-col pl-2">
-                             <span className={`font-black text-[11px] opacity-70 tracking-tight uppercase ${colorTheme.text}`}>{item.courseCode}</span>
+                         <div className="flex flex-col pl-2 whitespace-nowrap">
+                             <span className={`font-black text-[11px] opacity-70 tracking-tight uppercase ${colorTheme.text}`}>
+                                 {item.courseCode} — {courseDirectory[item.courseCode] || "Loading..."}
+                             </span>
                              <span className={`font-bold text-[14px] leading-tight ${colorTheme.text}`}>{item.type} {item.section}</span>
-                             <span className={`text-[11px] opacity-80 font-bold ${colorTheme.text}`}>ID #{item.id}</span>
+                             <span className={`text-[11px] opacity-80 font-bold ${colorTheme.text}`}>ID #{item.id} • {item.startTime}-{item.endTime}</span>
                          </div>
                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold transition">
                            Remove
