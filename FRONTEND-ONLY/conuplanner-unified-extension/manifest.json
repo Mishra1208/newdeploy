@@ -46,7 +46,7 @@
         "default_popup": "popup.html",
         "default_title": "ConuPlanner Exporter"
     },
-    "permissions": ["storage"],
+    "permissions": ["storage", "scripting"],
     "host_permissions": [
         "https://www.conuplanner.com/*",
         "https://campus.concordia.ca/*"

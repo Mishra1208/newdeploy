@@ -36,6 +36,28 @@ window.addEventListener("message", (event) => {
         }
     }
 
+    if (event.data.type === "FROM_CONUPLANNER_WEB_DEEP_FETCH") {
+        console.log("Bridge received Deep Class Analysis request, relaying to Background...");
+        if (typeof chrome === "undefined" || !chrome.runtime || !chrome.runtime.sendMessage) {
+            window.postMessage({ type: "FROM_EXTENSION_DEEP_RESPONSE", payload: { success: false, error: "Extension detached." } }, "*");
+            return;
+        }
+
+        try {
+            chrome.runtime.sendMessage({
+                action: "FETCH_DEEP_CLASS_DETAILS",
+                payload: event.data.payload
+            }, (response) => {
+                window.postMessage({
+                    type: "FROM_EXTENSION_DEEP_RESPONSE",
+                    payload: response
+                }, "*");
+            });
+        } catch (e) {
+            window.postMessage({ type: "FROM_EXTENSION_DEEP_RESPONSE", payload: { success: false, error: "Lost connection." } }, "*");
+        }
+    }
+
     if (event.data.type === "FROM_CONUPLANNER_WEB_FETCH_TERMS") {
         console.log("Bridge received Term Fetch request, relaying Phase 1...");
         if (typeof chrome === "undefined" || !chrome.runtime || !chrome.runtime.sendMessage) {

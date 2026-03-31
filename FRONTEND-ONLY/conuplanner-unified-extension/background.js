@@ -14,6 +14,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
         return true;
     }
+    
+    if (request.action === "FORCE_MAIN_WORLD_EXECUTE") {
+        if (sender && sender.tab && sender.tab.id) {
+            chrome.scripting.executeScript({
+                target: { tabId: sender.tab.id },
+                world: "MAIN",
+                func: (linkId) => {
+                    try {
+                        const scriptString = "submitAction_win0(document.win0, '" + linkId + "');";
+                        window.location.assign("javascript:" + scriptString);
+                    } catch(e) {}
+                },
+                args: [request.data]
+            }).catch(e => console.error("Main World Execution failed!", e));
+        }
+        sendResponse({ success: true });
+        return true;
+    }
 
     if (request.action === "fetchRMP") {
         // Can switch to https://www.conuplanner.com/api/rmp for production
@@ -73,12 +91,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // 1. Save target to storage so the injected bot knows what to search
         chrome.storage.local.set({ scrapeTarget: { subject, catalogue, term } }, () => {
             
-            // 2. Open an INVISIBLE pinned tab
-            chrome.tabs.create({ 
+            // 2. Open an INVISIBLE minimized popup window for entirely cloaked background processing
+            chrome.windows.create({ 
                 url: "https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_EXT.CU_CLASS_SEARCH.GBL",
-                active: false,
-                pinned: true
-            }, (tab) => {
+                type: "popup",
+                state: "minimized"
+            }, (win) => {
                 
                 // 3. Listen for the bot's success signal specifically for this execution
                 let hasResponded = false;
@@ -87,10 +105,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     if (botRequest.action === "PEOPLESOFT_SCRAPE_SUCCESS") {
                         if (hasResponded) return;
                         hasResponded = true;
-                        console.log("Bot finished scraping! Closing pinned tab and returning data.");
-                        // Close the hidden window
+                        
+                        // Close the hidden window completely, obliterating all tabs within it
                         try {
-                            chrome.tabs.remove(tab.id).catch(() => {});
+                            chrome.windows.remove(win.id).catch(() => {});
                         } catch(e) {}
                         
                         // Send data back to the conuplanner website
@@ -109,9 +127,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 setTimeout(() => {
                     if (!hasResponded) {
                         hasResponded = true;
-                        console.log("Bot timed out. Probably stuck on login or form wasn't found.");
                         try {
-                            chrome.tabs.remove(tab.id).catch(() => {});
+                            chrome.windows.remove(win.id).catch(() => {});
                         } catch(e) {}
                         chrome.runtime.onMessage.removeListener(botListener);
                         sendResponse({ success: false, error: "Bot Timed Out. Are you logged in?" });
@@ -121,6 +138,46 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
 
         return true; // Keep channel open to wait for the hidden tab
+    }
+
+    if (request.action === "FETCH_DEEP_CLASS_DETAILS") {
+        const { classId, subject, catalogue, term } = request.payload || {};
+        console.log(`Instructed to Deep-Scrape PeopleSoft for capacity array: ${classId}`);
+        
+        chrome.storage.local.set({ scrapeTarget: { mode: "DEEP_FETCH", classId, subject, catalogue, term } }, () => {
+            chrome.windows.create({ 
+                url: "https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_EXT.CU_CLASS_SEARCH.GBL",
+                type: "popup",
+                state: "minimized"
+            }, (win) => {
+                let hasResponded = false;
+                
+                const botListener = (botRequest, botSender, botSendResponse) => {
+                    if (botRequest.action === "PEOPLESOFT_DEEP_SCRAPE_SUCCESS") {
+                        if (hasResponded) return;
+                        hasResponded = true;
+                        
+                        // Wiping the entire hidden window safely kills Tab A and the instantly spawned Tab B simultaneously!
+                        try { chrome.windows.remove(win.id).catch(() => {}); } catch(e) {}
+                        
+                        sendResponse({ success: true, data: botRequest.data });
+                        chrome.runtime.onMessage.removeListener(botListener);
+                    }
+                };
+                chrome.runtime.onMessage.addListener(botListener);
+                
+                setTimeout(() => {
+                    if (!hasResponded) {
+                        hasResponded = true;
+                        try { chrome.windows.remove(win.id).catch(() => {}); } catch(e) {}
+                        chrome.runtime.onMessage.removeListener(botListener);
+                        sendResponse({ success: false, error: "Deep Scrape Timed Out" });
+                    }
+                }, 15000); // Wait up to 15s since it does two heavy navigations
+            });
+        });
+        
+        return true;
     }
 });
 

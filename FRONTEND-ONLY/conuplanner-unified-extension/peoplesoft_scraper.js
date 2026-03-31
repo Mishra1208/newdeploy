@@ -94,6 +94,46 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
         });
         
         if (rows.length > 0) {
+            
+            // --- FEATURE: ON-DEMAND LAZY DEMOGRAPHICS RESOLUTION ---
+            if (target.mode === "DEEP_FETCH") {
+                 console.log("Deep bot found results! Locating specific Sequence ID: " + target.classId);
+                 
+                 const targetRow = rows.find(tr => {
+                     const tds = Array.from(tr.children).filter(c => c.tagName === "TD");
+                     const classIdText = tds[5].innerText.replace(/[^\d]/g, "").trim();
+                     return classIdText === target.classId;
+                 });
+                 
+                 if (targetRow) {
+                     // Query the Section HTML node uniquely resolving to MTG_CLASSNAME
+                     const classLink = targetRow.querySelector('a[id*="MTG_CLASSNAME"]');
+                     if (classLink && !window.hasClickedDeepLink) {
+                         window.hasClickedDeepLink = true;
+                         const overlay = document.getElementById("conu-bot-overlay");
+                         if (overlay) overlay.innerHTML = "<div style='position: fixed; bottom: 0; left: 0; width: 100%; background: #eab308; color: black; padding: 15px; text-align: center; z-index: 999999; font-weight: bold;'>⚠️ DIVING INTO CLASS " + target.classId + " DEEP DETAILS...</div>";
+                         
+                         // Delegate the exact navigation event directly into the Main World runtime wrapper.
+                         try {
+                             chrome.runtime.sendMessage({ action: "FORCE_MAIN_WORLD_EXECUTE", data: classLink.id });
+                         } catch (e) { console.error("Message passing failed", e); }
+                         
+                         state = "WAITING_FOR_DEEP_DETAILS";
+                         return; // Continue polling while the server generates the next page!
+                     } else if (classLink) {
+                         // Awaiting DOM transition, do not spam click.
+                         return;
+                     }
+                 }
+                 
+                 // Fallback if class mysteriously vanished
+                 clearInterval(interval);
+                 chrome.runtime.sendMessage({ action: "PEOPLESOFT_DEEP_SCRAPE_SUCCESS", data: null });
+                 try { chrome.storage.local.remove("scrapeTarget"); } catch(e){}
+                 return;
+            }
+
+            // --- FEATURE: STANDARD BULK EXTRACTION MODE ---
             console.log("Bot found " + rows.length + " real class rows! Extracting data...");
             clearInterval(interval);
             
@@ -345,7 +385,8 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                 if (!window.conuSearchTick) window.conuSearchTick = 0;
                 window.conuSearchTick++;
                 
-                if (window.conuSearchTick % 3 === 0) {
+                // 30 ticks * 100ms = 3000ms (3 seconds) breather before re-triggering POST!
+                if (window.conuSearchTick % 30 === 0) {
                     console.log("Results not found yet. Re-firing God-Mode Search click to break PeopleSoft frozen state...");
                     var btn = document.querySelector('a[id*="PB_CLASS_SRCH"], a[name*="PB_CLASS_SRCH"], input[id*="PB_CLASS_SRCH"], button[id*="PB_CLASS_SRCH"]');
                     var form = document.querySelector('form[name="win0"]') || document.forms[0];
@@ -367,6 +408,53 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                         } catch(e) {}
                     }
                 }
+        }
+        
+        const classCap = document.querySelector('span[id*="SSR_CLS_DTL_WRK_ENRL_CAP"]');
+        const pageTitle = document.querySelector('span[id*="DERIVED_CLSRCH_DESCR200"]');
+        
+        // Either we are systematically tracking the click via state, OR we boot up fresh into the details page!
+        if (state === "WAITING_FOR_DEEP_DETAILS" || (target.mode === "DEEP_FETCH" && (classCap || pageTitle))) {
+            
+            if (classCap || pageTitle) { // The detail page successfully breached
+                clearInterval(interval);
+                
+                const overlay = document.getElementById("conu-bot-overlay");
+                if (overlay) overlay.innerHTML = "<div style='position: fixed; bottom: 0; left: 0; width: 100%; background: #0284c7; color: white; padding: 15px; text-align: center; z-index: 999999; font-weight: bold;'>✅ DEEP ANALYSIS COMPLETE! Harvesting Demographics...</div>";
+                
+                let extractedPrereq = "None";
+                try {
+                    const pNodes = Array.from(document.querySelectorAll('span, p, div')).filter(el => {
+                        const txt = el.innerText || "";
+                        return (txt.includes("Prerequisite") || txt.includes("Prereq")) && txt.length < 500 && !txt.includes("Class Search");
+                    });
+                    if (pNodes.length > 0) {
+                        const explicitNode = pNodes.find(n => n.id && n.id.includes("REQUISITE"));
+                        extractedPrereq = explicitNode ? explicitNode.innerText.trim() : pNodes[0].innerText.trim();
+                        if (extractedPrereq.includes("\n")) {
+                            extractedPrereq = extractedPrereq.split("\n").find(line => line.includes("Prerequisite") || line.includes("Prereq")) || extractedPrereq;
+                        }
+                    }
+                } catch (e) {}
+                
+                const returnData = {
+                    capacity: classCap ? classCap.innerText.trim() : "Unknown",
+                    waitlistCapacity: document.querySelector('span[id*="SSR_CLS_DTL_WRK_WAIT_CAP"]') ? document.querySelector('span[id*="SSR_CLS_DTL_WRK_WAIT_CAP"]').innerText.trim() : "0",
+                    enrolled: document.querySelector('span[id*="SSR_CLS_DTL_WRK_ENRL_TOT"]') ? document.querySelector('span[id*="SSR_CLS_DTL_WRK_ENRL_TOT"]').innerText.trim() : "0",
+                    waitlisted: document.querySelector('span[id*="SSR_CLS_DTL_WRK_WAIT_TOT"]') ? document.querySelector('span[id*="SSR_CLS_DTL_WRK_WAIT_TOT"]').innerText.trim() : "0",
+                    available: document.querySelector('span[id*="SSR_CLS_DTL_WRK_AVAILABLE_SEATS"]') ? document.querySelector('span[id*="SSR_CLS_DTL_WRK_AVAILABLE_SEATS"]').innerText.trim() : "0",
+                    prerequisites: extractedPrereq
+                };
+                
+                console.log("Deep Analysis Harvest complete:", returnData);
+                
+                chrome.runtime.sendMessage({
+                    action: "PEOPLESOFT_DEEP_SCRAPE_SUCCESS",
+                    data: returnData
+                });
+                try { chrome.storage.local.remove("scrapeTarget"); } catch(e){}
+                return;
+            }
         }
         
     }, 100); // Check every 100ms (Hyper-optimized)

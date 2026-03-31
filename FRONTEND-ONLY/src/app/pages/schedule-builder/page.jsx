@@ -22,6 +22,8 @@ export default function ScheduleBuilderBeta() {
   const [gridItems, setGridItems] = useState([]);
   const [clashingIds, setClashingIds] = useState(new Set());
   const [isFetching, setIsFetching] = useState(false);
+  const [deepFetching, setDeepFetching] = useState(null);
+  const deepTargetRef = useRef(null);
   
   // Cloud Sync
   const [hydrated, setHydrated] = useState(false);
@@ -73,11 +75,11 @@ export default function ScheduleBuilderBeta() {
   }, [cartItems, gridItems, hydrated, isLoaded]);
   
   // Custom Search State
-  const [searchSubject, setSearchSubject] = useState("COMP");
-  const [searchCatalog, setSearchCatalog] = useState("248");
-  const [searchTerm, setSearchTerm] = useState("Loading...");
-  const [availableTerms, setAvailableTerms] = useState([]);
-  const [isFetchingTerms, setIsFetchingTerms] = useState(true);
+  const [searchSubject, setSearchSubject] = useState("");
+  const [searchCatalog, setSearchCatalog] = useState("");
+  const [searchTerm, setSearchTerm] = useState("Summer 2026");
+  const [availableTerms, setAvailableTerms] = useState(["Summer 2026", "Fall 2026", "Fall/Winter 2026-27", "Winter 2027"]);
+  const [isFetchingTerms, setIsFetchingTerms] = useState(false);
   
   // Advanced Cart States
   const lastSearchRef = useRef({ subject: "COMP", catalog: "248", term: "Summer 2026" });
@@ -86,7 +88,7 @@ export default function ScheduleBuilderBeta() {
 
   // Constants for Visual Calendar
   const START_HOUR = 8;
-  const END_HOUR = 22;
+  const END_HOUR = 24;
   const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
   
   const DAYS = [
@@ -182,46 +184,56 @@ export default function ScheduleBuilderBeta() {
     setGridItems(prev => prev.filter(i => i.id !== item.id));
     setCartItems(prev => [...prev, item]); // Put it back in cart
   };
+
+  const fetchDeepDetails = (e, item) => {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const parts = item.courseCode.split(" ");
+      setDeepFetching(item.id);
+      deepTargetRef.current = item.id;
+      
+      window.postMessage({
+          type: "FROM_CONUPLANNER_WEB_DEEP_FETCH",
+          payload: {
+              classId: item.id,
+              subject: parts[0],
+              catalogue: parts[1],
+              term: item.term
+          }
+      }, "*");
+  };
   
   useEffect(() => {
-    // Phase 1: Delay slightly to allow Chrome to inject bridge.js asynchronously
-    const pingTimer = setTimeout(() => {
-        setIsFetchingTerms(true);
-        window.postMessage({ type: "FROM_CONUPLANNER_WEB_FETCH_TERMS" }, "*");
-    }, 600);
-
-    // Safety Fallback: Stop spinning if extension is missing/disabled/dead
-    const maxWaitTimer = setTimeout(() => {
-        setIsFetchingTerms(isWait => {
-            if (isWait) {
-                console.warn("[ConuPlanner] Term Sync timeout. Falling back to hardcoded terms.");
-                setAvailableTerms(["Summer 2026", "Fall 2026", "Winter 2027"]);
-                setSearchTerm("Summer 2026");
-                return false;
-            }
-            return isWait;
-        });
-    }, 4500);
-
-    return () => {
-        clearTimeout(pingTimer);
-        clearTimeout(maxWaitTimer);
-    };
+     // Terms are now structurally defined, bypassing unnecessary PeopleSoft fetches
   }, []);
 
   useEffect(() => {
     const handleMessage = (event) => {
-      // Phase 4: Receive scraped Terms from PeopleSoft
-      if (event.data?.type === "FROM_EXTENSION_TERMS_RESPONSE") {
-        if (event.data?.payload?.success && event.data.payload.data) {
-          const terms = event.data.payload.data;
-          setAvailableTerms(terms);
-          if (terms.length > 0) setSearchTerm(terms[0]);
-        } else {
-          setAvailableTerms(["Summer 2026", "Fall 2026", "Winter 2027"]);
-          setSearchTerm("Summer 2026");
-        }
-        setIsFetchingTerms(false);
+      // Phase 5: Deep Seat Scraper Response
+      if (event.data?.type === "FROM_EXTENSION_DEEP_RESPONSE") {
+          const targetId = deepTargetRef.current;
+          setDeepFetching(null);
+          deepTargetRef.current = null;
+          
+          if (event.data?.payload?.success && event.data.payload.data) {
+              const deepData = event.data.payload.data;
+              const mapDeepData = (arr) => arr.map(i => {
+                  if (i.id === targetId) {
+                      return {
+                          ...i,
+                          prerequisites: deepData.prerequisites && deepData.prerequisites !== "None" ? deepData.prerequisites : i.prerequisites,
+                          liveCapacity: deepData
+                      };
+                  }
+                  return i;
+              });
+              
+              setCartItems(prev => mapDeepData(prev));
+              setGridItems(prev => mapDeepData(prev));
+          } else {
+              alert(`⚠️ Analyzer Error: ${event.data?.payload?.error || "Bot timed out trying to reach the unique Class Page. Try again!"}`);
+          }
       }
 
       // Security: verify origin if needed, but we check type
@@ -446,6 +458,14 @@ export default function ScheduleBuilderBeta() {
                   <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                     Class Cart <span className="bg-[#912338] text-white px-2.5 py-0.5 rounded-full text-sm shadow-sm">{cartItems.length}</span>
                   </h2>
+                  {cartItems.length > 0 && (
+                      <button 
+                          onClick={() => { setCartItems([]); setGridItems([]); localStorage.removeItem("conu-engine:selected"); }}
+                          className="text-xs font-bold text-red-500 hover:text-white bg-red-50 hover:bg-red-500 transition px-3 py-1.5 rounded-lg border border-red-100"
+                      >
+                          Clear All
+                      </button>
+                  )}
                </div>
 
                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/50">
@@ -496,9 +516,16 @@ export default function ScheduleBuilderBeta() {
                                                         onDragStart={(e) => handleDragStart(e, item)}
                                                         className={`p-3 rounded-lg border border-gray-200 bg-white shadow-sm flex flex-col text-sm cursor-grab active:cursor-grabbing hover:shadow-md transition ${colorTheme.borderSide} border-l-[3px]`}
                                                     >
-                                                        <div className="flex justify-between font-bold text-gray-900">
-                                                            <span>{item.type} {item.section}</span>
-                                                            <span className="text-gray-400 font-medium text-xs">#{item.id}</span>
+                                                        <div className="flex justify-between font-bold text-gray-900 border-b border-gray-100 pb-2 mb-2 items-center">
+                                                            <div className="flex gap-2 items-center">
+                                                              <span className="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-md">{item.type} {item.section}</span>
+                                                              <span className="text-gray-400 font-medium text-xs">#{item.id}</span>
+                                                            </div>
+                                                            <button 
+                                                                onClick={(e) => { e.stopPropagation(); setCartItems(prev => prev.filter(i => i.id !== item.id)); }} 
+                                                                className="text-gray-300 hover:text-red-500 transition hover:bg-red-50 rounded-full w-5 h-5 flex items-center justify-center -mr-1"
+                                                                title="Remove class"
+                                                            >✕</button>
                                                         </div>
                                                         <div className="text-gray-600 mt-1.5 flex items-center gap-1.5 font-medium text-xs">
                                                             <span className="opacity-70">⏱️</span> {item.days} {item.startTime}-{item.endTime}
@@ -513,6 +540,29 @@ export default function ScheduleBuilderBeta() {
                                                               ⚠️ {item.prerequisites}
                                                           </div>
                                                         )}
+
+                                                        {item.liveCapacity && (
+                                                          <div className="mt-2.5 p-2 bg-slate-50/80 rounded-md border border-slate-200 flex flex-col gap-1.5 text-[10px] font-bold shadow-inner">
+                                                              <div className="flex justify-between items-center w-full">
+                                                                 <span className="text-emerald-700">🟢 Available: {item.liveCapacity.available} / {item.liveCapacity.capacity}</span>
+                                                                 <span className="text-yellow-600">🟡 Waitlist: {item.liveCapacity.waitlisted} / {item.liveCapacity.waitlistCapacity}</span>
+                                                              </div>
+                                                          </div>
+                                                        )}
+
+                                                        <div className="mt-2.5 pt-2 border-t border-gray-100 flex justify-end">
+                                                            <button 
+                                                              onClick={(e) => fetchDeepDetails(e, item)}
+                                                              disabled={deepFetching === item.id}
+                                                              className="text-xs font-bold text-[#912338] hover:bg-rose-50 px-3 py-1.5 rounded-md transition-all border border-transparent hover:border-rose-100 disabled:opacity-50 flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/20"
+                                                            >
+                                                               {deepFetching === item.id ? (
+                                                                  <><span className="animate-spin text-[10px]">🔄</span> Decoding...</>
+                                                               ) : (
+                                                                  <>🔍 Deep Inspect</>
+                                                               )}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -565,8 +615,8 @@ export default function ScheduleBuilderBeta() {
                 <div className="w-16 border-r border-gray-200 flex flex-col relative bg-white shrink-0 z-10 rounded-l-2xl">
                   {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
                     <div key={i} className="absolute w-full text-right pr-2 text-xs font-semibold text-gray-400" 
-                         style={{ top: `${(i * 60 / TOTAL_MINUTES) * 100}%`, transform: 'translateY(-50%)' }}>
-                      {START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM")}
+                         style={{ top: `calc(${(i * 60 / TOTAL_MINUTES) * 100}% + 37px)`, transform: 'translateY(-50%)' }}>
+                      {START_HOUR + i === 24 ? "12 AM" : (START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM"))}
                     </div>
                   ))}
                 </div>
@@ -575,7 +625,8 @@ export default function ScheduleBuilderBeta() {
                 <div className="flex-1 flex w-full relative">
 
                   {/* Horizontal Grid Pattern Background */}
-                  <div className="absolute inset-0 z-0 pointer-events-none" style={{
+                  <div className="absolute inset-x-0 bottom-0 z-0 pointer-events-none" style={{
+                    top: '37px',
                     backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), #f3f4f6 calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), #f3f4f6 calc(100% / ${(END_HOUR - START_HOUR) * 2}))`
                   }}></div>
 
@@ -644,6 +695,40 @@ export default function ScheduleBuilderBeta() {
 
               </div>
             </div>
+            {/* eConcordia & Asynchronous Classes Strip */}
+            {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
+              <div className="mt-4 p-4 border border-blue-200 bg-blue-50/50 rounded-2xl shadow-sm shrink-0 flex flex-col gap-3">
+                <h3 className="text-sm font-bold text-blue-900 flex items-center gap-2">
+                  <span className="text-xl">🌐</span>
+                  Online / eConcordia Sections
+                  <span className="text-xs font-medium text-blue-700/70 ml-2 bg-blue-100/50 px-2 py-0.5 rounded-md">Asynchronous &bull; No specified timeline</span>
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).map(item => {
+                    const colorTheme = item.courseCode ? (courseColorsMap[item.courseCode] || COURSE_COLORS[0]) : COURSE_COLORS[0];
+                    return (
+                      <motion.div 
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        key={`online-${item.id}`}
+                        onClick={() => handleRemoveFromGrid(item)}
+                        className={`group relative overflow-hidden flex items-center gap-4 px-4 py-2.5 rounded-xl border border-gray-200 cursor-pointer shadow-sm hover:shadow-md transition-all ${colorTheme.bg.replace('50', '50/80')}`}
+                      >
+                         <div className={`w-1.5 absolute left-0 top-0 bottom-0 ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0].replace('50', '400')}`} />
+                         <div className="flex flex-col pl-2">
+                             <span className={`font-black text-[11px] opacity-70 tracking-tight uppercase ${colorTheme.text}`}>{item.courseCode}</span>
+                             <span className={`font-bold text-[14px] leading-tight ${colorTheme.text}`}>{item.type} {item.section}</span>
+                             <span className={`text-[11px] opacity-80 font-bold ${colorTheme.text}`}>ID #{item.id}</span>
+                         </div>
+                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold transition">
+                           Remove
+                         </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
           </div>
         </div>
