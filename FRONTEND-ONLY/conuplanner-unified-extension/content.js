@@ -951,7 +951,6 @@ function injectFloatingButton() {
   wrapper.appendChild(closeBtn);
 
   document.body.appendChild(wrapper);
-  console.log("Floating Export button injected into Body");
 }
 
 // --- Parsing & ICS Generation ---
@@ -987,7 +986,6 @@ function scrapeSchedule() {
       break;
     }
   }
-  console.log(`VSB Export: Detected Term "${detectedTerm}"`);
 
   // 2. Get Academic Dates & Determine Term Start/End
   const academicEvents = getTermEvents(detectedTerm);
@@ -1011,7 +1009,6 @@ function scrapeSchedule() {
 
   // 3. Scrape Courses
   const courseBoxes = document.querySelectorAll(".course_box");
-  console.log(`VSB Export (Final Polish): Found ${courseBoxes.length} course boxes.`);
 
   courseBoxes.forEach(box => {
     // 1. Get Course Title (e.g., "COMP 346")
@@ -1097,7 +1094,6 @@ function scrapeSchedule() {
           location: comp.location,
           description: `Course: ${title}\nType: ${comp.type}\nRoom: ${comp.location}`
         });
-        console.log(`Exporting: ${title} (${comp.type}) starting ${startDate}`);
       }
     });
   });
@@ -1279,7 +1275,6 @@ function detectTypeByDuration(start24, end24) {
 // --- Scraper Logic for Student Centre ---
 
 function scrapeGrades() {
-  console.log("ConuPlanner: Starting grade scrape...");
 
   // Attempt to find the "Grade Distribution" table
   // Broaden table selector to catch different PeopleSoft grid classes
@@ -1392,7 +1387,6 @@ function scrapeGrades() {
     return;
   }
 
-  console.log("Scraped Data:", extractedData);
 
   // --- API CONNECTION ---
   // Pointing to PRODUCTION API
@@ -1430,7 +1424,6 @@ function scrapeGrades() {
 // --- Main Entry Point ---
 
 if (window.location.hostname.includes("vsb.concordia.ca") && window === window.top) {
-  console.log("ConuPlanner: VSB detected. Initializing Exporter...");
   // Run existing VSB logic
   init();
 
@@ -1457,7 +1450,6 @@ if (window.location.hostname.includes("vsb.concordia.ca") && window === window.t
   transObserver.observe(document.body, { childList: true, subtree: true });
 
 } else if (window.location.hostname.includes("campus.concordia.ca")) {
-  console.log("ConuPlanner: Student Centre detected. Initializing extraction check...");
 
   const checkTranscript = () => {
     const pageText = document.body.innerText;
@@ -1582,7 +1574,6 @@ function injectFloatingSyncUI() {
   container.appendChild(helpLink);
 
   document.body.appendChild(container);
-  console.log("ConuPlanner: Floating Sync UI injected.");
 }
 
 function getFormattedTimestamp() {
@@ -1829,7 +1820,6 @@ function injectTranscriptUI() {
     e.stopPropagation();
 
     const data = extractTranscriptData();
-    console.log("ConuPlanner Extracted Transcript:", data);
 
     if (!data || data.terms.length === 0) {
       alert("⚠️ No Transcript Data Found!\n\nPlease ensure the Unofficial Transcript has fully loaded on the screen before clicking Sync.\n\n(Tip: Scroll down to make sure all terms are visible)");

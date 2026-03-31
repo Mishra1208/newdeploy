@@ -69,4 +69,3 @@ window.addEventListener("message", (event) => {
         }
     }
 });
-console.log("ConuPlanner Extension Bridge Injected!");

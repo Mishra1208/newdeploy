@@ -21,7 +21,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                            !tUpper.includes("CCE ONLY");
                 });
 
-                console.log("[Term Sync] Extracted clean terms:", validTerms);
                 
                 setTimeout(() => {
                     try {
@@ -64,7 +63,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                                pageText.includes("No classes found") || pageText.includes("no results that match the criteria specified");
         
         if (noResultsMatch) {
-            console.log("Bot detected PeopleSoft 'No Results' warning! Aborting search early.");
             clearInterval(interval);
             
             const overlay = document.getElementById("conu-bot-overlay");
@@ -95,7 +93,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
             
             // --- FEATURE: ON-DEMAND LAZY DEMOGRAPHICS RESOLUTION ---
             if (target.mode === "DEEP_FETCH") {
-                 console.log("Deep bot found results! Locating specific Sequence ID: " + target.classId);
                  
                  const targetRow = rows.find(tr => {
                      const tds = Array.from(tr.children).filter(c => c.tagName === "TD");
@@ -150,7 +147,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                     }
                 }
             } catch (e) {
-                console.log("Failed to parse prerequisites", e);
             }
 
             const parsedClasses = [];
@@ -211,11 +207,9 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                         prerequisites: extractedPrereq
                     });
                 } catch (e) {
-                    console.log("Failed to parse row", tr, e);
                 }
             });
             
-            console.log("Extracted Classes:", parsedClasses);
 
             setTimeout(() => {
                 try {
@@ -257,7 +251,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
 
             // Find the main form elements
             if (subjectInput && catalogInput && careerSelect && termSelect && searchBtn) {
-                console.log(`Bot filling form for ${target.subject} ${target.catalogue}`);
                 
                 // 1. Fill Subject and Catalog and explicitly trigger 'change' so PeopleSoft counts them as Search Criteria!
                 if (subjectInput.value !== target.subject) {
@@ -319,7 +312,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                 // Lock it instantly
                 hasClickedSearch = true; 
                 
-                console.log("Bot Form Prepared! Waiting for PeopleSoft internal JS to settle...");
                 
                 // God-Mode Submit V2: Sanitized Pure HTML POST Submission
                 // 1. Grab PeopleSoft form
@@ -334,7 +326,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                     
                     if (btn && form && icAction) {
                         try {
-                            console.log("[Content Script] Sanitizing Form and Forging POST data...");
                             
                             // Strip any CSP-violating scripts attached directly to the form
                             form.removeAttribute('onsubmit');
@@ -360,12 +351,10 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
 
                 // If we triggered an AJAX change on Term/Career, give it 2 full seconds to unlock.
                 setTimeout(() => {
-                    console.log("Bot Programmatically clicking Search!");
                     triggerSearch();
                     state = "WAITING_FOR_RESULTS_MANUAL"; 
                 }, triggeredAjax ? 2500 : 800);
             } else {
-                console.log("Bot scanning for form elements. Status:", { 
                     subject: !!subjectInput, catalog: !!catalogInput, career: !!careerSelect, term: !!termSelect, searchBtn: !!searchBtn 
                 });
             }
@@ -379,7 +368,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                 
                 // 30 ticks * 100ms = 3000ms (3 seconds) breather before re-triggering POST!
                 if (window.conuSearchTick % 30 === 0) {
-                    console.log("Results not found yet. Re-firing God-Mode Search click to break PeopleSoft frozen state...");
                     var btn = document.querySelector('a[id*="PB_CLASS_SRCH"], a[name*="PB_CLASS_SRCH"], input[id*="PB_CLASS_SRCH"], button[id*="PB_CLASS_SRCH"]');
                     var form = document.querySelector('form[name="win0"]') || document.forms[0];
                     var icAction = document.querySelector('input[name="ICAction"]') || document.querySelector('input[id="ICAction"]');
@@ -438,7 +426,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                     prerequisites: extractedPrereq
                 };
                 
-                console.log("Deep Analysis Harvest complete:", returnData);
                 
                 chrome.runtime.sendMessage({
                     action: "PEOPLESOFT_DEEP_SCRAPE_SUCCESS",
