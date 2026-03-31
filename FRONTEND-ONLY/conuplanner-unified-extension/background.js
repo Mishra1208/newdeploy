@@ -34,8 +34,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     if (request.action === "fetchRMP") {
-        // Can switch to https://www.conuplanner.com/api/rmp for production
-        // Using localhost for robust local testing currently
         const API_URL = `https://www.conuplanner.com/api/rmp?name=${encodeURIComponent(request.name)}`;
 
         fetch(API_URL)
@@ -50,7 +48,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     if (request.action === "FETCH_VSB_TERMS") {
-        console.log("Instructed to scrape PeopleSoft explicitly for Available Terms...");
         chrome.storage.local.set({ scrapeTarget: { mode: "FETCH_TERMS" } }, () => {
             chrome.tabs.create({ 
                 url: "https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_EXT.CU_CLASS_SEARCH.GBL",
@@ -85,7 +82,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.action === "FETCH_VSB_CLASSES") {
         const { subject, catalogue, term } = request.payload || {};
-        console.log(`Instructed to scrape PeopleSoft for: ${subject} ${catalogue} (${term})`);
         
         // --- REAL PEOPLESOFT SCRAPER ARCHITECTURE ---
         // 1. Save target to storage so the injected bot knows what to search
@@ -142,7 +138,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.action === "FETCH_DEEP_CLASS_DETAILS") {
         const { classId, subject, catalogue, term } = request.payload || {};
-        console.log(`Instructed to Deep-Scrape PeopleSoft for capacity array: ${classId}`);
         
         chrome.storage.local.set({ scrapeTarget: { mode: "DEEP_FETCH", classId, subject, catalogue, term } }, () => {
             chrome.windows.create({ 

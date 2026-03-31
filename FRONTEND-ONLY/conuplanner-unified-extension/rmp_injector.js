@@ -3,7 +3,7 @@
 const RMP_CACHE = {}; // Cache queries to avoid spamming the API
 
 function initRMPInjector() {
-    console.log("ConuPlanner: Init RMP Injector...");
+
 
     // Create an observer to watch for DOM changes, as VSB loads classes dynamically
     const observer = new MutationObserver(mutations => {

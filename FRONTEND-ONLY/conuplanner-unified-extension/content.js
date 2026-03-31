@@ -815,9 +815,8 @@ const ACADEMIC_DATES = {
   ]
 };
 
-// --- Main Injection Logic ---
+// -- Main Injection Logic ---
 function init() {
-  console.log("ConuPlanner VSB Extension Loaded (Debug Mode)");
 
   // Inject immediately to test visibility
   injectFloatingButton();

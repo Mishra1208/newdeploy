@@ -1,11 +1,9 @@
-// Injected into https://campus.concordia.ca/psc/pscsprd/...
-console.log("ConU Planner PeopleSoft Bot Injected, waiting for instructions...");
+// ConuPlanner PeopleSoft Bot Script
+
 
 chrome.storage.local.get(["scrapeTarget"], (result) => {
     const target = result.scrapeTarget;
     if (!target) return; // Not commanded to scrape right now
-    
-    console.log("Bot received target:", target);
 
     // --- FEATURE: BACKGROUND TERM SYNCHRONIZATION ---
     if (target.mode === "FETCH_TERMS") {
@@ -133,14 +131,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                  return;
             }
 
-            // --- FEATURE: STANDARD BULK EXTRACTION MODE ---
-            console.log("Bot found " + rows.length + " real class rows! Extracting data...");
-            clearInterval(interval);
-            
-            // Change overlay color to success immediately
-            const overlay = document.getElementById("conu-bot-overlay");
-            if (overlay) overlay.innerHTML = "<div style='position: fixed; bottom: 0; left: 0; width: 100%; background: #2e7d32; color: white; padding: 15px; text-align: center; z-index: 999999; font-weight: bold;'>✅ EXTRACTION COMPLETE! Translating " + rows.length + " classes...</div>";
-            
             // --- REAL DATA EXTRACTION ALGORITHM ---
             let extractedPrereq = "None";
             try {
