@@ -308,15 +308,8 @@ export default function ScheduleBuilderBeta() {
            const req = lastSearchRef.current;
            const courseCode = `${req.subject} ${req.catalog}`;
            
-           // Assign a color dynamically if not already established
-           setCourseColorsMap(prev => {
-             const next = { ...prev };
-             if (!next[courseCode]) {
-                const colorIdx = Object.keys(prev).length % COURSE_COLORS.length;
-                next[courseCode] = COURSE_COLORS[colorIdx];
-             }
-             return next;
-           });
+           // Color mapping is now deterministic via useMemo logic above
+
 
            // Auto-expand this new folder
            setExpandedFolders(prev => ({ ...prev, [courseCode]: true }));
