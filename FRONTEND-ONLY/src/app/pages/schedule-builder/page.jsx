@@ -282,12 +282,12 @@ export default function ScheduleBuilderBeta() {
           }
       }, "*");
 
-      // 2. Race: If no response in 1s, fallback to Cloud API
+      // 2. Race: If no response in 3s, fallback to Cloud API
+      const timeoutMs = isMobile ? 1500 : 3000;
       if (deepTimeoutRef.current) clearTimeout(deepTimeoutRef.current);
       deepTimeoutRef.current = setTimeout(() => {
-          // If still fetching after 1.5s, it likely means no extension is present
           fallbackDeepFetch(item);
-      }, 1500);
+      }, timeoutMs);
   };
 
   const fallbackDeepFetch = async (item) => {
@@ -416,12 +416,13 @@ export default function ScheduleBuilderBeta() {
       payload: { subject: searchSubject.toUpperCase(), catalogue: searchCatalog, term: searchTerm }
     }, "*");
 
-    // 2. Race: If no response in 1s, fallback to API
+    // 2. Race: If no response in 3s, fallback to API
+    const timeoutMs = isMobile ? 1500 : 3000;
     if (fetchTimeoutRef.current) clearTimeout(fetchTimeoutRef.current);
     fetchTimeoutRef.current = setTimeout(() => {
         console.log("⚡ Extension timeout. Falling back to Cloud Scraper...");
         fallbackToApiFetch();
-    }, 1000);
+    }, timeoutMs);
   };
 
   const fallbackToApiFetch = async () => {
@@ -619,10 +620,13 @@ export default function ScheduleBuilderBeta() {
                              <div className="flex flex-col items-center">
                                 <div className="flex items-center gap-2">
                                    <span className="animate-spin text-xl">🤖</span>
-                                   <span>{fetchingStatus === "api" ? "Cloud Mode" : "Fetching"}</span>
+                                   <span>{fetchingStatus === "api" ? "Cloud Mode" : (isMobile ? "Fetching..." : "Checking Extension...")}</span>
                                 </div>
                                 {fetchingStatus === "api" && (
                                    <span className="text-[10px] font-bold opacity-60 tracking-tight leading-none mt-1 animate-pulse">Connecting to Concordia...</span>
+                                )}
+                                {fetchingStatus === "extension" && !isMobile && (
+                                   <span className="text-[10px] font-bold opacity-60 tracking-tight leading-none mt-1">PeopleSoft search in progress</span>
                                 )}
                              </div>
                           ) : (
@@ -984,7 +988,7 @@ export default function ScheduleBuilderBeta() {
               )}
             </div>
             {/* eConcordia & Asynchronous Classes Strip */}
-            {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
+            {visibleGridItems.filter(item => !item.days || (typeof item.days === 'string' && item.days.trim() === 'TBA') || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
               <div className="mt-4 p-4 border border-blue-200 dark:border-blue-500/30 bg-blue-50/50 dark:bg-blue-900/20 rounded-2xl shadow-sm shrink-0 flex flex-col gap-3">
                 <h3 className="text-sm font-bold text-blue-900 dark:text-blue-300 flex items-center gap-2">
                   <span className="text-xl">🌐</span>
@@ -992,7 +996,7 @@ export default function ScheduleBuilderBeta() {
                   <span className="text-xs font-medium text-blue-700/70 dark:text-blue-300/70 ml-2 bg-blue-100/50 dark:bg-blue-500/20 px-2 py-0.5 rounded-md">Asynchronous &bull; No specified timeline</span>
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).map(item => {
+                  {visibleGridItems.filter(item => !item.days || (typeof item.days === 'string' && item.days.trim() === 'TBA') || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).map(item => {
                     const colorTheme = item.courseCode ? (courseColorsMap[item.courseCode] || COURSE_COLORS[0]) : COURSE_COLORS[0];
                     return (
                       <motion.div 

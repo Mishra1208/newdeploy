@@ -129,7 +129,7 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
         const sections = await page.evaluate((courseCode) => {
             const parseConcordiaTime = (timeStr) => {
                 if (!timeStr || timeStr === 'N/A' || timeStr.includes('TBA')) {
-                    return { days: [], startTime: '', endTime: '' };
+                    return { days: 'TBA', startTime: '', endTime: '' };
                 }
 
                 // Handle format: "MoWe 10:15AM - 11:30AM" or "MoWeFr 12:00PM - 1:15PM"
@@ -140,23 +140,7 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
                 const startTime = parts[1]; // e.g. "10:15AM"
                 const endTime = parts[3]; // e.g. "11:30AM"
 
-                const daysMap = {
-                    'Mo': 'Mon',
-                    'Tu': 'Tue',
-                    'We': 'Wed',
-                    'Th': 'Thu',
-                    'Fr': 'Fri',
-                    'Sa': 'Sat',
-                    'Su': 'Sun'
-                };
-
-                const days = [];
-                for (let j = 0; j < dayStr.length; j += 2) {
-                    const d = dayStr.substring(j, j + 2);
-                    if (daysMap[d]) days.push(daysMap[d]);
-                }
-
-                return { days, startTime, endTime };
+                return { days: dayStr, startTime, endTime };
             };
 
             const results = [];
