@@ -27,11 +27,14 @@ export default function ScheduleBuilderBeta() {
   const [isExporting, setIsExporting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const [activeTab, setActiveTab] = useState("cart"); // "cart" | "schedule"
+
   const fetchTimeoutRef = useRef(null);
   const deepTimeoutRef = useRef(null);
   const [deepFetching, setDeepFetching] = useState(null);
   const deepTargetRef = useRef(null);
   const calendarRef = useRef(null);
+  const exportRef = useRef(null);
 
   // Resolution detection for Mobile UX
   useEffect(() => {
@@ -43,16 +46,20 @@ export default function ScheduleBuilderBeta() {
   
   const handleExportPNG = () => {
     setIsExporting(true);
+    // Give time for the Ghost Grid to mount if it wasnt already
     setTimeout(async () => {
-      if (calendarRef.current === null) {
+      if (exportRef.current === null) {
           setIsExporting(false);
+          alert("Export engine failed to initialize.");
           return;
       }
       try {
-        const dataUrl = await toPng(calendarRef.current, { 
+        const dataUrl = await toPng(exportRef.current, { 
           cacheBust: true, 
           backgroundColor: '#ffffff',
-          pixelRatio: 2 // High-Resolution Export
+          pixelRatio: 3, // Ultra-High-Resolution Export
+          width: 1200,   // Fixed width for professional look
+          height: 1000   // Fixed height for professional look
         });
         const link = document.createElement('a');
         link.download = `conuplanner-schedule-${new Date().getTime()}.png`;
@@ -60,11 +67,11 @@ export default function ScheduleBuilderBeta() {
         link.click();
       } catch (err) {
         console.error('Snapshot Engine failed:', err);
-        alert('Failed to capture calendar. Please try again.');
+        alert('Failed to capture schedule image. Please try again.');
       } finally {
         setIsExporting(false);
       }
-    }, 150);
+    }, 300);
   };
   
   // Local Data Index matching
@@ -661,14 +668,14 @@ export default function ScheduleBuilderBeta() {
            </div>
         </div>
 
-        {/* 2-Zone Layout Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 h-[calc(100vh-320px)]">
+        {/* 2-Zone Layout Area - FIXED HEIGHT ON DESKTOP */}
+        <div className={`grid grid-cols-1 lg:grid-cols-4 gap-8 ${isMobile ? 'min-h-[500px]' : 'h-[850px] max-h-[850px]'}`}>
           
           {/* ZONE A: Unified Shopping & Search Panel */}
-          <div className="col-span-1 lg:col-span-1 flex flex-col h-full gap-5">
+          <div className={`col-span-1 lg:col-span-1 flex flex-col h-full gap-5 ${isMobile && activeTab !== 'cart' ? 'hidden' : 'flex'}`}>
             
             {/* 2. The Cart Folders (Scrollable List) */}
-            <div className="bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex-1 flex flex-col overflow-hidden min-h-0">
+            <div className="bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex-1 flex flex-col overflow-hidden min-h-0 h-full">
                <div className="p-5 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-gray-50 dark:bg-white/5">
                   <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                     Class Cart <span className="bg-[#912338] text-white px-2.5 py-0.5 rounded-full text-sm shadow-sm">{cartItems.length}</span>
@@ -802,26 +809,24 @@ export default function ScheduleBuilderBeta() {
           {/* ZONE B: Visual Calendar Grid */}
           <div 
             ref={calendarRef}
-            className={`col-span-1 lg:col-span-3 bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex flex-col ${isExporting ? 'h-auto overflow-visible p-8' : 'h-full overflow-hidden p-6'}`}
+            className={`col-span-1 lg:col-span-3 bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex flex-col overflow-hidden p-6 ${isMobile && activeTab !== 'schedule' ? 'hidden' : 'flex'} h-full`}
           >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                 Calendar Canvas
               </h2>
-              {!isExporting && (
-                <div className="flex gap-2">
-                  <button 
-                    onClick={handleExportPNG}
-                    className="px-4 py-2 bg-[#912338] text-white rounded-xl text-sm font-semibold shadow-md hover:bg-[#7a1d2f] transition flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/40"
-                  >
-                    📸 Export PNG
-                  </button>
-                </div>
-              )}
+              <div className="flex gap-2">
+                <button 
+                  onClick={handleExportPNG}
+                  className="px-4 py-2 bg-[#912338] text-white rounded-xl text-sm font-semibold shadow-md hover:bg-[#7a1d2f] transition flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/40"
+                >
+                  📸 Export PNG
+                </button>
+              </div>
             </div>
 
             <div 
-              className={`border border-gray-200 dark:border-white/10 rounded-2xl flex relative bg-gray-50 dark:bg-[#0a0a0a] shadow-inner ${isExporting ? 'h-auto overflow-visible min-h-[1050px]' : 'flex-1 overflow-y-auto'}`}
+              className="border border-gray-200 dark:border-white/10 rounded-2xl flex relative bg-gray-50 dark:bg-[#080808] shadow-inner flex-1 overflow-y-auto"
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
@@ -1048,6 +1053,110 @@ export default function ScheduleBuilderBeta() {
             )}
 
           </div>
+        </div>
+
+        {/* MOBILE TAB SWITCHER - Segmented Control */}
+        {isMobile && (
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[240px] p-1.5 bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl flex items-center gap-1">
+            <button 
+              onClick={() => setActiveTab("cart")}
+              className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${activeTab === 'cart' ? 'bg-[#912338] text-white shadow-lg' : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5'}`}
+            >
+               🛒 Cart
+            </button>
+            <button 
+              onClick={() => setActiveTab("schedule")}
+              className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${activeTab === 'schedule' ? 'bg-[#912338] text-white shadow-lg' : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5'}`}
+            >
+               📅 Visual
+            </button>
+          </div>
+        )}
+
+        {/* GHOST EXPORT GRID (Always Desktop Version) */}
+        <div 
+          ref={exportRef}
+          style={{ position: 'absolute', left: '-9999px', top: '0', width: '1200px', height: '1000px', pointerEvents: 'none' }}
+          className="bg-white p-8"
+        >
+            <div className="flex justify-between items-center mb-6">
+               <div className="flex flex-col">
+                  <h1 className="text-3xl font-black text-[#912338] tracking-tighter">My Concordia Schedule</h1>
+                  <p className="text-gray-500 font-bold text-sm uppercase tracking-widest">{searchTerm}</p>
+               </div>
+               <div className="text-right">
+                  <p className="text-[10px] font-black text-gray-400 uppercase">Generated by ConU Planner</p>
+                  <p className="text-[10px] font-bold text-gray-300">{new Date().toLocaleDateString()}</p>
+               </div>
+            </div>
+            
+            <div className="border-2 border-gray-100 rounded-3xl flex relative bg-gray-50 shadow-inner h-[800px] overflow-hidden">
+                <div className="w-16 border-r border-gray-200 flex flex-col relative bg-white shrink-0 z-10">
+                  {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
+                    <div key={i} className="absolute w-full text-right pr-2 text-[10px] font-bold text-gray-400" 
+                         style={{ top: `calc(${(i * 60 / TOTAL_MINUTES) * 100}% + 37px)`, transform: 'translateY(-50%)' }}>
+                      {START_HOUR + i === 24 ? "12 AM" : (START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM"))}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex-1 flex w-full relative">
+                  {DAYS.map((day) => (
+                    <div key={day.id} className="flex-1 relative border-r border-gray-100 last:border-r-0">
+                      <div className="bg-white border-b border-gray-200 py-2 text-center text-xs font-black text-[#912338] uppercase tracking-widest">
+                        {day.label}
+                      </div>
+                      
+                      {visibleGridItems.map(item => {
+                        if (!item.days.includes(day.id)) return null;
+                        const startMins = getMinutesFromStart(item.startTime);
+                        const endMins = getMinutesFromStart(item.endTime);
+                        const durationMins = endMins - startMins;
+                        const topPercent = (startMins / TOTAL_MINUTES) * 100;
+                        const heightPercent = (durationMins / TOTAL_MINUTES) * 100;
+                        const colorTheme = item.courseCode ? (courseColorsMap[item.courseCode] || COURSE_COLORS[0]) : COURSE_COLORS[0];
+
+                        return (
+                          <div
+                            key={`export-${item.id}-${day.id}`}
+                            className={`absolute left-1.5 right-1.5 rounded-2xl p-3 border shadow-sm flex flex-col justify-between ${colorTheme.bg.split(' ')[0]} ${colorTheme.border} ${colorTheme.text.split(' ')[0]}`}
+                            style={{ 
+                              top: `calc(${topPercent}% + 37px)`,
+                              height: `${heightPercent}%`,
+                              minHeight: '3rem'
+                            }}
+                          >
+                            <div className="flex justify-between items-start">
+                                <span className="text-[10px] font-black uppercase tracking-tighter opacity-80">{item.courseCode}</span>
+                                <span className="text-[10px] font-bold bg-white/40 px-1.5 rounded-md">{item.startTime}-{item.endTime}</span>
+                            </div>
+                            <div className="text-[12px] font-black leading-none my-1.5 line-clamp-2">
+                                {courseDirectory[item.courseCode] || "Course Details"}
+                            </div>
+                            <div className="mt-auto flex items-center justify-between">
+                                <span className="text-[9px] font-black bg-white/40 px-1.5 py-0.5 rounded-md">{item.type} {item.section}</span>
+                                {item.room !== "TBA" && (
+                                   <span className="text-[9px] font-bold bg-black/5 px-1.5 py-0.5 rounded-md truncate max-w-[60px]">📍 {item.room}</span>
+                                )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+            </div>
+            
+            {/* Online Sections in Export */}
+            {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
+               <div className="mt-6 flex flex-wrap gap-2">
+                  {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).map(item => (
+                     <div key={`export-online-${item.id}`} className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-xl text-[10px] font-bold text-gray-600">
+                        🌐 {item.courseCode}: {item.type} {item.section} (Online)
+                     </div>
+                  ))}
+               </div>
+            )}
         </div>
 
       </motion.main>
