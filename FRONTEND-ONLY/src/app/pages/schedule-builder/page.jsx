@@ -8,13 +8,13 @@ import { ShineBorder } from "@/components/ui/ShineBorder";
 import { toPng } from "html-to-image";
 
 const COURSE_COLORS = [
-  { bg: "bg-[#f8f1e6]", border: "border-[#C5A059]", borderSide: "border-l-[#C5A059]", text: "text-amber-900" }, // Concordia Gold
-  { bg: "bg-blue-50", border: "border-blue-400", borderSide: "border-l-blue-500", text: "text-blue-900" },
-  { bg: "bg-emerald-50", border: "border-emerald-400", borderSide: "border-l-emerald-500", text: "text-emerald-900" },
-  { bg: "bg-purple-50", border: "border-purple-400", borderSide: "border-l-purple-500", text: "text-purple-900" },
-  { bg: "bg-rose-50", border: "border-rose-400", borderSide: "border-l-rose-500", text: "text-rose-900" },
-  { bg: "bg-indigo-50", border: "border-indigo-400", borderSide: "border-l-indigo-500", text: "text-indigo-900" },
-  { bg: "bg-orange-50", border: "border-orange-400", borderSide: "border-l-orange-500", text: "text-orange-900" },
+  { bg: "bg-[#f8f1e6] dark:bg-amber-900/30", border: "border-[#C5A059] dark:border-amber-500/50", borderSide: "border-l-[#C5A059] dark:border-l-amber-500", text: "text-amber-900 dark:text-amber-300" },
+  { bg: "bg-blue-50 dark:bg-blue-900/30", border: "border-blue-400 dark:border-blue-500/50", borderSide: "border-l-blue-500 dark:border-l-blue-400", text: "text-blue-900 dark:text-blue-300 dark:text-blue-300" },
+  { bg: "bg-emerald-50 dark:bg-emerald-900/30", border: "border-emerald-400 dark:border-emerald-500/50", borderSide: "border-l-emerald-500 dark:border-l-emerald-400", text: "text-emerald-900 dark:text-emerald-300" },
+  { bg: "bg-purple-50 dark:bg-purple-900/30", border: "border-purple-400 dark:border-purple-500/50", borderSide: "border-l-purple-500 dark:border-l-purple-400", text: "text-purple-900 dark:text-purple-300" },
+  { bg: "bg-rose-50 dark:bg-rose-900/30", border: "border-rose-400 dark:border-rose-500/50", borderSide: "border-l-rose-500 dark:border-l-rose-400", text: "text-rose-900 dark:text-rose-300" },
+  { bg: "bg-indigo-50 dark:bg-indigo-900/30", border: "border-indigo-400 dark:border-indigo-500/50", borderSide: "border-l-indigo-500 dark:border-l-indigo-400", text: "text-indigo-900 dark:text-indigo-300" },
+  { bg: "bg-orange-50 dark:bg-orange-900/30", border: "border-orange-400 dark:border-orange-500/50", borderSide: "border-l-orange-500 dark:border-l-orange-400", text: "text-orange-900 dark:text-orange-300" },
 ];
 
 export default function ScheduleBuilderBeta() {
@@ -78,7 +78,7 @@ export default function ScheduleBuilderBeta() {
     if (isLoaded && user && !hydrated) {
       const cloudData = user.unsafeMetadata?.scheduleEngine;
       if (cloudData) {
-        console.log("☁️ Restoring Schedule Engine from Cloud");
+        console.log("☁️ Restoring Schedule Builder from Cloud");
         setCartItems(cloudData.cartItems || []);
         setGridItems(cloudData.gridItems || []);
       } else {
@@ -351,12 +351,12 @@ export default function ScheduleBuilderBeta() {
   };
   
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', overflowX: 'hidden', backgroundColor: '#f8f9fa' }}>
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#f8f9fa] dark:bg-[#0a0a0a] transition-colors duration-300 text-slate-900 dark:text-slate-100">
       
       {/* Decorative Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#912338] opacity-[0.03] blur-[120px]" />
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] bg-[#C5A059] opacity-[0.05] blur-[100px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#912338] dark:bg-purple-900 opacity-[0.03] dark:opacity-[0.2] blur-[120px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] bg-[#C5A059] dark:bg-amber-600 opacity-[0.05] dark:opacity-[0.15] blur-[100px]" />
       </div>
 
       <motion.main
@@ -365,13 +365,12 @@ export default function ScheduleBuilderBeta() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-gray-200">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-gray-200 dark:border-white/10">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-4xl font-extrabold text-[#912338] tracking-tight">Schedule Engine</h1>
-              <span className="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">Beta Lab</span>
+              <h1 className="text-4xl font-extrabold text-[#912338] dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-amber-400 dark:to-orange-500 tracking-tight">Schedule Builder</h1>
             </div>
-            <p className="text-gray-500 text-lg">The ultimate visual drag-and-drop sequence planner.</p>
+            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-lg">The ultimate visual drag-and-drop sequence planner.</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
@@ -386,7 +385,7 @@ export default function ScheduleBuilderBeta() {
             
             <SignedOut>
               <Link href="/login">
-                <button className="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs font-bold shadow-sm transition-all focus:ring-2 focus:ring-[#912338]/20 bg-white">
+                <button className="px-4 py-2 rounded-full border border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-white/10 dark:hover:bg-white/10 text-xs font-bold shadow-sm transition-all bg-white dark:bg-[#111]">
                   Cloud Sync (Login)
                 </button>
               </Link>
@@ -399,14 +398,14 @@ export default function ScheduleBuilderBeta() {
                        setGridItems([]);
                    }
                }}
-               className="px-4 py-2 rounded-full border border-rose-200 text-rose-700 hover:bg-rose-50 border-[1.5px] text-xs font-bold shadow-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white"
+               className="px-4 py-2 rounded-full border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 border-[1.5px] text-xs font-bold shadow-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white dark:bg-[#111]"
                disabled={!cartItems.length && !gridItems.length}
             >
                Clear Board
             </button>
 
             <SignedIn>
-              <div className="ml-2 scale-90 border border-gray-200 rounded-full p-0.5 bg-white">
+              <div className="ml-2 scale-90 border border-gray-200 dark:border-white/10 rounded-full p-0.5 bg-white dark:bg-[#111]">
                 <UserButton afterSignOutUrl="/" />
               </div>
             </SignedIn>
@@ -417,21 +416,21 @@ export default function ScheduleBuilderBeta() {
         <div className="flex justify-center w-full mb-8 z-20 relative px-4">
            {/* Static Glow Wrapper */}
            <div className="w-full max-w-4xl rounded-[32px] p-[2px] bg-gradient-to-r from-[#912338] via-[#C5A059] to-[#912338] shadow-[0_0_30px_rgba(145,35,56,0.15)]">
-               <div className="bg-white p-6 md:p-8 w-full relative overflow-hidden rounded-[30px] shadow-sm">
+               <div className="bg-white dark:bg-[#111] dark:bg-[#0d0d0d] p-6 md:p-8 w-full relative overflow-hidden rounded-[30px] shadow-sm transition-colors duration-300">
                    {/* Decorative Gradient */}
-                   <div className="absolute top-0 right-0 w-64 h-64 bg-rose-50 rounded-full blur-3xl opacity-50 pointer-events-none -mr-20 -mt-20"></div>
+                   <div className="absolute top-0 right-0 w-64 h-64 bg-rose-50 dark:bg-amber-900/20 rounded-full blur-3xl opacity-50 pointer-events-none -mr-20 -mt-20"></div>
                    
                    {/* Top Row: Term */}
                     <div className="flex justify-between items-center mb-6 relative z-10">
-                        <div className="flex items-center gap-2 text-[#912338] font-black text-xs uppercase tracking-widest pl-2">
+                        <div className="flex items-center gap-2 text-[#912338] dark:text-amber-500 font-black text-xs uppercase tracking-widest pl-2">
                             SELECT TERM
                         </div>
-                        <div className="bg-white border-2 border-[#912338]/40 rounded-xl flex items-center px-4 py-2 hover:border-[#912338]/80 transition focus-within:border-[#912338] focus-within:shadow-[0_0_15px_rgba(145,35,56,0.15)] shadow-sm">
+                        <div className="bg-white dark:bg-[#111] border-2 border-[#912338]/40 dark:border-amber-500/30 rounded-xl flex items-center px-4 py-2 hover:border-[#912338]/80 transition focus-within:border-[#912338] focus-within:shadow-[0_0_15px_rgba(145,35,56,0.15)] shadow-sm">
                            <select 
                               value={searchTerm}
                               onChange={(e) => setSearchTerm(e.target.value)}
                               disabled={isFetchingTerms}
-                              className="bg-transparent text-gray-800 font-bold text-sm outline-none cursor-pointer appearance-none pr-6 w-[180px]"
+                              className="bg-transparent text-gray-800 dark:text-gray-100 font-bold text-sm outline-none cursor-pointer appearance-none pr-6 w-[180px]"
                            >
                               {isFetchingTerms ? (
                                  <option value="Loading...">Loading Terms...</option>
@@ -443,14 +442,14 @@ export default function ScheduleBuilderBeta() {
                                  ))
                               )}
                            </select>
-                           <span className="text-gray-400 pointer-events-none -ml-4 font-bold text-xs">▼</span>
+                           <span className="text-gray-400 dark:text-gray-500 pointer-events-none -ml-4 font-bold text-xs">▼</span>
                        </div>
                    </div>
     
                    {/* Bottom Row: Inputs & Button */}
                    <div className="flex flex-col md:flex-row gap-4 relative z-10">
                        {/* Subject */}
-                       <div className="flex-1 bg-white border-2 border-[#912338]/80 focus-within:border-[#912338] focus-within:shadow-[0_0_15px_rgba(145,35,56,0.2)] rounded-2xl p-4 transition-all">
+                       <div className="flex-1 bg-white dark:bg-[#111] border-2 border-[#912338]/80 dark:border-[#111] focus-within:border-[#912338] dark:focus-within:border-amber-500 focus-within:shadow-[0_0_15px_rgba(145,35,56,0.2)] rounded-2xl p-4 transition-all">
                             <label className="text-[10px] font-extrabold uppercase text-[#912338] tracking-widest block mb-1">
                                 Subject
                             </label>
@@ -460,12 +459,12 @@ export default function ScheduleBuilderBeta() {
                               maxLength={4}
                               value={searchSubject}
                               onChange={(e) => setSearchSubject(e.target.value.toUpperCase().replace(/\s/g, ""))}
-                              className="w-full bg-transparent outline-none text-3xl font-black text-gray-800 uppercase placeholder-gray-300"
+                              className="w-full bg-transparent outline-none text-3xl font-black text-gray-800 dark:text-white uppercase placeholder-gray-300 dark:placeholder-white/20"
                             />
                        </div>
     
                        {/* Number */}
-                       <div className="flex-1 bg-white border-2 border-[#C5A059]/80 focus-within:border-[#C5A059] focus-within:shadow-[0_0_15px_rgba(197,160,89,0.25)] rounded-2xl p-4 transition-all">
+                       <div className="flex-1 bg-white dark:bg-[#111] border-2 border-[#C5A059]/80 dark:border-[#111] focus-within:border-[#C5A059] dark:focus-within:border-amber-500 focus-within:shadow-[0_0_15px_rgba(197,160,89,0.25)] rounded-2xl p-4 transition-all">
                             <label className="text-[10px] font-extrabold uppercase text-[#C5A059] tracking-widest block mb-1">
                                 Course Number
                             </label>
@@ -475,7 +474,7 @@ export default function ScheduleBuilderBeta() {
                               max={999}
                               value={searchCatalog}
                               onChange={(e) => setSearchCatalog(e.target.value)}
-                              className="w-full bg-transparent outline-none text-3xl font-black text-gray-800 placeholder-gray-300"
+                              className="w-full bg-transparent outline-none text-3xl font-black text-gray-800 dark:text-white placeholder-gray-300 dark:placeholder-white/20"
                             />
                        </div>
     
@@ -483,7 +482,7 @@ export default function ScheduleBuilderBeta() {
                        <button 
                           onClick={triggerExtensionFetch}
                           disabled={isFetching || !searchSubject || !searchCatalog}
-                          className="mt-2 md:mt-0 px-8 py-5 bg-[#912338] text-white rounded-2xl text-lg font-extrabold shadow-[0_8px_20px_rgba(145,35,56,0.25)] hover:bg-[#7a1d2f] hover:translate-y-[-2px] transition-all disabled:opacity-50 disabled:hover:translate-y-0 flex justify-center items-center gap-3 uppercase tracking-wider md:w-[220px]"
+                          className="mt-2 md:mt-0 px-8 py-5 bg-[#912338] dark:bg-gradient-to-r dark:from-amber-500 dark:to-orange-600 text-white dark:text-black rounded-2xl text-lg font-extrabold shadow-[0_8px_20px_rgba(145,35,56,0.25)] dark:shadow-orange-500/20 hover:bg-[#7a1d2f] dark:hover:to-orange-700 dark:hover:text-white hover:translate-y-[-2px] transition-all disabled:opacity-50 disabled:hover:translate-y-0 flex justify-center items-center gap-3 uppercase tracking-wider md:w-[220px]"
                        >
                           {isFetching ? (
                              <><span className="animate-spin text-xl">🤖</span> Fetching</>
@@ -503,9 +502,9 @@ export default function ScheduleBuilderBeta() {
           <div className="col-span-1 lg:col-span-1 flex flex-col h-full gap-5">
             
             {/* 2. The Cart Folders (Scrollable List) */}
-            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden min-h-0">
-               <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/30">
-                  <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <div className="bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex-1 flex flex-col overflow-hidden min-h-0">
+               <div className="p-5 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-gray-50 dark:bg-white/5 dark:bg-white dark:bg-[#111]/5">
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                     Class Cart <span className="bg-[#912338] text-white px-2.5 py-0.5 rounded-full text-sm shadow-sm">{cartItems.length}</span>
                   </h2>
                   {cartItems.length > 0 && (
@@ -518,12 +517,12 @@ export default function ScheduleBuilderBeta() {
                   )}
                </div>
 
-               <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/50">
+               <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-[#0a0a0a]">
                   {Object.keys(cartGroups).length === 0 ? (
                       <div className="text-center p-6 my-auto opacity-50 flex flex-col items-center">
                         <div className="text-4xl mb-4 grayscale">🛒</div>
-                        <h3 className="font-bold text-gray-600">Cart is empty</h3>
-                        <p className="text-sm mt-2 max-w-[200px] text-gray-500">Run the extractor above to load sections directly.</p>
+                        <h3 className="font-bold text-gray-600 dark:text-gray-400">Cart is empty</h3>
+                        <p className="text-sm mt-2 max-w-[200px] text-gray-500 dark:text-gray-400">Run the extractor above to load sections directly.</p>
                       </div>
                   ) : (
                       Object.entries(cartGroups).map(([code, items]) => {
@@ -531,20 +530,20 @@ export default function ScheduleBuilderBeta() {
                           const colorTheme = courseColorsMap[code] || COURSE_COLORS[0];
                           
                           return (
-                              <div key={code} className={`border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm transition-all duration-300`}>
+                              <div key={code} className={`border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden bg-white dark:bg-[#111] shadow-sm transition-all duration-300`}>
                                   
                                   {/* Folder Header */}
                                   <div 
                                       onClick={() => setExpandedFolders(prev => ({...prev, [code]: !isExpanded}))}
-                                      className={`p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 select-none border-b border-gray-100 transition`}
+                                      className={`p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 dark:bg-white/10 select-none border-b border-gray-100 dark:border-white/5 transition`}
                                   >
-                                      <span className="font-bold text-gray-800 flex items-center gap-2">
+                                      <span className="font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                                           <div className={`w-3.5 h-3.5 rounded-sm ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0].replace('50', '400')}`} /> 
                                           {code}
                                       </span>
                                       <div className="flex items-center gap-2">
-                                          <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-md">{items.length} left</span>
-                                          <span className={`text-gray-400 font-bold transition-transform ${isExpanded ? "rotate-180" : ""}`}>▼</span>
+                                          <span className="text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-white/10 px-2 py-0.5 rounded-md">{items.length} left</span>
+                                          <span className={`text-gray-400 dark:text-gray-500 font-bold transition-transform ${isExpanded ? "rotate-180" : ""}`}>▼</span>
                                       </div>
                                   </div>
 
@@ -556,7 +555,7 @@ export default function ScheduleBuilderBeta() {
                                           animate={{ height: "auto", opacity: 1 }}
                                           exit={{ height: 0, opacity: 0 }}
                                           transition={{ duration: 0.2 }}
-                                          className="overflow-hidden bg-gray-50/50"
+                                          className="overflow-hidden bg-gray-50 dark:bg-[#0a0a0a]"
                                         >
                                             <div className="p-3 space-y-2.5">
                                                 {items.map(item => (
@@ -564,12 +563,12 @@ export default function ScheduleBuilderBeta() {
                                                         key={item.id} 
                                                         draggable
                                                         onDragStart={(e) => handleDragStart(e, item)}
-                                                        className={`p-3 rounded-lg border border-gray-200 bg-white shadow-sm flex flex-col text-sm cursor-grab active:cursor-grabbing hover:shadow-md transition ${colorTheme.borderSide} border-l-[3px]`}
+                                                        className={`p-3 rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-sm flex flex-col text-sm cursor-grab active:cursor-grabbing hover:shadow-md transition ${colorTheme.borderSide} border-l-[3px]`}
                                                     >
-                                                        <div className="flex justify-between font-bold text-gray-900 border-b border-gray-100 pb-2 mb-2 items-center">
+                                                        <div className="flex justify-between font-bold text-gray-900 border-b border-gray-100 dark:border-white/5 pb-2 mb-2 items-center">
                                                             <div className="flex gap-2 items-center">
-                                                              <span className="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-md">{item.type} {item.section}</span>
-                                                              <span className="text-gray-400 font-medium text-xs">#{item.id}</span>
+                                                              <span className="bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 dark:text-gray-400 text-xs px-2 py-0.5 rounded-md">{item.type} {item.section}</span>
+                                                              <span className="text-gray-400 dark:text-gray-500 font-medium text-xs">#{item.id}</span>
                                                             </div>
                                                             <button 
                                                                 onClick={(e) => { e.stopPropagation(); setCartItems(prev => prev.filter(i => i.id !== item.id)); }} 
@@ -577,11 +576,11 @@ export default function ScheduleBuilderBeta() {
                                                                 title="Remove class"
                                                             >✕</button>
                                                         </div>
-                                                        <div className="text-gray-600 mt-1.5 flex items-center gap-1.5 font-medium text-xs">
+                                                        <div className="text-gray-600 dark:text-gray-400 mt-1.5 flex items-center gap-1.5 font-medium text-xs">
                                                             <span className="opacity-70">⏱️</span> {item.days} {item.startTime}-{item.endTime}
                                                         </div>
                                                         {item.prof !== "TBA" && (
-                                                          <div className="text-gray-500 mt-1 truncate text-[11px] font-medium">
+                                                          <div className="text-gray-500 dark:text-gray-400 mt-1 truncate text-[11px] font-medium">
                                                               👨‍🏫 {item.prof}
                                                           </div>
                                                         )}
@@ -600,7 +599,7 @@ export default function ScheduleBuilderBeta() {
                                                           </div>
                                                         )}
 
-                                                        <div className="mt-2.5 pt-2 border-t border-gray-100 flex justify-end">
+                                                        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex justify-end">
                                                             <button 
                                                               onClick={(e) => fetchDeepDetails(e, item)}
                                                               disabled={deepFetching === item.id}
@@ -630,17 +629,14 @@ export default function ScheduleBuilderBeta() {
           {/* ZONE B: Visual Calendar Grid */}
           <div 
             ref={calendarRef}
-            className={`col-span-1 lg:col-span-3 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col ${isExporting ? 'h-auto overflow-visible p-8' : 'h-full overflow-hidden p-6'}`}
+            className={`col-span-1 lg:col-span-3 bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex flex-col ${isExporting ? 'h-auto overflow-visible p-8' : 'h-full overflow-hidden p-6'}`}
           >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                 Calendar Canvas
               </h2>
               {!isExporting && (
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 bg-gray-50 text-gray-600 rounded-xl text-sm font-semibold border border-gray-200 hover:bg-gray-100 transition shadow-sm">
-                    Check Clashes
-                  </button>
                   <button 
                     onClick={handleExportPNG}
                     className="px-4 py-2 bg-[#912338] text-white rounded-xl text-sm font-semibold shadow-md hover:bg-[#7a1d2f] transition flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/40"
@@ -652,15 +648,15 @@ export default function ScheduleBuilderBeta() {
             </div>
 
             <div 
-              className={`border border-gray-200 rounded-2xl flex relative bg-gray-50/50 shadow-inner ${isExporting ? 'h-auto overflow-visible min-h-[1050px]' : 'flex-1 overflow-y-auto'}`}
+              className={`border border-gray-200 dark:border-white/10 rounded-2xl flex relative bg-gray-50 dark:bg-[#0a0a0a] shadow-inner ${isExporting ? 'h-auto overflow-visible min-h-[1050px]' : 'flex-1 overflow-y-auto'}`}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
               {visibleGridItems.length === 0 && (
                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                    <div className="text-center p-6 text-gray-400 opacity-60">
+                    <div className="text-center p-6 text-gray-400 dark:text-gray-500 opacity-60">
                         <div className="text-4xl mb-4 text-gray-300">🗓️</div>
-                        <h3 className="text-xl font-bold text-gray-400">Empty Grid</h3>
+                        <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500">Empty Grid</h3>
                         <p className="mt-2 text-sm max-w-sm mx-auto">Drag and drop sections from your cart here to lock them into your schedule.</p>
                     </div>
                  </div>
@@ -670,9 +666,9 @@ export default function ScheduleBuilderBeta() {
               <div className="min-w-[700px] w-full relative flex h-[1000px]">
                 
                 {/* Time Axis (Y-Axis) */}
-                <div className="w-16 border-r border-gray-200 flex flex-col relative bg-white shrink-0 z-10 rounded-l-2xl">
+                <div className="w-16 border-r border-gray-200 dark:border-white/10 flex flex-col relative bg-white dark:bg-[#111] shrink-0 z-10 rounded-l-2xl">
                   {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
-                    <div key={i} className="absolute w-full text-right pr-2 text-xs font-semibold text-gray-400" 
+                    <div key={i} className="absolute w-full text-right pr-2 text-xs font-semibold text-gray-400 dark:text-gray-500" 
                          style={{ top: `calc(${(i * 60 / TOTAL_MINUTES) * 100}% + 37px)`, transform: 'translateY(-50%)' }}>
                       {START_HOUR + i === 24 ? "12 AM" : (START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM"))}
                     </div>
@@ -685,12 +681,12 @@ export default function ScheduleBuilderBeta() {
                   {/* Horizontal Grid Pattern Background */}
                   <div className="absolute inset-x-0 bottom-0 z-0 pointer-events-none" style={{
                     top: '37px',
-                    backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), #f3f4f6 calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), #f3f4f6 calc(100% / ${(END_HOUR - START_HOUR) * 2}))`
+                    backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2}))`
                   }}></div>
 
                   {DAYS.map((day, colIdx) => (
-                    <div key={day.id} className="flex-1 relative border-r border-gray-100 last:border-r-0">
-                      <div className="sticky top-0 bg-white border-b border-gray-200 py-2 text-center text-sm font-bold text-gray-600 z-10 w-full shadow-sm">
+                    <div key={day.id} className="flex-1 relative border-r border-gray-100 dark:border-white/5 last:border-r-0">
+                      <div className="sticky top-0 bg-white dark:bg-[#111] border-b border-gray-200 dark:border-white/10 py-2 text-center text-sm font-bold text-gray-600 dark:text-gray-400 z-10 w-full shadow-sm">
                         {day.label}
                       </div>
                       
@@ -729,7 +725,7 @@ export default function ScheduleBuilderBeta() {
                                 <div className={`font-extrabold uppercase tracking-wide opacity-90 font-sans ${durationMins < 60 ? 'text-[9px]' : 'text-[11px]'}`}>
                                     {item.courseCode}
                                 </div>
-                                <div className={`opacity-90 font-bold shrink-0 bg-white/40 rounded-md shadow-sm border border-black/5 ${durationMins < 60 ? 'text-[8.5px] px-1 py-0' : 'text-[10px] px-1'}`}>
+                                <div className={`opacity-90 font-bold shrink-0 bg-white dark:bg-[#111]/40 rounded-md shadow-sm border border-black/5 dark:border-white/10 ${durationMins < 60 ? 'text-[8.5px] px-1 py-0' : 'text-[10px] px-1'}`}>
                                     {item.startTime}-{item.endTime}
                                 </div>
                             </div>
@@ -743,11 +739,11 @@ export default function ScheduleBuilderBeta() {
                             </div>
                             
                             <div className={`flex flex-wrap items-center font-bold opacity-90 overflow-hidden ${durationMins <= 75 ? 'mt-0.5 text-[9px] gap-1' : 'mt-auto pt-1 text-[11px] gap-1.5'}`}>
-                                <div className={`bg-white/50 rounded-md shadow-sm border border-black/5 uppercase tracking-wide flex items-center gap-1 ${durationMins <= 75 ? 'px-1 py-0' : 'px-1.5 py-0.5'}`}>
+                                <div className={`bg-white dark:bg-[#111]/50 rounded-md shadow-sm border border-black/5 dark:border-white/10 uppercase tracking-wide flex items-center gap-1 ${durationMins <= 75 ? 'px-1 py-0' : 'px-1.5 py-0.5'}`}>
                                     <span className="opacity-95 text-[10px] font-black">{item.type}</span> <span className="truncate">{item.section}</span>
                                 </div>
                                 {item.room !== "TBA" && durationMins >= 60 && (
-                                    <div className={`bg-black/5 rounded-md border border-black/5 truncate max-w-[100px] ${durationMins <= 75 ? 'px-1 py-0 text-[8.5px]' : 'px-1.5 py-0.5'}`} title={item.room}>
+                                    <div className={`bg-black/5 rounded-md border border-black/5 dark:border-white/10 truncate max-w-[100px] ${durationMins <= 75 ? 'px-1 py-0 text-[8.5px]' : 'px-1.5 py-0.5'}`} title={item.room}>
                                         📍 {item.room}
                                     </div>
                                 )}
@@ -759,7 +755,7 @@ export default function ScheduleBuilderBeta() {
                             </div>
                             
                             {isClashing && (
-                              <div className="absolute top-1 right-1 text-red-600 bg-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
+                              <div className="absolute top-1 right-1 text-red-600 bg-white dark:bg-[#111] rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
                                 ⚠️
                               </div>
                             )}
@@ -774,11 +770,11 @@ export default function ScheduleBuilderBeta() {
             </div>
             {/* eConcordia & Asynchronous Classes Strip */}
             {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
-              <div className="mt-4 p-4 border border-blue-200 bg-blue-50/50 rounded-2xl shadow-sm shrink-0 flex flex-col gap-3">
-                <h3 className="text-sm font-bold text-blue-900 flex items-center gap-2">
+              <div className="mt-4 p-4 border border-blue-200 dark:border-blue-500/30 bg-blue-50/50 dark:bg-blue-900/20 rounded-2xl shadow-sm shrink-0 flex flex-col gap-3">
+                <h3 className="text-sm font-bold text-blue-900 dark:text-blue-300 flex items-center gap-2">
                   <span className="text-xl">🌐</span>
                   Online / eConcordia Sections
-                  <span className="text-xs font-medium text-blue-700/70 ml-2 bg-blue-100/50 px-2 py-0.5 rounded-md">Asynchronous &bull; No specified timeline</span>
+                  <span className="text-xs font-medium text-blue-700/70 dark:text-blue-300/70 ml-2 bg-blue-100/50 dark:bg-blue-500/20 px-2 py-0.5 rounded-md">Asynchronous &bull; No specified timeline</span>
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).map(item => {
@@ -789,7 +785,7 @@ export default function ScheduleBuilderBeta() {
                         animate={{ scale: 1, opacity: 1 }}
                         key={`online-${item.id}`}
                         onClick={() => handleRemoveFromGrid(item)}
-                        className={`group relative overflow-hidden flex items-center gap-4 px-4 py-2.5 rounded-xl border border-gray-200 cursor-pointer shadow-sm hover:shadow-md transition-all ${colorTheme.bg.replace('50', '50/80')}`}
+                        className={`group relative overflow-hidden flex items-center gap-4 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 cursor-pointer shadow-sm hover:shadow-md transition-all ${colorTheme.bg.replace('50', '50/80')}`}
                       >
                          <div className={`w-1.5 absolute left-0 top-0 bottom-0 ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0].replace('50', '400')}`} />
                          <div className="flex flex-col pl-2 whitespace-nowrap">

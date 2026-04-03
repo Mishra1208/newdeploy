@@ -46,6 +46,7 @@ export default function PremiumNavbar() {
         { label: 'Courses', link: '/pages/courses' },
         { label: 'Course Desc.', link: '/pages/courses/descriptions' },
         { label: 'Planner', link: '/pages/planner' },
+        { label: 'Schedule Builder', link: '/pages/schedule-builder' },
         { label: 'Insights', link: '/insights' },
         { label: 'Prof. Compare', link: '/pages/professor-comparison' },
         { label: 'GPA Calc', link: '/pages/gpa' },
@@ -90,12 +91,13 @@ export default function PremiumNavbar() {
                         <Link href="/pages/seat-finder" className="nav-link-premium">Seat Finder</Link>
                         <Link href="/pages/courses" className="nav-link-premium">Courses</Link>
                         <Link href="/pages/planner" className="nav-link-premium">Planner</Link>
-                        <Link href="/insights" className="nav-link-premium flex items-center gap-1">
-                            Insights
-                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-teal-500/10 text-teal-600 border border-teal-500/20 uppercase tracking-wide">
+                        <Link href="/pages/schedule-builder" className="nav-link-premium flex items-center gap-1">
+                            Schedule Builder
+                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20 uppercase tracking-wide">
                                 New
                             </span>
                         </Link>
+                        <Link href="/insights" className="nav-link-premium">Insights</Link>
                         <Link href="/about" className="nav-link-premium">About Us</Link>
 
                         {/* MORE DROPDOWN */}
@@ -120,12 +122,7 @@ export default function PremiumNavbar() {
                             >
                                 <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
                                 <Link href="/pages/courses/descriptions" className="dropdown-item">Course Descriptions</Link>
-                                <Link href="/pages/professor-comparison" className="dropdown-item flex items-center justify-between">
-                                    Professor Insights & Comparison
-                                    <span className="ml-2 px-1.5 py-0.5 text-[10px] bg-blue-600 text-white rounded-md font-bold tracking-tighter animate-pulse uppercase">
-                                        New
-                                    </span>
-                                </Link>
+                                <Link href="/pages/professor-comparison" className="dropdown-item">Professor Insights & Comparison</Link>
                             </motion.div>
                         </div>
 

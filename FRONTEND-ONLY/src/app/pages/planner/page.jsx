@@ -332,7 +332,7 @@ export default function PlannerPage() {
           </div>
         </header>
 
-        {/* Schedule Engine Bridge Banner (Hidden from public, visible with ?beta=true) */}
+        {/* Schedule Builder Bridge Banner (Hidden from public, visible with ?beta=true) */}
         {isBeta && (
           <motion.div 
              className="w-full bg-gradient-to-r from-[#912338]/90 via-[#7a1d2f] to-[#912338]/90 p-[1px] rounded-2xl mb-8 shadow-lg shadow-rose-900/10"
@@ -350,7 +350,7 @@ export default function PlannerPage() {
                      <span className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest shadow-sm">NEW</span>
                   </div>
                   <p className="text-gray-600 font-medium">
-                    You've planned your degree—now visualize your literal week. Import exactly what you created here into the all-new <strong>Schedule Engine</strong>. It features live seating capacities, professor ratings, intelligent prerequisite scanning, and a visual drag-and-drop Cartesian calendar!
+                    You've planned your degree—now visualize your literal week. Import exactly what you created here into the all-new <strong>Schedule Builder</strong>. It features live seating capacities, professor ratings, intelligent prerequisite scanning, and a visual drag-and-drop Cartesian calendar!
                   </p>
                </div>
                

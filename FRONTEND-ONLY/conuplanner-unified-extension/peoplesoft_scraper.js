@@ -354,9 +354,6 @@ chrome.storage.local.get(["scrapeTarget"], (result) => {
                     triggerSearch();
                     state = "WAITING_FOR_RESULTS_MANUAL"; 
                 }, triggeredAjax ? 2500 : 800);
-            } else {
-                    subject: !!subjectInput, catalog: !!catalogInput, career: !!careerSelect, term: !!termSelect, searchBtn: !!searchBtn 
-                });
             }
         }
         

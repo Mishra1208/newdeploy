@@ -10,6 +10,21 @@ const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable
 
 const changelogData = [
     {
+        date: "Apr 2, 2026",
+        version: "v3.1",
+        title: "Schedule Builder & Next-Gen Theme",
+        description: "The ultimate visual drag-and-drop sequence planner. Import your degree plan and visualize your literal week.",
+        color: "#f97316", // Orange/Amber
+        features: [
+            "Visual drag-and-drop Cartesian calendar",
+            "Intelligent class clash detection and prerequisite scanning",
+            "Real-time seat availability status dynamically integrated",
+            "Export visual schedules cleanly directly to PNG"
+        ],
+        link: "/pages/schedule-builder",
+        linkLabel: "Try Schedule Builder"
+    },
+    {
         date: "Mar 20, 2026",
         version: "v2.6",
         title: "Seat Finder & Automated Alerts",
