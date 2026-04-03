@@ -178,8 +178,31 @@ export default function ScheduleBuilderBeta() {
   ];
 
   const getMinutesFromStart = (timeStr) => {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return (hours * 60 + minutes) - (START_HOUR * 60);
+    if (!timeStr || typeof timeStr !== 'string') return 0;
+    
+    // Normalize format (e.g. "10:15 AM" -> "10:15AM")
+    const clean = timeStr.replace(/\s+/g, '').toUpperCase();
+    
+    // Match "HH:MM" with optional AM/PM
+    const match = clean.match(/^(\d{1,2}):(\d{2})(AM|PM)?$/);
+    if (!match) {
+        // Fallback or handle "N/A"
+        return 0;
+    }
+    
+    let hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const ampm = match[3];
+
+    // Convert 12h to 24h
+    if (ampm === "PM" && hours < 12) hours += 12;
+    if (ampm === "AM" && hours === 12) hours = 0;
+    
+    // Return relative minutes from START_HOUR
+    const totalMinutes = hours * 60 + minutes;
+    const startOffset = START_HOUR * 60;
+    
+    return Math.max(0, totalMinutes - startOffset);
   };
 
   // --- TERM CONTEXT SEGREGATION ---
