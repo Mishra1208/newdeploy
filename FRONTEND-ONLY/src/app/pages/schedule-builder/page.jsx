@@ -204,9 +204,6 @@ export default function ScheduleBuilderBeta() {
     const itemData = e.dataTransfer.getData("application/json");
     if (itemData) {
       const item = JSON.parse(itemData);
-      if (item.prerequisites && item.prerequisites !== "None") {
-          if (!window.confirm(`⚠️ PREREQUISITE LOCK:\n\n${item.prerequisites}\n\nConfirm you meet these rules?`)) return;
-      }
       setCartItems(prev => prev.filter(i => i.id !== item.id));
       setGridItems(prev => prev.find(i => i.id === item.id) ? prev : [...prev, item]);
     }
@@ -231,7 +228,7 @@ export default function ScheduleBuilderBeta() {
       const parts = item.courseCode.split(" ");
       const numericTerm = termMap[item.term] || "2261";
       try {
-          const res = await fetch('/api/schedule/deep-fetch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ term: numericTerm, subject: parts[Part[0]], number: parts[1], classId: item.id }) });
+          const res = await fetch('/api/schedule/deep-fetch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ term: numericTerm, subject: parts[0], number: parts[1], classId: item.id }) });
           const result = await res.json();
           if (result.success && result.data) {
               const deepData = result.data;
@@ -460,6 +457,40 @@ export default function ScheduleBuilderBeta() {
                                                   </button>
                                                 </div>
                                                 <div className="text-gray-500 font-medium">⏱️ {item.days} {item.startTime}–{item.endTime}</div>
+                                                
+                                                {/* LIVE SEAT DATA DISPLAY */}
+                                                <AnimatePresence>
+                                                  {item.liveCapacity && (
+                                                    <motion.div 
+                                                      initial={{ height: 0, opacity: 0 }}
+                                                      animate={{ height: 'auto', opacity: 1 }}
+                                                      exit={{ height: 0, opacity: 0 }}
+                                                      className="mt-2 p-2 bg-gray-50 dark:bg-black/20 rounded-lg flex flex-col gap-1.5 border border-gray-100 dark:border-white/5 overflow-hidden"
+                                                    >
+                                                      <div className="flex justify-between items-center">
+                                                        <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Live Status</span>
+                                                        <span className="flex items-center gap-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded text-[8px] font-black animate-pulse">
+                                                          <span className="w-1 h-1 rounded-full bg-current" /> LIVE
+                                                        </span>
+                                                      </div>
+                                                      <div className="flex gap-2">
+                                                        <div className="flex-1 flex flex-col items-start px-2 py-1 bg-white dark:bg-[#111] rounded border border-gray-100 dark:border-white/5 shadow-sm">
+                                                          <span className="text-[8px] font-bold text-gray-400 uppercase">Available</span>
+                                                          <span className={`text-xs font-black ${parseInt(item.liveCapacity.available) > 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                                            {item.liveCapacity.available}
+                                                          </span>
+                                                        </div>
+                                                        <div className="flex-1 flex flex-col items-start px-2 py-1 bg-white dark:bg-[#111] rounded border border-gray-100 dark:border-white/5 shadow-sm">
+                                                          <span className="text-[8px] font-bold text-gray-400 uppercase">Waitlist</span>
+                                                          <span className="text-xs font-black text-amber-600">
+                                                            {item.liveCapacity.waitlisted}
+                                                          </span>
+                                                        </div>
+                                                      </div>
+                                                    </motion.div>
+                                                  )}
+                                                </AnimatePresence>
+
                                                 <div className="mt-3 flex justify-between items-center">
                                                   <button onClick={(e) => fetchDeepDetails(e, item)} className="text-[10px] font-black underline underline-offset-2 text-[#912338] dark:text-amber-500 hover:opacity-70">
                                                     {deepFetching === item.id ? "DECODING..." : "🔍 DEEP INSPECT"}

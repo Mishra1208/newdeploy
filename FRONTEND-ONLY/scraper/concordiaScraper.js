@@ -246,9 +246,10 @@ export async function scrapeDeepDetails(termVal, subject, courseNumber, classId)
             return false;
         }, classId);
 
-        if (!found) throw new Error("Could not find class row");
+        if (!found) throw new Error(`Could not find class section with ID ${classId} on the results page.`);
 
-        await page.waitForSelector('span[id*="SSR_CLS_DTL_WRK_ENRL_CAP"]', { timeout: 10000 });
+        console.log("... Entering Class Detail View");
+        await page.waitForSelector('span[id*="SSR_CLS_DTL_WRK_ENRL_CAP"]', { timeout: 12000 });
 
         const details = await page.evaluate(() => {
             const getVal = (id) => document.querySelector(`span[id*="${id}"]`)?.innerText.trim() || "0";
