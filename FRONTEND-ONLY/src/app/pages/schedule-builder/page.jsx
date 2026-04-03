@@ -219,9 +219,8 @@ export default function ScheduleBuilderBeta() {
       const parts = item.courseCode.split(" ");
       setDeepFetching(item.id);
       deepTargetRef.current = item.id;
-      window.postMessage({ type: "FROM_CONUPLANNER_WEB_DEEP_FETCH", payload: { classId: item.id, subject: parts[0], catalogue: parts[1], term: item.term } }, "*");
-      if (deepTimeoutRef.current) clearTimeout(deepTimeoutRef.current);
-      deepTimeoutRef.current = setTimeout(() => { fallbackDeepFetch(item); }, isMobile ? 1500 : 3000);
+      // SILENT CLOUD MODE: Bypassing extension messages to stop tab pop-ups
+      fallbackDeepFetch(item);
   };
 
   const fallbackDeepFetch = async (item) => {
@@ -281,11 +280,12 @@ export default function ScheduleBuilderBeta() {
 
   const triggerExtensionFetch = () => {
     if (!searchSubject || !searchCatalog) return;
-    setIsFetching(true); setFetchingStatus("extension");
+    setIsFetching(true); 
+    setFetchingStatus("api"); // Skip 'extension' status
     lastSearchRef.current = { subject: searchSubject.toUpperCase(), catalog: searchCatalog, term: searchTerm };
-    window.postMessage({ type: "FROM_CONUPLANNER_WEB_FETCH", payload: { subject: searchSubject.toUpperCase(), catalogue: searchCatalog, term: searchTerm } }, "*");
-    if (fetchTimeoutRef.current) clearTimeout(fetchTimeoutRef.current);
-    fetchTimeoutRef.current = setTimeout(() => { fallbackToApiFetch(); }, isMobile ? 1500 : 3000);
+    
+    // SILENT CLOUD MODE: Bypassing extension messages to stop tab pop-ups
+    fallbackToApiFetch();
   };
 
   const fallbackToApiFetch = async () => {
