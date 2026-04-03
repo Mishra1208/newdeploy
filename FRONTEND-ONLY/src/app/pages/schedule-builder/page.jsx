@@ -513,7 +513,7 @@ export default function ScheduleBuilderBeta() {
   };
   
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#f8f9fa] dark:bg-[#0a0a0a] transition-colors duration-300 text-slate-900 dark:text-slate-100">
+    <div className="relative h-screen w-full lg:overflow-hidden bg-[#f8f9fa] dark:bg-[#0a0a0a] transition-colors duration-300 text-slate-900 dark:text-slate-100 flex flex-col">
       
       {/* Decorative Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -522,7 +522,7 @@ export default function ScheduleBuilderBeta() {
       </div>
 
       <motion.main
-        className="max-w-[1600px] mx-auto p-4 md:p-8 relative z-10"
+        className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-8 relative z-10 flex flex-col min-h-0"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -669,10 +669,10 @@ export default function ScheduleBuilderBeta() {
         </div>
 
         {/* 2-Zone Layout Area - FIXED HEIGHT ON DESKTOP */}
-        <div className={`grid grid-cols-1 lg:grid-cols-4 gap-8 ${isMobile ? 'min-h-[500px]' : 'h-[850px] max-h-[850px]'}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-4 gap-8 flex-1 min-h-0 ${isMobile ? 'min-h-[500px]' : ''}`}>
           
           {/* ZONE A: Unified Shopping & Search Panel */}
-          <div className={`col-span-1 lg:col-span-1 flex flex-col h-full gap-5 ${isMobile && activeTab !== 'cart' ? 'hidden' : 'flex'}`}>
+          <div className={`col-span-1 lg:col-span-1 flex flex-col h-full gap-5 ${isMobile && activeTab !== 'cart' ? 'hidden' : 'flex'} overflow-hidden`}>
             
             {/* 2. The Cart Folders (Scrollable List) */}
             <div className="bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex-1 flex flex-col overflow-hidden min-h-0 h-full">

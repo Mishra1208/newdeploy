@@ -132,15 +132,19 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
                     return { days: 'TBA', startTime: '', endTime: '' };
                 }
 
-                // Handle format: "MoWe 10:15AM - 11:30AM" or "MoWeFr 12:00PM - 1:15PM"
+                // Handle standard format: "MoWe 10:15AM - 11:30AM"
                 const parts = timeStr.split(' ');
-                if (parts.length < 4) return { days: [], startTime: '', endTime: '' };
+                
+                // Detection for "Day HH:MM AM - HH:MM AM"
+                if (parts.length >= 4) {
+                    const dayStr = parts[0]; 
+                    const startTime = parts[1];
+                    const endTime = parts[3];
+                    return { days: dayStr, startTime, endTime };
+                }
 
-                const dayStr = parts[0]; // e.g. "MoWe"
-                const startTime = parts[1]; // e.g. "10:15AM"
-                const endTime = parts[3]; // e.g. "11:30AM"
-
-                return { days: dayStr, startTime, endTime };
+                // Fallback for single chunks or unusual PeopleSoft spans
+                return { days: 'TBA', startTime: '', endTime: '' };
             };
 
             const results = [];
