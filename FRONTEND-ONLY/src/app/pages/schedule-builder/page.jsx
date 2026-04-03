@@ -8,13 +8,13 @@ import { ShineBorder } from "@/components/ui/ShineBorder";
 import { toPng } from "html-to-image";
 
 const COURSE_COLORS = [
-  { bg: "bg-[#f8f1e6] dark:bg-amber-900/30", border: "border-[#C5A059] dark:border-amber-500/50", borderSide: "border-l-[#C5A059] dark:border-l-amber-500", text: "text-amber-900 dark:text-amber-300" },
-  { bg: "bg-blue-50 dark:bg-blue-900/30", border: "border-blue-400 dark:border-blue-500/50", borderSide: "border-l-blue-500 dark:border-l-blue-400", text: "text-blue-900 dark:text-blue-300" },
-  { bg: "bg-emerald-50 dark:bg-emerald-900/30", border: "border-emerald-400 dark:border-emerald-500/50", borderSide: "border-l-emerald-500 dark:border-l-emerald-400", text: "text-emerald-900 dark:text-emerald-300" },
-  { bg: "bg-purple-50 dark:bg-purple-900/30", border: "border-purple-400 dark:border-purple-500/50", borderSide: "border-l-purple-500 dark:border-l-purple-400", text: "text-purple-900 dark:text-purple-300" },
-  { bg: "bg-rose-50 dark:bg-rose-900/30", border: "border-rose-400 dark:border-rose-500/50", borderSide: "border-l-rose-500 dark:border-l-rose-400", text: "text-rose-900 dark:text-rose-300" },
-  { bg: "bg-indigo-50 dark:bg-indigo-900/30", border: "border-indigo-400 dark:border-indigo-500/50", borderSide: "border-l-indigo-500 dark:border-l-indigo-400", text: "text-indigo-900 dark:text-indigo-300" },
-  { bg: "bg-orange-50 dark:bg-orange-900/30", border: "border-orange-400 dark:border-orange-500/50", borderSide: "border-l-orange-500 dark:border-l-orange-400", text: "text-orange-900 dark:text-orange-300" },
+  { bg: "bg-[#f8f1e6] dark:bg-amber-900/30", border: "border-[#C5A059] dark:border-amber-500/50", borderSide: "border-l-[#C5A059] dark:border-l-amber-500", text: "text-amber-900 dark:text-amber-300", vibrantBg: "bg-[#fffbeb]", vibrantText: "text-amber-900", vibrantBorder: "border-amber-200" },
+  { bg: "bg-blue-50 dark:bg-blue-900/30", border: "border-blue-400 dark:border-blue-500/50", borderSide: "border-l-blue-500 dark:border-l-blue-400", text: "text-blue-900 dark:text-blue-300", vibrantBg: "bg-blue-50", vibrantText: "text-blue-900", vibrantBorder: "border-blue-200" },
+  { bg: "bg-emerald-50 dark:bg-emerald-900/30", border: "border-emerald-400 dark:border-emerald-500/50", borderSide: "border-l-emerald-500 dark:border-l-emerald-400", text: "text-emerald-900 dark:text-emerald-300", vibrantBg: "bg-emerald-50", vibrantText: "text-emerald-900", vibrantBorder: "border-emerald-200" },
+  { bg: "bg-purple-50 dark:bg-purple-900/30", border: "border-purple-400 dark:border-purple-500/50", borderSide: "border-l-purple-500 dark:border-l-purple-400", text: "text-purple-900 dark:text-purple-300", vibrantBg: "bg-purple-50", vibrantText: "text-purple-900", vibrantBorder: "border-purple-200" },
+  { bg: "bg-rose-50 dark:bg-rose-900/30", border: "border-rose-400 dark:border-rose-500/50", borderSide: "border-l-rose-500 dark:border-l-rose-400", text: "text-rose-900 dark:text-rose-300", vibrantBg: "bg-rose-50", vibrantText: "text-rose-900", vibrantBorder: "border-rose-200" },
+  { bg: "bg-indigo-50 dark:bg-indigo-900/30", border: "border-indigo-400 dark:border-indigo-500/50", borderSide: "border-l-indigo-500 dark:border-l-indigo-400", text: "text-indigo-900 dark:text-indigo-300", vibrantBg: "bg-indigo-50", vibrantText: "text-indigo-900", vibrantBorder: "border-indigo-200" },
+  { bg: "bg-orange-50 dark:bg-orange-900/30", border: "border-orange-400 dark:border-orange-500/50", borderSide: "border-l-orange-500 dark:border-l-orange-400", text: "text-orange-900 dark:text-orange-300", vibrantBg: "bg-orange-50", vibrantText: "text-orange-900", vibrantBorder: "border-orange-200" },
 ];
 
 export default function ScheduleBuilderBeta() {
@@ -667,79 +667,94 @@ export default function ScheduleBuilderBeta() {
         {/* 📸 HIDDEN GHOST EXPORT ENGINE (RECONSTRUCTED) */}
         <div 
           ref={exportRef} 
-          style={{ position: 'fixed', left: '0', top: '0', width: '1200px', height: '1000px', pointerEvents: 'none', zIndex: -100, opacity: 0 }} 
-          className="bg-white p-10 flex flex-col font-sans"
+          style={{ position: 'fixed', left: '0', top: '0', width: '1200px', height: '1400px', pointerEvents: 'none', zIndex: -100, opacity: 0 }} 
+          className="bg-white p-4 flex flex-col font-sans"
         >
-            <div className="flex justify-between items-center border-b-[6px] border-[#912338] pb-6 mb-8">
-              <div className="flex flex-col">
-                <h1 className="text-5xl font-black text-[#912338] tracking-tighter uppercase italic">ConuPlanner</h1>
-                <p className="text-xl font-bold text-gray-400 mt-2">Visual Course Architecture • {searchTerm}</p>
-              </div>
-              <div className="text-right">
-                <div className="text-4xl font-black text-gray-200">2026-27</div>
-                <div className="text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mt-1">Beta Snapshot</div>
-              </div>
-            </div>
-
-            <div className="flex-1 border-2 border-gray-200 rounded-3xl overflow-hidden flex relative bg-[#fafafa]">
-               {/* High-res gutter */}
-               <div className="w-20 border-r-2 border-gray-200 bg-white flex flex-col relative pt-[70px]">
-                  {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
-                    <div key={i} className="absolute w-full text-right pr-4 text-[12px] font-black text-gray-300" style={{ top: `${(i * 60 / TOTAL_MINUTES) * 100}%` }}>
-                      {START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM")}
+            <div className="flex-1 flex border-[2px] border-gray-200 overflow-hidden bg-white">
+                {/* Time Sidebar */}
+                <div className="w-20 flex flex-col border-r border-gray-100 bg-gray-50/50 pt-[60px]">
+                  {Array.from({ length: 16 }, (_, i) => i + 8).map(h => (
+                    <div key={h} className="h-20 flex justify-end items-start text-[14px] font-black text-gray-400 uppercase tracking-tighter -mt-2.5 pr-2">
+                      {h === 12 ? '12 PM' : h > 12 ? `${h-12} PM` : `${h} AM`}
                     </div>
                   ))}
-               </div>
+                </div>
 
-               {/* High-res columns */}
-               {DAYS.map(day => (
-                 <div key={day.id} className="flex-1 border-r-2 border-gray-200 last:border-r-0 relative">
-                    <div className="bg-white border-b-2 border-gray-200 py-6 text-center font-black text-xl text-[#912338] uppercase tracking-widest">{day.label}</div>
+                <div className="flex-1 flex flex-col relative bg-white">
+                  {/* Grid Headers */}
+                  <div className="flex w-full h-[60px] border-b-2 border-gray-200 bg-gray-50/50">
+                    {['MON', 'TUE', 'WED', 'THU', 'FRI'].map(day => (
+                      <div key={day} className="flex-1 flex items-center justify-center font-black text-slate-800 border-r border-gray-100 last:border-0 text-2xl tracking-tighter italic">
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="relative flex-1">
+                    {/* Horizontal Grid Lines - 80px per hour */}
+                    {Array.from({ length: 16 }, (_, i) => i + 8).map((_, i) => (
+                      <div key={i} className="absolute w-full h-20 border-b border-gray-100/60" style={{ top: `${i * 80}px` }} />
+                    ))}
                     
-                    {/* Hour grids */}
-                    <div className="absolute inset-0 top-[70px]">
-                        {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
-                            <div key={i} className="absolute w-full border-t border-gray-100" style={{ top: `${(i * 60 / TOTAL_MINUTES) * 100}%` }} />
-                        ))}
+                    {/* Vertical Column Lines */}
+                    <div className="absolute inset-0 flex pointer-events-none">
+                      {[0,1,2,3,4].map(i => (
+                        <div key={i} className="flex-1 border-r border-gray-100 last:border-0" />
+                      ))}
                     </div>
 
-                    {visibleGridItems.map(item => {
-                      if (!item.days || !item.days.includes(day.id)) return null;
-                      const start = getMinutesFromStart(item.startTime);
-                      const duration = Math.max(30, getMinutesFromStart(item.endTime) - start);
-                      const color = courseColorsMap[item.courseCode] || COURSE_COLORS[0];
-                      return (
-                        <div key={`export-${item.id}-${day.id}`} className={`absolute left-1 right-1 rounded-2xl border-2 p-3 font-bold shadow-md flex flex-col ${color.bg} ${color.border} ${color.text}`} style={{ top: `calc(${(start / TOTAL_MINUTES) * 100}% + 70px)`, height: `${(duration / TOTAL_MINUTES) * 100}%` }}>
-                          <div className="text-[14px] uppercase tracking-tight">{item.courseCode}</div>
-                          <div className="text-[18px] font-black mt-1">{item.type} {item.section}</div>
-                          <div className="mt-auto flex justify-between items-end border-t border-black/5 pt-1">
-                             <span className="text-[10px] font-black">{item.startTime}–{item.endTime}</span>
-                             <span className="text-[10px] font-black uppercase opacity-60">{item.location || "Room TBA"}</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                 </div>
-               ))}
+                    {/* Classes Grid Overlay */}
+                    {DAYS.map((day, dayIdx) => (
+                      <div key={day.id} className="absolute top-0 bottom-0" style={{ left: `${dayIdx * 20}%`, width: '20%' }}>
+                        {visibleGridItems
+                          .filter(c => c.days && c.days.includes(day.id))
+                          .map((c, idx) => {
+                            const start = getMinutesFromStart(c.startTime);
+                            const duration = Math.max(30, getMinutesFromStart(c.endTime) - start);
+                            const top = (start / 60) * 80;
+                            const height = (duration / 60) * 80;
+                            
+                            const colorTheme = courseColorsMap[c.courseCode] || COURSE_COLORS[0];
+                            const isShort = height < 80;
+                            
+                            return (
+                              <div 
+                                key={`export-${c.id}-${day.id}-${idx}`}
+                                className={`absolute left-0.5 right-0.5 ${colorTheme.vibrantBg} ${colorTheme.vibrantBorder} border-[3px] rounded-lg shadow-md overflow-hidden flex flex-col justify-start p-2`}
+                                style={{ 
+                                  top: `${top}px`, 
+                                  height: `${height}px`,
+                                  zIndex: 10
+                                }}
+                              >
+                                <div className={`font-black ${colorTheme.vibrantText} ${isShort ? 'text-[12px]' : 'text-sm'} opacity-80 mb-0.5 uppercase tracking-tighter`}>{c.courseCode}</div>
+                                <div className={`font-black ${colorTheme.vibrantText} ${isShort ? 'text-2xl' : 'text-3xl'} leading-[0.9] mb-1`}>{c.section.split('-').pop()}</div>
+                                <div className={`mt-auto font-black ${colorTheme.vibrantText} ${isShort ? 'text-[11px]' : 'text-[13px]'} opacity-90 truncate`}>
+                                  {c.startTime}–{c.endTime}
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
             </div>
 
-            {/* Online area in Export */}
-            {visibleGridItems.filter(item => !item.days || item.days === 'TBA' || item.startTime === '00:00' || (item.section && (item.section === 'EC' || item.section.startsWith('EC-')))).length > 0 && (
-              <div className="mt-8 border-t-2 pt-6">
-                 <h3 className="font-black text-gray-400 text-xs tracking-widest mb-4 uppercase">Academic Sections Outside the Visual Grid</h3>
-                 <div className="flex flex-wrap gap-4">
-                    {visibleGridItems.filter(item => !item.days || item.days === 'TBA' || item.startTime === '00:00' || (item.section && (item.section === 'EC' || item.section.startsWith('EC-')))).map(item => (
-                       <div key={`exp-on-${item.id}`} className="px-6 py-3 border-2 border-dashed border-gray-200 rounded-2xl flex gap-4 items-center">
-                          <span className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
-                          <span className="font-black text-gray-700">{item.courseCode} • {item.section} <span className="opacity-40 ml-2">(Online Asynchronous)</span></span>
-                       </div>
+            {/* Ultra-Compact Legend */}
+            <div className="px-4 py-3 bg-gray-50 flex justify-between items-center border-t border-gray-200">
+                <div className="flex gap-4 items-center">
+                    <span className="text-[10px] font-black text-gray-400 tracking-[.3em] uppercase">Online/TBA:</span>
+                    {visibleGridItems.filter(c => !c.days || c.days === 'TBA' || c.type === 'EC').map(c => (
+                        <div key={c.id} className="text-[11px] font-black text-slate-700 bg-white px-3 py-1 border border-gray-200 rounded-full flex items-center gap-2">
+                             <div className={`w-2 h-2 rounded-full ${courseColorsMap[c.courseCode]?.borderSide.split(' ')[0].replace('border-l-', 'bg-')}`} />
+                             {c.courseCode} {c.section}
+                        </div>
                     ))}
-                 </div>
-              </div>
-            )}
-            
-            <div className="mt-auto pt-10 text-center">
-              <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.5em]">Generated via ConuPlanner Engine • Sequence Schedule 2026</p>
+                </div>
+                <div className="text-right">
+                    <span className="text-[12px] font-black text-[#912338] tracking-widest uppercase italic">{searchTerm}</span>
+                </div>
             </div>
         </div>
       </motion.main>
