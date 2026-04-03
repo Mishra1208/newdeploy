@@ -228,3 +228,116 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
         await browser.close();
     }
 }
+
+export async function scrapeDeepDetails(termVal, subject, courseNumber, classId) {
+    let browser;
+    if (process.env.NODE_ENV === 'production') {
+        const chromium = (await import('@sparticuz/chromium')).default;
+        const puppeteerCore = (await import('puppeteer-core')).default;
+        const executablePath = await chromium.executablePath(
+            "https://github.com/Sparticuz/chromium/releases/download/v123.0.0/chromium-v123.0.0-pack.tar"
+        );
+        browser = await puppeteerCore.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: executablePath,
+            headless: chromium.headless,
+            ignoreHTTPSErrors: true
+        });
+    } else {
+        const puppeteer = (await import('puppeteer')).default;
+        browser = await puppeteer.launch({
+            headless: "new",
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+    }
+
+    const page = await browser.newPage();
+    try {
+        console.log(`🔍 Deep Diving: ${subject} ${courseNumber} (Class ${classId})`);
+        await page.goto('https://campus.concordia.ca/psc/pscsprd/EMPLOYEE/SA/c/CU_EXT.CU_CLASS_SEARCH.GBL', {
+            waitUntil: 'domcontentloaded',
+            timeout: 30000
+        });
+
+        // 1. Initial Search (Same as main scrape)
+        await page.waitForSelector(SEL.TERM_DROPDOWN);
+        await page.select(SEL.TERM_DROPDOWN, termVal);
+        await page.waitForNetworkIdle({ idleTime: 100, timeout: 3000 }).catch(() => { });
+
+        await page.waitForSelector(SEL.SUBJECT_INPUT);
+        await page.$eval(SEL.SUBJECT_INPUT, (el, val) => el.value = val, subject);
+        await page.type(SEL.SUBJECT_INPUT, ' ');
+        await page.keyboard.press('Backspace');
+
+        await page.waitForSelector(SEL.CATALOG_NBR_INPUT);
+        await page.$eval(SEL.CATALOG_NBR_INPUT, (el, val) => el.value = val, courseNumber);
+        await page.type(SEL.CATALOG_NBR_INPUT, ' ');
+        await page.keyboard.press('Backspace');
+
+        try {
+            const isChecked = await page.$eval(SEL.OPEN_ONLY_CHECKBOX, el => el.checked);
+            if (isChecked) await page.click(SEL.OPEN_ONLY_CHECKBOX);
+        } catch (e) {}
+
+        await page.evaluate((btnId) => {
+            if (typeof submitAction_win0 === 'function') {
+                submitAction_win0(document.win0, btnId, new Event('click'));
+            }
+        }, SEL.HIDDEN_SUBMIT_ID);
+
+        // 2. Click class link
+        await page.waitForSelector('a[id^="MTG_CLASSNAME"]', { timeout: 15000 });
+        
+        const found = await page.evaluate((cid) => {
+            const rows = Array.from(document.querySelectorAll("tr")).filter(tr => tr.innerText.includes(cid));
+            const link = rows.length > 0 ? rows[0].querySelector('a[id^="MTG_CLASSNAME"]') : null;
+            if (link) {
+                link.click();
+                return true;
+            }
+            return false;
+        }, classId);
+
+        if (!found) throw new Error("Could not find class row in search results");
+
+        // 3. Extract Deep Data
+        await page.waitForSelector('span[id*="SSR_CLS_DTL_WRK_ENRL_CAP"]', { timeout: 10000 });
+
+        const details = await page.evaluate(() => {
+            const getVal = (id) => document.querySelector(`span[id*="${id}"]`)?.innerText.trim() || "0";
+            
+            // Prerequisites extraction logic
+            let prerequisites = "None";
+            const pNodes = Array.from(document.querySelectorAll('span, p, div')).filter(el => {
+                const txt = el.innerText || "";
+                return (txt.includes("Prerequisite") || txt.includes("Prereq")) && txt.length < 500 && !txt.includes("Class Search");
+            });
+            if (pNodes.length > 0) {
+                const explicitNode = pNodes.find(n => n.id && n.id.includes("REQUISITE"));
+                prerequisites = explicitNode ? explicitNode.innerText.trim() : pNodes[0].innerText.trim();
+                // Slice if too long
+                if (prerequisites.includes("\n")) {
+                    prerequisites = prerequisites.split("\n").find(line => line.includes("Prerequisite") || line.includes("Prereq")) || prerequisites;
+                }
+            }
+
+            return {
+                capacity: getVal("SSR_CLS_DTL_WRK_ENRL_CAP"),
+                waitlistCapacity: getVal("SSR_CLS_DTL_WRK_WAIT_CAP"),
+                enrolled: getVal("SSR_CLS_DTL_WRK_ENRL_TOT"),
+                waitlisted: getVal("SSR_CLS_DTL_WRK_WAIT_TOT"),
+                available: getVal("SSR_CLS_DTL_WRK_AVAILABLE_SEATS"),
+                prerequisites
+            };
+        });
+
+        return details;
+
+    } catch (error) {
+        console.error("❌ Deep Scraper Error:", error);
+        throw error;
+    } finally {
+        await browser.close();
+    }
+}

@@ -24,11 +24,22 @@ export default function ScheduleBuilderBeta() {
   const [clashingIds, setClashingIds] = useState(new Set());
   const [isFetching, setIsFetching] = useState(false);
   const [fetchingStatus, setFetchingStatus] = useState(""); // "" | "extension" | "api"
+  const [isExporting, setIsExporting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const fetchTimeoutRef = useRef(null);
+  const deepTimeoutRef = useRef(null);
   const [deepFetching, setDeepFetching] = useState(null);
   const deepTargetRef = useRef(null);
   const calendarRef = useRef(null);
-  const [isExporting, setIsExporting] = useState(false);
+
+  // Resolution detection for Mobile UX
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const handleExportPNG = () => {
     setIsExporting(true);
@@ -260,6 +271,7 @@ export default function ScheduleBuilderBeta() {
       setDeepFetching(item.id);
       deepTargetRef.current = item.id;
       
+      // 1. Extension Hit
       window.postMessage({
           type: "FROM_CONUPLANNER_WEB_DEEP_FETCH",
           payload: {
@@ -269,11 +281,78 @@ export default function ScheduleBuilderBeta() {
               term: item.term
           }
       }, "*");
+
+      // 2. Race: If no response in 1s, fallback to Cloud API
+      if (deepTimeoutRef.current) clearTimeout(deepTimeoutRef.current);
+      deepTimeoutRef.current = setTimeout(() => {
+          // If still fetching after 1.5s, it likely means no extension is present
+          fallbackDeepFetch(item);
+      }, 1500);
   };
-  
-  useEffect(() => {
-     // Terms are now structurally defined, bypassing unnecessary PeopleSoft fetches
-  }, []);
+
+  const fallbackDeepFetch = async (item) => {
+      const parts = item.courseCode.split(" ");
+      const numericTerm = termMap[item.term] || "2261";
+
+      try {
+          const res = await fetch('/api/schedule/deep-fetch', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                  term: numericTerm,
+                  subject: parts[0],
+                  number: parts[1],
+                  classId: item.id
+              }),
+          });
+          
+          const result = await res.json();
+          if (result.success && result.data) {
+              const deepData = result.data;
+              const mapDeepData = (arr) => arr.map(i => {
+                if (i.id === item.id) {
+                    return {
+                        ...i,
+                        prerequisites: deepData.prerequisites && deepData.prerequisites !== "None" ? deepData.prerequisites : i.prerequisites,
+                        liveCapacity: deepData
+                    };
+                }
+                return i;
+              });
+              
+              setCartItems(prev => mapDeepData(prev));
+              setGridItems(prev => mapDeepData(prev));
+          } else {
+              throw new Error(result.error || "Deep Scraper failed");
+          }
+      } catch (err) {
+          console.error("🏁 Deep Fallback Error:", err);
+      } finally {
+          setDeepFetching(null);
+          deepTargetRef.current = null;
+      }
+  };
+
+  const toggleCartItem = (item) => {
+      const isInGrid = gridItems.find(i => i.id === item.id);
+      
+      if (isInGrid) {
+          // Remove from grid, back to cart
+          setGridItems(prev => prev.filter(i => i.id !== item.id));
+          setCartItems(prev => [...prev, item]);
+      } else {
+          // Add to grid
+          if (item.prerequisites && item.prerequisites !== "None") {
+              const confirmed = window.confirm(`⚠️ PREREQUISITE LOCK DETECTED:\n\n${item.prerequisites}\n\nConcordia requires you to fulfill this requirement before enrollment. Do you confirm you have met these rules?`);
+              if (!confirmed) return;
+          }
+          setCartItems(prev => prev.filter(i => i.id !== item.id));
+          setGridItems(prev => {
+            if (!prev.find(i => i.id === item.id)) return [...prev, item];
+            return prev;
+          });
+      }
+  };
 
   useEffect(() => {
     const handleMessage = (event) => {
@@ -422,7 +501,7 @@ export default function ScheduleBuilderBeta() {
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-4xl font-extrabold text-[#912338] dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-amber-400 dark:to-orange-500 tracking-tight">Schedule Builder</h1>
             </div>
-            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-lg">The ultimate visual drag-and-drop sequence planner.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg">The ultimate visual drag-and-drop sequence planner.</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
@@ -468,7 +547,7 @@ export default function ScheduleBuilderBeta() {
         <div className="flex justify-center w-full mb-8 z-20 relative px-4">
            {/* Static Glow Wrapper */}
            <div className="w-full max-w-4xl rounded-[32px] p-[2px] bg-gradient-to-r from-[#912338] via-[#C5A059] to-[#912338] shadow-[0_0_30px_rgba(145,35,56,0.15)]">
-               <div className="bg-white dark:bg-[#111] dark:bg-[#0d0d0d] p-6 md:p-8 w-full relative overflow-hidden rounded-[30px] shadow-sm transition-colors duration-300">
+               <div className="bg-white dark:bg-[#111] p-6 md:p-8 w-full relative overflow-hidden rounded-[30px] shadow-sm transition-colors duration-300">
                    {/* Decorative Gradient */}
                    <div className="absolute top-0 right-0 w-64 h-64 bg-rose-50 dark:bg-amber-900/20 rounded-full blur-3xl opacity-50 pointer-events-none -mr-20 -mt-20"></div>
                    
@@ -563,7 +642,7 @@ export default function ScheduleBuilderBeta() {
             
             {/* 2. The Cart Folders (Scrollable List) */}
             <div className="bg-white dark:bg-[#111] rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 transition-colors flex-1 flex flex-col overflow-hidden min-h-0">
-               <div className="p-5 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-gray-50 dark:bg-white/5 dark:bg-white dark:bg-[#111]/5">
+               <div className="p-5 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-gray-50 dark:bg-white/5">
                   <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                     Class Cart <span className="bg-[#912338] text-white px-2.5 py-0.5 rounded-full text-sm shadow-sm">{cartItems.length}</span>
                   </h2>
@@ -595,7 +674,7 @@ export default function ScheduleBuilderBeta() {
                                   {/* Folder Header */}
                                   <div 
                                       onClick={() => setExpandedFolders(prev => ({...prev, [code]: !isExpanded}))}
-                                      className={`p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 dark:bg-white/10 select-none border-b border-gray-100 dark:border-white/5 transition`}
+                                      className={`p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 select-none border-b border-gray-100 dark:border-white/5 transition`}
                                   >
                                       <span className="font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                                           <div className={`w-3.5 h-3.5 rounded-sm ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0].replace('50', '400')}`} /> 
@@ -659,17 +738,24 @@ export default function ScheduleBuilderBeta() {
                                                           </div>
                                                         )}
 
-                                                        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex justify-end">
+                                                        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex justify-between items-center">
                                                             <button 
                                                               onClick={(e) => fetchDeepDetails(e, item)}
                                                               disabled={deepFetching === item.id}
-                                                              className="text-xs font-bold text-[#912338] hover:bg-rose-50 px-3 py-1.5 rounded-md transition-all border border-transparent hover:border-rose-100 disabled:opacity-50 flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/20"
+                                                              className="text-xs font-bold text-[#912338] dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 px-3 py-1.5 rounded-md transition-all border border-transparent hover:border-rose-100 dark:hover:border-rose-800 disabled:opacity-50 flex items-center gap-1.5 focus:ring-2 focus:ring-[#912338]/20"
                                                             >
                                                                {deepFetching === item.id ? (
                                                                   <><span className="animate-spin text-[10px]">🔄</span> Decoding...</>
                                                                ) : (
                                                                   <>🔍 Deep Inspect</>
                                                                )}
+                                                            </button>
+
+                                                            <button 
+                                                              onClick={(e) => { e.stopPropagation(); toggleCartItem(item); }}
+                                                              className={`text-xs font-black px-4 py-1.5 rounded-full shadow-sm transition-all flex items-center gap-2 transform active:scale-95 ${colorTheme.bg.replace('bg-', 'bg-').split(' ')[0]} ${colorTheme.text} border-2 ${colorTheme.border}`}
+                                                            >
+                                                                <span className="text-sm">＋</span> ADD
                                                             </button>
                                                         </div>
                                                     </div>
@@ -717,116 +803,185 @@ export default function ScheduleBuilderBeta() {
                     <div className="text-center p-6 text-gray-400 dark:text-gray-500 opacity-60">
                         <div className="text-4xl mb-4 text-gray-300">🗓️</div>
                         <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500">Empty Grid</h3>
-                        <p className="mt-2 text-sm max-w-sm mx-auto">Drag and drop sections from your cart here to lock them into your schedule.</p>
+                        <p className="mt-2 text-sm max-w-sm mx-auto">{isMobile ? "Tap '+' on classes in your cart to build your schedule." : "Drag and drop sections from your cart here to lock them into your schedule."}</p>
                     </div>
                  </div>
               )}
 
-              {/* Grid Lines and Labels Container */}
-              <div className="min-w-[700px] w-full relative flex h-[1000px]">
-                
-                {/* Time Axis (Y-Axis) */}
-                <div className="w-16 border-r border-gray-200 dark:border-white/10 flex flex-col relative bg-white dark:bg-[#111] shrink-0 z-10 rounded-l-2xl">
-                  {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
-                    <div key={i} className="absolute w-full text-right pr-2 text-xs font-semibold text-gray-400 dark:text-gray-500" 
-                         style={{ top: `calc(${(i * 60 / TOTAL_MINUTES) * 100}% + 37px)`, transform: 'translateY(-50%)' }}>
-                      {START_HOUR + i === 24 ? "12 AM" : (START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM"))}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Day Columns (X-Axis) */}
-                <div className="flex-1 flex w-full relative">
-
-                  {/* Horizontal Grid Pattern Background */}
-                  <div className="absolute inset-x-0 bottom-0 z-0 pointer-events-none" style={{
-                    top: '37px',
-                    backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2}))`
-                  }}></div>
-
-                  {DAYS.map((day, colIdx) => (
-                    <div key={day.id} className="flex-1 relative border-r border-gray-100 dark:border-white/5 last:border-r-0">
-                      <div className="sticky top-0 bg-white dark:bg-[#111] border-b border-gray-200 dark:border-white/10 py-2 text-center text-sm font-bold text-gray-600 dark:text-gray-400 z-10 w-full shadow-sm">
-                        {day.label}
-                      </div>
-                      
-                      {/* Render dropped chunks matching this day */}
-                      {visibleGridItems.map(item => {
-                        if (!item.days.includes(day.id)) return null;
-                        
-                        const startMins = getMinutesFromStart(item.startTime);
-                        const endMins = getMinutesFromStart(item.endTime);
-                        const durationMins = endMins - startMins;
-                        const topPercent = (startMins / TOTAL_MINUTES) * 100;
-                        const heightPercent = (durationMins / TOTAL_MINUTES) * 100;
-                        const isClashing = clashingIds.has(item.id);
-                        
-                        // Pick color based on Map
-                        const colorTheme = item.courseCode ? (courseColorsMap[item.courseCode] || COURSE_COLORS[0]) : COURSE_COLORS[0];
-
-                        return (
-                          <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            key={`${item.id}-${day.id}`}
-                            onClick={() => handleRemoveFromGrid(item)}
-                            className={`absolute left-1 right-1 rounded-xl overflow-hidden shadow-sm cursor-pointer border hover:shadow-md hover:scale-[1.02] transition-all z-20 group flex flex-col justify-between
-                              ${durationMins <= 75 ? 'p-1.5' : 'p-2'}
-                              ${isClashing 
-                                ? "bg-red-50 border-red-500 animate-pulse text-red-900 shadow-[0_0_15px_rgba(239,68,68,0.5)]" 
-                                : `${colorTheme.bg} ${colorTheme.border} ${colorTheme.text}`}`}
-                            style={{ 
-                              top: `calc(${topPercent}% + 37px)`, // 37px offset for the sticky header
-                              height: `${heightPercent}%`,
-                              minHeight: '2.5rem'
-                            }}
-                          >
-                            <div className="flex justify-between items-start">
-                                <div className={`font-extrabold uppercase tracking-wide opacity-90 font-sans ${durationMins < 60 ? 'text-[9px]' : 'text-[11px]'}`}>
-                                    {item.courseCode}
-                                </div>
-                                <div className={`opacity-90 font-bold shrink-0 bg-white dark:bg-[#111]/40 rounded-md shadow-sm border border-black/5 dark:border-white/10 ${durationMins < 60 ? 'text-[8.5px] px-1 py-0' : 'text-[10px] px-1'}`}>
-                                    {item.startTime}-{item.endTime}
-                                </div>
-                            </div>
-                            
-                            <div className={`font-bold leading-tight opacity-95 flex-shrink bg-transparent overflow-hidden ${
-                                durationMins <= 75 ? "text-[10px] line-clamp-1 mt-0.5" : 
-                                durationMins <= 90 ? "text-[11px] line-clamp-2 mt-1" : 
-                                "text-[13px] sm:text-[14px] line-clamp-3 mt-1"
-                            }`}>
-                                {courseDirectory[item.courseCode] || "Loading..."}
-                            </div>
-                            
-                            <div className={`flex flex-wrap items-center font-bold opacity-90 overflow-hidden ${durationMins <= 75 ? 'mt-0.5 text-[9px] gap-1' : 'mt-auto pt-1 text-[11px] gap-1.5'}`}>
-                                <div className={`bg-white dark:bg-[#111]/50 rounded-md shadow-sm border border-black/5 dark:border-white/10 uppercase tracking-wide flex items-center gap-1 ${durationMins <= 75 ? 'px-1 py-0' : 'px-1.5 py-0.5'}`}>
-                                    <span className="opacity-95 text-[10px] font-black">{item.type}</span> <span className="truncate">{item.section}</span>
-                                </div>
-                                {item.room !== "TBA" && durationMins >= 60 && (
-                                    <div className={`bg-black/5 rounded-md border border-black/5 dark:border-white/10 truncate max-w-[100px] ${durationMins <= 75 ? 'px-1 py-0 text-[8.5px]' : 'px-1.5 py-0.5'}`} title={item.room}>
-                                        📍 {item.room}
-                                    </div>
-                                )}
-                            </div>
-                            
-                            {/* Hover delete indicator */}
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold transition">
-                              Remove
-                            </div>
-                            
-                            {isClashing && (
-                              <div className="absolute top-1 right-1 text-red-600 bg-white dark:bg-[#111] rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
-                                ⚠️
+              {isMobile ? (
+                  /* --- MOBILE VERTICAL TIMELINE VIEW --- */
+                  <div className="w-full flex flex-col p-4 space-y-8 bg-gray-50/50 dark:bg-[#080808]">
+                      {visibleGridItems.length > 0 && DAYS.map(day => {
+                          const dayItems = visibleGridItems.filter(i => i.days.includes(day.id)).sort((a,b) => a.startTime.localeCompare(b.startTime));
+                          if (dayItems.length === 0) return null;
+                          
+                          return (
+                              <div key={day.id} className="space-y-4">
+                                  <div className="flex items-center gap-4 px-2">
+                                      <div className="w-10 h-10 rounded-2xl bg-[#912338] text-white flex items-center justify-center font-black text-xs shadow-lg shadow-[#912338]/20">
+                                          {day.id}
+                                      </div>
+                                      <h3 className="text-xl font-black text-gray-800 dark:text-gray-100 uppercase tracking-tighter">{day.label}</h3>
+                                      <div className="h-[1px] flex-1 bg-gradient-to-r from-gray-200 to-transparent dark:from-white/10" />
+                                  </div>
+                                  <div className="space-y-4 px-1">
+                                      {dayItems.map(item => {
+                                          const colorTheme = courseColorsMap[item.courseCode] || COURSE_COLORS[0];
+                                          const isClashing = clashingIds.has(item.id);
+                                          return (
+                                              <motion.div 
+                                                  key={item.id} 
+                                                  initial={{ x: -20, opacity: 0 }}
+                                                  animate={{ x: 0, opacity: 1 }}
+                                                  className={`group relative p-5 rounded-[24px] border-2 shadow-xl transition-all flex justify-between items-center overflow-hidden ${colorTheme.bg} ${isClashing ? 'border-red-500 shadow-red-500/30' : colorTheme.border}`}
+                                              >
+                                                  {/* Aurora Glow Effect */}
+                                                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/40 dark:bg-white/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none group-hover:scale-150 transition-transform duration-700" />
+                                                  
+                                                  <div className="flex flex-col relative z-20">
+                                                      <div className="flex items-center gap-2 mb-1.5">
+                                                          <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/60 dark:bg-black/20 backdrop-blur-md border border-white/40 dark:border-white/5 shadow-sm">
+                                                              {item.type} {item.section}
+                                                          </span>
+                                                          {isClashing && <span className="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full animate-pulse">CLASH ⚠️</span>}
+                                                      </div>
+                                                      <span className={`text-2xl font-black leading-tight tracking-tight ${colorTheme.text}`}>{item.courseCode}</span>
+                                                      <div className="flex items-center gap-3 mt-2">
+                                                          <span className="text-xs font-bold opacity-80 flex items-center gap-1">
+                                                              <span className="text-lg">🕒</span> {item.startTime} - {item.endTime}
+                                                          </span>
+                                                          {item.room !== "TBA" && (
+                                                              <span className="text-xs font-bold opacity-80 flex items-center gap-1">
+                                                                  <span className="text-lg">📍</span> {item.room}
+                                                              </span>
+                                                          )}
+                                                      </div>
+                                                      <div className="text-[11px] font-bold opacity-60 mt-1 line-clamp-1 italic">
+                                                          {courseDirectory[item.courseCode] || "Course Details"}
+                                                      </div>
+                                                  </div>
+                                                  
+                                                  <button 
+                                                      onClick={() => toggleCartItem(item)}
+                                                      className="w-12 h-12 rounded-2xl bg-white/60 dark:bg-black/20 backdrop-blur-xl border border-white/40 dark:border-white/5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/40 hover:border-red-200 transition-all shadow-sm flex items-center justify-center group/btn active:scale-90"
+                                                  >
+                                                      <span className="text-xl font-light transform group-hover/btn:rotate-90 transition-transform">✕</span>
+                                                  </button>
+                                              </motion.div>
+                                          );
+                                      })}
+                                  </div>
                               </div>
-                            )}
-                          </motion.div>
-                        );
+                          );
                       })}
+                  </div>
+              ) : (
+                  /* --- DESKTOP GRID VIEW (EXISTING) --- */
+                  <div className="min-w-[700px] w-full relative flex h-[1000px]">
+                    
+                    {/* Time Axis (Y-Axis) */}
+                    <div className="w-16 border-r border-gray-200 dark:border-white/10 flex flex-col relative bg-white dark:bg-[#111] shrink-0 z-10 rounded-l-2xl">
+                      {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
+                        <div key={i} className="absolute w-full text-right pr-2 text-xs font-semibold text-gray-400 dark:text-gray-500" 
+                             style={{ top: `calc(${(i * 60 / TOTAL_MINUTES) * 100}% + 37px)`, transform: 'translateY(-50%)' }}>
+                          {START_HOUR + i === 24 ? "12 AM" : (START_HOUR + i > 12 ? (START_HOUR + i - 12) + " PM" : (START_HOUR + i === 12 ? "12 PM" : (START_HOUR + i) + " AM"))}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
 
-              </div>
+                    {/* Day Columns (X-Axis) */}
+                    <div className="flex-1 flex w-full relative">
+
+                      {/* Horizontal Grid Pattern Background */}
+                      <div className="absolute inset-x-0 bottom-0 z-0 pointer-events-none" style={{
+                        top: '37px',
+                        backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2} - 1px), var(--fallback-grid, rgba(120,120,120,0.1)) calc(100% / ${(END_HOUR - START_HOUR) * 2}))`
+                      }}></div>
+
+                      {DAYS.map((day, colIdx) => (
+                        <div key={day.id} className="flex-1 relative border-r border-gray-100 dark:border-white/5 last:border-r-0">
+                          <div className="sticky top-0 bg-white dark:bg-[#111] border-b border-gray-200 dark:border-white/10 py-2 text-center text-sm font-bold text-gray-600 dark:text-gray-400 z-10 w-full shadow-sm">
+                            {day.label}
+                          </div>
+                          
+                          {/* Render dropped chunks matching this day */}
+                          {visibleGridItems.map(item => {
+                            if (!item.days.includes(day.id)) return null;
+                            
+                            const startMins = getMinutesFromStart(item.startTime);
+                            const endMins = getMinutesFromStart(item.endTime);
+                            const durationMins = endMins - startMins;
+                            const topPercent = (startMins / TOTAL_MINUTES) * 100;
+                            const heightPercent = (durationMins / TOTAL_MINUTES) * 100;
+                            const isClashing = clashingIds.has(item.id);
+                            
+                            // Pick color based on Map
+                            const colorTheme = item.courseCode ? (courseColorsMap[item.courseCode] || COURSE_COLORS[0]) : COURSE_COLORS[0];
+
+                            return (
+                              <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                key={`${item.id}-${day.id}`}
+                                onClick={() => handleRemoveFromGrid(item)}
+                                className={`absolute left-1 right-1 rounded-xl overflow-hidden shadow-sm cursor-pointer border hover:shadow-md hover:scale-[1.02] transition-all z-20 group flex flex-col justify-between
+                                  ${durationMins <= 75 ? 'p-1.5' : 'p-2'}
+                                  ${isClashing 
+                                    ? "bg-red-50 border-red-500 animate-pulse text-red-900 shadow-[0_0_15px_rgba(239,68,68,0.5)]" 
+                                    : `${colorTheme.bg} ${colorTheme.border} ${colorTheme.text}`}`}
+                                style={{ 
+                                  top: `calc(${topPercent}% + 37px)`, // 37px offset for the sticky header
+                                  height: `${heightPercent}%`,
+                                  minHeight: '2.5rem'
+                                }}
+                              >
+                                <div className="flex justify-between items-start">
+                                    <div className={`font-extrabold uppercase tracking-wide opacity-90 font-sans ${durationMins < 60 ? 'text-[9px]' : 'text-[11px]'}`}>
+                                        {item.courseCode}
+                                    </div>
+                                    <div className={`opacity-90 font-bold shrink-0 bg-white dark:bg-[#111]/40 rounded-md shadow-sm border border-black/5 dark:border-white/10 ${durationMins < 60 ? 'text-[8.5px] px-1 py-0' : 'text-[10px] px-1'}`}>
+                                        {item.startTime}-{item.endTime}
+                                    </div>
+                                </div>
+                                
+                                <div className={`font-bold leading-tight opacity-95 flex-shrink bg-transparent overflow-hidden ${
+                                    durationMins <= 75 ? "text-[10px] line-clamp-1 mt-0.5" : 
+                                    durationMins <= 90 ? "text-[11px] line-clamp-2 mt-1" : 
+                                    "text-[13px] sm:text-[14px] line-clamp-3 mt-1"
+                                }`}>
+                                    {courseDirectory[item.courseCode] || "Loading..."}
+                                </div>
+                                
+                                <div className={`flex flex-wrap items-center font-bold opacity-90 overflow-hidden ${durationMins <= 75 ? 'mt-0.5 text-[9px] gap-1' : 'mt-auto pt-1 text-[11px] gap-1.5'}`}>
+                                    <div className={`bg-white dark:bg-[#111]/50 rounded-md shadow-sm border border-black/5 dark:border-white/10 uppercase tracking-wide flex items-center gap-1 ${durationMins <= 75 ? 'px-1 py-0' : 'px-1.5 py-0.5'}`}>
+                                        <span className="opacity-95 text-[10px] font-black">{item.type}</span> <span className="truncate">{item.section}</span>
+                                    </div>
+                                    {item.room !== "TBA" && durationMins >= 60 && (
+                                        <div className={`bg-black/5 rounded-md border border-black/5 dark:border-white/10 truncate max-w-[100px] ${durationMins <= 75 ? 'px-1 py-0 text-[8.5px]' : 'px-1.5 py-0.5'}`} title={item.room}>
+                                            📍 {item.room}
+                                        </div>
+                                    )}
+                                </div>
+                                
+                                {/* Hover delete indicator */}
+                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold transition">
+                                  Remove
+                                </div>
+                                
+                                {isClashing && (
+                                  <div className="absolute top-1 right-1 text-red-600 bg-white dark:bg-[#111] rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
+                                    ⚠️
+                                  </div>
+                                )}
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+
+                  </div>
+              )}
             </div>
             {/* eConcordia & Asynchronous Classes Strip */}
             {visibleGridItems.filter(item => !item.days || item.days.trim() === 'TBA' || item.startTime === '00:00' || (item.section && item.section.includes('EC'))).length > 0 && (
