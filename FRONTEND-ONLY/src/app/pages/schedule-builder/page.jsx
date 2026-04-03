@@ -23,6 +23,8 @@ export default function ScheduleBuilderBeta() {
   const [gridItems, setGridItems] = useState([]);
   const [clashingIds, setClashingIds] = useState(new Set());
   const [isFetching, setIsFetching] = useState(false);
+  const [fetchingStatus, setFetchingStatus] = useState(""); // "" | "extension" | "api"
+  const fetchTimeoutRef = useRef(null);
   const [deepFetching, setDeepFetching] = useState(null);
   const deepTargetRef = useRef(null);
   const calendarRef = useRef(null);
@@ -141,6 +143,14 @@ export default function ScheduleBuilderBeta() {
      });
      return map;
   }, [cartItems, gridItems]);
+
+  const termMap = {
+    "Summer 2026": "2261",
+    "Fall 2026": "2262",
+    "Fall/Winter 2026-27": "2263",
+    "Winter 2027": "2264"
+  };
+
   const [expandedFolders, setExpandedFolders] = useState({});
 
   // Constants for Visual Calendar
@@ -295,43 +305,16 @@ export default function ScheduleBuilderBeta() {
 
       // Security: verify origin if needed, but we check type
       if (event.data?.type === "FROM_EXTENSION_RESPONSE") {
+        if (fetchTimeoutRef.current) {
+            clearTimeout(fetchTimeoutRef.current);
+            fetchTimeoutRef.current = null;
+        }
         setIsFetching(false);
+        setFetchingStatus("");
         if (event.data?.payload?.success) {
            const newClasses = event.data.payload.data;
-           
-           if (!newClasses || newClasses.length === 0) {
-              alert(`No classes found for ${lastSearchRef.current.subject} ${lastSearchRef.current.catalog} in ${lastSearchRef.current.term}.`);
-              return;
-           }
-           
-           // Fetch the exact search combination that requested this payload
            const req = lastSearchRef.current;
-           const courseCode = `${req.subject} ${req.catalog}`;
-           
-           // Color mapping is now deterministic via useMemo logic above
-
-
-           // Auto-expand this new folder
-           setExpandedFolders(prev => ({ ...prev, [courseCode]: true }));
-
-           setCartItems(prevCart => {
-             // Ensure we don't add classes that are already in the cart
-             const existingIds = new Set(prevCart.map(i => i.id));
-             // Check grid items as well to avoid adding a class to the cart if it's already on the calendar
-             const gridIds = new Set(gridItems.map(i => i.id));
-             
-             // Tag the freshly extracted sections with their parent Course Code and Context Term
-             const uniqueClasses = newClasses
-                .filter(c => !existingIds.has(c.id) && !gridIds.has(c.id))
-                .map(c => ({
-                    ...c,
-                    courseCode: courseCode,
-                    term: req.term
-                }));
-                
-             return [...prevCart, ...uniqueClasses];
-           });
-           
+           handleNewClasses(newClasses, `${req.subject} ${req.catalog}`, req.term);
         } else {
            alert(`Extension Error: ${event.data?.payload?.error || "Could not fetch class data."}`);
         }
@@ -342,12 +325,81 @@ export default function ScheduleBuilderBeta() {
   }, [gridItems]);
 
   const triggerExtensionFetch = () => {
+    if (!searchSubject || !searchCatalog) return;
+    
     setIsFetching(true);
-    lastSearchRef.current = { subject: searchSubject, catalog: searchCatalog, term: searchTerm };
+    setFetchingStatus("extension");
+    lastSearchRef.current = { subject: searchSubject.toUpperCase(), catalog: searchCatalog, term: searchTerm };
+    
+    // 1. Send message to extension
     window.postMessage({
       type: "FROM_CONUPLANNER_WEB_FETCH",
-      payload: { subject: searchSubject, catalogue: searchCatalog, term: searchTerm }
+      payload: { subject: searchSubject.toUpperCase(), catalogue: searchCatalog, term: searchTerm }
     }, "*");
+
+    // 2. Race: If no response in 1s, fallback to API
+    if (fetchTimeoutRef.current) clearTimeout(fetchTimeoutRef.current);
+    fetchTimeoutRef.current = setTimeout(() => {
+        console.log("⚡ Extension timeout. Falling back to Cloud Scraper...");
+        fallbackToApiFetch();
+    }, 1000);
+  };
+
+  const fallbackToApiFetch = async () => {
+      setFetchingStatus("api");
+      const req = lastSearchRef.current;
+      const numericTerm = termMap[req.term] || "2261";
+      
+      try {
+          const res = await fetch('/api/check-seats', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                  subject: req.subject, 
+                  number: req.catalog, 
+                  term: numericTerm 
+              }),
+          });
+          
+          const data = await res.json();
+          if (data.success && data.data) {
+              handleNewClasses(data.data, `${req.subject} ${req.catalog}`, req.term);
+          } else {
+              throw new Error(data.error || "Cloud Scraper failed");
+          }
+      } catch (err) {
+          console.error("🏁 Cloud Fallback Error:", err);
+          alert(`Could not fetch data for ${req.subject} ${req.catalog}. Please ensure the course exists and your extension is updated.`);
+      } finally {
+          setIsFetching(false);
+          setFetchingStatus("");
+          fetchTimeoutRef.current = null;
+      }
+  };
+
+  const handleNewClasses = (newClasses, courseCode, searchContextTerm) => {
+      if (!newClasses || newClasses.length === 0) {
+          alert(`No classes found for ${courseCode} in ${searchContextTerm}.`);
+          return;
+      }
+
+      setExpandedFolders(prev => ({ ...prev, [courseCode]: true }));
+
+      setCartItems(prevCart => {
+          const existingIds = new Set(prevCart.map(i => i.id));
+          const gridIds = new Set(gridItems.map(i => i.id));
+          
+          const uniqueClasses = newClasses
+             .filter(c => !existingIds.has(c.id) && !gridIds.has(c.id))
+             .map(c => ({
+                 ...c,
+                 id: c.id || c.classNbr, // Fallback check
+                 courseCode: courseCode,
+                 term: searchContextTerm
+             }));
+             
+          return [...prevCart, ...uniqueClasses];
+      });
   };
   
   return (
@@ -485,7 +537,15 @@ export default function ScheduleBuilderBeta() {
                           className="mt-2 md:mt-0 px-8 py-5 bg-[#912338] dark:bg-gradient-to-r dark:from-amber-500 dark:to-orange-600 text-white dark:text-black rounded-2xl text-lg font-extrabold shadow-[0_8px_20px_rgba(145,35,56,0.25)] dark:shadow-orange-500/20 hover:bg-[#7a1d2f] dark:hover:to-orange-700 dark:hover:text-white hover:translate-y-[-2px] transition-all disabled:opacity-50 disabled:hover:translate-y-0 flex justify-center items-center gap-3 uppercase tracking-wider md:w-[220px]"
                        >
                           {isFetching ? (
-                             <><span className="animate-spin text-xl">🤖</span> Fetching</>
+                             <div className="flex flex-col items-center">
+                                <div className="flex items-center gap-2">
+                                   <span className="animate-spin text-xl">🤖</span>
+                                   <span>{fetchingStatus === "api" ? "Cloud Mode" : "Fetching"}</span>
+                                </div>
+                                {fetchingStatus === "api" && (
+                                   <span className="text-[10px] font-bold opacity-60 tracking-tight leading-none mt-1 animate-pulse">Connecting to Concordia...</span>
+                                )}
+                             </div>
                           ) : (
                              <>Extract <span className="text-xl">➔</span></>
                           )}

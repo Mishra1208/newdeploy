@@ -127,6 +127,38 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
         // 8. Parse Results
         console.log("🔍 Extracting Course Data...");
         const sections = await page.evaluate((courseCode) => {
+            const parseConcordiaTime = (timeStr) => {
+                if (!timeStr || timeStr === 'N/A' || timeStr.includes('TBA')) {
+                    return { days: [], startTime: '', endTime: '' };
+                }
+
+                // Handle format: "MoWe 10:15AM - 11:30AM" or "MoWeFr 12:00PM - 1:15PM"
+                const parts = timeStr.split(' ');
+                if (parts.length < 4) return { days: [], startTime: '', endTime: '' };
+
+                const dayStr = parts[0]; // e.g. "MoWe"
+                const startTime = parts[1]; // e.g. "10:15AM"
+                const endTime = parts[3]; // e.g. "11:30AM"
+
+                const daysMap = {
+                    'Mo': 'Mon',
+                    'Tu': 'Tue',
+                    'We': 'Wed',
+                    'Th': 'Thu',
+                    'Fr': 'Fri',
+                    'Sa': 'Sat',
+                    'Su': 'Sun'
+                };
+
+                const days = [];
+                for (let j = 0; j < dayStr.length; j += 2) {
+                    const d = dayStr.substring(j, j + 2);
+                    if (daysMap[d]) days.push(daysMap[d]);
+                }
+
+                return { days, startTime, endTime };
+            };
+
             const results = [];
             let i = 0;
 
@@ -153,17 +185,31 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
                 const section = sectionEl ? sectionEl.innerText.replace(/\n/g, ' ').trim() : 'N/A';
 
                 const timeEl = document.querySelector(`#MTG_DAYTIME\\$${i}`);
-                const time = timeEl ? timeEl.innerText.trim() : 'N/A';
+                const timeStr = timeEl ? timeEl.innerText.trim() : 'N/A';
+                const parsedTime = parseConcordiaTime(timeStr);
 
                 const classNbrEl = document.querySelector(`#MTG_CLASS_NBR\\$${i}`);
                 const classNbr = classNbrEl ? classNbrEl.innerText.trim() : 'N/A';
 
+                const instrEl = document.querySelector(`#MTG_INSTR\\$${i}`);
+                const instructor = instrEl ? instrEl.innerText.trim() : 'Staff';
+
+                const locEl = document.querySelector(`#MTG_ROOM\\$${i}`);
+                const location = locEl ? locEl.innerText.trim() : 'TBA';
+
                 results.push({
+                    id: classNbr,
                     course: courseCode,
                     section,
                     status,
-                    time,
-                    classNbr
+                    time: timeStr,
+                    classNbr,
+                    days: parsedTime.days,
+                    startTime: parsedTime.startTime,
+                    endTime: parsedTime.endTime,
+                    instructor,
+                    location,
+                    description: `${courseCode} - ${section}`
                 });
 
                 i++;
