@@ -1697,8 +1697,15 @@ function extractTranscriptData() {
       }
     }
 
-    if (text.startsWith('Fall 20') || text.startsWith('Winter 20') || text.startsWith('Summer 20')) {
-      if (text.length < 20 && !text.includes('Description') && !text.includes('Attempted')) {
+    // ROBUST TERM IDENTIFIER
+    const termPattern = /^(Fall|Winter|Summer)\s+(20\d{2})$/i;
+    const termMatchDirect = text.match(termPattern);
+    
+    if (termMatchDirect && text.length < 30) {
+        currentTerm = { term: termMatchDirect[0], courses: [], termGPA: 0, cumGPA: 0 };
+        terms.push(currentTerm);
+    } else if (text.startsWith('Fall 20') || text.startsWith('Winter 20') || text.startsWith('Summer 20')) {
+      if (text.length < 20 && !text.includes('Description') && !text.includes('Attempted') && !text.match(/^[A-Z]{3,4}\s*\d{3}/)) {
         currentTerm = { term: text, courses: [], termGPA: 0, cumGPA: 0 };
         terms.push(currentTerm);
       }
@@ -1831,7 +1838,7 @@ function injectTranscriptUI() {
       const encodedData = encodeURIComponent(jsonString);
 
       // Open the dashboard in a new tab with the payload
-      const dashboardUrl = `https://conuplanner.com/dashboard/progress?data=${encodedData}`;
+      const dashboardUrl = `http://localhost:3000/pages/degree-tracker?data=${encodedData}`;
       window.open(dashboardUrl, '_blank');
 
       btn.innerHTML = "✅ Analytics Generated!";
@@ -1844,4 +1851,157 @@ function injectTranscriptUI() {
 
   container.appendChild(btn);
   document.body.appendChild(container);
+}
+
+function extractAdvisementData() {
+  const mapping = {};
+  const reportDate = document.querySelector('.PSTEXT')?.innerText || "Unknown";
+  
+  console.log("🔍 ConuPlanner: Starting Bottom-Up Requirement Extraction...");
+
+  // 1. Find all tables that have a "COURSE" header (which is distinct for requirement lists)
+  const allTables = Array.from(document.querySelectorAll('table'));
+  console.log(`🔍 ConuPlanner: Scanning ${allTables.length} tables on page.`);
+
+  allTables.forEach((table, index) => {
+    const tableText = (table.innerText || table.textContent).toUpperCase();
+    
+    // Pattern check: Does this table look like a list of courses?
+    const hasHeader = tableText.includes('COURSE') && (tableText.includes('STATUS') || tableText.includes('GRADE'));
+    if (!hasHeader) return;
+
+    // 2. Identify the nearest Header above this table
+    // Scan backwards from this table in the DOM or search parents
+    let bucketTitle = "GENERAL_ELECTIVES";
+    
+    // METHOD A: Search for the maroon/grey groupbox header right above
+    // PeopleSoft labels often have IDs containing 'PAGROUPBOXLABEL' or 'Requirement'
+    let current = table;
+    let foundHeader = false;
+    
+    // We'll search up 20 parents and look at their previous siblings' text
+    let searchLimit = 0;
+    while (current && searchLimit < 20) {
+      // Check for siblings that are headers
+      let sibling = current.previousElementSibling;
+      while (sibling) {
+        const sibText = (sibling.innerText || sibling.textContent).trim();
+        const sibClasses = sibling.className || "";
+        
+        // Typical PeopleSoft Header classes or IDs
+        if (sibClasses.includes('GROUPBOXLABEL') || sibText.match(/\(\d+\s*credits\)/i) || sibling.querySelector('.PAGROUPBOXLABEL, .PSGROUPBOXLABEL')) {
+          bucketTitle = sibText.split('\n')[0].replace(/\(\d+.*credits.*\)/i, '').trim();
+          foundHeader = true;
+          break;
+        }
+        sibling = sibling.previousElementSibling;
+      }
+      if (foundHeader) break;
+      current = current.parentElement;
+      searchLimit++;
+    }
+
+    if (!foundHeader) {
+      console.log(`⚠️ Table #${index} has courses but no header found above it. Defaulting to General.`);
+    }
+
+    // 3. Extract Courses from this identified Table
+    const rows = table.querySelectorAll('tr');
+    let coursesInThisTable = 0;
+    rows.forEach(row => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length >= 1) {
+        const cellText = (cells[0].innerText || cells[0].textContent).trim();
+        
+        // Pattern: [SUBJECT] [NUMBER] (e.g. COMP 432)
+        // STRICT EXCLUSION: Ignore RG (Requirement Group) and RQ (Requirement) codes
+        if (/^R[GQ]\s*\d+/.test(cellText) || cellText.startsWith('UNITS') || cellText.length < 5) {
+          return;
+        }
+
+        const match = cellText.match(/([A-Z]{2,4}\s\d{3})/);
+        if (match) {
+          const courseId = match[1];
+          // Normalize the bucketKey for the frontend
+          let bucketKey = bucketTitle.toUpperCase()
+            .replace(/BACHELOR OF COMPUTER SCIENCE/, '')
+            .replace(/COMPUTER SCIENCE CORE/, 'CS_CORE')
+            .replace(/COMPLEMENTARY CORE/, 'CS_COMPLEMENTARY')
+            .replace(/MATHEMATICS ELECTIVES/, 'MATH_ELECTIVES')
+            .replace(/COMPUTER SCIENCE ELECTIVES/, 'CS_ELECTIVES')
+            .replace(/ARTIFICIAL INTELLIGENCE ELECTIVES/, 'AI_ELECTIVES')
+            .replace(/GENERAL ELECTIVES/, 'GENERAL_ELECTIVES')
+            .replace(/EXTENDED CREDIT PROGRAM FOR/, 'ECP')
+            .replace(/UNITS:.*REQUIRED.*/, '') // Remove 'Units: 27.00 required' noise
+            .replace(/\(.*\)/, '') // Remove (27 credits) etc.
+            .trim()
+            .replace(/\s+/g, '_');
+
+          mapping[courseId] = bucketKey;
+          coursesInThisTable++;
+        }
+      }
+    });
+
+    if (coursesInThisTable > 0) {
+      console.log(`✅ Table #${index}: Found ${coursesInThisTable} courses mapping to [${bucketTitle}]`);
+    }
+  });
+
+  console.log("📊 Final Discoveries Map:", mapping);
+  return { mapping, reportDate };
+}
+
+function injectAdvisementUI() {
+  const containerId = "conuplanner-requirement-sync-container";
+  if (document.getElementById(containerId)) return;
+
+  const container = document.createElement("div");
+  container.id = containerId;
+  Object.assign(container.style, {
+    position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)",
+    zIndex: "2147483647", display: "flex", alignItems: "center", gap: "15px",
+    backgroundColor: "rgba(255, 255, 255, 0.95)", padding: "10px 25px",
+    borderRadius: "50px", boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    border: "2px solid #8b5cf6", fontFamily: "Segoe UI, sans-serif"
+  });
+
+  const btn = document.createElement("button");
+  btn.innerHTML = "💎 Sync Requirement Accuracy";
+  Object.assign(btn.style, {
+    background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+    color: "white", border: "2px solid white", borderRadius: "30px",
+    padding: "10px 24px", fontSize: "15px", fontWeight: "bold",
+    cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+    display: "flex", alignItems: "center", gap: "8px", whiteSpace: "nowrap"
+  });
+
+  btn.onclick = (e) => {
+    const data = extractAdvisementData();
+    if (Object.keys(data.mapping).length === 0) {
+      alert("⚠️ No detailed requirements found!\n\nPlease click 'Expand All' at the bottom of the page first, then try again.");
+      return;
+    }
+
+    const jsonString = JSON.stringify({ type: 'ADVISEMENT_SYNC', ...data });
+    const encodedData = encodeURIComponent(jsonString);
+    window.open(`http://localhost:3000/pages/degree-tracker?data=${encodedData}`, '_blank');
+    
+    btn.innerHTML = "✅ Requirements Locked!";
+  };
+
+  container.appendChild(btn);
+  document.body.appendChild(container);
+}
+
+// Add to main execution block at bottom
+const curUrl = window.location.href;
+if (curUrl.includes('SAA_SS_DPR_ADB.GBL') || curUrl.includes('SAA_SS_DPR_ADB')) {
+  injectAdvisementUI();
+} else if (curUrl.includes('SS_ATT_REPORT.GBL') || curUrl.includes('Unofficial_Transcript')) {
+  injectTranscriptUI();
+} else if (document.body.innerText.includes('Academic Advisement Report')) {
+  injectAdvisementUI(); 
+} else if (document.body.innerText.includes('Unofficial Transcript')) {
+  injectTranscriptUI();
 }

@@ -120,6 +120,7 @@ export default function PremiumNavbar() {
                                 }}
                                 transition={{ duration: 0.2 }}
                             >
+
                                 <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
                                 <Link href="/pages/courses/descriptions" className="dropdown-item">Course Descriptions</Link>
                                 <Link href="/pages/professor-comparison" className="dropdown-item">Professor Insights & Comparison</Link>

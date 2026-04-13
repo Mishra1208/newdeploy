@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConuPlanner Major Update Newsletter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f6f6f6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        /* HEADER */
+        .header {
+            background-color: #912338; /* Concordia Maroon */
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header img {
+            max-width: 180px;
+            height: auto;
+        }
+        /* HERO */
+        .hero {
+            padding: 40px 30px;
+            text-align: center;
+            background-color: #111111; /* Black */
+            color: #ffffff;
+            border-bottom: 4px solid #DCAE1D; /* Yellow/Gold accent */
+        }
+        .hero h1 {
+            margin: 0 0 15px 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .hero p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #dddddd;
+        }
+        /* FEATURE BLOCK */
+        .feature-block {
+            padding: 40px 30px;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .feature-block.alt-bg {
+            background-color: #fdfdfd;
+        }
+        .feature-badge {
+            display: inline-block;
+            background-color: #fff8e1;
+            color: #912338;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .feature-title {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #111111;
+        }
+        .feature-text {
+            margin: 0 0 20px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555555;
+        }
+        .feature-image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .feature-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .list-icon {
+            margin-right: 10px;
+            color: #912338;
+            font-weight: bold;
+        }
+        .list-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        /* BUTTONS */
+        .btn-container {
+            text-align: left;
+            margin-top: 25px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #912338;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(145, 35, 56, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-black {
+            background-color: #111111;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* INNER CIRCLE CTA */
+        .inner-circle {
+            text-align: center;
+            padding: 50px 30px;
+            background-color: #fff8e1;
+            border-bottom: 4px solid #DCAE1D;
+        }
+        .inner-circle h2 {
+            margin: 0 0 15px 0;
+            font-size: 26px;
+            font-weight: 800;
+            color: #111111;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 30px;
+            text-align: center;
+            background-color: #f6f6f6;
+            color: #888888;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .footer a {
+            color: #912338;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center">
+                <div class="container">
+                    
+                    <!-- HEADER -->
+                    <div class="header">
+                        <img src="https://www.conuplanner.com/logo.png" alt="ConuPlanner Logo">
+                    </div>
+
+                    <!-- HERO -->
+                    <div class="hero">
+                        <img src="https://www.conuplanner.com/marketing_assets/New%20Update%20Ribbon.gif" alt="New Update" style="max-width: 180px; margin-bottom: 15px;">
+                        <h1>A Massive Update for Concordia Planners 🚀</h1>
+                        <p>We've been quietly working behind the scenes. Today, we are finally releasing the biggest feature updates in ConuPlanner history. Get ready for enrollment season.</p>
+                    </div>
+
+                    <!-- FEATURE 1: SCHEDULE BUILDER -->
+                    <div class="feature-block">
+                        <span class="feature-badge">Brand New</span>
+                        <h2 class="feature-title">The Visual Schedule Builder 📅</h2>
+                        <p class="feature-text">Ditch the spreadsheets and the clunky VSB. Plan your perfect semester visually and make sure everything fits <i>before</i> registration day hits.</p>
+                        
+                        <table width="100%">
+                            <tr><td class="list-item"><span class="list-icon">✨</span><span class="list-text"><b>Drag & Drop:</b> Build your week seamlessly on an interactive calendar.</span></td></tr>
+                            <tr><td class="list-item"><span class="list-icon">🔴</span><span class="list-text"><b>Clash Detection:</b> Get warned immediately if any classes overlap.</span></td></tr>
+                            <tr><td class="list-item"><span class="list-icon">📸</span><span class="list-text"><b>Clean Export:</b> Download a sharp PNG image of your final schedule.</span></td></tr>
+                        </table>
+
+                        <div class="btn-container">
+                            <a href="https://www.conuplanner.com/pages/schedule-builder" class="btn">Try Schedule Builder →</a>
+                        </div>
+
+                        <div class="feature-image-container">
+                            <img class="feature-image" src="https://www.conuplanner.com/marketing_assets/SCHEDULE%20BUILDER.png" alt="Visual Schedule Builder Preview">
+                        </div>
+                    </div>
+
+                    <!-- FEATURE 2: SEAT FINDER -->
+                    <div class="feature-block alt-bg">
+                        <span class="feature-badge">Upgraded</span>
+                        <h2 class="feature-title">Live Seat Finder 🎯</h2>
+                        <p class="feature-text">Don't guess if a class is full. Deep-dive into Concordia's backend in real-time right from your dashboard.</p>
+                        
+                        <table width="100%">
+                            <tr><td class="list-item"><span class="list-icon">🔍</span><span class="list-text"><b>Deep Inspect:</b> Instantly pull live Available Seat and Waitlist counts.</span></td></tr>
+                            <tr><td class="list-item"><span class="list-icon">🔔</span><span class="list-text"><b>Seat Alerts:</b> Get notified the exact second a spot opens up in a full class.</span></td></tr>
+                        </table>
+
+                        <div class="btn-container">
+                            <a href="https://www.conuplanner.com/pages/seat-finder" class="btn">Launch Seat Finder →</a>
+                        </div>
+
+                        <div class="feature-image-container">
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%" style="padding-right: 5px;" align="center">
+                                        <img class="feature-image" src="https://www.conuplanner.com/marketing_assets/SEAT%20FINDER.png" alt="Live Seat Finder Preview">
+                                    </td>
+                                    <td width="50%" style="padding-left: 5px;" align="center">
+                                        <img class="feature-image" src="https://www.conuplanner.com/marketing_assets/alert.png" alt="Automated Alert Notification">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- FEATURE 3: CHROME EXTENSION -->
+                    <div class="feature-block">
+                        <span class="feature-badge">The Ultimate Toolkit</span>
+                        <h2 class="feature-title">The Chrome Extension 🧩</h2>
+                        <p class="feature-text">Your student hub, supercharged. We've packed the extension with tools to help you analyze your academic history and make smarter choices.</p>
+                        
+                        <table width="100%">
+                            <tr><td class="list-item"><span class="list-icon">📈</span><span class="list-text"><b>Academic History Sync:</b> See your progress modeled in beautiful graphs.</span></td></tr>
+                            <tr><td class="list-item"><span class="list-icon">🗓️</span><span class="list-text"><b>Export to Calendar:</b> Push your schedule directly to Apple/Google Cal with full class info attached.</span></td></tr>
+                            <tr><td class="list-item"><span class="list-icon">📊</span><span class="list-text"><b>Grade Distributions:</b> View historical grade data and contribute your own securely.</span></td></tr>
+                        </table>
+
+                        <div class="btn-container">
+                            <a href="https://chromewebstore.google.com/detail/conuplanner-ultimate/klkkheopnkioincbkkkoanbgaffenoic" class="btn btn-black">Add to Chrome →</a>
+                        </div>
+
+                        <div class="feature-image-container">
+                            <img class="feature-image" src="https://www.conuplanner.com/marketing_assets/CHROME%20EXTENSION.png" alt="Chrome Extension Preview">
+                        </div>
+                    </div>
+
+                    <!-- INNER CIRCLE CTA -->
+                    <div class="inner-circle">
+                        <h2>Join the Inner Circle 🎓</h2>
+                        <p class="feature-text" style="color: #444;">Don't miss a single update. Subscribe to the Inner Circle to get instant alerts for Course Enrollment dates, critical bug fixes, and early access to new tools.</p>
+                        
+                        <div class="feature-image-container" style="margin-top: 30px; margin-bottom: 30px;">
+                            <img class="feature-image" src="https://www.conuplanner.com/marketing_assets/join%20inner%20circle.png" alt="Join Inner Circle">
+                        </div>
+
+                        <a href="https://www.conuplanner.com" class="btn">Subscribe Now</a>
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="footer">
+                        <p>You are receiving this product update because you registered an account on ConuPlanner. We're a student-run project aiming to make Concordia better. 🎓</p>
+                        <p>Got bugs or feedback? Just reply directly to this email.</p>
+                        <p><br>If you don't want to receive major update emails from us anymore, you can <a href="{{unsubscribe_url}}">Unsubscribe here</a>.</p>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

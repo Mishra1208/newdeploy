@@ -1,0 +1,76 @@
+{
+  "ENCS_COMMON_CORE": {
+    "COMP 232": {
+      "title": "Mathematics for Computer Science",
+      "credits": 3.0,
+      "prerequisites": [
+        ["MATH 203", "MATH 209"],
+        ["MATH 204"]
+      ]
+    },
+    "COMP 248": {
+      "title": "Object-Oriented Programming I",
+      "credits": 3.5,
+      "prerequisites": [
+        ["MATH 204"]
+      ]
+    },
+    "COMP 249": {
+      "title": "Object-Oriented Programming II",
+      "credits": 3.5,
+      "prerequisites": [
+        ["COMP 248"],
+        ["MATH 203", "MATH 209"]
+      ]
+    },
+    "COMP 352": {
+      "title": "Data Structures and Algorithms",
+      "credits": 3.0,
+      "prerequisites": [
+        ["COMP 232"],
+        ["COMP 249"]
+      ]
+    },
+    "ENGR 213": {
+      "title": "Applied Ordinary Differential Equations",
+      "credits": 3.0,
+      "prerequisites": [
+        ["MATH 204"],
+        ["MATH 205"]
+      ]
+    },
+    "ENGR 233": {
+      "title": "Applied Advanced Calculus",
+      "credits": 3.0,
+      "prerequisites": [
+        ["MATH 204"],
+        ["MATH 205"]
+      ]
+    }
+  },
+  "BSOEN_CORE": {
+    "SOEN 287": {
+      "title": "Web Programming",
+      "credits": 3.0,
+      "prerequisites": [
+        ["COMP 248"]
+      ]
+    },
+    "SOEN 341": {
+      "title": "Software Process",
+      "credits": 3.0,
+      "prerequisites": [
+        ["COMP 346", "COMP 352"]
+      ]
+    }
+  },
+  "GENERAL_ELECTIVES": 15,
+  "ECP_DEFICIENCIES": {
+    "MATH 203": { "title": "Differential and Integral Calculus I", "credits": 3.0, "prerequisites": [] },
+    "MATH 204": { "title": "Vectors and Matrices", "credits": 3.0, "prerequisites": [] },
+    "MATH 205": { "title": "Differential and Integral Calculus II", "credits": 3.0, "prerequisites": [["MATH 203"]] },
+    "PHYS 204": { "title": "Mechanics", "credits": 3.0, "prerequisites": [["MATH 203"]] },
+    "PHYS 205": { "title": "Electricity & Magnetism", "credits": 3.0, "prerequisites": [["MATH 205", "PHYS 204"]] },
+    "CHEM 205": { "title": "General Chemistry I", "credits": 3.0, "prerequisites": [] }
+  }
+}

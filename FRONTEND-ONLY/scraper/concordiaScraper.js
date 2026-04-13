@@ -154,8 +154,10 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
 
                 results.push({
                     id: classNbr,
+                    classNbr: classNbr,
                     section,
                     status,
+                    time: timeStr,
                     days: parsedTime.days,
                     startTime: parsedTime.startTime,
                     endTime: parsedTime.endTime,
