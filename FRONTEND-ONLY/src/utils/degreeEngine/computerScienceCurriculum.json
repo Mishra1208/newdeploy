@@ -1,0 +1,111 @@
+{
+  "program": "Computer Science - General Program",
+  "totalCredits": 90,
+  "requirements": [
+    {
+      "category": "Computer Science Core",
+      "credits": 33,
+      "courses": [
+        "COMP 228", "COMP 232", "COMP 233", "COMP 248", "COMP 249",
+        "COMP 335", "COMP 346", "COMP 348", "COMP 352", "COMP 354"
+      ]
+    },
+    {
+      "category": "Complementary Core",
+      "credits": 6,
+      "courses": ["ENCS 282", "ENCS 393"]
+    },
+    {
+      "category": "Mathematics Electives",
+      "credits": 6,
+      "courses": [
+        "COMP 339", "COMP 361", "COMP 367", "ENGR 213", "ENGR 233",
+        "MAST 218", "MAST 219", "MAST 324", "MAST 332", "MAST 334",
+        "MATH 251", "MATH 252", "MATH 339", "MATH 392"
+      ]
+    },
+    {
+      "category": "Computer Science Electives",
+      "credits": 18,
+      "courses": [
+        "COMP 325", "COMP 333", "COMP 345", "COMP 353", "COMP 371", "COMP 376",
+        "COMP 425", "COMP 432", "COMP 433", "COMP 438", "COMP 445", "COMP 472", 
+        "COMP 473", "COMP 474", "COMP 475", "COMP 476", "COMP 477", "COMP 479",
+        "ENGR 490", "SOEN 287", "SOEN 321", "SOEN 331", "SOEN 357", "SOEN 387", 
+        "SOEN 422", "SOEN 423", "SOEN 471", "SOEN 487"
+      ],
+      "notes": "Any COMP course 325 or higher is allowed."
+    },
+    {
+      "category": "General Electives",
+      "credits": 27,
+      "courses": [],
+      "notes": "Any course explicitly listed in the Undergraduate Calendar as part of a major, minor, or specialization program."
+    }
+  ],
+  "courses": {
+    "COMP 228": {
+      "credits": 3,
+      "prerequisites": [["COMP 248"]],
+      "corequisites": ["MATH 203", "MATH 204"]
+    },
+    "COMP 232": {
+      "credits": 3,
+      "prerequisites": [["MATH 203"], ["MATH 204"]],
+      "corequisites": []
+    },
+    "COMP 233": {
+      "credits": 3,
+      "prerequisites": [["MATH 205"]],
+      "corequisites": []
+    },
+    "COMP 248": {
+      "credits": 3.5,
+      "prerequisites": [["MATH 204"]],
+      "corequisites": []
+    },
+    "COMP 249": {
+      "credits": 3.5,
+      "prerequisites": [["COMP 248"], ["MATH 203"]],
+      "corequisites": ["MATH 205"]
+    },
+    "COMP 335": {
+      "credits": 3,
+      "prerequisites": [["COMP 232", "COEN 231"], ["COMP 249", "COEN 244"]],
+      "corequisites": []
+    },
+    "COMP 346": {
+      "credits": 4,
+      "prerequisites": [["COMP 228", "SOEN 228"], ["COMP 352"]],
+      "corequisites": []
+    },
+    "COMP 348": {
+      "credits": 3,
+      "prerequisites": [["COMP 249"]],
+      "corequisites": []
+    },
+    "COMP 352": {
+      "credits": 3,
+      "prerequisites": [["COMP 249"]],
+      "corequisites": ["COMP 232"]
+    },
+    "COMP 354": {
+      "credits": 4,
+      "prerequisites": [["COMP 352"], ["ENCS 282"]],
+      "corequisites": []
+    },
+    "ENCS 282": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENCS 393": {
+      "credits": 3,
+      "prerequisites": [["ENCS 282"]],
+      "corequisites": []
+    },
+    "MATH 203": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "MATH 204": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "MATH 205": { "credits": 3, "prerequisites": [["MATH 203"]], "corequisites": [] }
+  }
+}

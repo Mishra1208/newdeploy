@@ -31,6 +31,7 @@ export default function DynamicNavbar() {
                         <li><NavLink href="/pages/courses/descriptions">Catalog</NavLink></li>
                         <li><NavLink href="/pages/planner">Planner</NavLink></li>
                         <li><NavLink href="/pages/gpa">GPA</NavLink></li>
+                        {/* <li><NavLink href="/pages/degree-tracker">Degree Pathfinder</NavLink></li> */}
                         <li><NavLink href="/about">About</NavLink></li>
 
                         <SignedOut>

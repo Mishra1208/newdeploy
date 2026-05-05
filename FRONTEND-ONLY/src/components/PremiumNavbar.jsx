@@ -50,7 +50,8 @@ export default function PremiumNavbar() {
         { label: 'Insights', link: '/insights' },
         { label: 'Prof. Compare', link: '/pages/professor-comparison' },
         { label: 'GPA Calc', link: '/pages/gpa' },
-        { label: 'About', link: '/about' },
+        // { label: 'Degree Pathfinder', link: '/pages/degree-tracker' },
+        { label: 'About Us', link: '/about' },
         { label: 'Contact', link: '/contact' }
     ];
 
@@ -98,7 +99,12 @@ export default function PremiumNavbar() {
                             </span>
                         </Link>
                         <Link href="/insights" className="nav-link-premium">Insights</Link>
-                        <Link href="/about" className="nav-link-premium">About Us</Link>
+                        {/* <Link href="/pages/degree-tracker" className="nav-link-premium flex items-center gap-1">
+                            Degree Pathfinder
+                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#912338]/10 text-[#912338] border border-[#912338]/20 uppercase tracking-wide">
+                                Pro
+                            </span>
+                        </Link> */}
 
                         {/* MORE DROPDOWN */}
                         <div
@@ -124,6 +130,7 @@ export default function PremiumNavbar() {
                                 <Link href="/pages/gpa" className="dropdown-item">GPA Calculator</Link>
                                 <Link href="/pages/courses/descriptions" className="dropdown-item">Course Descriptions</Link>
                                 <Link href="/pages/professor-comparison" className="dropdown-item">Professor Insights & Comparison</Link>
+                                <Link href="/about" className="dropdown-item">About Us</Link>
                             </motion.div>
                         </div>
 
