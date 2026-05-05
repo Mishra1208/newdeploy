@@ -48,8 +48,13 @@ export async function GET(req) {
 
         const emailsSent = [];
 
-        // 3. Scrape each unique course
-        for (const key of Object.keys(uniqueCourses)) {
+        let uniqueCourseKeys = Object.keys(uniqueCourses);
+        // Shuffle array to avoid starvation and slice to process max 3 courses per 60s run
+        uniqueCourseKeys = uniqueCourseKeys.sort(() => 0.5 - Math.random());
+        const keysToProcess = uniqueCourseKeys.slice(0, 3);
+
+        // 3. Scrape each unique course (up to 3)
+        for (const key of keysToProcess) {
             const { term, subject, courseNumber, alerts } = uniqueCourses[key];
             
             console.log(`Scraping for ${subject} ${courseNumber} (Term: ${term})...`);
