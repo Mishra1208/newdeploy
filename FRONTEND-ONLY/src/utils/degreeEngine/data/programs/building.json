@@ -1,0 +1,95 @@
+{
+  "id": "building-engineering",
+  "name": "BEng in Building Engineering",
+  "totalCredits": 120,
+  "courses": {
+    "MATH 203": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "MATH 204": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "MATH 205": { "credits": 3, "prerequisites": [["MATH 203"]], "corequisites": [] },
+    "PHYS 204": { "credits": 3, "prerequisites": [["MATH 203"]], "corequisites": [["MATH 204"]] },
+    "PHYS 205": { "credits": 3, "prerequisites": [["MATH 203"]], "corequisites": [["MATH 204"]] },
+    "CHEM 205": { "credits": 3, "prerequisites": [], "corequisites": [] },
+
+    "ELEC 275": { "credits": 3.5, "prerequisites": [["PHYS 205"]], "corequisites": [["ENGR 213"]] },
+    "ENCS 282": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "ENGR 201": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ENGR 213": { "credits": 3, "prerequisites": [["MATH 205"], ["MATH 204"]], "corequisites": [] },
+    "ENGR 233": { "credits": 3, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": [] },
+    "ENGR 301": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "ENGR 371": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 391": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["BCEE 231"]], "corequisites": [] },
+    "BLDG 482": { "credits": 3, "prerequisites": [], "corequisites": [] },
+
+    "BCEE 231": { "credits": 3, "prerequisites": [["MATH 204"]], "corequisites": [["ENGR 242"]] },
+    "BCEE 277": { "credits": 2.5, "prerequisites": [], "corequisites": [] },
+    "BCEE 342": { "credits": 3, "prerequisites": [["ENGR 244"]], "corequisites": [] },
+    "BCEE 344": { "credits": 3, "prerequisites": [["BCEE 342"]], "corequisites": [] },
+    "BCEE 345": { "credits": 3, "prerequisites": [["BCEE 342"]], "corequisites": [] },
+    "BCEE 371": { "credits": 3, "prerequisites": [["BLDG 212"]], "corequisites": [] },
+    "BCEE 377": { "credits": 2.5, "prerequisites": [["BCEE 277"]], "corequisites": [] },
+    "BCEE 432": { "credits": 3.5, "prerequisites": [["ENGR 244"]], "corequisites": [] },
+    "BCEE 451": { "credits": 3, "prerequisites": [["BLDG 341"]], "corequisites": [] },
+    "BLDG 212": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "BLDG 341": { "credits": 3, "prerequisites": [["BCEE 231"]], "corequisites": [] },
+    "BLDG 365": { "credits": 3.5, "prerequisites": [["ENGR 251"]], "corequisites": [] },
+    "BLDG 371": { "credits": 3.5, "prerequisites": [["BLDG 365"]], "corequisites": [] },
+    "BLDG 390": { "credits": 3.5, "prerequisites": [["BLDG 341"], ["ENCS 282"]], "corequisites": [["BCEE 344"]] },
+    "BLDG 463": { "credits": 3, "prerequisites": [["BLDG 365"]], "corequisites": [] },
+    "BLDG 471": { "credits": 4, "prerequisites": [["BLDG 371"]], "corequisites": [["BLDG 476"]] },
+    "BLDG 476": { "credits": 3, "prerequisites": [["BLDG 365"], ["ENGR 361"]], "corequisites": [] },
+    "BLDG 490": { "credits": 6, "prerequisites": [["ENCS 282"], ["BCEE 344"], ["BCEE 345"], ["BLDG 371"], ["BLDG 390"], ["ENGR 301"]], "corequisites": [] },
+    "CIVI 321": { "credits": 3.75, "prerequisites": [["CHEM 205"]], "corequisites": [] },
+    "ENGR 242": { "credits": 3, "prerequisites": [["MATH 204"], ["PHYS 204"]], "corequisites": [["ENGR 213"]] },
+    "ENGR 243": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 242"]], "corequisites": [] },
+    "ENGR 244": { "credits": 3.75, "prerequisites": [["ENGR 213"], ["ENGR 242"]], "corequisites": [["ENGR 233"]] },
+    "ENGR 251": { "credits": 3, "prerequisites": [["MATH 203"]], "corequisites": [] },
+    "ENGR 311": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 361": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 251"]], "corequisites": [] }
+  },
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 29,
+      "courses": [
+        "ELEC 275", "ENCS 282", "ENGR 201", "ENGR 213", "ENGR 233",
+        "ENGR 301", "ENGR 371", "ENGR 391", "BLDG 482"
+      ],
+      "electiveSlots": [
+        {
+          "name": "General Education Elective",
+          "credits": 3,
+          "list": ["HUMA 200", "SSCI 200", "PHIL 200", "ECON 200", "HIST 200"]
+        }
+      ]
+    },
+    {
+      "category": "Building Engineering Core",
+      "credits": 81.5,
+      "courses": [
+        "BCEE 231", "BCEE 277", "BCEE 342", "BCEE 344", "BCEE 345", 
+        "BCEE 371", "BCEE 377", "BCEE 432", "BCEE 451", "BLDG 212", 
+        "BLDG 341", "BLDG 365", "BLDG 371", "BLDG 390", "BLDG 463", 
+        "BLDG 471", "BLDG 476", "BLDG 490", "CIVI 321", "ENGR 242", 
+        "ENGR 243", "ENGR 244", "ENGR 251", "ENGR 311", "ENGR 361"
+      ]
+    },
+    {
+      "category": "Building Engineering Electives",
+      "credits": 9.5,
+      "courses": [],
+      "electiveSlots": [
+        {
+          "name": "Technical Electives",
+          "credits": 9.5,
+          "list": [
+            "BLDG 366", "BLDG 465", "BLDG 472", "BLDG 473", "BLDG 474", 
+            "BLDG 475", "BLDG 477", "BLDG 479", "BLDG 483", "BLDG 484", 
+            "BLDG 498", "ENGR 411", "ENGR 412", "BCEE 343", "BCEE 455", 
+            "BCEE 478", "BCEE 492", "BLDG 462", "BLDG 480", "BLDG 481", 
+            "CIVI 435", "CIVI 453", "CIVI 454"
+          ]
+        }
+      ]
+    }
+  ]
+}

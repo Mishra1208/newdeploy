@@ -1,0 +1,131 @@
+import json
+
+civil_data = {
+    "program": "Civil Engineering (BEng)",
+    "totalCredits": 120.0,
+    "requirements": [
+        {
+            "category": "Engineering Core",
+            "credits": 46.25,
+            "courses": [
+                "ELEC 275", "ENCS 282", "ENGR 201", "ENGR 202", "ENGR 213", "ENGR 233", 
+                "ENGR 242", "ENGR 243", "ENGR 244", "ENGR 251", "ENGR 301", "ENGR 311", 
+                "ENGR 361", "ENGR 371", "ENGR 391", "ENGR 392"
+            ],
+            "electiveSlots": [
+                {
+                    "name": "General Education Elective",
+                    "credits": 3,
+                    "list": ["HUMA 201", "HUMA 202", "PHIL 232", "ECON 201", "ECON 203", "POLI 202"]
+                }
+            ]
+        },
+        {
+            "category": "Civil Engineering Core",
+            "credits": 64.75,
+            "courses": [
+                "BCEE 231", "BCEE 277", "BCEE 342", "BCEE 343", "BCEE 344", "BCEE 345", 
+                "BCEE 371", "BCEE 377", "BCEE 432", "BCEE 451", "CIVI 212", "CIVI 231", 
+                "CIVI 321", "CIVI 341", "CIVI 361", "CIVI 372", "CIVI 381", "CIVI 390", 
+                "CIVI 483", "CIVI 490"
+            ]
+        },
+        {
+            "category": "Civil Engineering Electives",
+            "credits": 6,
+            "electiveSlots": [
+                {
+                    "name": "Technical Elective",
+                    "credits": 6,
+                    "list": [
+                        "CIVI 433", "CIVI 435", "CIVI 437", "CIVI 453", "CIVI 454", 
+                        "CIVI 471", "CIVI 474", "CIVI 461", "CIVI 464", "CIVI 465", 
+                        "CIVI 466", "CIVI 484"
+                    ]
+                }
+            ]
+        }
+    ],
+    "courses": {
+        "ELEC 275": {"title": "Principles of Electrical Engineering", "credits": 3.5, "prerequisites": [["PHYS 205"]], "corequisites": [["ENGR 213"]]},
+        "ENCS 282": {"title": "Technical Writing and Communication", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "ENGR 201": {"title": "Professional Practice and Responsibility", "credits": 1.5, "prerequisites": [], "corequisites": []},
+        "ENGR 202": {"title": "Sustainable Development and Environmental Stewardship", "credits": 1.5, "prerequisites": [], "corequisites": []},
+        "ENGR 213": {"title": "Applied Ordinary Differential Equations", "credits": 3.0, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": []},
+        "ENGR 233": {"title": "Applied Advanced Calculus", "credits": 3.0, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": [["ENGR 213"]]},
+        "ENGR 242": {"title": "Statics", "credits": 3.0, "prerequisites": [["PHYS 204"]], "corequisites": [["ENGR 213"]]},
+        "ENGR 243": {"title": "Dynamics", "credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 242"]], "corequisites": []},
+        "ENGR 244": {"title": "Mechanics of Materials", "credits": 3.75, "prerequisites": [["ENGR 213"], ["ENGR 242"]], "corequisites": []},
+        "ENGR 251": {"title": "Thermodynamics I", "credits": 3.0, "prerequisites": [["MATH 203"]], "corequisites": []},
+        "ENGR 301": {"title": "Engineering Management Principles and Economics", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "ENGR 311": {"title": "Transform Methods in Engineering", "credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": []},
+        "ENGR 361": {"title": "Fluid Mechanics I", "credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 251"]], "corequisites": []},
+        "ENGR 371": {"title": "Probability and Statistics in Engineering", "credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": []},
+        "ENGR 391": {"title": "Numerical Methods in Engineering", "credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": []},
+        "ENGR 392": {"title": "Impact of Technology on Society", "credits": 3.0, "prerequisites": [["ENCS 282"]], "corequisites": []},
+        
+        "BCEE 231": {"title": "Structured Programming and Applications for Building and Civil Engineers", "credits": 3.0, "prerequisites": [["MATH 204"]], "corequisites": [["ENGR 213"]]},
+        "BCEE 277": {"title": "Introduction to AI in Natural and Built Environment", "credits": 2.5, "prerequisites": [["BCEE 231"]], "corequisites": []},
+        "BCEE 342": {"title": "Structural Analysis I", "credits": 3.0, "prerequisites": [["ENGR 244"]], "corequisites": []},
+        "BCEE 343": {"title": "Structural Analysis II", "credits": 3.0, "prerequisites": [["BCEE 342"]], "corequisites": []},
+        "BCEE 344": {"title": "Structural Design of Steel and Wood Elements", "credits": 3.0, "prerequisites": [["BCEE 342"]], "corequisites": []},
+        "BCEE 345": {"title": "Structural Design of Reinforced Concrete Elements", "credits": 3.0, "prerequisites": [["BCEE 342"]], "corequisites": []},
+        "BCEE 371": {"title": "Surveying", "credits": 3.0, "prerequisites": [["CIVI 212"]], "corequisites": []},
+        "BCEE 377": {"title": "Applied AI for the Built Environment", "credits": 2.5, "prerequisites": [["BCEE 277"]], "corequisites": []},
+        "BCEE 432": {"title": "Soil Mechanics", "credits": 3.5, "prerequisites": [["ENGR 244"]], "corequisites": []},
+        "BCEE 451": {"title": "Construction Engineering", "credits": 3.0, "prerequisites": [["ENGR 301"]], "corequisites": []},
+        
+        "CIVI 212": {"title": "Civil Engineering Drawing and Introduction to Design", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "CIVI 231": {"title": "Geology for Civil Engineers", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "CIVI 321": {"title": "Engineering Materials", "credits": 3.75, "prerequisites": [["ENGR 244"]], "corequisites": []},
+        "CIVI 341": {"title": "Civil Engineering Systems", "credits": 3.0, "prerequisites": [["BCEE 231"]], "corequisites": []},
+        "CIVI 361": {"title": "Introduction to Environmental Engineering", "credits": 3.5, "prerequisites": [["ENGR 251"], ["ENGR 361"]], "corequisites": []},
+        "CIVI 372": {"title": "Transportation Engineering", "credits": 3.0, "prerequisites": [["BCEE 371"]], "corequisites": []},
+        "CIVI 381": {"title": "Hydraulics", "credits": 3.5, "prerequisites": [["ENGR 361"]], "corequisites": []},
+        "CIVI 390": {"title": "Civil Engineering Design Project", "credits": 3.5, "prerequisites": [["CIVI 212"], ["CIVI 321"]], "corequisites": []},
+        "CIVI 483": {"title": "Engineering Hydrology", "credits": 3.0, "prerequisites": [["CIVI 381"]], "corequisites": []},
+        "CIVI 490": {"title": "Capstone Civil Engineering Design Project", "credits": 6.0, "prerequisites": [["CIVI 361"], ["CIVI 390"], ["BCEE 344"], ["BCEE 345"]], "corequisites": []},
+        
+        "MATH 203": {"title": "Differential and Integral Calculus I", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "MATH 204": {"title": "Vectors and Matrices", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "MATH 205": {"title": "Differential and Integral Calculus II", "credits": 3.0, "prerequisites": [["MATH 203"]], "corequisites": []},
+        "PHYS 204": {"title": "Mechanics", "credits": 3.0, "prerequisites": [["MATH 203"]], "corequisites": []},
+        "PHYS 205": {"title": "Electricity & Magnetism", "credits": 3.0, "prerequisites": [["MATH 205"], ["PHYS 204"]], "corequisites": []},
+        "CHEM 205": {"title": "General Chemistry I", "credits": 3.0, "prerequisites": [], "corequisites": []},
+        "CHEM 206": {"title": "General Chemistry II", "credits": 3.0, "prerequisites": [["CHEM 205"]], "corequisites": []}
+    },
+    "sequence": {
+        "september": [
+            ["ENGR 201", "ENGR 213", "CIVI 212", "CIVI 231", "MATH 204"],
+            ["ENGR 202", "ENGR 233", "ENGR 242", "BCEE 231", "ENCS 282"],
+            ["BCEE 371"],
+            ["ENGR 243", "ENGR 244", "ENGR 251", "BCEE 277", "CIVI 321"],
+            ["ENGR 301", "ENGR 311", "ENGR 361", "BCEE 342", "CIVI 341"],
+            ["ENGR 371", "ENGR 391", "BCEE 343", "CIVI 361", "CIVI 381"],
+            ["BCEE 344", "BCEE 345", "BCEE 377", "CIVI 372", "CIVI 390"],
+            ["ELEC 275", "ENGR 392", "BCEE 432", "BCEE 451", "CIVI 483", "CIVI 490", "General Education Elective", "Technical Elective", "Technical Elective"]
+        ]
+    }
+}
+
+# The sequence above is a bit crowded in semester 8. Let's distribute it better.
+# Total 42 courses (including electives). 8 semesters = 5.25 courses per semester.
+
+sept_sequence = [
+    ["MATH 204", "ENGR 213", "CIVI 212", "CIVI 231", "ENGR 201"], # Sem 1: 13.5 cr
+    ["ENGR 233", "ENGR 242", "BCEE 231", "ENCS 282", "ENGR 202"], # Sem 2: 13.5 cr
+    ["BCEE 371"], # Summer 1: 3 cr
+    ["ENGR 243", "ENGR 244", "ENGR 251", "BCEE 277", "CIVI 321"], # Sem 3: 16.25 cr
+    ["ENGR 311", "ENGR 361", "BCEE 342", "CIVI 341", "ENGR 301"], # Sem 4: 15 cr
+    ["ENGR 371", "ENGR 391", "BCEE 343", "CIVI 361", "CIVI 381"], # Sem 5: 16 cr
+    ["BCEE 344", "BCEE 345", "BCEE 377", "CIVI 372", "CIVI 390"], # Sem 6: 15 cr
+    ["ELEC 275", "ENGR 392", "BCEE 432", "CIVI 483", "General Education Elective"], # Sem 7: 16 cr
+    ["BCEE 451", "CIVI 490", "Technical Elective", "Technical Elective"] # Sem 8: 15 cr
+]
+
+civil_data["sequence"]["september"] = sept_sequence
+
+with open('/Users/narendramishra/PROJECTMAIN/frontend2/FRONTEND-ONLY/src/utils/degreeEngine/data/programs/civil.json', 'w') as f:
+    json.dump(civil_data, f, indent=2)
+
+print("Generated civil.json")

@@ -1,0 +1,557 @@
+{
+  "program": "Computer Engineering (BEng)",
+  "totalCredits": 120.0,
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 27.5,
+      "courses": [
+        "ELEC 273",
+        "ENCS 282",
+        "ENGR 201",
+        "ENGR 202",
+        "ENGR 213",
+        "ENGR 233",
+        "ENGR 301",
+        "ENGR 371",
+        "ENGR 391",
+        "ENGR 392"
+      ]
+    },
+    {
+      "category": "Computer Engineering Core",
+      "credits": 73.0,
+      "courses": [
+        "COEN 212",
+        "COEN 231",
+        "COEN 243",
+        "COEN 244",
+        "COEN 311",
+        "COEN 313",
+        "COEN 314",
+        "COEN 316",
+        "COEN 317",
+        "COEN 320",
+        "COEN 330",
+        "COEN 346",
+        "COEN 352",
+        "COEN 366",
+        "COEN 390",
+        "COEN 490",
+        "ELEC 242",
+        "ELEC 342",
+        "ELEC 372",
+        "ENGR 290",
+        "SOEN 341"
+      ]
+    },
+    {
+      "category": "General Education Elective",
+      "credits": 3,
+      "electiveSlots": [
+        {
+          "name": "General Education",
+          "credits": 3,
+          "list": [
+            "HUMA 201",
+            "HUMA 202",
+            "ECON 201",
+            "ECON 203",
+            "PHIL 232"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Computer Engineering Technical Electives",
+      "credits": 16.5,
+      "electiveSlots": [
+        {
+          "name": "Technical Elective",
+          "credits": 16.5,
+          "list": [
+            "COEN 413",
+            "COEN 451",
+            "ELEC 311",
+            "ELEC 312",
+            "ELEC 321",
+            "ELEC 413",
+            "ELEC 423",
+            "COEN 421",
+            "COEN 422",
+            "COEN 432",
+            "COEN 448",
+            "COEN 449",
+            "SOEN 342",
+            "SOEN 343",
+            "SOEN 344",
+            "SOEN 357",
+            "COEN 433",
+            "COEN 434",
+            "ELEC 444",
+            "ELEC 445",
+            "COEN 424",
+            "COEN 474",
+            "COMP 335",
+            "COMP 353",
+            "COMP 371",
+            "COMP 426",
+            "COMP 428",
+            "COMP 442",
+            "COMP 451",
+            "COMP 472",
+            "COMP 474",
+            "COEN 446",
+            "COEN 447",
+            "ELEC 367",
+            "ELEC 442",
+            "ELEC 447",
+            "ELEC 465",
+            "ELEC 470",
+            "ELEC 472",
+            "AERO 417",
+            "AERO 480",
+            "AERO 482",
+            "AERO 483",
+            "ELEC 473",
+            "ELEC 481",
+            "ELEC 482",
+            "ELEC 483",
+            "ENGR 472",
+            "COEN 498",
+            "ENGR 411"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "ELEC 273": {
+      "title": "Basic Circuit Analysis",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "PHYS 205"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENGR 213"
+        ]
+      ]
+    },
+    "ENCS 282": {
+      "title": "Technical Writing and Communication",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 201": {
+      "title": "Professional Practice and Responsibility",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 202": {
+      "title": "Sustainable Development and Environmental Stewardship",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 213": {
+      "title": "Applied Ordinary Differential Equations",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": [
+        [
+          "MATH 204"
+        ]
+      ]
+    },
+    "ENGR 233": {
+      "title": "Applied Advanced Calculus",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 204",
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 301": {
+      "title": "Engineering Management Principles and Economics",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 371": {
+      "title": "Probability and Statistics in Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 391": {
+      "title": "Numerical Methods in Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ENGR 233",
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 392": {
+      "title": "Impact of Technology on Society",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 212": {
+      "title": "Digital Systems Design I",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 231": {
+      "title": "Introduction to Discrete Mathematics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 243": {
+      "title": "Programming Methodology I",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 244": {
+      "title": "Programming Methodology II",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 311": {
+      "title": "Computer Organization and Software",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 212",
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 313": {
+      "title": "Digital Systems Design II",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 212",
+          "COEN 231"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 314": {
+      "title": "Digital Electronics",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 273",
+          "COEN 212"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 316": {
+      "title": "Computer Architecture and Design",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 311",
+          "COEN 313"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 317": {
+      "title": "Microprocessor-Based Systems",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 311",
+          "COEN 313"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 320": {
+      "title": "Introduction to Real-Time Systems",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 346"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 330": {
+      "title": "Applied Machine Learning",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COEN 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 346": {
+      "title": "Operating Systems",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 311",
+          "COEN 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 352": {
+      "title": "Data Structures and Algorithms",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COEN 231",
+          "COEN 244"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 366": {
+      "title": "Communication Networks and Protocols",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 346"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 390": {
+      "title": "Computer Engineering Product Design Project",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 290",
+          "COEN 311",
+          "COEN 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 490": {
+      "title": "Capstone Computer Engineering Design Project",
+      "credits": 6.0,
+      "prerequisites": [
+        [
+          "ENGR 301",
+          "ENGR 371",
+          "COEN 390",
+          "SOEN 341"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 242": {
+      "title": "Continuous-Time Signals and Systems",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ELEC 273",
+          "ENGR 213"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 342": {
+      "title": "Discrete-Time Signals and Systems",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 242"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 372": {
+      "title": "Fundamentals of Control Systems",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 242"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 290": {
+      "title": "Introductory Engineering Team Design Project",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ENGR 233",
+          "ENCS 282",
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "SOEN 341": {
+      "title": "Software Process and Practices",
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "COEN 352"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENCS 282"
+        ]
+      ]
+    },
+    "MATH 203": {
+      "title": "Differential and Integral Calculus I",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 204": {
+      "title": "Vectors and Matrices",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 205": {
+      "title": "Differential and Integral Calculus II",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "PHYS 204": {
+      "title": "Mechanics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "PHYS 205": {
+      "title": "Electricity & Magnetism",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 205",
+          "PHYS 204"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "COEN 243",
+        "COEN 212",
+        "COEN 231",
+        "ENGR 213",
+        "ENGR 201",
+        "ENGR 202"
+      ],
+      [
+        "COEN 311",
+        "ELEC 273",
+        "COEN 244",
+        "ENGR 233",
+        "ENCS 282"
+      ],
+      [
+        "COEN 313",
+        "COEN 352",
+        "ELEC 242",
+        "ENGR 290",
+        "ENGR 301"
+      ],
+      [
+        "COEN 314",
+        "COEN 317",
+        "COEN 346",
+        "ELEC 342",
+        "ENGR 371"
+      ],
+      [
+        "COEN 316",
+        "COEN 320",
+        "COEN 330",
+        "SOEN 341",
+        "ELEC 372"
+      ],
+      [
+        "COEN 366",
+        "COEN 390",
+        "ENGR 391",
+        "ENGR 392",
+        "General Education Elective"
+      ],
+      [
+        "COEN 490",
+        "Computer Engineering Technical Electives 1",
+        "Computer Engineering Technical Electives 2",
+        "Computer Engineering Technical Electives 3"
+      ],
+      [
+        "Computer Engineering Technical Electives 4",
+        "Computer Engineering Technical Electives 5",
+        "Computer Engineering Technical Electives 6"
+      ]
+    ]
+  }
+}

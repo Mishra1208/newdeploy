@@ -1,0 +1,1018 @@
+{
+  "id": "chemical-engineering",
+  "name": "BEng in Chemical Engineering",
+  "totalCredits": 120,
+  "courses": {
+    "ENCS 282": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 201": {
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 202": {
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 213": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ],
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 233": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ],
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 301": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 371": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 391": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 392": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "ENGR 391"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 275": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "PHYS 205"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENGR 213"
+        ]
+      ]
+    },
+    "CHEM 221": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHEM 205"
+        ],
+        [
+          "CHEM 206"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHEM 206": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHEM 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 200": {
+      "title": "Introduction to Chemical Process Engineering",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 201": {
+      "title": "Innovative, Sustainable, and Safe Manufacturing in the Chemical Industry",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 200"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 214": {
+      "title": "Applied Linear Algebra for Chemical Engineers",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 215": {
+      "title": "Programming for Chemical and Materials Engineers",
+      "credits": 3.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 216": {
+      "title": "Advanced Programming for Chemical Engineers",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "CHME 215"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 220": {
+      "title": "Material Properties and Chemical Characterization",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MIAE 221"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 240": {
+      "title": "Chemical Engineering Lab I",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": [
+        [
+          "CHME 200"
+        ]
+      ]
+    },
+    "CHME 300": {
+      "title": "Industrial and Engineering Chemistry",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 200"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 301": {
+      "title": "Chemical Reaction Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 200"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 316": {
+      "title": "Advanced Data Analysis and Machine Learning for Chemical Engineers",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "CHME 216"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 320": {
+      "title": "Technical and Advanced Materials",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 220"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 321": {
+      "title": "Chemical and Materials Product Design",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 320"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 330": {
+      "title": "Chemical Process Dynamics and Control",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 301"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 340": {
+      "title": "Chemical Engineering Lab II",
+      "credits": 1.5,
+      "prerequisites": [
+        [
+          "CHME 240"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 351": {
+      "title": "Chemical Engineering Thermodynamics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 251"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 352": {
+      "title": "Energy Conversion and Storage",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 360": {
+      "title": "Heat Transfer",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 361": {
+      "title": "Mass Transfer and Unit Operations",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 360"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 362": {
+      "title": "Chemical Separations Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 361"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 390": {
+      "title": "Design Project",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 201"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 415": {
+      "title": "Computational Modelling for Chemical Engineers",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 215"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 440": {
+      "title": "Chemical Engineering Lab III",
+      "credits": 1.5,
+      "prerequisites": [
+        [
+          "CHME 330"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 470": {
+      "title": "Biochemical Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 301"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 490": {
+      "credits": 6.0,
+      "prerequisites": [
+        [
+          "CHME 390"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 245": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "PHYS 204"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENGR 213"
+        ]
+      ]
+    },
+    "ENGR 251": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 311": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 361": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "ENGR 233"
+        ],
+        [
+          "ENGR 251"
+        ]
+      ],
+      "corequisites": []
+    },
+    "MIAE 221": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHEM 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHME 416": {
+      "title": "Data Engineering for Chemical Engineers",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 215"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 215"
+        ]
+      ]
+    },
+    "CHME 430": {
+      "title": "Advanced Chemical Engineering Process Dynamics and Control",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 330"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 330"
+        ]
+      ]
+    },
+    "CHME 431": {
+      "title": "Introduction to Optimization for Chemical Engineers",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 330"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 330"
+        ]
+      ]
+    },
+    "CHME 432": {
+      "title": "Advanced Process Safety Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 390"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 390"
+        ]
+      ]
+    },
+    "MECH 472": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 460": {
+      "title": "Chemical Kinetics and Advanced Reactor Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 301"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 301"
+        ]
+      ]
+    },
+    "CHME 461": {
+      "title": "Advanced Chemical Engineering Thermodynamics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 351"
+        ]
+      ]
+    },
+    "CHME 462": {
+      "title": "Industrial Catalysis",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 301"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 301"
+        ]
+      ]
+    },
+    "CHME 463": {
+      "title": "Advanced Separation Processes",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 362"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 362"
+        ]
+      ]
+    },
+    "BIOL 226": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "BIOL 261": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "BIOL 371": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 271": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 471": {
+      "title": "Colloid and Interface Chemistry",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 220"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 220"
+        ]
+      ]
+    },
+    "CHME 472": {
+      "title": "Food Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 390"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 390"
+        ]
+      ]
+    },
+    "CHME 473": {
+      "title": "Biomaterials and Biochemicals",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 220"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 220"
+        ]
+      ]
+    },
+    "CHEM 431": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 480": {
+      "title": "Molecular Modelling of Proteins",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 481": {
+      "title": "Multiscale Modelling of Biomaterials",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 390"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 390"
+        ]
+      ]
+    },
+    "COMP 333": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "COMP 352": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "COMP 433": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "COMP 473": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "COMP 474": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "COMP 479": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "SOEN 363": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 327": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 427": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 498": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 420": {
+      "title": "Nanomaterials Science and Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 320"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 320"
+        ]
+      ]
+    },
+    "CHME 421": {
+      "title": "Metallurgical Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 320"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 320"
+        ]
+      ]
+    },
+    "CHME 422": {
+      "title": "Polymer Chemistry and Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHEM 221"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHEM 221"
+        ]
+      ]
+    },
+    "CHME 423": {
+      "title": "Advanced Battery Materials and Technologies",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 351"
+        ]
+      ]
+    },
+    "CHME 424": {
+      "title": "Advanced Characterization Techniques",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 220"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 220"
+        ]
+      ]
+    },
+    "CHME 425": {
+      "title": "Hydrometallurgy",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 351"
+        ]
+      ]
+    },
+    "CHME 400": {
+      "title": "Sustainable Industrial and Engineering Chemistry",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 201"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 201"
+        ]
+      ]
+    },
+    "CHME 401": {
+      "title": "Sustainable Process Design",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 390"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 390"
+        ]
+      ]
+    },
+    "CHME 402": {
+      "title": "Sustainable Energy Conversion and Management",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 351"
+        ]
+      ]
+    },
+    "CHME 403": {
+      "title": "Electrochemical Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 351"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 351"
+        ]
+      ]
+    },
+    "CHME 404": {
+      "title": "Clean Energy Science and Technology",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHME 321"
+        ]
+      ],
+      "corequisites": [
+        [
+          "CHME 321"
+        ]
+      ]
+    },
+    "CHME 405": {
+      "title": "Introduction to Environmental Engineering",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHME 406": {
+      "title": "Introduction to Life Cycle Assessment",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CIVI 465": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CIVI 467": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CIVI 468": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 203": {
+      "title": "Differential and Integral Calculus I",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 204": {
+      "title": "Vectors and Matrices",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 205": {
+      "title": "Differential and Integral Calculus II",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "PHYS 204": {
+      "title": "Mechanics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "PHYS 205": {
+      "title": "Electricity and Magnetism",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ],
+        [
+          "PHYS 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHEM 205": {
+      "title": "General Chemistry I",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    }
+  },
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 27,
+      "courses": [
+        "ELEC 275",
+        "ENCS 282",
+        "ENGR 201",
+        "ENGR 202",
+        "ENGR 213",
+        "ENGR 233",
+        "ENGR 301",
+        "ENGR 371",
+        "ENGR 391",
+        "ENGR 392"
+      ],
+      "electiveSlots": [
+        {
+          "name": "General Education Elective",
+          "credits": 3,
+          "list": [
+            "HUMA 200",
+            "SSCI 200",
+            "PHIL 200",
+            "ECON 200",
+            "HIST 200"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Chemical Engineering Core",
+      "credits": 90,
+      "courses": [
+        "CHEM 221",
+        "CHME 200",
+        "CHME 201",
+        "CHME 214",
+        "CHME 215",
+        "CHME 216",
+        "CHME 220",
+        "CHME 240",
+        "CHME 300",
+        "CHME 301",
+        "CHME 316",
+        "CHME 320",
+        "CHME 321",
+        "CHME 330",
+        "CHME 340",
+        "CHME 351",
+        "CHME 352",
+        "CHME 360",
+        "CHME 361",
+        "CHME 362",
+        "CHME 390",
+        "CHME 415",
+        "CHME 440",
+        "CHME 470",
+        "CHME 490",
+        "ENGR 245",
+        "ENGR 251",
+        "ENGR 311",
+        "ENGR 361",
+        "MIAE 221"
+      ]
+    },
+    {
+      "category": "Chemical Engineering Electives",
+      "credits": 3,
+      "courses": [],
+      "electiveSlots": [
+        {
+          "name": "Technical Elective",
+          "credits": 3,
+          "list": [
+            "CHME 416",
+            "CHME 430",
+            "CHME 431",
+            "CHME 432",
+            "MECH 472",
+            "CHME 460",
+            "CHME 461",
+            "CHME 462",
+            "CHME 463",
+            "BIOL 226",
+            "BIOL 261",
+            "BIOL 371",
+            "CHEM 271",
+            "CHME 471",
+            "CHME 472",
+            "CHME 473",
+            "CHEM 431",
+            "CHME 480",
+            "CHME 481",
+            "COMP 333",
+            "COMP 352",
+            "COMP 433",
+            "COMP 473",
+            "COMP 474",
+            "COMP 479",
+            "SOEN 363",
+            "CHEM 327",
+            "CHEM 427",
+            "CHEM 498",
+            "CHME 420",
+            "CHME 421",
+            "CHME 422",
+            "CHME 423",
+            "CHME 424",
+            "CHME 425",
+            "CHME 400",
+            "CHME 401",
+            "CHME 402",
+            "CHME 403",
+            "CHME 404",
+            "CHME 405",
+            "CHME 406",
+            "CIVI 465",
+            "CIVI 467",
+            "CIVI 468"
+          ]
+        }
+      ]
+    }
+  ]
+}

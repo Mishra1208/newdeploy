@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { toPng } from 'html-to-image';
 
-export default function RoadmapVisualizer({ plan, completedCourses, getTermName, courseTitles, getPrereqString, onClose }) {
+export default function RoadmapVisualizer({ plan, completedCourses, getTermName, courseTitles, getPrereqString, programName = "My Journey", onClose }) {
   const roadmapRef = useRef(null);
 
   const handleDownload = async () => {
@@ -57,7 +57,7 @@ export default function RoadmapVisualizer({ plan, completedCourses, getTermName,
 
               {/* Title */}
               <div className="text-center mb-16">
-                <h1 className="text-6xl font-black text-slate-800 mb-4">BCompSc Journey</h1>
+                <h1 className="text-6xl font-black text-slate-800 mb-4">{programName}</h1>
                 <div className="h-2 w-32 bg-[#912338] mx-auto rounded-full"></div>
               </div>
 
@@ -111,7 +111,7 @@ export default function RoadmapVisualizer({ plan, completedCourses, getTermName,
                             boxStyle = "bg-blue-50 border-blue-400 text-blue-900 shadow-[4px_4px_0px_0px_rgba(96,165,250,1)]";
                             titleStyle = "text-blue-700";
                             dotColor = "bg-blue-400";
-                          } else if (course.includes('CS Elective')) {
+                          } else if (course.includes('CS Elective') || course.includes('Technical Elective')) {
                             boxStyle = "bg-purple-50 border-purple-400 text-purple-900 shadow-[4px_4px_0px_0px_rgba(192,132,252,1)]";
                             titleStyle = "text-purple-700";
                             dotColor = "bg-purple-400";

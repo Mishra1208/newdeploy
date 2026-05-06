@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import RoadmapVisualizer from '../components/RoadmapVisualizer';
-import { GLOBAL_COURSES } from '../../../../utils/degreeEngine/prereqGraph'; 
+import FlowRoadmapVisualizer from '../components/FlowRoadmapVisualizer';
 import courseTitles from '../../../../utils/degreeEngine/data/courseTitles.json';
 
 export default function RoadmapPage() {
@@ -18,7 +17,7 @@ export default function RoadmapPage() {
     if (course === 'ENCS 282') {
       return "Students must pass the Engineering Writing Test (EWT), or pass ENCS 272 with a grade of C- or higher.";
     }
-    const courseData = GLOBAL_COURSES[course];
+    const courseData = data.curriculum.courses[course];
     if (!courseData || !courseData.prerequisites || courseData.prerequisites.length === 0) return "None";
     
     return courseData.prerequisites.map(group => {
@@ -45,12 +44,14 @@ export default function RoadmapPage() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#f8f9fa] dark:bg-[#0f172a] transition-colors duration-300">
-      <RoadmapVisualizer 
+      <FlowRoadmapVisualizer 
         plan={data.plan}
         completedCourses={data.completedCourses}
         getTermName={getTermName}
         courseTitles={courseTitles}
         getPrereqString={getPrereqString}
+        curriculum={data.curriculum}
+        programName={data.curriculum.name || data.curriculum.program}
       />
     </div>
   );

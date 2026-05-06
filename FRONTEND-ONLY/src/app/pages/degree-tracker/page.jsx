@@ -1,9 +1,66 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { generateOptimalPath, GLOBAL_COURSES } from '../../../utils/degreeEngine/prereqGraph';
+import { generateOptimalPath } from '../../../utils/degreeEngine/prereqGraph';
+import { BCompSc_Weights } from '../../../utils/degreeEngine/data/sequenceWeights';
 import csCurriculum from '../../../utils/degreeEngine/computerScienceCurriculum.json';
+import aeroOptionA from '../../../utils/degreeEngine/data/programs/aerospace-option-a.json';
+import aeroOptionB from '../../../utils/degreeEngine/data/programs/aerospace-option-b.json';
+import aeroOptionC from '../../../utils/degreeEngine/data/programs/aerospace-option-c.json';
+import buildingCurriculum from '../../../utils/degreeEngine/data/programs/building.json';
+import chemicalCurriculum from '../../../utils/degreeEngine/data/programs/chemical.json';
+import civilCurriculum from '../../../utils/degreeEngine/data/programs/civil.json';
+import computerEngCurriculum from '../../../utils/degreeEngine/data/programs/computer-eng.json';
 import courseTitles from '../../../utils/degreeEngine/data/courseTitles.json';
+
+const PROGRAMS = {
+  'cs-general': {
+    id: 'cs-general',
+    name: 'Computer Science (BCompSc)',
+    category: 'Computer Science & Software',
+    data: csCurriculum,
+    weights: BCompSc_Weights
+  },
+  'aerospace': {
+    id: 'aerospace',
+    name: 'Aerospace Engineering (BEng)',
+    category: 'Aerospace, Mechanical & Industrial',
+    options: [
+      { id: 'aero-a', name: 'Option A: Aerodynamics and Propulsion', data: aeroOptionA },
+      { id: 'aero-b', name: 'Option B: Aerospace Structures and Materials', data: aeroOptionB },
+      { id: 'aero-c', name: 'Option C: Avionics and Aerospace Systems', data: aeroOptionC }
+    ],
+    weights: {}
+  },
+  'building': {
+    id: 'building',
+    name: 'Building Engineering (BEng)',
+    category: 'Civil & Environmental Engineering',
+    data: buildingCurriculum,
+    weights: {}
+  },
+  'chemical': {
+    id: 'chemical',
+    name: 'Chemical Engineering (BEng)',
+    category: 'Chemical & Materials Engineering',
+    data: chemicalCurriculum,
+    weights: {}
+  },
+  'civil': {
+    id: 'civil',
+    name: 'Civil Engineering (BEng)',
+    category: 'Civil & Environmental Engineering',
+    data: civilCurriculum,
+    weights: {}
+  },
+  'computer-eng': {
+    id: 'computer-eng',
+    name: 'Computer Engineering (BEng)',
+    category: 'Computer Science & Software',
+    data: computerEngCurriculum,
+    weights: {}
+  }
+};
 
 // Build the massive General Elective list from the allowed prefixes
 const COMPLEMENTARY_PREFIXES = ['ANTH', 'FPST', 'HIST', 'PHIL', 'RELI', 'SOCI', 'THEO', 'WSDB', 'ARTE', 'ARTH', 'JHIS', 'MHIS', 'COMS', 'EDUC', 'ENGL', 'GEOG'];
@@ -25,8 +82,17 @@ const checkExclusion = (course) => {
   return null;
 };
 
+const categoryColors = {
+  'Computer Science & Software': 'text-purple-600 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/40 border-purple-500/30',
+  'Aerospace, Mechanical & Industrial': 'text-orange-600 dark:text-orange-300 bg-orange-100 dark:bg-orange-900/40 border-orange-500/30',
+  'Civil & Environmental Engineering': 'text-emerald-600 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 border-emerald-500/30',
+  'Chemical & Materials Engineering': 'text-rose-600 dark:text-rose-300 bg-rose-100 dark:bg-rose-900/40 border-rose-500/30'
+};
+
+const getCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
+
 export default function FreshDegreeTracker() {
-  const [step, setStep] = useState('start'); // 'start' | 'select' | 'plan'
+  const [step, setStep] = useState('select-program'); // 'select-program' | 'config' | 'select-courses' | 'plan'
   const [completedCourses, setCompletedCourses] = useState([]);
   const [electiveChoices, setElectiveChoices] = useState({}); 
   const [manualAdds, setManualAdds] = useState({}); 
@@ -35,6 +101,8 @@ export default function FreshDegreeTracker() {
   const [startYear, setStartYear] = useState(new Date().getFullYear());
   const [plan, setPlan] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null); // Custom error modal state
+  const [selectedProgramId, setSelectedProgramId] = useState('cs-general');
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [showRoadmap, setShowRoadmap] = useState(false);
 
   // Modal States
@@ -44,33 +112,69 @@ export default function FreshDegreeTracker() {
   const [manualInput, setManualInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const CORE = csCurriculum.requirements.find(r => r.category === "Computer Science Core").courses;
-  const COMPLEMENTARY = csCurriculum.requirements.find(r => r.category === "Complementary Core").courses;
-  const MATH_LIST = csCurriculum.requirements.find(r => r.category === "Mathematics Electives").courses;
-  const CS_LIST = csCurriculum.requirements.find(r => r.category === "Computer Science Electives").courses;
+  const selectedProgram = PROGRAMS[selectedProgramId];
+  const currentOption = selectedProgram.options 
+    ? (selectedProgram.options.find(o => o.id === selectedOptionId) || selectedProgram.options[0])
+    : null;
+  const curriculum = currentOption ? currentOption.data : selectedProgram.data;
+
+
+  // Dynamically extract categories from curriculum
+  const categories = curriculum.requirements.reduce((acc, req) => {
+    if (req.courses && req.courses.length > 0) {
+      acc[req.category] = req.courses;
+    }
+    return acc;
+  }, {});
 
   useEffect(() => {
     if (step === 'plan') {
-      const mathDeficiencies = includeMathProfile ? ['MATH 203', 'MATH 204', 'MATH 205'] : [];
-      const targets = [
-        ...mathDeficiencies,
-        ...CORE,
-        ...COMPLEMENTARY,
-        ...Array(2).fill().map((_,i) => electiveChoices[`Math Elective ${i+1}`] || `Math Elective ${i+1}`),
-        ...Array(6).fill().map((_,i) => electiveChoices[`CS Elective ${i+1}`] || `CS Elective ${i+1}`),
-        ...Array(9).fill().map((_,i) => electiveChoices[`General Elective ${i+1}`] || `General Elective ${i+1}`)
-      ];
+      let ecpFoundation = [];
+      if (includeMathProfile) {
+        if (selectedProgram.category.includes('Engineering') || selectedProgram.category.includes('Aerospace')) {
+          ecpFoundation = ['MATH 203', 'MATH 204', 'MATH 205', 'PHYS 204', 'PHYS 205', 'CHEM 205', 'CHEM 206'];
+        } else {
+          ecpFoundation = ['MATH 203', 'MATH 204', 'MATH 205'];
+        }
+      }
       
+      // Build targets list dynamically based on curriculum
+      let targets = [...ecpFoundation];
+      
+      curriculum.requirements.forEach(req => {
+        if (req.category.includes('Elective')) {
+          // Handle elective slots based on required credits
+          const creditsPerCourse = 3; // Default assumption for slot count
+          const count = Math.ceil(req.credits / creditsPerCourse);
+          const slots = Array(count).fill().map((_, i) => {
+            const slotName = count > 1 ? `${req.category} ${i + 1}` : req.category;
+            return electiveChoices[slotName] || slotName;
+          });
+          targets = [...targets, ...slots];
+        } else if (req.courses && req.courses.length > 0) {
+          // Core courses
+          targets = [...targets, ...req.courses];
+        }
+      });
+
       const invertedElectives = {};
       Object.entries(electiveChoices).forEach(([slot, course]) => {
           invertedElectives[course] = slot;
       });
       
       const remainingTargets = targets.filter(c => !completedCourses.includes(c));
-      const result = generateOptimalPath(remainingTargets, completedCourses, 15.0, invertedElectives, startTerm);
+      const result = generateOptimalPath(
+        remainingTargets, 
+        completedCourses, 
+        curriculum.courses, 
+        selectedProgram.weights,
+        15.0, 
+        invertedElectives, 
+        startTerm
+      );
       setPlan(result.semesters);
     }
-  }, [completedCourses, electiveChoices, includeMathProfile, step, startTerm, startYear]);
+  }, [completedCourses, electiveChoices, includeMathProfile, step, startTerm, startYear, selectedProgramId]);
 
   const handleFirstYear = () => {
     setCompletedCourses([]);
@@ -105,23 +209,30 @@ export default function FreshDegreeTracker() {
 
   const getCredits = (course) => {
     if (course.includes('Elective')) return 3.0;
-    return GLOBAL_COURSES[course]?.credits || 3.0;
+    return curriculum.courses[course]?.credits || 3.0;
   };
 
   const getPrereqString = (course) => {
     if (course === "ENCS 282") return "Students must pass the Engineering Writing Test (EWT), or pass ENCS 272 with a grade of C- or higher.";
-    if (!GLOBAL_COURSES[course] || !GLOBAL_COURSES[course].prerequisites.length) return "None";
-    return GLOBAL_COURSES[course].prerequisites.map(group => group.join(" OR ")).join(" AND ");
+    if (!curriculum.courses[course] || !curriculum.courses[course].prerequisites.length) return "None";
+    return curriculum.courses[course].prerequisites.map(group => group.join(" OR ")).join(" AND ");
   };
 
   const handleElectiveClick = (course) => {
     setSearchQuery('');
     if (course.includes('Math Elective')) {
-      setActiveElectiveSlot({ slot: course, type: 'MATH', list: MATH_LIST });
+      const mathList = curriculum.requirements.find(r => r.category.includes('Math'))?.courses || [];
+      setActiveElectiveSlot({ slot: course, type: 'MATH', list: mathList });
     } else if (course.includes('CS Elective')) {
-      setActiveElectiveSlot({ slot: course, type: 'CS', list: CS_LIST });
+      const csList = curriculum.requirements.find(r => r.category.includes('Computer Science Elective'))?.courses || [];
+      setActiveElectiveSlot({ slot: course, type: 'CS', list: csList });
     } else if (course.includes('General Elective')) {
       setActiveElectiveSlot({ slot: course, type: 'GENERAL', list: GENERAL_LIST });
+    } else if (course.includes('Elective')) {
+        // Generic elective finder
+        const req = curriculum.requirements.find(r => course.startsWith(r.category));
+        const electiveList = req?.electiveSlots?.[0]?.list || req?.courses || [];
+        setActiveElectiveSlot({ slot: course, type: 'TECHNICAL', list: electiveList });
     } else {
       setActiveCourseDetails(course);
     }
@@ -193,7 +304,7 @@ export default function FreshDegreeTracker() {
         {/* Header */}
         <div className="mb-16 text-center">
           <div className="inline-block px-4 py-1.5 rounded-full bg-[#912338]/10 text-[#912338] font-bold text-xs uppercase tracking-widest mb-6">
-            BCompSc General Program
+            {selectedProgram ? selectedProgram.name : "Degree Pathfinder"}
           </div>
           <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
             Degree Path <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#912338] to-red-600">Generator</span>
@@ -205,8 +316,8 @@ export default function FreshDegreeTracker() {
 
         <AnimatePresence mode="wait">
           
-          {/* STEP 1: START */}
-          {step === 'start' && (
+          {/* STEP 1: CONFIG */}
+          {step === 'config' && (
             <motion.div 
               key="start"
               initial={{ opacity: 0, y: 20 }}
@@ -214,8 +325,33 @@ export default function FreshDegreeTracker() {
               exit={{ opacity: 0, scale: 0.95 }}
               className="flex flex-col gap-8 justify-center max-w-4xl mx-auto"
             >
+              <div className="mb-2">
+                <h2 className="text-4xl font-black text-slate-800 dark:text-white/90 mb-2 tracking-tight">Step 1: Configure Your Profile</h2>
+                <p className="text-slate-500 dark:text-white/60 font-medium text-lg">Customize your starting point and preferences.</p>
+              </div>
+              
               {/* Profile Configurator */}
               <div className="flex flex-col gap-4">
+                {selectedProgram.options && (
+                  <div className="bg-white dark:bg-white/[0.03] backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col md:flex-row gap-6 justify-between items-center">
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-slate-800 dark:text-white/90">Program Option</h4>
+                      <p className="text-sm text-slate-500 dark:text-white/60 font-medium">Select your specific degree option.</p>
+                    </div>
+                    <div className="flex gap-3 w-full md:w-auto">
+                      <select 
+                        value={selectedOptionId || selectedProgram.options[0].id}
+                        onChange={(e) => setSelectedOptionId(e.target.value)}
+                        className="px-4 py-3 bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/[0.08] rounded-xl font-bold text-slate-700 dark:text-white/80 outline-none focus:ring-2 focus:ring-[#912338]/50 w-full"
+                      >
+                        {selectedProgram.options.map(opt => (
+                          <option key={opt.id} value={opt.id}>{opt.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col md:flex-row gap-6 justify-between items-center">
                   <div className="flex-1">
                     <h4 className="text-lg font-bold text-slate-800 dark:text-white/90">When are you starting?</h4>
@@ -246,8 +382,8 @@ export default function FreshDegreeTracker() {
 
                 <div className="bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div>
-                    <h4 className="text-lg font-bold text-slate-800 dark:text-white/90">Extended Credit Program (ECP) / International</h4>
-                    <p className="text-sm text-slate-500 dark:text-white/60 dark:text-white/50 font-medium">I am an international or out-of-province student and need to take Foundation Math (MATH 203, 204, and 205).</p>
+                    <h4 className="text-lg font-bold text-slate-800 dark:text-white/90">Extended Credit Program (ECP) Foundation</h4>
+                    <p className="text-sm text-slate-500 dark:text-white/60 dark:text-white/50 font-medium">I am an international or out-of-province student and need to take foundational Science/Math prerequisites.</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer shrink-0">
                     <input type="checkbox" className="sr-only peer" checked={includeMathProfile} onChange={() => setIncludeMathProfile(!includeMathProfile)} />
@@ -271,7 +407,7 @@ export default function FreshDegreeTracker() {
                 </div>
 
                 <div 
-                  onClick={() => setStep('select')}
+                  onClick={() => setStep('select-courses')}
                   className="flex-1 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] border border-slate-200 dark:border-white/[0.08] hover:border-[#912338]/50 hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-center group"
                 >
                   <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">
@@ -286,54 +422,150 @@ export default function FreshDegreeTracker() {
             </motion.div>
           )}
 
-          {/* STEP 2: SELECT */}
-          {step === 'select' && (
+          {/* STEP 0: SELECT PROGRAM */}
+          {step === 'select-program' && (
             <motion.div 
-              key="select"
+              key="select-program"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="bg-white dark:bg-white/[0.03] backdrop-blur-md p-10 mb-8 border border-slate-200 dark:border-white/20 rounded-[2rem] shadow-xl">
+                <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white mb-4">Step 0: Select Your Program</h2>
+                <p className="text-slate-500 dark:text-blue-200 text-lg mb-10">We've expanded our tracker! Choose your department and degree to begin.</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Object.values(PROGRAMS).map((prog) => (
+                    <button
+                      key={prog.id}
+                      onClick={() => {
+                        setSelectedProgramId(prog.id);
+                        setStep('config');
+                      }}
+                      className={`group relative p-8 rounded-3xl text-left transition-all duration-300 ${
+                        selectedProgramId === prog.id 
+                        ? 'bg-blue-50 dark:bg-blue-600/40 border-blue-400/50 shadow-2xl shadow-blue-900/20' 
+                        : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
+                      } border`}
+                    >
+                      <div className="flex justify-between items-start mb-4">
+                        <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${getCategoryColor(prog.category)}`}>
+                          {prog.category}
+                        </span>
+                        {selectedProgramId === prog.id && (
+                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/40">
+                            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
+                        {prog.name}
+                      </h3>
+                      <p className="text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
+                        {prog.options ? prog.options[0].data.totalCredits : prog.data.totalCredits} Credits • Undergraduate
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* STEP 1: SELECT COMPLETED COURSES */}
+          {step === 'select-courses' && (
+            <motion.div 
+              key="select-courses"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
               className="bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] shadow-xl border border-slate-100 dark:border-white/[0.08]"
             >
               <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
                 <div>
-                  <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white/90 mb-2">Select Completed Core</h2>
-                  <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium">Click on the classes you have already passed.</p>
+                  <h2 className="text-4xl font-black text-slate-800 dark:text-white/90 mb-2 tracking-tight">Step 2: Previous Experience</h2>
+                  <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium text-lg">Click on the classes you have already passed.</p>
                 </div>
-                <button 
-                  onClick={() => setStep('plan')}
-                  className="w-full md:w-auto bg-[#912338] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-[#7a1d2f] hover:-translate-y-0.5 transition-all"
-                >
-                  Generate Plan →
-                </button>
+                <div className="flex gap-4">
+                  <button 
+                    onClick={() => setStep('select-program')}
+                    className="px-6 py-4 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 rounded-2xl text-slate-700 dark:text-white font-bold transition-all"
+                  >
+                    Change Program
+                  </button>
+                  <button 
+                    onClick={() => setStep('plan')}
+                    className="bg-[#912338] text-white px-10 py-4 rounded-2xl font-black text-lg shadow-lg hover:shadow-xl hover:bg-[#7a1d2f] hover:-translate-y-1 transition-all"
+                  >
+                    Generate Plan →
+                  </button>
+                </div>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {[...(includeMathProfile ? ['MATH 203', 'MATH 204', 'MATH 205'] : []), ...CORE, ...COMPLEMENTARY].map(course => (
-                  <div 
-                    key={course}
-                    onClick={() => toggleCourse(course)}
-                    className={`p-5 rounded-2xl border-2 cursor-pointer transition-all ${
-                      completedCourses.includes(course) 
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-800 shadow-sm' 
-                        : 'border-slate-100 dark:border-white/[0.08] hover:border-slate-300 dark:border-slate-600 text-slate-600 dark:text-white/70 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md hover:bg-slate-50 dark:bg-black'
-                    }`}
-                  >
-                    <div className="flex flex-col items-start gap-2">
-                      <div className="flex w-full justify-between items-center">
-                        <span className="font-bold text-lg">{course}</span>
-                        {completedCourses.includes(course) && (
-                          <div className="bg-emerald-500 text-white rounded-full p-1">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              <div className="space-y-12">
+                {Object.entries(categories).map(([category, courses]) => (
+                  <div key={category} className="space-y-6">
+                    <h3 className="text-2xl font-black text-[#912338] dark:text-blue-300 border-b border-slate-200 dark:border-white/10 pb-4 uppercase tracking-widest">{category}</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                      {courses.map(course => (
+                        <div 
+                          key={course}
+                          onClick={() => toggleCourse(course)}
+                          className={`p-5 rounded-[1.5rem] border-2 cursor-pointer transition-all duration-300 ${
+                            completedCourses.includes(course) 
+                              ? 'border-emerald-500 bg-emerald-500/10 text-emerald-500 shadow-xl shadow-emerald-500/10' 
+                              : 'border-slate-100 dark:border-white/[0.08] hover:border-[#912338]/40 text-slate-600 dark:text-white/70 bg-white dark:bg-white/[0.02] backdrop-blur-sm'
+                          }`}
+                        >
+                          <div className="flex justify-between items-center">
+                            <span className="font-black text-lg">{course}</span>
+                            {completedCourses.includes(course) && (
+                              <div className="bg-emerald-500 text-white rounded-full p-1 shadow-lg shadow-emerald-500/40">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
+
+              <div className="mt-12 pt-10 border-t border-slate-100 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      className="sr-only peer" 
+                      checked={includeMathProfile}
+                      onChange={(e) => setIncludeMathProfile(e.target.checked)}
+                    />
+                    <div className="w-14 h-7 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600 shadow-inner"></div>
+                    <span className="ml-4 text-base font-bold text-gray-300 tracking-tight">ECP / Math Deficiencies?</span>
+                  </label>
+                </div>
+
+                <div className="flex gap-6">
+                  <button 
+                    onClick={handleFirstYear}
+                    className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 text-white rounded-2xl font-black transition-all hover:scale-105 active:scale-95 uppercase tracking-widest text-sm"
+                  >
+                    I'm a New Student
+                  </button>
+                  <button 
+                    onClick={() => setStep('plan')}
+                    className="px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-black transition-all hover:shadow-2xl hover:shadow-blue-900/40 hover:scale-105 active:scale-95 uppercase tracking-widest text-sm"
+                  >
+                    Generate Roadmap
+                  </button>
+                </div>
+              </div>
             </motion.div>
           )}
+
 
           {/* STEP 3: PLAN */}
           {step === 'plan' && plan && (
@@ -344,7 +576,7 @@ export default function FreshDegreeTracker() {
             >
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                 <div>
-                  <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white/90 tracking-tight">Your Degree Plan</h2>
+                  <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white/90 tracking-tight">Step 3: Your Degree Plan</h2>
                   <p className="text-lg text-slate-500 dark:text-white/60 dark:text-white/50 font-medium mt-2">
                     Generated based on prerequisites and typical Concordia sequences.
                   </p>
@@ -352,7 +584,7 @@ export default function FreshDegreeTracker() {
                 <div className="flex gap-4">
                   <button 
                     onClick={() => {
-                      const data = { plan, completedCourses, startTerm, startYear, electiveChoices };
+                      const data = { plan, completedCourses, startTerm, startYear, electiveChoices, curriculum };
                       localStorage.setItem('roadmapData', JSON.stringify(data));
                       window.open('/pages/degree-tracker/roadmap', '_blank');
                     }}
@@ -362,7 +594,7 @@ export default function FreshDegreeTracker() {
                     Visual Roadmap
                   </button>
                   <button 
-                    onClick={() => { setStep('start'); setPlan(null); setElectiveChoices({}); setManualAdds({}); setIncludeMathProfile(false); setShowRoadmap(false); }}
+                    onClick={() => { setStep('select-program'); setPlan(null); setElectiveChoices({}); setManualAdds({}); setIncludeMathProfile(false); setShowRoadmap(false); }}
                     className="bg-slate-200 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.06] hover:bg-slate-300 text-slate-800 dark:text-white/90 font-bold py-2.5 px-6 rounded-xl transition-all shadow-sm"
                   >
                     Start Over
@@ -539,7 +771,7 @@ export default function FreshDegreeTracker() {
                           <div className="text-sm text-slate-500 dark:text-white/60 dark:text-white/50">{courseTitles[c] || "Description unavailable"}</div>
                         </div>
                         <div className="text-xs font-bold text-slate-400 dark:text-white/50 bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] px-2 py-1 rounded-lg">
-                          {GLOBAL_COURSES[c]?.credits || 3.0} CR
+                          {curriculum.courses[c]?.credits || 3.0} CR
                         </div>
                       </div>
                     ))}
@@ -632,8 +864,8 @@ export default function FreshDegreeTracker() {
                 <div className="bg-slate-50 dark:bg-black p-4 rounded-xl border border-slate-100 dark:border-white/[0.08]">
                   <p className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-widest mb-1">Corequisites</p>
                   <p className="font-medium text-slate-800 dark:text-white/90">
-                    {GLOBAL_COURSES[activeCourseDetails]?.corequisites?.length > 0 
-                      ? GLOBAL_COURSES[activeCourseDetails].corequisites.join(", ") 
+                    {curriculum.courses[activeCourseDetails]?.corequisites?.length > 0 
+                      ? curriculum.courses[activeCourseDetails].corequisites.join(", ") 
                       : "None"}
                   </p>
                 </div>

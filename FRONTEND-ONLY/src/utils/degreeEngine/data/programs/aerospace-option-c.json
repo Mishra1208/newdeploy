@@ -1,0 +1,69 @@
+{
+  "program": "Aerospace Engineering - Option C (Avionics and Aerospace Systems)",
+  "totalCredits": 120,
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 27,
+      "courses": [
+        "ENCS 282", "ENGR 201", "ENGR 202", "ENGR 213", "ENGR 233",
+        "ENGR 301", "ENGR 371", "ENGR 391", "ENGR 392"
+      ],
+      "note": "Plus 3 credits of General Education Elective."
+    },
+    {
+      "category": "Aerospace Engineering Core",
+      "credits": 38.75,
+      "courses": [
+        "AERO 201", "AERO 290", "AERO 371", "AERO 390", "AERO 417", "AERO 490",
+        "ENGR 242", "ENGR 243", "ENGR 244", "ENGR 361", "MIAE 383"
+      ]
+    },
+    {
+      "category": "Option C Core",
+      "credits": 49.5,
+      "courses": [
+        "AERO 253", "AERO 482", "AERO 483", "COEN 212", "COEN 231", "COEN 243",
+        "COEN 244", "COEN 311", "COEN 352", "ELEC 242", "ELEC 273", "ELEC 342",
+        "ELEC 481", "ELEC 483", "SOEN 341"
+      ]
+    }
+  ],
+  "courses": {
+    "ENCS 282": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "ENGR 201": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ENGR 202": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ENGR 213": { "credits": 3, "prerequisites": [["MATH 203"], ["MATH 204"]], "corequisites": [] },
+    "ENGR 233": { "credits": 3, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": [] },
+    "ENGR 301": { "credits": 3, "prerequisites": [["ENGR 213"]], "corequisites": [] },
+    "ENGR 371": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 391": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 392": { "credits": 3, "prerequisites": [["ENCS 282"], ["ENGR 201"], ["ENGR 202"]], "corequisites": [] },
+    "AERO 201": { "credits": 4, "prerequisites": [], "corequisites": ["ENGR 213"] },
+    "AERO 290": { "credits": 3, "prerequisites": [["AERO 201"]], "corequisites": ["ENCS 282"] },
+    "AERO 371": { "credits": 3.5, "prerequisites": [["PHYS 205"], ["ENGR 213"], ["ENGR 243"]], "corequisites": ["ENGR 311"] },
+    "AERO 390": { "credits": 3, "prerequisites": [["AERO 290"], ["AERO 371"], ["ENCS 282"]], "corequisites": [] },
+    "AERO 417": { "credits": 3, "prerequisites": [["ENGR 201"]], "corequisites": [] },
+    "AERO 490": { "credits": 6, "prerequisites": [["AERO 390"], ["ENCS 282"]], "corequisites": [] },
+    "ENGR 242": { "credits": 3, "prerequisites": [["PHYS 204"]], "corequisites": ["ENGR 213"] },
+    "ENGR 243": { "credits": 3, "prerequisites": [["ENGR 242"]], "corequisites": ["ENGR 233"] },
+    "ENGR 244": { "credits": 3.75, "prerequisites": [["ENGR 242"]], "corequisites": ["ENGR 213"] },
+    "ENGR 361": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 243"]], "corequisites": [] },
+    "MIAE 383": { "credits": 3.5, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "AERO 253": { "credits": 3, "prerequisites": [["ENGR 213"]], "corequisites": ["MATH 205"] },
+    "AERO 482": { "credits": 3, "prerequisites": [["ELEC 342"]], "corequisites": [] },
+    "AERO 483": { "credits": 3, "prerequisites": [["ELEC 342"]], "corequisites": [] },
+    "COEN 212": { "credits": 3.5, "prerequisites": [], "corequisites": [] },
+    "COEN 231": { "credits": 3, "prerequisites": [["MATH 204"]], "corequisites": [] },
+    "COEN 243": { "credits": 3.5, "prerequisites": [], "corequisites": [] },
+    "COEN 244": { "credits": 3, "prerequisites": [["COEN 243"]], "corequisites": [] },
+    "COEN 311": { "credits": 3.5, "prerequisites": [["COEN 212"], ["COEN 243"]], "corequisites": [] },
+    "COEN 352": { "credits": 3, "prerequisites": [["COEN 244"]], "corequisites": [] },
+    "ELEC 242": { "credits": 3, "prerequisites": [["PHYS 205"]], "corequisites": ["ENGR 213"] },
+    "ELEC 273": { "credits": 3.5, "prerequisites": [["PHYS 205"]], "corequisites": ["ENGR 213"] },
+    "ELEC 342": { "credits": 3.5, "prerequisites": [["ELEC 273"]], "corequisites": ["ENGR 213"] },
+    "ELEC 481": { "credits": 3.5, "prerequisites": [["AERO 371"]], "corequisites": [] },
+    "ELEC 483": { "credits": 3.5, "prerequisites": [["AERO 371"]], "corequisites": [] },
+    "SOEN 341": { "credits": 4, "prerequisites": [["COEN 352"], ["ENCS 282"]], "corequisites": [] }
+  }
+}

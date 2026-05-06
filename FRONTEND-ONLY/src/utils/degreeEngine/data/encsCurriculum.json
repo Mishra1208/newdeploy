@@ -71,6 +71,7 @@
     "MATH 205": { "title": "Differential and Integral Calculus II", "credits": 3.0, "prerequisites": [["MATH 203"]] },
     "PHYS 204": { "title": "Mechanics", "credits": 3.0, "prerequisites": [["MATH 203"]] },
     "PHYS 205": { "title": "Electricity & Magnetism", "credits": 3.0, "prerequisites": [["MATH 205", "PHYS 204"]] },
-    "CHEM 205": { "title": "General Chemistry I", "credits": 3.0, "prerequisites": [] }
+    "CHEM 205": { "title": "General Chemistry I", "credits": 3.0, "prerequisites": [] },
+    "CHEM 206": { "title": "General Chemistry II", "credits": 3.0, "prerequisites": [["CHEM 205"]] }
   }
 }

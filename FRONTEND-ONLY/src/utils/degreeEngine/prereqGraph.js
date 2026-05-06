@@ -1,10 +1,6 @@
-import csCurriculum from './computerScienceCurriculum.json';
-import { BCompSc_Weights } from './data/sequenceWeights';
 
-export const GLOBAL_COURSES = csCurriculum.courses;
-
-export const checkPrerequisites = (courseCode, completedCourses, remainingSet) => {
-  const courseInfo = GLOBAL_COURSES[courseCode];
+export const checkPrerequisites = (courseCode, completedCourses, remainingSet, allCourses) => {
+  const courseInfo = allCourses[courseCode];
   
   if (!courseInfo) {
     return { isEligible: true, missing: [] };
@@ -33,7 +29,7 @@ export const checkPrerequisites = (courseCode, completedCourses, remainingSet) =
   };
 };
 
-export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsPerTerm = 15.0, electiveMap = {}, startTerm = "Fall") => {
+export const generateOptimalPath = (targetCourses, completedCourses, allCourses, weights = {}, maxCreditsPerTerm = 15.0, electiveMap = {}, startTerm = "Fall") => {
   const semesters = [];
   let currentCompleted = new Set(completedCourses);
   let remaining = new Set(targetCourses);
@@ -43,7 +39,7 @@ export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsP
 
   let safetyCounter = 0; 
   
-  while (remaining.size > 0 && safetyCounter < 30) {
+  while (remaining.size > 0 && safetyCounter < 40) {
     safetyCounter++;
     
     let currentSemesterCourses = [];
@@ -51,15 +47,15 @@ export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsP
     
     const eligibleThisTerm = [];
     for (const course of remaining) {
-      if (checkPrerequisites(course, Array.from(currentCompleted), remaining).isEligible) {
+      if (checkPrerequisites(course, Array.from(currentCompleted), remaining, allCourses).isEligible) {
         eligibleThisTerm.push(course);
       }
     }
 
     eligibleThisTerm.sort((a, b) => {
         const getBase = (id) => id.replace(/_\d+$/, '');
-        const weightA = BCompSc_Weights[a] || BCompSc_Weights[electiveMap[a]] || BCompSc_Weights[getBase(a)] || 999;
-        const weightB = BCompSc_Weights[b] || BCompSc_Weights[electiveMap[b]] || BCompSc_Weights[getBase(b)] || 999;
+        const weightA = weights[a] || weights[electiveMap[a]] || weights[getBase(a)] || 999;
+        const weightB = weights[b] || weights[electiveMap[b]] || weights[getBase(b)] || 999;
         return weightA - weightB;
     }); 
 
@@ -68,7 +64,7 @@ export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsP
     const termMax = isSummer ? 6.0 : maxCreditsPerTerm;
 
     for (const course of eligibleThisTerm) {
-      const credits = GLOBAL_COURSES[course]?.credits || 3.0; 
+      const credits = allCourses[course]?.credits || 3.0; 
       
       if (currentSemesterCredits + credits <= termMax) {
         currentSemesterCourses.push(course);
@@ -79,12 +75,7 @@ export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsP
 
     if (currentSemesterCourses.length === 0) {
         if (isSummer && remaining.size > 0) {
-            // Can skip summer if nothing fits, but if there's no progress we might be stuck
-            if (eligibleThisTerm.length === 0) {
-                console.error("Prerequisite lock detected on remaining courses:", remaining);
-                break; 
-            }
-            // Just add empty summer and try next term
+            // Empty summer
         } else {
             console.error("Prerequisite lock detected on remaining courses:", remaining);
             break; 
@@ -100,3 +91,4 @@ export const generateOptimalPath = (targetCourses, completedCourses, maxCreditsP
     stuckCourses: Array.from(remaining)
   };
 };
+

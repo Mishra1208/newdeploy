@@ -128,8 +128,8 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
                 const idx = idMatch[1];
 
                 const classNbr = nbrEl.innerText.trim();
-                const statusContainer = document.querySelector(`div[id*="STATUS_LONG\\$${idx}"]`) || 
-                                        document.querySelector(`#win0divDERIVED_CLSRCH_SSR_STATUS_LONG\\$${idx}`);
+                const statusContainer = document.getElementById(`win0divDERIVED_CLSRCH_SSR_STATUS_LONG$${idx}`) || 
+                                        document.querySelector(`div[id*="STATUS_LONG\\$${idx}"]`);
                 
                 let status = 'Unknown';
                 if (statusContainer) {
@@ -139,17 +139,17 @@ export async function scrapeConcordiaSeats(termVal, subject, courseNumber) {
                     else if (html.includes('WAIT') || html.includes('WARNING') || html.includes('CLOCK')) status = 'Waitlist';
                 }
 
-                const sectionEl = document.querySelector(`#MTG_CLASSNAME\\$${idx}`);
+                const sectionEl = document.getElementById(`MTG_CLASSNAME$${idx}`) || document.querySelector(`a[id^="MTG_CLASSNAME\\$${idx}"]`);
                 const section = sectionEl ? sectionEl.innerText.replace(/\n/g, ' ').trim() : 'N/A';
 
-                const timeEl = document.querySelector(`#MTG_DAYTIME\\$${idx}`);
+                const timeEl = document.getElementById(`MTG_DAYTIME$${idx}`) || document.querySelector(`span[id^="MTG_DAYTIME\\$${idx}"]`);
                 const timeStr = timeEl ? timeEl.innerText.trim() : 'N/A';
                 const parsedTime = parseConcordiaTime(timeStr);
 
-                const instrEl = document.querySelector(`#MTG_INSTR\\$${idx}`);
+                const instrEl = document.getElementById(`MTG_INSTR$${idx}`) || document.querySelector(`span[id^="MTG_INSTR\\$${idx}"]`);
                 const instructor = instrEl ? instrEl.innerText.trim() : 'Staff';
 
-                const locationEl = document.querySelector(`#MTG_ROOM\\$${idx}`);
+                const locationEl = document.getElementById(`MTG_ROOM$${idx}`) || document.querySelector(`span[id^="MTG_ROOM\\$${idx}"]`);
                 const location = locationEl ? locationEl.innerText.trim() : 'TBA';
 
                 results.push({

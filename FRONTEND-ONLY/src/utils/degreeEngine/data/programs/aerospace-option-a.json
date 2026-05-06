@@ -1,0 +1,78 @@
+{
+  "program": "Aerospace Engineering - Option A (Aerodynamics and Propulsion)",
+  "totalCredits": 120,
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 27,
+      "courses": [
+        "ENCS 282", "ENGR 201", "ENGR 202", "ENGR 213", "ENGR 233",
+        "ENGR 301", "ENGR 371", "ENGR 391", "ENGR 392"
+      ],
+      "note": "Plus 3 credits of General Education Elective."
+    },
+    {
+      "category": "Aerospace Engineering Core",
+      "credits": 38.75,
+      "courses": [
+        "AERO 201", "AERO 290", "AERO 371", "AERO 390", "AERO 417", "AERO 490",
+        "ENGR 242", "ENGR 243", "ENGR 244", "ENGR 361", "MIAE 383"
+      ]
+    },
+    {
+      "category": "Option A Core",
+      "credits": 50.25,
+      "courses": [
+        "AERO 455", "AERO 462", "AERO 464", "AERO 465", "AERO 481", 
+        "ENGR 251", "ENGR 311", "MECH 343", "MECH 351", "MECH 352", 
+        "MECH 361", "MECH 461", "MIAE 211", "MIAE 215", "MIAE 221"
+      ]
+    },
+    {
+      "category": "Technical Electives",
+      "credits": 4,
+      "courses": [
+        "AERO 431", "AERO 446", "AERO 471", "AERO 472", "AERO 480", "AERO 482",
+        "AERO 485", "AERO 486", "ENGR 411", "ENGR 412", "INDU 372", "INDU 412",
+        "MECH 368", "MECH 373", "MECH 375", "MECH 426", "MECH 451", "MECH 452", "MECH 453"
+      ]
+    }
+  ],
+  "courses": {
+    "ENCS 282": { "credits": 3, "prerequisites": [], "corequisites": [] },
+    "ENGR 201": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ENGR 202": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ENGR 213": { "credits": 3, "prerequisites": [["MATH 203"], ["MATH 204"]], "corequisites": [] },
+    "ENGR 233": { "credits": 3, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": [] },
+    "ENGR 301": { "credits": 3, "prerequisites": [["ENGR 213"]], "corequisites": [] },
+    "ENGR 371": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 391": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "ENGR 392": { "credits": 3, "prerequisites": [["ENCS 282"], ["ENGR 201"], ["ENGR 202"]], "corequisites": [] },
+    "AERO 201": { "credits": 4, "prerequisites": [], "corequisites": ["ENGR 213"] },
+    "AERO 290": { "credits": 3, "prerequisites": [["AERO 201"]], "corequisites": ["ENCS 282"] },
+    "AERO 371": { "credits": 3.5, "prerequisites": [["PHYS 205"], ["ENGR 213"], ["ENGR 243"]], "corequisites": ["ENGR 311"] },
+    "AERO 390": { "credits": 3, "prerequisites": [["AERO 290"], ["AERO 371"], ["ENCS 282"]], "corequisites": [] },
+    "AERO 417": { "credits": 3, "prerequisites": [["ENGR 201"]], "corequisites": [] },
+    "AERO 490": { "credits": 6, "prerequisites": [["AERO 390"], ["ENCS 282"]], "corequisites": [] },
+    "ENGR 242": { "credits": 3, "prerequisites": [["PHYS 204"]], "corequisites": ["ENGR 213"] },
+    "ENGR 243": { "credits": 3, "prerequisites": [["ENGR 242"]], "corequisites": ["ENGR 233"] },
+    "ENGR 244": { "credits": 3.75, "prerequisites": [["ENGR 242"]], "corequisites": ["ENGR 213"] },
+    "ENGR 361": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 243"]], "corequisites": [] },
+    "MIAE 383": { "credits": 3.5, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "AERO 455": { "credits": 3.75, "prerequisites": [["ENGR 311"], ["ENGR 391"], ["MECH 361"]], "corequisites": [] },
+    "AERO 462": { "credits": 3, "prerequisites": [["MECH 351"], ["MECH 361"]], "corequisites": [] },
+    "AERO 464": { "credits": 3, "prerequisites": [["MECH 361"]], "corequisites": [] },
+    "AERO 465": { "credits": 3.5, "prerequisites": [["MECH 351"], ["MECH 361"]], "corequisites": [] },
+    "AERO 481": { "credits": 3.5, "prerequisites": [["ENGR 244"], ["MIAE 221"]], "corequisites": [] },
+    "ENGR 251": { "credits": 3, "prerequisites": [["MATH 203"], ["MATH 205"]], "corequisites": [] },
+    "ENGR 311": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },
+    "MECH 343": { "credits": 3.5, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 243"]], "corequisites": [] },
+    "MECH 351": { "credits": 3.5, "prerequisites": [["ENGR 251"]], "corequisites": [] },
+    "MECH 352": { "credits": 3.5, "prerequisites": [["MECH 351"]], "corequisites": [] },
+    "MECH 361": { "credits": 3.5, "prerequisites": [["ENGR 251"], ["ENGR 361"]], "corequisites": [] },
+    "MECH 461": { "credits": 3.5, "prerequisites": [["MECH 361"]], "corequisites": [] },
+    "MIAE 211": { "credits": 3.5, "prerequisites": [], "corequisites": [] },
+    "MIAE 215": { "credits": 3.5, "prerequisites": [["MATH 204"]], "corequisites": [] },
+    "MIAE 221": { "credits": 3, "prerequisites": [["CHEM 205"]], "corequisites": [] }
+  }
+}
