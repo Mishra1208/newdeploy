@@ -1,0 +1,236 @@
+{
+  "program": "Computer Science - Health and Life Sciences (BCompSc)",
+  "totalCredits": 90.0,
+  "requirements": [
+    {
+      "category": "Computer Science Core",
+      "credits": 33.0,
+      "courses": [
+        "COMP 228",
+        "COMP 232",
+        "COMP 233",
+        "COMP 248",
+        "COMP 249",
+        "COMP 335",
+        "COMP 346",
+        "COMP 348",
+        "COMP 352",
+        "COMP 354"
+      ]
+    },
+    {
+      "category": "Health and Life Sciences Core",
+      "credits": 24.0,
+      "courses": [
+        "BIOL 261",
+        "BIOL 266",
+        "BIOL 367",
+        "BIOL 479",
+        "BIOL 481",
+        "CHEM 212",
+        "CHEM 221",
+        "CHEM 271"
+      ]
+    },
+    {
+      "category": "Health and Life Sciences Complementary Core",
+      "credits": 6.0,
+      "courses": [
+        "ENCS 282",
+        "ENCS 333"
+      ]
+    },
+    {
+      "category": "Health and Life Sciences Electives",
+      "credits": 12.0,
+      "electiveSlots": [
+        {
+          "name": "Health and Life Sciences Elective",
+          "credits": 12.0,
+          "list": [
+            "BIOL 226",
+            "BIOL 364",
+            "BIOL 368",
+            "BIOL 422",
+            "BIOL 461",
+            "BIOL 466",
+            "BIOL 475",
+            "BIOL 480",
+            "BIOL 482",
+            "BIOL 484",
+            "BIOL 485",
+            "BIOL 486",
+            "COEN 432",
+            "COEN 433",
+            "COEN 434",
+            "COMP 339",
+            "COMP 353",
+            "COMP 361",
+            "COMP 465",
+            "COMP 472",
+            "COMP 478",
+            "COMP 479",
+            "COMP 493",
+            "ENGR 213",
+            "ENGR 411",
+            "SOEN 287",
+            "SOEN 387"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Mathematics Electives",
+      "credits": 6.0,
+      "electiveSlots": [
+        {
+          "name": "Mathematics Elective",
+          "credits": 6.0,
+          "list": [
+            "COMP 339",
+            "COMP 361",
+            "COMP 367",
+            "ENGR 213",
+            "ENGR 233",
+            "MAST 218",
+            "MAST 219",
+            "MAST 324",
+            "MAST 332",
+            "MAST 334",
+            "MATH 251",
+            "MATH 252",
+            "MATH 339",
+            "MATH 392"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 9.0,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 9.0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "BIOL 261": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "BIOL 266": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "BIOL 261"
+        ]
+      ],
+      "corequisites": []
+    },
+    "BIOL 367": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "BIOL 261"
+        ]
+      ],
+      "corequisites": []
+    },
+    "BIOL 479": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "BIOL 367"
+        ]
+      ],
+      "corequisites": []
+    },
+    "BIOL 481": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "BIOL 367"
+        ]
+      ],
+      "corequisites": []
+    },
+    "CHEM 212": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 221": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "CHEM 271": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "CHEM 221"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENCS 333": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "COMP 248",
+        "COMP 232",
+        "CHEM 212",
+        "CHEM 221",
+        "BIOL 261"
+      ],
+      [
+        "COMP 249",
+        "COMP 233",
+        "COMP 228",
+        "CHEM 271",
+        "BIOL 266"
+      ],
+      [
+        "COMP 352",
+        "COMP 348",
+        "BIOL 367",
+        "ENCS 282",
+        "Mathematics Elective 1"
+      ],
+      [
+        "COMP 346",
+        "COMP 335",
+        "BIOL 479",
+        "ENCS 333",
+        "Mathematics Elective 2"
+      ],
+      [
+        "COMP 354",
+        "BIOL 481",
+        "Health and Life Sciences Elective 1",
+        "Health and Life Sciences Elective 2",
+        "General Elective 1"
+      ],
+      [
+        "Health and Life Sciences Elective 3",
+        "Health and Life Sciences Elective 4",
+        "General Elective 2",
+        "General Elective 3"
+      ]
+    ]
+  }
+}

@@ -76,7 +76,7 @@ export default function FlowRoadmapVisualizer({ plan, completedCourses, getTermN
       });
 
       semester.forEach((course, cIdx) => {
-        const isElective = course.includes('Elective');
+        const isElective = course.includes('Elective') || course.includes('Group');
         const title = courseTitles[course] || (isElective ? "Selected Elective" : "Course Title Unavailable");
         
         // Ensure unique ID if a generic elective appears twice

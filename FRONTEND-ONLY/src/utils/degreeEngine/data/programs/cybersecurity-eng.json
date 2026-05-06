@@ -1,0 +1,605 @@
+{
+  "program": "Cybersecurity Engineering (BEng)",
+  "totalCredits": 120.0,
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 27.5,
+      "courses": [
+        "ELEC 275",
+        "ENCS 282",
+        "ENGR 201",
+        "ENGR 202",
+        "ENGR 213",
+        "ENGR 233",
+        "ENGR 301",
+        "ENGR 371",
+        "ENGR 391",
+        "ENGR 392"
+      ]
+    },
+    {
+      "category": "General Education Elective",
+      "credits": 3.0,
+      "electiveSlots": [
+        {
+          "name": "General Education Elective",
+          "credits": 3.0,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "Cybersecurity Engineering Core",
+      "credits": 49.5,
+      "courses": [
+        "INSE 201",
+        "INSE 221",
+        "INSE 331",
+        "INSE 349",
+        "INSE 351",
+        "INSE 386",
+        "INSE 387",
+        "INSE 390",
+        "INSE 401",
+        "INSE 412",
+        "INSE 413",
+        "INSE 441",
+        "INSE 442",
+        "INSE 445",
+        "INSE 452",
+        "INSE 490"
+      ]
+    },
+    {
+      "category": "Cybersecurity Engineering Complementary Core",
+      "credits": 25.0,
+      "courses": [
+        "COMP 232",
+        "COMP 248",
+        "COMP 249",
+        "COMP 346",
+        "COMP 352",
+        "COMP 445",
+        "SOEN 228"
+      ]
+    },
+    {
+      "category": "Engineering and Natural Science Group",
+      "credits": 3.0,
+      "electiveSlots": [
+        {
+          "name": "Engineering and Natural Science Group",
+          "credits": 3.0,
+          "list": [
+            "ENGR 245",
+            "MIAE 221"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Cybersecurity Engineering Electives",
+      "credits": 12.0,
+      "electiveSlots": [
+        {
+          "name": "Cybersecurity Engineering Elective",
+          "credits": 12.0,
+          "list": [
+            "INSE 321",
+            "INSE 411",
+            "INSE 481",
+            "INSE 482",
+            "INSE 483",
+            "INSE 484",
+            "INSE 485",
+            "INSE 486",
+            "INSE 487",
+            "INSE 488",
+            "INSE 498"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "ELEC 275": {
+      "title": "Principles of Electrical Engineering",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "PHYS 205"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENGR 233"
+        ]
+      ]
+    },
+    "ENCS 282": {
+      "title": "Technical Writing and Communication",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 201": {
+      "title": "Professional Practice and Responsibility",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 202": {
+      "title": "Sustainable Development and Environmental Stewardship",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 213": {
+      "title": "Applied Ordinary Differential Equations",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 233": {
+      "title": "Applied Advanced Calculus",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 204",
+          "MATH 205"
+        ]
+      ],
+      "corequisites": [
+        [
+          "ENGR 213"
+        ]
+      ]
+    },
+    "ENGR 301": {
+      "title": "Engineering Management Principles and Economics",
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENGR 371": {
+      "title": "Probability and Statistics in Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ],
+        [
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 391": {
+      "title": "Numerical Methods in Engineering",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ENGR 233",
+          "COMP 248"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 392": {
+      "title": "Impact of Technology on Society",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ],
+        [
+          "ENGR 201"
+        ],
+        [
+          "ENGR 202"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 201": {
+      "title": "Security Ethics, Laws, Standards and Compliance",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "INSE 221": {
+      "title": "Cryptography I",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 232"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 331": {
+      "title": "Database Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 349": {
+      "title": "Secure Programming and Software Design",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 351": {
+      "title": "Operating System Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 346"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 386": {
+      "title": "Introduction to Cybersecurity Management and Governance",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 201"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 387": {
+      "title": "Introduction to Artificial Intelligence and Machine Learning in Cybersecurity",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 371",
+          "COMP 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 390": {
+      "title": "Cybersecurity Engineering Team Design Project",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 349",
+          "INSE 351",
+          "INSE 386",
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 401": {
+      "title": "Usability and Human Aspects of Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 349"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 412": {
+      "title": "Cybercrime and Digital Forensics",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 351",
+          "INSE 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 413": {
+      "title": "Security Auditing and Compliance",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 386"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 441": {
+      "title": "Mobile Security and Privacy",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 351",
+          "INSE 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 442": {
+      "title": "Reverse Engineering, Application and Malware Analysis",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 349",
+          "INSE 351",
+          "INSE 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 445": {
+      "title": "Network Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 452": {
+      "title": "Penetration Testing and Ethical Hacking",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 349",
+          "INSE 351",
+          "INSE 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 490": {
+      "title": "Capstone Cybersecurity Engineering Design Project",
+      "credits": 6.0,
+      "prerequisites": [
+        [
+          "INSE 390"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 232": {
+      "title": "Mathematics for Computer Science",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203",
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 248": {
+      "title": "Object-Oriented Programming I",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 249": {
+      "title": "Object-Oriented Programming II",
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COMP 248",
+          "MATH 203"
+        ]
+      ],
+      "corequisites": [
+        [
+          "MATH 205"
+        ]
+      ]
+    },
+    "COMP 346": {
+      "title": "Operating Systems",
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "COMP 228",
+          "SOEN 228"
+        ],
+        [
+          "COMP 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 352": {
+      "title": "Data Structures and Algorithms",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 232",
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 445": {
+      "title": "Data Communication and Computer Networks",
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "COMP 346"
+        ]
+      ],
+      "corequisites": []
+    },
+    "SOEN 228": {
+      "title": "System Hardware",
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "MATH 203",
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 228": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 248"
+        ]
+      ],
+      "corequisites": [
+        "MATH 203",
+        "MATH 204"
+      ]
+    },
+    "COMP 233": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 335": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 232",
+          "COEN 231"
+        ],
+        [
+          "COMP 249",
+          "COEN 244"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 348": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 354": {
+      "credits": 4,
+      "prerequisites": [
+        [
+          "COMP 352"
+        ],
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENCS 393": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "MATH 203": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 204": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 205": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "ENGR 213",
+        "ENGR 201",
+        "COMP 248",
+        "COMP 232"
+      ],
+      [
+        "ENGR 233",
+        "ENGR 202",
+        "COMP 249",
+        "SOEN 228"
+      ],
+      [
+        "ENGR 371",
+        "INSE 221",
+        "COMP 352",
+        "ENCS 282",
+        "INSE 201"
+      ],
+      [
+        "ENGR 391",
+        "COMP 346",
+        "INSE 349",
+        "INSE 386",
+        "General Education Elective"
+      ],
+      [
+        "COMP 445",
+        "INSE 331",
+        "INSE 351",
+        "INSE 387",
+        "ELEC 275"
+      ],
+      [
+        "INSE 413",
+        "INSE 445",
+        "INSE 390",
+        "INSE 401",
+        "ENGR 392"
+      ],
+      [
+        "INSE 490",
+        "INSE 412",
+        "INSE 441",
+        "Engineering and Natural Science Group 1",
+        "Cybersecurity Engineering Elective 1"
+      ],
+      [
+        "INSE 442",
+        "INSE 452",
+        "ENGR 301",
+        "Cybersecurity Engineering Elective 2",
+        "Cybersecurity Engineering Elective 3",
+        "Cybersecurity Engineering Elective 4"
+      ]
+    ]
+  }
+}

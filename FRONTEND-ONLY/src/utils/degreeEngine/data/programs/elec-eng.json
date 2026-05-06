@@ -1,0 +1,420 @@
+{
+  "program": "Electrical Engineering (BEng)",
+  "totalCredits": 120.0,
+  "requirements": [
+    {
+      "category": "Engineering Core",
+      "credits": 30.5,
+      "courses": [
+        "ELEC 273",
+        "ENCS 282",
+        "ENGR 201",
+        "ENGR 202",
+        "ENGR 213",
+        "ENGR 233",
+        "ENGR 301",
+        "ENGR 371",
+        "ENGR 391",
+        "ENGR 392"
+      ]
+    },
+    {
+      "category": "General Education Humanities and Social Sciences Elective",
+      "credits": 3.0,
+      "electiveSlots": [
+        {
+          "name": "General Education Elective",
+          "credits": 3.0,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "Electrical Engineering Core",
+      "credits": 75.5,
+      "courses": [
+        "COEN 212",
+        "COEN 231",
+        "COEN 243",
+        "COEN 244",
+        "COEN 311",
+        "COEN 313",
+        "COEN 330",
+        "COEN 352",
+        "ELEC 242",
+        "ELEC 251",
+        "ELEC 311",
+        "ELEC 312",
+        "ELEC 321",
+        "ELEC 331",
+        "ELEC 342",
+        "ELEC 351",
+        "ELEC 366",
+        "ELEC 367",
+        "ELEC 372",
+        "ELEC 390",
+        "ELEC 490",
+        "ENGR 290"
+      ]
+    },
+    {
+      "category": "Electrical Engineering Elective",
+      "credits": 14.0,
+      "electiveSlots": [
+        {
+          "name": "Electrical Engineering Elective",
+          "credits": 14.0,
+          "list": [
+            "COEN 446",
+            "COEN 447",
+            "COEN 474",
+            "ELEC 442",
+            "ELEC 447",
+            "ELEC 464",
+            "ELEC 465",
+            "ELEC 466",
+            "ELEC 470",
+            "ELEC 472",
+            "COEN 314",
+            "COEN 451",
+            "ELEC 413",
+            "ELEC 421",
+            "ELEC 422",
+            "ELEC 423",
+            "ELEC 424",
+            "ELEC 425",
+            "ELEC 441",
+            "ELEC 430",
+            "ELEC 431",
+            "ELEC 432",
+            "ELEC 433",
+            "ELEC 434",
+            "ELEC 435",
+            "ELEC 436",
+            "ELEC 437",
+            "ELEC 438",
+            "ELEC 439",
+            "ELEC 440",
+            "ELEC 443",
+            "ELEC 446",
+            "AERO 417",
+            "AERO 480",
+            "AERO 482",
+            "AERO 483",
+            "COEN 422",
+            "ELEC 473",
+            "ELEC 481",
+            "ELEC 482",
+            "ELEC 483",
+            "ENGR 472",
+            "ELEC 453",
+            "ELEC 455",
+            "ELEC 456",
+            "ELEC 457",
+            "ELEC 458",
+            "COEN 316",
+            "COEN 317",
+            "COEN 320",
+            "COEN 346",
+            "COEN 413",
+            "COEN 421",
+            "COEN 424",
+            "COEN 448",
+            "COEN 449",
+            "SOEN 341",
+            "COEN 432",
+            "COEN 433",
+            "COEN 434",
+            "ELEC 444",
+            "ELEC 445",
+            "ELEC 498",
+            "ENGR 411"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "ELEC 273": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ENGR 213"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 212": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 231": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 243": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 244": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 311": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 212",
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 313": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 212"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 330": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ENGR 233"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COEN 352": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COEN 231",
+          "COEN 243"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 242": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ELEC 273"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 251": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 213",
+          "ELEC 273"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 311": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 273"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 312": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 311"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 321": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "CHEM 205",
+          "PHYS 205",
+          "ENGR 213"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 331": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 251",
+          "ELEC 273"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 342": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 242"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 351": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 251"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 366": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COEN 311",
+          "ENGR 371"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 367": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 342",
+          "ENGR 371"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 372": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "ELEC 242",
+          "ENGR 213"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 390": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ELEC 311",
+          "ENGR 290"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ELEC 490": {
+      "credits": 6.0,
+      "prerequisites": [
+        [
+          "ELEC 390",
+          "ENCS 282",
+          "ENGR 301"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENGR 290": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENGR 201",
+          "ENGR 202",
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "ENGR 201",
+        "ENGR 202",
+        "ENGR 213",
+        "COEN 212",
+        "COEN 243"
+      ],
+      [
+        "ENGR 233",
+        "ELEC 273",
+        "COEN 231",
+        "COEN 244",
+        "ENCS 282"
+      ],
+      [
+        "ELEC 242",
+        "ELEC 251",
+        "ELEC 311",
+        "COEN 311",
+        "COEN 352"
+      ],
+      [
+        "ELEC 342",
+        "ELEC 312",
+        "ELEC 331",
+        "COEN 313",
+        "ENGR 290"
+      ],
+      [
+        "ELEC 372",
+        "ELEC 321",
+        "ELEC 351",
+        "COEN 330",
+        "ENGR 371"
+      ],
+      [
+        "ELEC 366",
+        "ELEC 367",
+        "ELEC 390",
+        "ENGR 301",
+        "ENGR 391"
+      ],
+      [
+        "ELEC 490",
+        "ENGR 392",
+        "Electrical Engineering Elective 1",
+        "Electrical Engineering Elective 2"
+      ],
+      [
+        "Electrical Engineering Elective 3",
+        "Electrical Engineering Elective 4",
+        "Electrical Engineering Elective 5",
+        "General Education Elective"
+      ]
+    ]
+  }
+}

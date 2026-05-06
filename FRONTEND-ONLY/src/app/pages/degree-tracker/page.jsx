@@ -11,7 +11,16 @@ import buildingCurriculum from '../../../utils/degreeEngine/data/programs/buildi
 import chemicalCurriculum from '../../../utils/degreeEngine/data/programs/chemical.json';
 import civilCurriculum from '../../../utils/degreeEngine/data/programs/civil.json';
 import computerEngCurriculum from '../../../utils/degreeEngine/data/programs/computer-eng.json';
+import computerScienceComputationArtsCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-computation-arts.json';
+import computerScienceDataScienceCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-data-science.json';
+import computerScienceHealthCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-health.json';
+import computerScienceMinorCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-minor.json';
+import cybersecurityCurriculum from '../../../utils/degreeEngine/data/programs/cybersecurity.json';
+import cybersecurityEngCurriculum from '../../../utils/degreeEngine/data/programs/cybersecurity-eng.json';
+import elecEngCurriculum from '../../../utils/degreeEngine/data/programs/elec-eng.json';
+import induEngCurriculum from '../../../utils/degreeEngine/data/programs/indu-eng.json';
 import courseTitles from '../../../utils/degreeEngine/data/courseTitles.json';
+import coursePrereqs from '../../../utils/degreeEngine/data/coursePrereqs.json';
 
 const PROGRAMS = {
   'cs-general': {
@@ -58,6 +67,62 @@ const PROGRAMS = {
     name: 'Computer Engineering (BEng)',
     category: 'Computer Science & Software',
     data: computerEngCurriculum,
+    weights: {}
+  },
+  'computer-science-minor': {
+    id: 'computer-science-minor',
+    name: 'Computer Science (Minor)',
+    category: 'Computer Science & Software',
+    data: computerScienceMinorCurriculum,
+    weights: {}
+  },
+  'cs-computation-arts': {
+    id: 'cs-computation-arts',
+    name: 'Computer Science – Computation Arts (BCompSc)',
+    category: 'Computer Science & Software',
+    data: computerScienceComputationArtsCurriculum,
+    weights: {}
+  },
+  'cybersecurity': {
+    id: 'cybersecurity',
+    name: 'Cybersecurity (BSc)',
+    category: 'Computer Science & Software',
+    data: cybersecurityCurriculum,
+    weights: {}
+  },
+  'cs-data-science': {
+    id: 'cs-data-science',
+    name: 'Computer Science – Data Science (BCompSc)',
+    category: 'Computer Science & Software',
+    data: computerScienceDataScienceCurriculum,
+    weights: {}
+  },
+  'cs-health': {
+    id: 'cs-health',
+    name: 'Computer Science – Health and Life Sciences (BCompSc)',
+    category: 'Computer Science & Software',
+    data: computerScienceHealthCurriculum,
+    weights: {}
+  },
+  'cybersecurity-eng': {
+    id: 'cybersecurity-eng',
+    name: 'Cybersecurity Engineering (BEng)',
+    category: 'Computer Science & Software',
+    data: cybersecurityEngCurriculum,
+    weights: {}
+  },
+  'elec-eng': {
+    id: 'elec-eng',
+    name: 'Electrical Engineering (BEng)',
+    category: 'Computer Science & Software',
+    data: elecEngCurriculum,
+    weights: {}
+  },
+  'indu-eng': {
+    id: 'indu-eng',
+    name: 'Industrial Engineering (BEng)',
+    category: 'Engineering & Construction',
+    data: induEngCurriculum,
     weights: {}
   }
 };
@@ -142,7 +207,7 @@ export default function FreshDegreeTracker() {
       let targets = [...ecpFoundation];
       
       curriculum.requirements.forEach(req => {
-        if (req.category.includes('Elective')) {
+        if (req.electiveSlots && req.electiveSlots.length > 0) {
           // Handle elective slots based on required credits
           const creditsPerCourse = 3; // Default assumption for slot count
           const count = Math.ceil(req.credits / creditsPerCourse);
@@ -200,22 +265,36 @@ export default function FreshDegreeTracker() {
   };
 
   const getElectiveStyles = (course) => {
-    if (!course.includes('Elective')) return null;
-    if (course.includes('Math')) return { bg: 'bg-blue-50', border: 'border-blue-200 border-dashed', text: 'text-blue-900', title: 'text-blue-700' };
-    if (course.includes('CS')) return { bg: 'bg-violet-50', border: 'border-violet-200 border-dashed', text: 'text-violet-900', title: 'text-violet-700' };
-    if (course.includes('General')) return { bg: 'bg-amber-50', border: 'border-amber-200 border-dashed', text: 'text-amber-900', title: 'text-amber-700' };
+    if (!course.includes('Elective') && !course.includes('Group')) return null;
+    if (course.includes('Math')) return { bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200 dark:border-blue-800 border-dashed', text: 'text-blue-900 dark:text-blue-300', title: 'text-blue-700 dark:text-blue-400' };
+    if (course.includes('CS')) return { bg: 'bg-violet-50 dark:bg-violet-900/20', border: 'border-violet-200 dark:border-violet-800 border-dashed', text: 'text-violet-900 dark:text-violet-300', title: 'text-violet-700 dark:text-violet-400' };
+    if (course.includes('General')) return { bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-200 dark:border-amber-800 border-dashed', text: 'text-amber-900 dark:text-amber-300', title: 'text-amber-700 dark:text-amber-400' };
+    if (course.includes('Group')) return { bg: 'bg-emerald-50 dark:bg-emerald-900/20', border: 'border-emerald-200 dark:border-emerald-800 border-dashed', text: 'text-emerald-900 dark:text-emerald-300', title: 'text-emerald-700 dark:text-emerald-400' };
     return { bg: 'bg-slate-50 dark:bg-black', border: 'border-slate-200 dark:border-white/[0.08] border-dashed', text: 'text-slate-900 dark:text-white', title: 'text-slate-700 dark:text-white/80' };
   };
 
   const getCredits = (course) => {
-    if (course.includes('Elective')) return 3.0;
+    if (course.includes('Elective') || course.includes('Group')) return 3.0;
     return curriculum.courses[course]?.credits || 3.0;
   };
 
   const getPrereqString = (course) => {
     if (course === "ENCS 282") return "Students must pass the Engineering Writing Test (EWT), or pass ENCS 272 with a grade of C- or higher.";
-    if (!curriculum.courses[course] || !curriculum.courses[course].prerequisites.length) return "None";
-    return curriculum.courses[course].prerequisites.map(group => group.join(" OR ")).join(" AND ");
+    
+    // Check if the current curriculum has explicitly defined structured prerequisites
+    if (curriculum.courses[course] && curriculum.courses[course].prerequisites && curriculum.courses[course].prerequisites.length > 0) {
+      return curriculum.courses[course].prerequisites.map(group => {
+        const items = Array.isArray(group) ? group : [group];
+        return items.join(" OR ");
+      }).join(" AND ");
+    }
+    
+    // Fallback to the global course prereqs dictionary from CSV
+    if (coursePrereqs[course]) {
+      return coursePrereqs[course];
+    }
+    
+    return "None";
   };
 
   const handleElectiveClick = (course) => {
@@ -226,9 +305,9 @@ export default function FreshDegreeTracker() {
     } else if (course.includes('CS Elective')) {
       const csList = curriculum.requirements.find(r => r.category.includes('Computer Science Elective'))?.courses || [];
       setActiveElectiveSlot({ slot: course, type: 'CS', list: csList });
-    } else if (course.includes('General Elective')) {
+    } else if (course.includes('General Elective') || course.includes('General Education')) {
       setActiveElectiveSlot({ slot: course, type: 'GENERAL', list: GENERAL_LIST });
-    } else if (course.includes('Elective')) {
+    } else if (course.includes('Elective') || course.includes('Group')) {
         // Generic elective finder
         const req = curriculum.requirements.find(r => course.startsWith(r.category));
         const electiveList = req?.electiveSlots?.[0]?.list || req?.courses || [];
@@ -672,7 +751,7 @@ export default function FreshDegreeTracker() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pl-4">
                         {semester.map((course, cIdx) => {
-                           const isElectivePlaceholder = course.includes('Elective');
+                           const isElectivePlaceholder = course.includes('Elective') || course.includes('Group');
                            const title = courseTitles[course] || (isElectivePlaceholder ? "Click to select a course" : "Course Title Unavailable");
                            const elStyles = isElectivePlaceholder ? getElectiveStyles(course) : null;
                            
@@ -718,6 +797,7 @@ export default function FreshDegreeTracker() {
       <AnimatePresence>
         {activeElectiveSlot && (
           <motion.div 
+            key="elective-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -785,6 +865,7 @@ export default function FreshDegreeTracker() {
         {/* MODAL FOR MANUAL COURSE ADDITION */}
         {manualAddPrompt && (
           <motion.div 
+            key="manual-add-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -832,6 +913,7 @@ export default function FreshDegreeTracker() {
         {/* MODAL FOR COURSE DETAILS */}
         {activeCourseDetails && (
           <motion.div 
+            key="course-details-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

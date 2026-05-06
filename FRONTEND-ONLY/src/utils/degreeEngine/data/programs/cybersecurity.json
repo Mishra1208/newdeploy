@@ -1,0 +1,375 @@
+{
+  "program": "Cybersecurity (BSc)",
+  "totalCredits": 90.0,
+  "requirements": [
+    {
+      "category": "Cybersecurity Core",
+      "credits": 22.5,
+      "courses": [
+        "INSE 201",
+        "INSE 221",
+        "INSE 331",
+        "INSE 349",
+        "INSE 351",
+        "INSE 386",
+        "INSE 413",
+        "INSE 445"
+      ]
+    },
+    {
+      "category": "Cybersecurity Complementary Core",
+      "credits": 27.0,
+      "courses": [
+        "COMP 228",
+        "COMP 232",
+        "COMP 248",
+        "COMP 249",
+        "COMP 346",
+        "COMP 352",
+        "COMP 445",
+        "ENCS 282"
+      ]
+    },
+    {
+      "category": "Cybersecurity Electives",
+      "credits": 12.0,
+      "electiveSlots": [
+        {
+          "name": "Cybersecurity Elective",
+          "credits": 12.0,
+          "list": [
+            "INSE 321",
+            "INSE 387",
+            "INSE 401",
+            "INSE 411",
+            "INSE 412",
+            "INSE 441",
+            "INSE 442",
+            "INSE 452",
+            "INSE 481",
+            "INSE 482",
+            "INSE 483",
+            "INSE 484",
+            "INSE 485",
+            "INSE 486",
+            "INSE 487",
+            "INSE 488",
+            "INSE 490",
+            "INSE 498"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Mathematics Electives",
+      "credits": 9.0,
+      "electiveSlots": [
+        {
+          "name": "Mathematics Elective",
+          "credits": 9.0,
+          "list": [
+            "ENGR 213",
+            "ENGR 233",
+            "ENGR 371",
+            "ENGR 391",
+            "MAST 218",
+            "MAST 219",
+            "MAST 221",
+            "MAST 324",
+            "MAST 332",
+            "MAST 333",
+            "MAST 334",
+            "MATH 251",
+            "MATH 252",
+            "MATH 339",
+            "MATH 366",
+            "MATH 392"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 19.5,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 19.5,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "INSE 201": {
+      "title": "Security Ethics, Laws, Standards and Compliance",
+      "credits": 1.5,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "INSE 221": {
+      "title": "Cryptography I",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 232"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 331": {
+      "title": "Database Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 349": {
+      "title": "Secure Programming and Software Design",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 351": {
+      "title": "Operating System Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 346"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 386": {
+      "title": "Introduction to Cybersecurity Management and Governance",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 201"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 413": {
+      "title": "Security Auditing and Compliance",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "INSE 386"
+        ]
+      ],
+      "corequisites": []
+    },
+    "INSE 445": {
+      "title": "Network Security",
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 445"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 228": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 248"
+        ]
+      ],
+      "corequisites": [
+        "MATH 203",
+        "MATH 204"
+      ]
+    },
+    "COMP 232": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ],
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 233": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 248": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 249": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COMP 248"
+        ],
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": [
+        "MATH 205"
+      ]
+    },
+    "COMP 335": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 232",
+          "COEN 231"
+        ],
+        [
+          "COMP 249",
+          "COEN 244"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 346": {
+      "credits": 4,
+      "prerequisites": [
+        [
+          "COMP 228",
+          "SOEN 228"
+        ],
+        [
+          "COMP 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 348": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 352": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": [
+        "COMP 232"
+      ]
+    },
+    "COMP 354": {
+      "credits": 4,
+      "prerequisites": [
+        [
+          "COMP 352"
+        ],
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENCS 282": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENCS 393": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "MATH 203": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 204": {
+      "credits": 3,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "MATH 205": {
+      "credits": 3,
+      "prerequisites": [
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "COMP 248",
+        "COMP 232",
+        "INSE 201",
+        "Mathematics Elective 1",
+        "General Elective 1"
+      ],
+      [
+        "COMP 249",
+        "COMP 228",
+        "INSE 221",
+        "Mathematics Elective 2",
+        "ENCS 282"
+      ],
+      [
+        "COMP 352",
+        "COMP 346",
+        "INSE 349",
+        "INSE 386",
+        "General Elective 2"
+      ],
+      [
+        "COMP 445",
+        "INSE 331",
+        "INSE 351",
+        "Mathematics Elective 3",
+        "General Elective 3"
+      ],
+      [
+        "INSE 413",
+        "INSE 445",
+        "Cybersecurity Elective 1",
+        "General Elective 4",
+        "General Elective 5"
+      ],
+      [
+        "Cybersecurity Elective 2",
+        "Cybersecurity Elective 3",
+        "Cybersecurity Elective 4",
+        "General Elective 6",
+        "General Elective 7"
+      ]
+    ]
+  }
+}
