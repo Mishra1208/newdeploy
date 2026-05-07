@@ -1,0 +1,285 @@
+{
+  "program": "Computer Science (BCompSc)",
+  "totalCredits": 90.0,
+  "requirements": [
+    {
+      "category": "Computer Science Core",
+      "credits": 33.0,
+      "courses": [
+        "COMP 228",
+        "COMP 232",
+        "COMP 233",
+        "COMP 248",
+        "COMP 249",
+        "COMP 335",
+        "COMP 346",
+        "COMP 348",
+        "COMP 352",
+        "COMP 354"
+      ]
+    },
+    {
+      "category": "Computer Science Complementary Core",
+      "credits": 6.0,
+      "courses": [
+        "ENCS 282",
+        "ENCS 393"
+      ]
+    },
+    {
+      "category": "Artificial Intelligence Electives",
+      "credits": 4.0,
+      "electiveSlots": [
+        {
+          "name": "Artificial Intelligence Elective",
+          "credits": 4.0,
+          "list": [
+            "COMP 425",
+            "COMP 432",
+            "COMP 433",
+            "COMP 472",
+            "COMP 473",
+            "COMP 474",
+            "COMP 479"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Computer Science Electives",
+      "credits": 14.0,
+      "electiveSlots": [
+        {
+          "name": "Computer Science Elective",
+          "credits": 14.0,
+          "list": [
+            "ENGR 490",
+            "SOEN 287",
+            "SOEN 321",
+            "SOEN 331",
+            "SOEN 357",
+            "SOEN 387",
+            "SOEN 422",
+            "SOEN 423",
+            "SOEN 471",
+            "SOEN 487",
+            "COMP 333",
+            "COMP 345",
+            "COMP 353",
+            "COMP 371",
+            "COMP 376",
+            "COMP 438",
+            "COMP 445",
+            "COMP 475",
+            "COMP 476",
+            "COMP 477"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Mathematics Electives",
+      "credits": 6.0,
+      "electiveSlots": [
+        {
+          "name": "Mathematics Elective",
+          "credits": 6.0,
+          "list": [
+            "COMP 339",
+            "COMP 361",
+            "COMP 367",
+            "ENGR 213",
+            "ENGR 233",
+            "MAST 218",
+            "MAST 219",
+            "MAST 324",
+            "MAST 332",
+            "MAST 334",
+            "MATH 251",
+            "MATH 252",
+            "MATH 339",
+            "MATH 392"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 27.0,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 27.0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "COMP 228": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203",
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 232": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 203",
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 233": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "MATH 205"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 248": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "MATH 204"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 249": {
+      "credits": 3.5,
+      "prerequisites": [
+        [
+          "COMP 248"
+        ],
+        [
+          "MATH 203"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 335": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 232"
+        ],
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 346": {
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "COMP 228"
+        ],
+        [
+          "COMP 352"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 348": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 352": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "COMP 249"
+        ],
+        [
+          "COMP 232"
+        ]
+      ],
+      "corequisites": []
+    },
+    "COMP 354": {
+      "credits": 4.0,
+      "prerequisites": [
+        [
+          "COMP 352"
+        ],
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    },
+    "ENCS 282": {
+      "credits": 3.0,
+      "prerequisites": [],
+      "corequisites": []
+    },
+    "ENCS 393": {
+      "credits": 3.0,
+      "prerequisites": [
+        [
+          "ENCS 282"
+        ]
+      ],
+      "corequisites": []
+    }
+  },
+  "sequence": {
+    "september": [
+      [
+        "COMP 248",
+        "COMP 232",
+        "ENCS 282",
+        "Mathematics Elective 1",
+        "General Elective 1"
+      ],
+      [
+        "COMP 249",
+        "COMP 228",
+        "Mathematics Elective 2",
+        "General Elective 2",
+        "General Elective 3"
+      ],
+      [
+        "COMP 352",
+        "COMP 233",
+        "COMP 348",
+        "General Elective 4",
+        "General Elective 5"
+      ],
+      [
+        "COMP 335",
+        "COMP 346",
+        "ENCS 393",
+        "Computer Science Elective 1",
+        "General Elective 6"
+      ],
+      [
+        "COMP 354",
+        "Artificial Intelligence Elective 1",
+        "Computer Science Elective 2",
+        "General Elective 7",
+        "General Elective 8"
+      ],
+      [
+        "Computer Science Elective 3",
+        "Computer Science Elective 4",
+        "General Elective 9"
+      ]
+    ]
+  }
+}

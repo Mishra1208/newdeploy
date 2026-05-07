@@ -1,0 +1,118 @@
+import json
+
+prog_data = {
+    "program": "Software Engineering (BEng)",
+    "totalCredits": 120.0,
+    "requirements": [
+        {
+            "category": "Engineering Core",
+            "credits": 27.5,
+            "courses": [
+                "ELEC 275", "ENCS 282", "ENGR 201", "ENGR 202", "ENGR 213", 
+                "ENGR 233", "ENGR 301", "ENGR 371", "ENGR 392"
+            ]
+        },
+        {
+            "category": "General Education Humanities and Social Sciences Elective",
+            "credits": 3.0,
+            "electiveSlots": [
+                {
+                    "name": "General Education Elective",
+                    "credits": 3.0,
+                    "list": []
+                }
+            ]
+        },
+        {
+            "category": "Software Engineering Core",
+            "credits": 46.5,
+            "courses": [
+                "SOEN 228", "SOEN 287", "SOEN 321", "SOEN 331", "SOEN 341", 
+                "SOEN 342", "SOEN 343", "SOEN 345", "SOEN 357", "SOEN 363", 
+                "SOEN 384", "SOEN 390", "SOEN 490"
+            ]
+        },
+        {
+            "category": "Computer Science Group: Software Engineering",
+            "credits": 27.0,
+            "courses": [
+                "COMP 232", "COMP 248", "COMP 249", "COMP 335", "COMP 346", 
+                "COMP 348", "COMP 352", "COMP 432"
+            ]
+        },
+        {
+            "category": "Engineering and Natural Science Group: Software Engineering",
+            "credits": 3.0,
+            "electiveSlots": [
+                {
+                    "name": "Engineering and Natural Science Group",
+                    "credits": 3.0,
+                    "list": [
+                        "ENGR 245", "MIAE 221"
+                    ]
+                }
+            ]
+        },
+        {
+            "category": "Software Engineering Elective",
+            "credits": 16.0,
+            "electiveSlots": [
+                {
+                    "name": "Software Engineering Elective",
+                    "credits": 16.0,
+                    "list": [
+                        "AERO 480", "AERO 482", "COEN 320", "COMP 333", "COMP 339", 
+                        "COMP 345", "COMP 371", "COMP 376", "COMP 425", "COMP 426", 
+                        "COMP 428", "COMP 433", "COMP 438", "COMP 442", "COMP 444", 
+                        "COMP 445", "COMP 451", "COMP 465", "COMP 472", "COMP 473", 
+                        "COMP 474", "COMP 475", "COMP 476", "COMP 477", "COMP 478", 
+                        "COMP 479", "COMP 498", "COMP 499", "SOEN 298", "SOEN 344", 
+                        "SOEN 387", "SOEN 422", "SOEN 423", "SOEN 471", "SOEN 487", 
+                        "SOEN 491", "SOEN 498", "SOEN 499", "ENGR 411"
+                    ]
+                }
+            ]
+        }
+    ],
+    "courses": {
+        "SOEN 228": {"credits": 4.0, "prerequisites": [["MATH 203", "MATH 204"]], "corequisites": []},
+        "SOEN 287": {"credits": 3.0, "prerequisites": [["COMP 248"]], "corequisites": []},
+        "SOEN 321": {"credits": 3.0, "prerequisites": [["COMP 346"]], "corequisites": []},
+        "SOEN 331": {"credits": 3.0, "prerequisites": [["COMP 232", "COMP 249"]], "corequisites": []},
+        "SOEN 341": {"credits": 4.0, "prerequisites": [["COMP 352"], ["ENCS 282"]], "corequisites": []},
+        "SOEN 342": {"credits": 3.0, "prerequisites": [["SOEN 341"]], "corequisites": []},
+        "SOEN 343": {"credits": 4.0, "prerequisites": [["SOEN 341"]], "corequisites": [["SOEN 342"]]},
+        "SOEN 345": {"credits": 4.0, "prerequisites": [["SOEN 343"]], "corequisites": []},
+        "SOEN 357": {"credits": 3.0, "prerequisites": [["SOEN 341"]], "corequisites": []},
+        "SOEN 363": {"credits": 3.0, "prerequisites": [["COMP 352"]], "corequisites": []},
+        "SOEN 384": {"credits": 3.0, "prerequisites": [["ENCS 282"], ["SOEN 341"]], "corequisites": []},
+        "SOEN 390": {"credits": 3.5, "prerequisites": [["SOEN 345", "SOEN 357"]], "corequisites": []},
+        "SOEN 490": {"credits": 6.0, "prerequisites": [["SOEN 390"]], "corequisites": []},
+        "COMP 232": {"credits": 3.0, "prerequisites": [["MATH 203", "MATH 204"]], "corequisites": []},
+        "COMP 248": {"credits": 3.5, "prerequisites": [["MATH 204"]], "corequisites": []},
+        "COMP 249": {"credits": 3.5, "prerequisites": [["COMP 248"], ["MATH 203"]], "corequisites": []},
+        "COMP 335": {"credits": 3.0, "prerequisites": [["COMP 232"], ["COMP 249"]], "corequisites": []},
+        "COMP 346": {"credits": 4.0, "prerequisites": [["SOEN 228"], ["COMP 352"]], "corequisites": []},
+        "COMP 348": {"credits": 3.0, "prerequisites": [["COMP 249"]], "corequisites": []},
+        "COMP 352": {"credits": 3.0, "prerequisites": [["COMP 249"], ["COMP 232"]], "corequisites": []},
+        "COMP 432": {"credits": 4.0, "prerequisites": [["COMP 352"]], "corequisites": []}
+    },
+    "sequence": {
+        "september": [
+            ["COMP 248", "COMP 232", "ENGR 201", "ENGR 213", "General Education Elective"],
+            ["COMP 249", "ENGR 233", "SOEN 228", "SOEN 287", "Engineering and Natural Science Group"],
+            ["COMP 348", "COMP 352", "ENCS 282", "ENGR 202", "ENGR 371"],
+            ["COMP 346", "ELEC 275", "SOEN 331", "SOEN 341", "Software Engineering Elective 1"],
+            ["COMP 335", "COMP 432", "SOEN 342", "SOEN 343", "SOEN 384"],
+            ["SOEN 363", "SOEN 345", "SOEN 357", "SOEN 390", "Software Engineering Elective 2"],
+            ["ENGR 301", "SOEN 321", "SOEN 490", "Software Engineering Elective 3"],
+            ["ENGR 392", "SOEN 490", "Software Engineering Elective 4", "Software Engineering Elective 5"]
+        ]
+    }
+}
+
+import json as json_lib
+with open('src/utils/degreeEngine/data/programs/soen.json', 'w') as f:
+    json_lib.dump(prog_data, f, indent=2)
+
+print("Generated soen.json")

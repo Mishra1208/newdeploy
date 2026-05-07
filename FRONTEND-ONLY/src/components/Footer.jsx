@@ -18,7 +18,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className={`${styles.footer} ${body.className}`}>
+    <footer className={`${styles.footer} ${body.className} print:hidden`}>
       <div className={`${styles.container} ${styles.grid}`}>
 
         {/* Column 1: Brand & Identity */}

@@ -18,7 +18,7 @@ export default function DynamicNavbar() {
 
     return (
         <>
-            <header className={navClass}>
+            <header className={`${navClass} print:hidden`}>
                 <nav className="site-nav__inner">
                     <Link href="/" className="brand" aria-label="ConU Planner">
                         <img src="/logo2.png" alt="ConU Planner" className="brandLogo" />

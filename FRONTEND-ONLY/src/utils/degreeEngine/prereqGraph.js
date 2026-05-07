@@ -29,7 +29,7 @@ export const checkPrerequisites = (courseCode, completedCourses, remainingSet, a
   };
 };
 
-export const generateOptimalPath = (targetCourses, completedCourses, allCourses, weights = {}, maxCreditsPerTerm = 15.0, electiveMap = {}, startTerm = "Fall") => {
+export const generateOptimalPath = (targetCourses, completedCourses, allCourses, weights = {}, maxCreditsPerTerm = 15.0, electiveMap = {}, startTerm = "Fall", forcedDelays = {}, skippedSemesters = []) => {
   const semesters = [];
   let currentCompleted = new Set(completedCourses);
   let remaining = new Set(targetCourses);
@@ -47,6 +47,9 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
     
     const eligibleThisTerm = [];
     for (const course of remaining) {
+      if (forcedDelays[course] !== undefined && semesters.length < forcedDelays[course]) {
+        continue;
+      }
       if (checkPrerequisites(course, Array.from(currentCompleted), remaining, allCourses).isEligible) {
         eligibleThisTerm.push(course);
       }
@@ -59,8 +62,14 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
         return weightA - weightB;
     }); 
 
-    const currentTermIndex = (startIndex + semesters.length) % 3;
-    const isSummer = currentTermIndex === 1;
+    let currentTermIndex = (startIndex + semesters.length) % 3;
+    const isSummer = termOrder[currentTermIndex] === "Summer";
+    
+    if (skippedSemesters.includes(semesters.length)) {
+      semesters.push([]);
+      continue;
+    }
+
     const termMax = isSummer ? 6.0 : maxCreditsPerTerm;
 
     for (const course of eligibleThisTerm) {

@@ -1,0 +1,94 @@
+import json
+
+prog_data = {
+    "program": "Mechanical Engineering (BEng)",
+    "totalCredits": 120.0,
+    "requirements": [
+        {
+            "category": "Engineering Core",
+            "credits": 27.0,
+            "courses": [
+                "ENCS 282", "ENGR 201", "ENGR 202", "ENGR 213", 
+                "ENGR 233", "ENGR 301", "ENGR 371", "ENGR 391", "ENGR 392"
+            ]
+        },
+        {
+            "category": "General Education Humanities and Social Sciences Elective",
+            "credits": 3.0,
+            "electiveSlots": [
+                {
+                    "name": "General Education Elective",
+                    "credits": 3.0,
+                    "list": []
+                }
+            ]
+        },
+        {
+            "category": "Mechanical Engineering Core",
+            "credits": 87.0,
+            "courses": [
+                "ENGR 242", "ENGR 243", "ENGR 244", "ENGR 251", "ENGR 311", "ENGR 361", 
+                "MECH 321", "MECH 343", "MECH 344", "MECH 351", "MECH 352", "MECH 361", 
+                "MECH 368", "MECH 371", "MECH 373", "MECH 375", "MECH 390", "MECH 490", 
+                "MIAE 211", "MIAE 215", "MIAE 221", "MIAE 311", "MIAE 312", "MIAE 313", 
+                "MIAE 380", "MIAE 383"
+            ]
+        },
+        {
+            "category": "Mechanical Engineering Elective",
+            "credits": 6.0,
+            "electiveSlots": [
+                {
+                    "name": "Mechanical Engineering Elective",
+                    "credits": 6.0,
+                    "list": [
+                        "AERO 417", "AERO 446", "AERO 455", "AERO 462", "AERO 464", "AERO 465", 
+                        "AERO 480", "AERO 482", "AERO 485", "AERO 486", "AERO 487", "AERO 431",
+                        "ENGR 411", "ENGR 412", "INDU 372", "INDU 410", "INDU 411", "INDU 412",
+                        "MECH 412", "MECH 414", "MECH 415", "MECH 421", "MECH 422", "MECH 423", 
+                        "MECH 424", "MECH 425", "MECH 426", "MECH 428", "MECH 444", "MECH 447", 
+                        "MECH 451", "MECH 452", "MECH 453", "MECH 454", "MECH 460", "MECH 461", 
+                        "MECH 463", "MECH 468", "MECH 471", "MECH 472", "MECH 473", "MECH 474", 
+                        "MECH 476", "MECH 498"
+                    ]
+                }
+            ]
+        }
+    ],
+    "courses": {
+        "ENGR 242": {"credits": 3.0, "prerequisites": [["ENGR 213"], ["PHYS 204"]], "corequisites": []},
+        "ENGR 243": {"credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 242"]], "corequisites": []},
+        "ENGR 244": {"credits": 3.75, "prerequisites": [["ENGR 213"], ["ENGR 242"], ["ENGR 233"]], "corequisites": []},
+        "ENGR 361": {"credits": 3.0, "prerequisites": [["ENGR 213"], ["ENGR 233"], ["ENGR 251"]], "corequisites": []},
+        "MECH 321": {"credits": 3.5, "prerequisites": [["MIAE 221"]], "corequisites": []},
+        "MECH 343": {"credits": 3.5, "prerequisites": [["ENGR 213", "ENGR 233", "ENGR 243"]], "corequisites": []},
+        "MECH 344": {"credits": 3.0, "prerequisites": [["ENGR 244"], ["MIAE 313"]], "corequisites": [["MECH 343"]]},
+        "MECH 351": {"credits": 3.5, "prerequisites": [["ENGR 251"]], "corequisites": []},
+        "MECH 352": {"credits": 3.5, "prerequisites": [["ENGR 311", "ENGR 361"]], "corequisites": []},
+        "MECH 361": {"credits": 3.5, "prerequisites": [["ENGR 361"]], "corequisites": []},
+        "MECH 368": {"credits": 3.5, "prerequisites": [["PHYS 205"], ["MIAE 215"]], "corequisites": []},
+        "MECH 371": {"credits": 3.75, "prerequisites": [["PHYS 205"], ["ENGR 243", "ENGR 311"]], "corequisites": []},
+        "MECH 373": {"credits": 3.5, "prerequisites": [["ENGR 311"]], "corequisites": []},
+        "MECH 375": {"credits": 3.5, "prerequisites": [["MECH 371"]], "corequisites": []},
+        "MECH 390": {"credits": 3.5, "prerequisites": [["MIAE 311"], ["MECH 343"], ["MIAE 380"]], "corequisites": [["MECH 344"]]},
+        "MECH 490": {"credits": 6.0, "prerequisites": [["ENGR 301"], ["MECH 344", "MECH 390"], ["MIAE 312"]], "corequisites": []}
+    },
+    "sequence": {
+        "september": [
+            ["ENGR 213", "MIAE 215", "MIAE 211", "ENGR 201", "ENGR 202"],
+            ["ENGR 233", "ENGR 242", "ENGR 251", "ENCS 282", "MIAE 221"],
+            ["ENGR 243", "ENGR 244", "ENGR 311", "MIAE 313", "MECH 321"],
+            ["ENGR 361", "MECH 343", "MECH 351", "MIAE 311", "MECH 368"],
+            ["MECH 344", "MECH 352", "MECH 361", "MECH 371", "ENGR 371"],
+            ["MECH 373", "MECH 375", "MECH 390", "MIAE 380", "MIAE 312"],
+            ["MECH 490", "MIAE 383", "ENGR 391", "ENGR 301", "General Education Elective"],
+            ["MECH 490", "ENGR 392", "Mechanical Engineering Elective 1", "Mechanical Engineering Elective 2"]
+        ]
+    }
+}
+
+import json as json_lib
+with open('src/utils/degreeEngine/data/programs/mech-eng.json', 'w') as f:
+    json_lib.dump(prog_data, f, indent=2)
+
+print("Generated mech-eng.json")
