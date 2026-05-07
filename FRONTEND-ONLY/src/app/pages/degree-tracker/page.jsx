@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '@clerk/nextjs';
 import { generateOptimalPath, checkPrerequisites } from '../../../utils/degreeEngine/prereqGraph';
 import { BCompSc_Weights } from '../../../utils/degreeEngine/data/sequenceWeights';
 import computerScienceGeneralCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-general.json';
@@ -248,6 +249,7 @@ export default function FreshDegreeTracker() {
   const [selectedProgramId, setSelectedProgramId] = useState('cs-general');
   const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [showForgetConfirm, setShowForgetConfirm] = useState(false);
   const [showBugReport, setShowBugReport] = useState(false);
   const [bugForm, setBugForm] = useState({
     ecp: 'No',
@@ -257,6 +259,76 @@ export default function FreshDegreeTracker() {
     correctMethod: ''
   });
   const [bugStatus, setBugStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
+  const [saveStatus, setSaveStatus] = useState('idle'); // idle, saving, success
+
+  const { user, isLoaded } = useUser();
+
+  // Load saved state on mount (or when user logs in)
+  useEffect(() => {
+    if (isLoaded && user) {
+      const saved = localStorage.getItem(`conu_plan_${user.id}`);
+      if (saved) {
+        // We don't auto-apply it yet to avoid confusing the user, 
+        // we just store it to show the "Resume" button.
+      }
+    }
+  }, [isLoaded, user]);
+
+  const saveToProfile = useCallback(async () => {
+    if (!user) return;
+    setSaveStatus('saving');
+    
+    const stateToSave = {
+      selectedProgramId,
+      completedCourses,
+      electiveChoices,
+      delayedCourses,
+      skippedSemesters,
+      manualAdds,
+      includeMathProfile,
+      startTerm,
+      startYear,
+      timestamp: new Date().toISOString()
+    };
+
+    localStorage.setItem(`conu_plan_${user.id}`, JSON.stringify(stateToSave));
+    
+    setTimeout(() => {
+      setSaveStatus('success');
+      setTimeout(() => setSaveStatus('idle'), 2000);
+    }, 8000); // Simulate network delay
+  }, [user, selectedProgramId, completedCourses, electiveChoices, delayedCourses, skippedSemesters, manualAdds, includeMathProfile, startTerm, startYear]);
+
+  const resumeSavedPlan = () => {
+    if (!user) return;
+    const saved = JSON.parse(localStorage.getItem(`conu_plan_${user.id}`));
+    if (saved) {
+      setSelectedProgramId(saved.selectedProgramId);
+      setCompletedCourses(saved.completedCourses || []);
+      setElectiveChoices(saved.electiveChoices || {});
+      setDelayedCourses(saved.delayedCourses || {});
+      setSkippedSemesters(saved.skippedSemesters || []);
+      setManualAdds(saved.manualAdds || {});
+      setIncludeMathProfile(saved.includeMathProfile || false);
+      setStartTerm(saved.startTerm || 'Fall');
+      setStartYear(saved.startYear || 2024);
+      setStep('plan');
+    }
+  };
+
+  const forgetSavedPlan = (e) => {
+    e.stopPropagation();
+    if (!user) return;
+    setShowForgetConfirm(true);
+  };
+
+  const handleConfirmForget = () => {
+    localStorage.removeItem(`conu_plan_${user.id}`);
+    setShowForgetConfirm(false);
+    window.location.reload();
+  };
+
+  const programsByAlphabet = Object.values(PROGRAMS).sort((a, b) => a.name.localeCompare(b.name));
 
   // Modal States
   const [activeElectiveSlot, setActiveElectiveSlot] = useState(null); 
@@ -282,6 +354,49 @@ export default function FreshDegreeTracker() {
       return acc;
     }, {});
   }, [curriculum]);
+
+  // Forward Dependency Graph for Chain Reaction Warnings
+  const forwardGraph = useMemo(() => {
+    if (!coursePrereqs) return {};
+    const graph = {};
+    Object.entries(coursePrereqs).forEach(([code, data]) => {
+      let prereqs = [];
+      if (typeof data === 'object') {
+        // Flatten nested array structures [[p1, p2], [p3]]
+        prereqs = [...(data.prerequisites || []), ...(data.corequisites || [])].flat();
+      } else if (typeof data === 'string') {
+        // Simple string parsing for common patterns
+        const codes = data.match(/[A-Z]{4}\s\d{3}/g) || [];
+        prereqs = codes;
+      }
+      
+      prereqs.forEach(p => {
+        if (!graph[p]) graph[p] = [];
+        if (!graph[p].includes(code)) graph[p].push(code);
+      });
+    });
+    return graph;
+  }, []);
+
+  const getImpactedCourses = useCallback((courseCode) => {
+    const impacted = new Set();
+    const queue = [courseCode];
+    const visited = new Set();
+    
+    while (queue.length > 0) {
+      const current = queue.shift();
+      if (visited.has(current)) continue;
+      visited.add(current);
+      
+      const children = forwardGraph[current] || [];
+      children.forEach(child => {
+        impacted.add(child);
+        queue.push(child);
+      });
+    }
+    impacted.delete(courseCode);
+    return Array.from(impacted);
+  }, [forwardGraph]);
 
   const courseCategoryMap = useMemo(() => {
     if (!curriculum) return {};
@@ -573,6 +688,16 @@ export default function FreshDegreeTracker() {
   const getCredits = (course) => {
     if (typeof course !== 'string') return 3.0;
     if (course.includes('Elective') || course.includes('Group')) return 3.0;
+    
+    // Special cases for 6-credit courses
+    if (course === 'ESL 202' || course === 'ESL 204') return 6.0;
+
+    // Check global prerequisites data for credit info
+    const globalInfo = coursePrereqs[course];
+    if (globalInfo && typeof globalInfo === 'object' && globalInfo.credits) {
+      return globalInfo.credits;
+    }
+
     return curriculum.courses[course]?.credits || 3.0;
   };
 
@@ -759,18 +884,93 @@ export default function FreshDegreeTracker() {
           body, html { background: white !important; color: black !important; width: 100% !important; height: auto !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
           .min-h-screen { min-height: 0 !important; }
           * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-          .grid { display: block !important; }
-          .grid-cols-1, .md\\:grid-cols-2, .xl\\:grid-cols-3 { display: block !important; }
-          .gap-6, .gap-8 { gap: 0 !important; }
-          .semester-block { break-inside: avoid; page-break-inside: avoid; margin-bottom: 30px !important; border: 1px solid #eee !important; }
-          .course-card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 15px !important; border: 1px solid #eee !important; width: 100% !important; }
-          h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+          
+          .print-only { display: block !important; }
+          
+          /* Container Adjustments */
+          .max-w-7xl { max-width: none !important; margin: 0 !important; width: 100% !important; padding: 0 40px !important; }
+          .space-y-12 { space-y: 15px !important; }
+
+          /* Formal Header Gutters */
+          .print-only.text-center { margin-left: 20px !important; margin-right: 20px !important; }
+
+          /* Semester Block as Table-ish Row */
+          .semester-block { 
+            page-break-inside: avoid; 
+            break-inside: avoid; 
+            border: 2px solid #000 !important; 
+            border-radius: 0 !important;
+            margin-bottom: 20px !important;
+            padding: 15px !important;
+            background: transparent !important;
+            box-shadow: none !important;
+          }
+          
+          .semester-block h4 { 
+            color: black !important; 
+            border-bottom: 2px solid black !important;
+            padding-bottom: 5px !important;
+            margin-bottom: 15px !important;
+          }
+
+          /* Course Cards as Table Rows */
+          .grid-cols-1, .md\\:grid-cols-2, .xl\\:grid-cols-3 { 
+            display: flex !important; 
+            flex-direction: column !important; 
+            gap: 0 !important; 
+          }
+
+          .course-card { 
+            display: grid !important;
+            grid-template-columns: 100px 1fr 60px !important;
+            align-items: center !important;
+            border: 1px solid #ddd !important;
+            border-radius: 0 !important;
+            margin-bottom: -1px !important;
+            padding: 8px 12px !important;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            background: transparent !important;
+          }
+
+          .course-card div:first-child { font-weight: bold !important; font-size: 14px !important; }
+          .course-card .text-xs { display: none !important; } /* Hide category labels in print */
+          .course-card h4 { border-bottom: none !important; margin-bottom: 0 !important; font-size: 14px !important; }
+          .course-card .prereq-text { font-size: 10px !important; font-style: italic !important; }
+
+          /* Tabular Exemptions */
+          .prior-credits-container { 
+            border: 2px solid #10b981 !important; 
+            border-radius: 0 !important;
+            padding: 15px !important;
+            margin-bottom: 20px !important;
+          }
+          .prior-credits-container h3 { color: #065f46 !important; border-bottom: 2px solid #10b981 !important; margin-bottom: 10px !important; }
+          .exemption-row { 
+            display: grid !important; 
+            grid-template-columns: 100px 1fr 60px !important;
+            border-bottom: 1px solid #eee !important;
+            padding: 8px 0 !important;
+            align-items: center !important;
+          }
         }
-      ` }} />
-      <div className="max-w-7xl mx-auto space-y-12 print:max-w-none print:space-y-8">
         
-        {/* Header */}
-        <div className="mb-16 text-center">
+        .print-only { display: none; }
+      ` }} />
+      <div className="max-w-7xl mx-auto space-y-12 print:max-w-none print:space-y-4">
+        
+        {/* Print-Only Header */}
+        <div className="print-only text-center mb-8 border-b-4 border-black pb-4">
+          <h1 className="text-3xl font-bold uppercase tracking-tighter">Official Degree Roadmap</h1>
+          <p className="text-lg font-bold">{selectedProgram?.name || 'Academic Plan'}</p>
+          <div className="flex justify-between mt-4 font-mono text-sm">
+            <span>Prepared on: {new Date().toLocaleDateString()}</span>
+            <span>Target Credits: {targetCredits} CR</span>
+          </div>
+        </div>
+
+        {/* Web-Only Header */}
+        <div className="mb-16 text-center print:hidden">
           <div className="inline-block px-4 py-1.5 rounded-full bg-[#912338]/10 text-[#912338] font-bold text-xs uppercase tracking-widest mb-6">
             {selectedProgram ? selectedProgram.name : "Degree Pathfinder"}
           </div>
@@ -857,34 +1057,43 @@ export default function FreshDegreeTracker() {
                     <input type="checkbox" className="sr-only peer" checked={includeMathProfile} onChange={() => setIncludeMathProfile(!includeMathProfile)} />
                   <div className="w-14 h-7 bg-slate-200 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.06] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md after:border-slate-300 dark:border-slate-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-[#912338]"></div>
                 </label>
-              </div>
-            </div>
-
-              <div className="flex flex-col md:flex-row gap-8">
-                <div 
-                  onClick={handleFirstYear}
-                  className="flex-1 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] border border-slate-200 dark:border-white/[0.08] hover:border-[#912338]/50 hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-center group"
-                >
-                  <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
-                  </div>
-                  <h3 className="text-3xl font-extrabold mb-4 text-slate-800 dark:text-white/90">Start Planning</h3>
-                  <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium text-lg px-4">
-                    Generate my full degree path from the beginning.
-                  </p>
                 </div>
 
-                <div 
-                  onClick={() => setStep('select-courses')}
-                  className="flex-1 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] border border-slate-200 dark:border-white/[0.08] hover:border-[#912338]/50 hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-center group"
-                >
-                  <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                <div className="flex flex-col md:flex-row gap-8 mt-12">
+                  <div 
+                    onClick={handleFirstYear}
+                    className="flex-1 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] border border-slate-200 dark:border-white/[0.08] hover:border-[#912338]/50 hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-center group"
+                  >
+                    <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">
+                      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
+                    </div>
+                    <h3 className="text-3xl font-extrabold mb-4 text-slate-800 dark:text-white/90">New Student</h3>
+                    <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium text-lg px-4">
+                      I am a first-year student. Generate my full degree path from the beginning.
+                    </p>
                   </div>
-                  <h3 className="text-3xl font-extrabold mb-4 text-slate-800 dark:text-white/90">Continuing Student</h3>
-                  <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium text-lg px-4">
-                    I have already completed some university courses or transfer credits.
-                  </p>
+
+                  <div 
+                    onClick={() => setStep('select-courses')}
+                    className="flex-1 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md p-10 rounded-[2rem] border border-slate-200 dark:border-white/[0.08] hover:border-[#912338]/50 hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-center group"
+                  >
+                    <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">
+                      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                    </div>
+                    <h3 className="text-3xl font-extrabold mb-4 text-slate-800 dark:text-white/90">Continuing Student</h3>
+                    <p className="text-slate-500 dark:text-white/60 dark:text-white/50 font-medium text-lg px-4">
+                      I have already completed some university courses or transfer credits.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex justify-center mt-8">
+                  <button 
+                    onClick={() => setStep('select-program')}
+                    className="px-8 py-3 rounded-2xl bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/50 font-bold hover:bg-slate-200 transition-all uppercase tracking-widest text-xs"
+                  >
+                    ← Back to Program Selection
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -903,6 +1112,63 @@ export default function FreshDegreeTracker() {
                 <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white mb-4">Step 0: Select Your Program</h2>
                 <p className="text-slate-500 dark:text-blue-200 text-lg mb-10">We've expanded our tracker! Choose your department and degree to begin.</p>
                 
+                {/* SMART RESUME DASHBOARD - PREMIUM GLASSMORPHISM */}
+                {user && localStorage.getItem(`conu_plan_${user.id}`) && (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ y: -8, scale: 1.01 }}
+                    onClick={resumeSavedPlan}
+                    className="mb-12 p-1 relative group cursor-pointer overflow-hidden rounded-[2.5rem]"
+                  >
+                    {/* Animated Border/Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#912338] via-rose-500 to-[#912338] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700 animate-gradient-x" />
+                    
+                    <div className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl p-10 rounded-[2.4rem] border border-white/20 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(145,35,56,0.15)] flex flex-col md:flex-row justify-between items-center gap-8 overflow-hidden">
+                      {/* Background Pattern */}
+                      <div className="absolute top-0 right-0 -mr-16 -mt-16 opacity-[0.03] dark:opacity-[0.07] group-hover:scale-110 transition-transform duration-1000">
+                        <svg width="400" height="400" viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="50" /></svg>
+                      </div>
+
+                      <div className="relative z-10 flex-1">
+                        <div className="flex items-center gap-3 mb-6">
+                          <span className="w-3 h-3 rounded-full bg-[#912338] animate-ping" />
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#912338] dark:text-rose-400">Secure Cloud Save Detected</span>
+                        </div>
+                        <h3 className="text-4xl font-black text-slate-800 dark:text-white mb-3 tracking-tighter leading-none">
+                          Resume Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#912338] to-rose-600">Concordia Journey</span>
+                        </h3>
+                        <div className="flex items-center gap-6">
+                          <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Program</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{PROGRAMS[JSON.parse(localStorage.getItem(`conu_plan_${user.id}`))?.selectedProgramId]?.name || 'My Degree'}</span>
+                          </div>
+                          <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                          <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Last Synced</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{new Date(JSON.parse(localStorage.getItem(`conu_plan_${user.id}`))?.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4 relative z-10">
+                        <div className="px-8 py-5 rounded-2xl bg-slate-900 text-white font-black text-sm uppercase tracking-[0.15em] flex items-center gap-4 shadow-2xl hover:bg-[#912338] transition-all group/btn">
+                          Launch Roadmap
+                          <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </div>
+                        
+                        <button 
+                          onClick={forgetSavedPlan}
+                          className="p-5 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-600 transition-all border border-transparent hover:border-rose-200"
+                          title="Forget this plan"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {Object.values(PROGRAMS).map((prog) => (
                     <button
@@ -976,7 +1242,7 @@ export default function FreshDegreeTracker() {
                 {Object.entries(categories).map(([category, courses]) => (
                   <div key={category} className="space-y-6">
                     <h3 className="text-2xl font-black text-[#912338] dark:text-blue-300 border-b border-slate-200 dark:border-white/10 pb-4 uppercase tracking-widest">{debugRender(category, "step2.category")}</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {courses.map(course => (
                         <div 
                           key={typeof course === 'string' ? course : Math.random()}
@@ -1042,38 +1308,88 @@ export default function FreshDegreeTracker() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-                <div>
-                  <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white/90 tracking-tight">Step 3: Your Degree Plan</h2>
-                  <p className="text-lg text-slate-500 dark:text-white/60 dark:text-white/50 font-medium mt-2">
-                    Generated based on prerequisites and typical Concordia sequences.
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <button 
-                    onClick={() => window.print()}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-sm flex items-center gap-2 print:hidden"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Print / Save PDF
-                  </button>
-                  <button 
-                    onClick={() => {
-                      const data = { plan, completedCourses, startTerm, startYear, electiveChoices, curriculum };
-                      localStorage.setItem('roadmapData', JSON.stringify(data));
-                      window.open('/pages/degree-tracker/roadmap', '_blank');
-                    }}
-                    className="bg-[#912338] hover:bg-[#912338]/90 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-sm flex items-center gap-2 print:hidden"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
-                    Visual Roadmap
-                  </button>
-                  <button 
-                    onClick={() => { setStep('select-program'); setPlan(null); setElectiveChoices({}); setManualAdds({}); setIncludeMathProfile(false); setShowRoadmap(false); }}
-                    className="bg-slate-200 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.06] hover:bg-slate-300 text-slate-800 dark:text-white/90 font-bold py-2.5 px-6 rounded-xl transition-all shadow-sm print:hidden"
-                  >
-                    Start Over
-                  </button>
+              {/* STEP 3 HEADER - MODERN COMMAND CENTER */}
+              <div className="mb-12 print:hidden">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl p-8 rounded-[2.5rem] border border-white/20 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)]">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="flex items-center gap-1.5 bg-[#912338]/10 px-3 py-1 rounded-full">
+                        <span className="w-2 h-2 rounded-full bg-[#912338] animate-pulse"></span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[#912338]">Live Roadmap</span>
+                      </div>
+                      {user && (
+                        <motion.div 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                          Linked to Profile
+                        </motion.div>
+                      )}
+                    </div>
+                    
+                    <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tighter leading-tight mb-2">
+                      Your Academic <span className="text-[#912338]">Masterplan</span>
+                    </h2>
+                    <p className="text-slate-500 dark:text-white/50 font-medium text-lg max-w-xl">
+                      Optimized based on {PROGRAMS[selectedProgramId]?.name} requirements and typical Concordia sequences.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                    {user && (
+                      <button 
+                        onClick={saveToProfile}
+                        className={`flex-1 lg:flex-none px-6 py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-xl ${
+                          saveStatus === 'success' 
+                            ? 'bg-emerald-500 text-white shadow-emerald-500/20' 
+                            : saveStatus === 'saving'
+                              ? 'bg-slate-800 text-white animate-pulse'
+                              : 'bg-slate-900 text-white hover:bg-[#912338] shadow-slate-900/20'
+                        }`}
+                      >
+                        {saveStatus === 'saving' ? (
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        ) : saveStatus === 'success' ? (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+                        ) : (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+                        )}
+                        {saveStatus === 'success' ? 'Plan Synced' : saveStatus === 'saving' ? 'Syncing...' : 'Sync to Profile'}
+                      </button>
+                    )}
+
+                    <div className="h-10 w-px bg-slate-200 dark:bg-white/10 hidden lg:block" />
+
+                    <div className="flex items-center gap-2 w-full lg:w-auto">
+                      <button 
+                        onClick={() => {
+                          const data = { plan, completedCourses, startTerm, startYear, electiveChoices, curriculum };
+                          localStorage.setItem('roadmapData', JSON.stringify(data));
+                          window.open('/pages/degree-tracker/roadmap', '_blank');
+                        }}
+                        className="flex-1 lg:flex-none p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/70 hover:bg-slate-50 transition-all group"
+                        title="Open Visual Roadmap"
+                      >
+                        <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                      </button>
+                      <button 
+                        onClick={() => setStep('select-program')}
+                        className="flex-1 lg:flex-none p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/70 hover:bg-slate-50 transition-all group"
+                        title="Change Program"
+                      >
+                        <svg className="w-6 h-6 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                      </button>
+                      <button 
+                        onClick={() => window.print()}
+                        className="flex-1 lg:flex-none px-8 py-4 rounded-2xl bg-[#912338] text-white font-black text-[11px] uppercase tracking-[0.2em] hover:bg-[#7a1d2f] transition-all shadow-xl shadow-[#912338]/20 flex items-center justify-center gap-3"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4" /></svg>
+                        Export Report
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               
@@ -1105,43 +1421,33 @@ export default function FreshDegreeTracker() {
               <div className="grid gap-8">
                 {/* PRIOR CREDITS / EXEMPTIONS */}
                 {completedCourses.length > 0 && (
-                  <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border-2 border-emerald-500/20 rounded-[2.5rem] p-8 print:border-emerald-500/40 print:break-inside-avoid print:page-break-inside-avoid">
-                    <div className="absolute top-0 left-0 w-2 h-full bg-emerald-400" />
-                    
-                    <div className="flex justify-between items-center mb-6 pl-4 border-b border-emerald-200/50 pb-4">
-                      <h4 className="text-2xl font-black text-emerald-800 uppercase tracking-widest flex items-center gap-3">
+                  <div className="prior-credits-container bg-emerald-50/30 dark:bg-emerald-900/10 border-2 border-emerald-100 dark:border-emerald-800/30 p-8 rounded-[2.5rem] mb-12 relative overflow-hidden group print:border-emerald-500/40 print:break-inside-avoid print:page-break-inside-avoid">
+                    <div className="flex justify-between items-center mb-8">
+                      <h3 className="text-2xl font-black text-emerald-800 dark:text-emerald-400 flex items-center gap-3 uppercase tracking-widest">
                         Prior Credits & Exemptions
-                      </h4>
-                      <div className="bg-emerald-200/50 text-emerald-800 font-black px-4 py-1.5 rounded-xl">
-                        {completedCourses.length} Courses
-                      </div>
+                        <span className="text-xs font-black bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full">{completedCourses.length} Courses</span>
+                      </h3>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pl-4 opacity-75">
-                      {completedCourses.map((course, cIdx) => {
-                         const title = courseTitles[course] || "Course Title Unavailable";
-                         
-                         return (
-                           <div 
-                             key={cIdx} 
-                             onClick={() => setActiveCourseDetails(course)}
-                             className="p-5 rounded-2xl border-2 border-emerald-200 bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md/50 cursor-pointer transition-transform hover:-translate-y-1 flex flex-col justify-between"
-                           >
-                             <div>
-                               <div className="flex justify-between items-start mb-2">
-                                 <div className="flex flex-col gap-1.5">
-                                   <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md w-fit bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 shadow-sm">
-                                     Prior Credit
-                                   </span>
-                                   <span className="font-black text-xl text-emerald-700">{typeof course === 'string' ? course : "Invalid Entry"}</span>
-                                 </div>
-                                 <span className="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md shadow-sm">EXEMPT</span>
-                               </div>
-                               <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2">{debugRender(title, "priortitle")}</p>
-                             </div>
-                           </div>
-                         )
-                      })}
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {completedCourses.map((course, i) => (
+                        <div 
+                          key={i} 
+                          onClick={() => setActiveCourseDetails(course)}
+                          className="exemption-row p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-emerald-100 dark:border-emerald-800/20 shadow-sm flex flex-col justify-between group/card relative cursor-pointer"
+                        >
+                          <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500 rounded-l-2xl opacity-0 group-hover/card:opacity-100 transition-opacity" />
+                          <div className="flex justify-between items-start mb-2">
+                            <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-500 bg-emerald-50 dark:bg-emerald-900/50 px-2 py-0.5 rounded-md uppercase tracking-widest print:hidden">Exempt</span>
+                            <span className="font-black text-xl text-slate-800 dark:text-white/90 print:text-sm">{course}</span>
+                          </div>
+                          <p className="text-sm font-bold text-slate-500 dark:text-white/60 line-clamp-1 mb-1 print:text-xs">{courseTitles[course]}</p>
+                          <div className="flex justify-between items-center mt-3 pt-3 border-t border-emerald-50 dark:border-emerald-900/30 print:hidden">
+                            <span className="text-[10px] font-black text-emerald-500/50 uppercase tracking-widest">Confirmed Transfer</span>
+                            <span className="text-xs font-black text-slate-400">{getCredits(course)} CR</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -1227,12 +1533,21 @@ export default function FreshDegreeTracker() {
                           <span className="text-sm font-bold bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] text-slate-500 dark:text-white/60 dark:text-white/50 px-3 py-1 rounded-full print:border print:border-slate-200">{getTermName(idx)}</span>
                         </h4>
                         <div className="flex items-center gap-4">
-                          <button 
-                            onClick={() => setSkippedSemesters(prev => [...prev, idx])}
-                            className="text-slate-400 hover:text-red-500 font-bold px-3 py-1.5 rounded-xl text-sm transition-colors print:hidden"
-                          >
-                            Take Term Off
-                          </button>
+                          {skippedSemesters.includes(idx) ? (
+                            <button 
+                              onClick={() => setSkippedSemesters(prev => prev.filter(s => s !== idx))}
+                              className="text-emerald-500 hover:text-emerald-600 font-bold px-3 py-1.5 rounded-xl text-sm transition-colors print:hidden"
+                            >
+                              Resume This Term
+                            </button>
+                          ) : (
+                            <button 
+                              onClick={() => setSkippedSemesters(prev => [...prev, idx])}
+                              className="text-slate-400 hover:text-red-500 font-bold px-3 py-1.5 rounded-xl text-sm transition-colors print:hidden"
+                            >
+                              Take Term Off
+                            </button>
+                          )}
                           <button 
                             onClick={() => setManualAddPrompt({ semesterIdx: idx })}
                             className="bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] hover:bg-slate-200 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.06] text-slate-600 dark:text-white/70 font-bold px-4 py-1.5 rounded-xl text-sm transition-colors flex items-center gap-2 print:hidden"
@@ -1246,7 +1561,12 @@ export default function FreshDegreeTracker() {
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pl-4">
-                        {semester.map((course, cIdx) => {
+                        {semester.length === 0 ? (
+                          <div className="col-span-full py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-white/10 rounded-3xl opacity-50">
+                            <svg className="w-12 h-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <p className="text-slate-400 font-bold">This term is skipped or empty.</p>
+                          </div>
+                        ) : semester.map((course, cIdx) => {
                            const isElectivePlaceholder = course.includes('Elective') || course.includes('Group');
                            const title = courseTitles[course] || (isElectivePlaceholder ? "Click to select a course" : "Course Title Unavailable");
                            const elStyles = isElectivePlaceholder ? getElectiveStyles(course) : null;
@@ -1257,35 +1577,35 @@ export default function FreshDegreeTracker() {
                              <div 
                                key={cIdx} 
                                onClick={() => handleElectiveClick(course)}
-                               className={`course-card p-5 rounded-2xl border-2 cursor-pointer transition-transform hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between print:break-inside-avoid print:page-break-inside-avoid ${
+                               className={`course-card p-5 rounded-2xl border-2 cursor-pointer transition-transform hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between print:flex-row print:items-center print:gap-4 print:border-slate-200 print:hover:translate-y-0 print:hover:shadow-none print:p-2 print:border-b print:border-x-0 print:border-t-0 print:rounded-none ${
                                  isElectivePlaceholder 
                                    ? `${elStyles.bg} ${elStyles.border} ${elStyles.text}` 
                                    : 'bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md border-slate-100 dark:border-white/[0.08] text-slate-800 dark:text-white/90'
                                }`}
                              >
-                               <div>
-                                 <div className="flex justify-between items-start mb-2">
+                               <div className="flex-1 print:flex print:items-center print:gap-6">
+                                 <div className="flex justify-between items-start mb-2 print:mb-0 print:w-32 print:shrink-0">
                                    <div className="flex flex-col gap-1.5">
                                      {categoryStyle && (
-                                       <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md w-fit border shadow-sm ${categoryStyle.color}`}>
+                                       <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md w-fit border shadow-sm ${categoryStyle.color} print:hidden`}>
                                          {category}
                                        </span>
                                      )}
-                                     <span className={`font-black text-xl ${isElectivePlaceholder ? elStyles.title : 'text-[#912338]'}`}>
+                                     <span className={`font-black text-xl print:text-sm ${isElectivePlaceholder ? elStyles.title : 'text-[#912338]'}`}>
                                        {debugRender(course, "plancourse")}
                                      </span>
                                    </div>
-                                   <span className="text-xs font-bold bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] text-slate-500 dark:text-white/60 dark:text-white/50 px-2 py-1 rounded-md shadow-sm shrink-0">{getCredits(course)} CR</span>
+                                   <span className="text-xs font-bold bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] text-slate-500 dark:text-white/60 dark:text-white/50 px-2 py-1 rounded-md shadow-sm shrink-0 print:text-[10px]">{getCredits(course)} CR</span>
                                  </div>
-                                 <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2 mb-4">
+                                 <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2 mb-4 print:mb-0 print:text-xs print:flex-1">
                                    {debugRender(title, "plantitle")}
                                  </p>
                                </div>
 
                                {!isElectivePlaceholder && (
-                                 <div className="mt-auto pt-3 border-t border-black/5">
-                                   <p className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-wider mb-1">Prerequisites</p>
-                                   <p className="text-xs font-medium text-slate-600 dark:text-white/70 truncate">
+                                 <div className="mt-auto pt-3 border-t border-black/5 print:border-none print:pt-0 print:w-48 print:text-right">
+                                   <p className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-wider mb-1 print:hidden">Prerequisites</p>
+                                   <p className="text-xs font-medium text-slate-600 dark:text-white/70 truncate print:text-[9px] print:italic">
                                      {typeof course === 'string' ? getPrereqString(course) : "N/A"}
                                    </p>
                                  </div>
@@ -1303,6 +1623,57 @@ export default function FreshDegreeTracker() {
 
         </AnimatePresence>
       </div>
+
+      {/* FORGET PLAN CONFIRMATION MODAL - ULTRA SLEEK */}
+      <AnimatePresence>
+        {showForgetConfirm && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-2xl"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 40, rotateX: 10 }}
+              animate={{ scale: 1, y: 0, rotateX: 0 }}
+              exit={{ scale: 0.9, y: 40, rotateX: 10 }}
+              className="bg-white dark:bg-slate-900 border border-white/20 dark:border-white/5 rounded-[3rem] p-12 max-w-xl w-full shadow-[0_64px_128px_-24px_rgba(0,0,0,0.5)] overflow-hidden relative"
+            >
+              {/* Top Accent Gradient */}
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-rose-500 via-[#912338] to-rose-500" />
+              
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+                <div className="w-24 h-24 bg-rose-50 dark:bg-rose-950/30 text-rose-600 rounded-[2rem] flex items-center justify-center shrink-0 shadow-inner">
+                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                </div>
+                
+                <div className="text-center md:text-left">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-500 mb-3 block">Danger Zone</span>
+                  <h3 className="text-4xl font-black text-slate-800 dark:text-white mb-4 tracking-tighter">Discard Academic Plan?</h3>
+                  <p className="text-slate-500 dark:text-white/60 mb-8 font-medium text-lg leading-relaxed">
+                    You are about to permanently erase your saved roadmap and course exemptions. This action is <span className="text-slate-900 dark:text-white font-bold underline decoration-rose-500">irreversible</span>.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                      onClick={handleConfirmForget}
+                      className="px-10 py-5 rounded-2xl bg-rose-600 text-white font-black text-xs uppercase tracking-widest hover:bg-rose-700 shadow-xl shadow-rose-600/20 transition-all flex-1"
+                    >
+                      Yes, Wipe Data
+                    </button>
+                    <button 
+                      onClick={() => setShowForgetConfirm(false)}
+                      className="px-10 py-5 rounded-2xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all flex-1"
+                    >
+                      Keep Everything
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* MODAL FOR ELECTIVE SELECTION */}
       <AnimatePresence>
@@ -1494,21 +1865,61 @@ export default function FreshDegreeTracker() {
                 )}
 
                 {!completedCourses.includes(activeCourseDetails) && !isChosenElective(activeCourseDetails) && !isManualAdd(activeCourseDetails) && (
-                  <>
-                    <button 
-                      onClick={() => {
-                        const currentSemIdx = plan.findIndex(sem => sem.includes(activeCourseDetails));
-                        if (currentSemIdx >= 0) {
-                          const newMin = Math.max(currentSemIdx + 1, (delayedCourses[activeCourseDetails] || 0) + 1);
-                          setDelayedCourses(prev => ({ ...prev, [activeCourseDetails]: newMin }));
-                          setActiveCourseDetails(null);
-                        }
-                      }}
-                      className="w-full font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2 bg-blue-100 text-blue-800 hover:bg-blue-200"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
-                      Push to Next Term
-                    </button>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30">
+                      <label className="block text-xs font-bold text-blue-600 dark:text-blue-400 uppercase mb-3 tracking-wider">Reschedule Course</label>
+                      <div className="flex gap-2">
+                        <select 
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value);
+                            if (!isNaN(val)) {
+                              setDelayedCourses(prev => ({ ...prev, [activeCourseDetails]: val }));
+                              setActiveCourseDetails(null);
+                            }
+                          }}
+                          className="flex-1 bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 rounded-xl px-4 py-2 font-bold text-slate-700 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
+                          defaultValue=""
+                        >
+                          <option value="" disabled>Select target semester...</option>
+                          {Array.from({ length: 12 }).map((_, i) => {
+                            const currentSemIdx = plan?.findIndex(sem => sem.includes(activeCourseDetails));
+                            if (i <= (currentSemIdx || 0)) return null;
+                            return (
+                              <option key={i} value={i}>
+                                Move to Semester {i + 1} ({getTermName(i)})
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Chain Reaction Warning */}
+                    {(() => {
+                      const impact = getImpactedCourses(activeCourseDetails);
+                      if (impact.length > 0) {
+                        return (
+                          <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-100 dark:border-amber-800/30">
+                            <div className="flex items-center gap-2 mb-2 text-amber-700 dark:text-amber-400">
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                              <span className="text-xs font-black uppercase tracking-wider">Chain Reaction Warning</span>
+                            </div>
+                            <p className="text-xs font-bold text-amber-600 dark:text-amber-300/80 mb-2">
+                              Moving this course will also delay the following {impact.length} courses:
+                            </p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {impact.slice(0, 10).map(c => (
+                                <span key={c} className="text-[10px] bg-amber-200/50 dark:bg-amber-800/40 text-amber-800 dark:text-amber-200 px-2 py-0.5 rounded-md font-bold">
+                                  {c}
+                                </span>
+                              ))}
+                              {impact.length > 10 && <span className="text-[10px] text-amber-600 font-bold">+{impact.length - 10} more</span>}
+                            </div>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })()}
 
                     {delayedCourses[activeCourseDetails] !== undefined && (
                       <button 
@@ -1520,7 +1931,7 @@ export default function FreshDegreeTracker() {
                           });
                           setActiveCourseDetails(null);
                         }}
-                        className="w-full font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2 bg-indigo-100 text-indigo-800 hover:bg-indigo-200"
+                        className="w-full font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2 bg-indigo-100 text-indigo-800 hover:bg-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                         Reset Timing Constraints
@@ -1532,12 +1943,12 @@ export default function FreshDegreeTracker() {
                         setIgnoredCourses(prev => [...prev, activeCourseDetails]);
                         setActiveCourseDetails(null);
                       }}
-                      className="w-full font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2 bg-red-100 text-red-800 hover:bg-red-200"
+                      className="w-full font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2 bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       Remove Course Completely
                     </button>
-                  </>
+                  </div>
                 )}
 
                 {isManualAdd(activeCourseDetails) && (

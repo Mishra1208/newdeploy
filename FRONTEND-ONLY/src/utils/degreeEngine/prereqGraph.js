@@ -57,6 +57,12 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
   while (remaining.size > 0 && safetyCounter < 40) {
     safetyCounter++;
     
+    // NEW: Handle Skipped Semesters
+    if (skippedSemesters.includes(semesters.length)) {
+      semesters.push([]);
+      continue;
+    }
+    
     let currentSemesterCourses = [];
     let currentSemesterCredits = 0;
     
@@ -72,8 +78,13 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
       changed = false;
       const candidates = [];
       
+      const isElective = (c) => c.includes('Elective') || c.includes('Group') || c.includes('General Education');
+      const currentElectives = currentSemesterCourses.filter(isElective).length;
+
       for (const course of remaining) {
         if (forcedDelays[course] !== undefined && semesters.length < forcedDelays[course]) continue;
+        
+        // Advanced rules: Capstones
         if (course.includes('490') || course.includes('495')) {
           if (totalCreditsCompleted < 75) continue;
         }
@@ -85,8 +96,26 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
 
       candidates.sort((a, b) => {
         const getBase = (id) => id.replace(/_\d+$/, '');
-        const weightA = weights[a] || weights[electiveMap[a]] || weights[getBase(a)] || 999;
-        const weightB = weights[b] || weights[electiveMap[b]] || weights[getBase(b)] || 999;
+        let weightA = weights[a] || weights[electiveMap[a]] || weights[getBase(a)] || 999;
+        let weightB = weights[b] || weights[electiveMap[b]] || weights[getBase(b)] || 999;
+
+        // BALANCING LOGIC:
+        // If we already have 2 electives, push other electives to the bottom 
+        // to encourage taking Core courses instead.
+        if (currentElectives >= 2) {
+          if (isElective(a)) weightA += 1000;
+          if (isElective(b)) weightB += 1000;
+        }
+
+        // If a semester is very light (< 9 credits), prioritize EVERYTHING that is eligible
+        // by ignoring weights temporarily to pull courses forward.
+        if (currentSemesterCredits < 9.0 && !isSummer) {
+          const isA_Core = !isElective(a);
+          const isB_Core = !isElective(b);
+          if (isA_Core && !isB_Core) return -1;
+          if (!isA_Core && isB_Core) return 1;
+        }
+
         return weightA - weightB;
       });
 
@@ -97,19 +126,16 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
           currentSemesterCredits += credits;
           remaining.delete(course);
           changed = true;
-          // We break and re-scan to allow this new course to satisfy coreqs for others
           break; 
         }
       }
     }
 
-    if (currentSemesterCourses.length === 0) {
-        if (isSummer && remaining.size > 0) {
-            // Empty summer
-        } else {
-            console.error("Prerequisite lock detected on remaining courses:", remaining);
-            break; 
-        }
+    if (currentSemesterCourses.length === 0 && remaining.size > 0) {
+      // If we are stuck (no courses can be taken this term), but courses remain:
+      // 1. If it's summer, it's normal.
+      // 2. If courses are just delayed by the user, we just push an empty term and keep going.
+      // 3. Only if it's a permanent lock (safetyCounter hits) will we stop.
     }
 
     semesters.push(currentSemesterCourses);
