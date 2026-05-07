@@ -13,7 +13,7 @@
     "ELEC 275": { "credits": 3.5, "prerequisites": [["PHYS 205"]], "corequisites": [["ENGR 213"]] },
     "ENCS 282": { "credits": 3, "prerequisites": [], "corequisites": [] },
     "ENGR 201": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
-    "ENGR 213": { "credits": 3, "prerequisites": [["MATH 205"], ["MATH 204"]], "corequisites": [] },
+    "ENGR 213": { "credits": 3, "prerequisites": [["MATH 205"]], "corequisites": [["MATH 204"]] },
     "ENGR 233": { "credits": 3, "prerequisites": [["MATH 204"], ["MATH 205"]], "corequisites": [] },
     "ENGR 301": { "credits": 3, "prerequisites": [], "corequisites": [] },
     "ENGR 371": { "credits": 3, "prerequisites": [["ENGR 213"], ["ENGR 233"]], "corequisites": [] },

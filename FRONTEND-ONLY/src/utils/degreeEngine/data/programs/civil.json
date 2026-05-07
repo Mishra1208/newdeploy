@@ -4,7 +4,7 @@
   "requirements": [
     {
       "category": "Engineering Core",
-      "credits": 46.25,
+      "credits": 30.5,
       "courses": [
         "ELEC 275",
         "ENCS 282",
@@ -40,7 +40,7 @@
     },
     {
       "category": "Civil Engineering Core",
-      "credits": 64.75,
+      "credits": 83.5,
       "courses": [
         "BCEE 231",
         "BCEE 277",
@@ -127,13 +127,14 @@
       "credits": 3.0,
       "prerequisites": [
         [
-          "MATH 204"
-        ],
-        [
           "MATH 205"
         ]
       ],
-      "corequisites": []
+      "corequisites": [
+        [
+          "MATH 204"
+        ]
+      ]
     },
     "ENGR 233": {
       "title": "Applied Advanced Calculus",
@@ -157,6 +158,7 @@
       "credits": 3.0,
       "prerequisites": [
         [
+          "MATH 204",
           "PHYS 204"
         ]
       ],
@@ -190,7 +192,11 @@
           "ENGR 242"
         ]
       ],
-      "corequisites": []
+      "corequisites": [
+        [
+          "ENGR 233"
+        ]
+      ]
     },
     "ENGR 251": {
       "title": "Thermodynamics I",
@@ -283,7 +289,7 @@
       ],
       "corequisites": [
         [
-          "ENGR 213"
+          "ENGR 242"
         ]
       ]
     },
@@ -402,12 +408,12 @@
     "CIVI 341": {
       "title": "Civil Engineering Systems",
       "credits": 3.0,
-      "prerequisites": [
+      "prerequisites": [],
+      "corequisites": [
         [
           "BCEE 231"
         ]
-      ],
-      "corequisites": []
+      ]
     },
     "CIVI 361": {
       "title": "Introduction to Environmental Engineering",
@@ -447,13 +453,20 @@
       "credits": 3.5,
       "prerequisites": [
         [
-          "CIVI 212"
-        ],
-        [
-          "CIVI 321"
+          "ENCS 282"
         ]
       ],
-      "corequisites": []
+      "corequisites": [
+        [
+          "CIVI 361"
+        ],
+        [
+          "BCEE 344"
+        ],
+        [
+          "BCEE 345"
+        ]
+      ]
     },
     "CIVI 483": {
       "title": "Engineering Hydrology",
@@ -469,6 +482,9 @@
       "title": "Capstone Civil Engineering Design Project",
       "credits": 6.0,
       "prerequisites": [
+        [
+          "ENGR 301"
+        ],
         [
           "CIVI 361"
         ],

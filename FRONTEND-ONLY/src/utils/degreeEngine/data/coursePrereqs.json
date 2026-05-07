@@ -1,5 +1,9 @@
 {
-  "ACCO 220": "Never Taken/Not Registered: ACCO213, ACCO218, ACCO230, ACCO240",
+  "ACCO 220": {
+    "credits": 3,
+    "prerequisites": [],
+    "corequisites": []
+  },
   "ACCO 230": "Never Taken/Not Registered: ACCO213, ACCO220, COMM217; Never Taken: ACCO240, ACCO340, ACCO345, ACCO365, ACCO455, ACCO470F, ACCO470I, ACCO470S, ACCO470T, COMM305, COMM308, IBUS471I. JMSB students cannot take this course for credit.",
   "ACCO 240": "Never Taken/Not Registered: ACCO218, ACCO220, COMM305; Never Taken: ACCO310, ACCO330, ACCO350, ACCO355, ACCO470I, IBUS462, IBUS471I, MARK462 You must complete 1 of the following rules   Course Prerequisite: ACCO213, ACCO230",
   "ACCO 310": "Course Corequisite: One of (COMM305, ACCO218, ACCO240)  Never Taken: ACCO320, ACCO350",
@@ -331,8 +335,8 @@
   "BIOL 225": "Prerequisite: BIOL201.",
   "BIOL 226": "Prerequisite: BIOL201.",
   "BIOL 227": "Prerequisite: BIOL225 and BIOL226.",
-  "BIOL 261": "Prerequisite: Cegep Biology 301 or 101\u2010NYA or BIOL 201; 202 NYA or CHEM 205; 202\u2010NYB or CHEM 206.",
-  "BIOL 266": "Prerequisite: Cegep Biology 301 or 101\u2010NYA or BIOL 201; 202\u2010NYA or CHEM 205; 202\u2010NYB or CHEM 206.",
+  "BIOL 261": "Prerequisite: Cegep Biology 301 or 101‐NYA or BIOL 201; 202 NYA or CHEM 205; 202‐NYB or CHEM 206.",
+  "BIOL 266": "Prerequisite: Cegep Biology 301 or 101‐NYA or BIOL 201; 202‐NYA or CHEM 205; 202‐NYB or CHEM 206.",
   "BIOL 321": "Prerequisite: BIOL225 and BIOL226.",
   "BIOL 322": "Prerequisite:  nine BIOL credits in a Biology major, Honours, or specialization program or completion of Stage I of the Geography Honours or specialization programs in Environmental Science or permission of the Department.",
   "BIOL 330": "Prerequisite: BIOL225 and BIOL226.",
@@ -393,7 +397,15 @@
   "BLDG 477": "BLDG 371 previously or concurrently.",
   "BLDG 478": "Never Taken: BCEE465 You must complete 1 of the following rules   Course Prerequisite: BLDG341, CIVI341",
   "BLDG 481": "PREREQ BLDG481",
-  "BLDG 482": "20 courses in the BEng program",
+  "BLDG 482": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "ENCS 282"
+      ]
+    ],
+    "corequisites": []
+  },
   "BLDG 490": "Course Prerequisite: BCEE344, BCEE345, BLDG390; ENGR301, ENCS282, BLDG371",
   "BLDG 491": "Course Prerequisite: ENGR301.  BLDG students cannot take for program credit",
   "BLDG 492": "Course Prerequisite: BCEE451 or ENGR451",
@@ -604,7 +616,15 @@
   "CHEM 283": "Prerequisite: CHEM 212 or 217 or equivalent.",
   "CHEM 652": "Prerequisite: complete 30 credits of CHEM courses including CHEM293 or CHEM335; or NANO 610.",
   "CHEM 414": "Prerequisite: Six credits of 300-level CHEM courses and CHEM 271 or CHEM 312; or permission of the Department.",
-  "CHME 214": "Pre-requisite: MATH 204 and MATH 205",
+  "CHME 214": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "MATH 204"
+      ]
+    ],
+    "corequisites": []
+  },
   "CHST 608": "Prerequisite: CHST605 and CHST606, or equivalent.",
   "CHST 695": "Prerequisite: CHST605 and CHST606, or equivalent.",
   "CHST 690": "Prerequisite: The following courses or equivalent must be completed previously: CHST605 and CHST606.",
@@ -785,7 +805,7 @@
   "COMP 218": "Never Taken/Not Registered: COMP248 You must complete 1 of the following rules   Course Prerequisite: MATH201",
   "COMP 228": "Prerequisite/Corequisite:The following course must be completed previously: COMP 248. The following courses must be completed previously or concurrently: MATH 203 or Cegep Mathematics 103 or NYA; MATH 204 or Cegep Mathematics 105 or NYC.",
   "COMP 232": "Course Prerequisite: MATH204, MATH203Never Taken: COMP 238 or COEN 231",
-  "COMP 233": "Course Prerequisite: MATH205\u2022 Students who have received credit for BIOL 322, ENGR 371, STAT 249, STAT 250, COMM 215, MAST 221, MAST 333 may not take this course for credit.",
+  "COMP 233": "Course Prerequisite: MATH205• Students who have received credit for BIOL 322, ENGR 371, STAT 249, STAT 250, COMM 215, MAST 221, MAST 333 may not take this course for credit.",
   "COMP 248": "Pre-requisite: Previously or Co-currently: MATH204",
   "COMP 249": "Course Prerequisite: COMP248; MATH 203; Course Co-requisite: MATH205",
   "COMP 326": "Course Prerequisite: COMP346",
@@ -1201,7 +1221,15 @@
   "EDUC 6004": "Prerequisite: EDUC6002; ESTU615 or ADIP540; or permission of the Department.",
   "ELEC 251": "Prerequisite: ELEC 273; ENGR 233",
   "ELEC 264": "Course Prerequisite: ELEC273; ENGR213",
-  "ELEC 273": "Course Prerequisite: PHYS205; ENGR213",
+  "ELEC 273": {
+    "credits": 3.5,
+    "prerequisites": [
+      [
+        "PHYS 205"
+      ]
+    ],
+    "corequisites": []
+  },
   "ELEC 275": "Course Prerequisite: PHYS205; Course Co-requisite: ENGR213",
   "ELEC 311": "Course Prerequisite: ELEC273",
   "ELEC 312": "Course Prerequisite: ELEC311 and ELEC242 or ELEC364",
@@ -1312,9 +1340,13 @@
   "ELEC 443": "Course Prerequisite: ELEC331; must complete all 200 level courses before enrolling in any 400 level course",
   "ELEC 6821": "This course is reserved for ECE students only.",
   "ELEC 447": "Pre-requisite: ELEC 342",
-  "ENCS 282": "Never Taken: CIVI390, BLDG390, SOEN384, SOEN341, ENCS393, ENCS382, ELEC390, COMP495, COMP490, COMP354, COEN390, ENGR392. Prerequisite: Engineering Writing Test (EWT), or ENCS 272 with a grade of C\u2011 or higher",
+  "ENCS 282": "Never Taken: CIVI390, BLDG390, SOEN384, SOEN341, ENCS393, ENCS382, ELEC390, COMP495, COMP490, COMP354, COEN390, ENGR392. Prerequisite: Engineering Writing Test (EWT), or ENCS 272 with a grade of C‑ or higher",
   "ENCS 393": "Course Prerequisite: ENCS282, Students must complete 30 credits in their degree program prior to enrolling",
-  "ENCS 483": "Prerequisite: Minimum of 45 credits in an engineering program or minimum of 45 credits in a non-engineering program.",
+  "ENCS 483": {
+    "credits": 3,
+    "prerequisites": [],
+    "corequisites": []
+  },
   "ENCS 484": "Prerequisite: Minimum of 60 credits in an engineering program or minimum of 45 credits in a non-engineering program, and must complete all 200 level courses before enrolling in any 400 level course",
   "ENCS 6041": "MIAE students are not permitted to take this section for credit.",
   "ENCS 6161": "This course is reserved for ECE students only.",
@@ -1558,11 +1590,11 @@
   "FINA 408": "You must complete Course Prerequisite:  FINA385, FINA395",
   "FINA 310": "Course Prerequisite: COMM308; FINA210 OR 450",
   "FINA 355": "Prerequisite: FINA 210",
-  "FLIT 220": "Pr\u00e9alable : FRAN 213 ou 215 ou l'\u00e9quivalent.",
-  "FLIT 230": "Pr\u00e9alable: FRAN213, FRAN215",
-  "FLIT 240": "Pr\u00e9alable\u202f: FRAI 204, FRAN301 ou FRAN303 ou l\u2019\u00e9quivalent.",
-  "FLIT 250": "Pr\u00e9alable\u202f: FRAI 204, FRAN 301 ou 303 ou l\u2019\u00e9quivalent.",
-  "FLIT 280": "Prerequisite: FRAN213 ou FRAN215 ou l'\u00e9quivalent.",
+  "FLIT 220": "Préalable : FRAN 213 ou 215 ou l'équivalent.",
+  "FLIT 230": "Préalable: FRAN213, FRAN215",
+  "FLIT 240": "Préalable : FRAI 204, FRAN301 ou FRAN303 ou l’équivalent.",
+  "FLIT 250": "Préalable : FRAI 204, FRAN 301 ou 303 ou l’équivalent.",
+  "FLIT 280": "Prerequisite: FRAN213 ou FRAN215 ou l'équivalent.",
   "FLIT 303": "Never Taken/Not Registered: FRAN251, FRAN252",
   "FLIT 305": "Never Taken/Not Registered: FRAN251, FRAN253",
   "FLIT 308": "Never Taken/Not Registered: FRAN364",
@@ -1571,19 +1603,19 @@
   "FLIT 320": "Never Taken/Not Registered: FRAN446",
   "FLIT 341": "Never Taken/Not Registered: FRAN352",
   "FLIT 343": "Never Taken/Not Registered: FRAN353",
-  "FLIT 349": "Les \u00e9tudiantes et \u00e9tudiants qui ont suivi FRAN 358 ne peuvent obtenir de cr\u00e9dits pour ce cours./Cannot have taken FRAN358 for credit.",
+  "FLIT 349": "Les étudiantes et étudiants qui ont suivi FRAN 358 ne peuvent obtenir de crédits pour ce cours./Cannot have taken FRAN358 for credit.",
   "FLIT 351": "Never Taken/Not Registered: FLIT345, FLIT347",
   "FLIT 360": "Never Taken/Not Registered: FRAN360",
   "FLIT 362": "Never Taken/Not Registered: FRAN256",
   "FLIT 424": "Never Taken/Not Registered: FRAN448",
   "FLIT 451": "Never Taken/Not Registered: FLIT441",
   "FLIT 471": "Never Taken/Not Registered: FRAN451",
-  "FLIT 494": "Prerequisite: 12 cr\u00e9dits en litt\u00e9rature et autorisation du d\u00e9partement. \u00c9tude d\u2019un sujet particulier dans le domaine de la litt\u00e9rature.",
-  "FLIT 495": "Prerequisite: 12 cr\u00e9dits en litt\u00e9rature et autorisation du d\u00e9partement. \u00c9tude d\u2019un sujet particulier dans le domaine de la litt\u00e9rature.",
-  "FLIT 496": "Prerequisite: 12 cr\u00e9dits dans la sp\u00e9cialit\u00e9 et autorisation du d\u00e9partement.",
-  "FLIT 298": "Prerequisite: 12 cr\u00e9dits en litt\u00e9rature et autorisation du d\u00e9partement. \u00c9tude d\u2019un sujet particulier dans le domaine de la litt\u00e9rature.",
-  "FLIT 232": "Prerequisite: FRAI 204, FRAN 301 ou 303 ou l\u2019\u00e9quivalent.",
-  "FLIT 222": "Prerequisite: FRAI 204, FRAN 301 ou FRAN 303 ou l\u2019\u00e9quivalent.",
+  "FLIT 494": "Prerequisite: 12 crédits en littérature et autorisation du département. Étude d’un sujet particulier dans le domaine de la littérature.",
+  "FLIT 495": "Prerequisite: 12 crédits en littérature et autorisation du département. Étude d’un sujet particulier dans le domaine de la littérature.",
+  "FLIT 496": "Prerequisite: 12 crédits dans la spécialité et autorisation du département.",
+  "FLIT 298": "Prerequisite: 12 crédits en littérature et autorisation du département. Étude d’un sujet particulier dans le domaine de la littérature.",
+  "FLIT 232": "Prerequisite: FRAI 204, FRAN 301 ou 303 ou l’équivalent.",
+  "FLIT 222": "Prerequisite: FRAI 204, FRAN 301 ou FRAN 303 ou l’équivalent.",
   "FMAN 254": "Never Taken/Not Registered: FMAN214; Course Corequisite: FMAN202",
   "FMAN 305": "Course Prerequisite: FMAN202, FMAN224, FMAN254; Never Taken/Not Registered: FMAN302, FMAN303, FMAN304, FMAN313",
   "FMAN 315": "Prerequisite FMAN 315",
@@ -1682,83 +1714,83 @@
   "FPST 491": "Prerequisite: FPST490.",
   "FPST 410": "Prerequisite: FPST401 previously or concurrently.",
   "FPST 406": "Prerequisite: FPST306.",
-  "FRAA 400": "Prerequisite: FRAN306 et FRAN321 ou l'\u00e9quivalent.",
-  "FRAA 401": "Prerequisite: FRAA400 ou l'\u00e9quivalent.",
+  "FRAA 400": "Prerequisite: FRAN306 et FRAN321 ou l'équivalent.",
+  "FRAA 401": "Prerequisite: FRAA400 ou l'équivalent.",
   "FRAA 403": "Prerequisite: FRAA400 ou FRAA401 ou l'equivalent.",
-  "FRAA 404": "Prerequisite: Six cr\u00e9dits parmi FRAN320, FRAN321, FRAA400, FRAA401, FRAA403 ou l\u2019\u00e9quivalent.",
-  "FRAA 405": "Prerequisite: FRAN321 ou l'\u00e9quivalent",
-  "FRAA 410": "Prerequisite: FRAN321 ou l'\u00e9quivalent.",
+  "FRAA 404": "Prerequisite: Six crédits parmi FRAN320, FRAN321, FRAA400, FRAA401, FRAA403 ou l’équivalent.",
+  "FRAA 405": "Prerequisite: FRAN321 ou l'équivalent",
+  "FRAA 410": "Prerequisite: FRAN321 ou l'équivalent.",
   "FRAA 412": "Prerequisite: FRAN321.",
-  "FRAA 413": "Prerequisite: FRAN321 ou l'\u00e9quivalent.",
-  "FRAA 422": "Prerequisite: FRAN321; trois cr\u00e9dits parmi FRAA 400, 401, 403, 404 ou l\u2019\u00e9quivalent.",
-  "FRAA 423": "Prerequisite: FRAA413 ou l'\u00e9quivalent.",
-  "FRAA 430": "Prerequisite: FRAA423 ou autorisation du d\u00e9partement.",
-  "FRAA 432": "Prerequisite: FRAN321 ou l'\u00e9quivalent.",
-  "FRAA 491": "Prerequisite: 12 cr\u00e9dits de langue ou de linguistique au niveau 400.",
-  "FRAA 429": "Prerequisite: FRAA401 ou l\u2019\u00e9quivalent.",
-  "FRAA 419": "Prerequisite: Six cr\u00e9dits parmi FRAN 320, FRAN 321, FRAA 400, 401, 403 ou l\u2019\u00e9quivalent.",
-  "FRAA 415": "Pr\u00e9alable : FRAA 410.",
+  "FRAA 413": "Prerequisite: FRAN321 ou l'équivalent.",
+  "FRAA 422": "Prerequisite: FRAN321; trois crédits parmi FRAA 400, 401, 403, 404 ou l’équivalent.",
+  "FRAA 423": "Prerequisite: FRAA413 ou l'équivalent.",
+  "FRAA 430": "Prerequisite: FRAA423 ou autorisation du département.",
+  "FRAA 432": "Prerequisite: FRAN321 ou l'équivalent.",
+  "FRAA 491": "Prerequisite: 12 crédits de langue ou de linguistique au niveau 400.",
+  "FRAA 429": "Prerequisite: FRAA401 ou l’équivalent.",
+  "FRAA 419": "Prerequisite: Six crédits parmi FRAN 320, FRAN 321, FRAA 400, 401, 403 ou l’équivalent.",
+  "FRAA 415": "Préalable : FRAA 410.",
   "FRAI 202": "Prerequisite: FRAI201 or FRAN211 or equivalent.",
   "FRAI 203": "Prerequisite: FRAI202 or FRAN212 or equivalent.",
   "FRAI 204": "Prerequisite: FRAI203, FRAN213 or FRAN215; or equivalent.",
   "FRAN 211": "Never Taken/Not Registered: FRAN200, FRAN201; Never Taken: FRAN212",
   "FRAN 212": "Prerequisite: FRAI201 or FRAN211; or equivalent.",
-  "FRAN 213": "Prerequisite: FRAI202 ou FRAN212; ou l'\u00e9quivalent",
-  "FRAN 214": "Prerequisite: FRAN212 ou l'\u00e9quivalent.",
-  "FRAN 215": "Prerequisite: FRAN214 ou l'\u00e9quivalent.",
-  "FRAN 218": "Prerequisite: FRAI203 ou FRAN213; ou l'\u00e9quivalent.",
-  "FRAN 219": "Prerequisite: FRAI203, FRAN213 ou l'\u00e9quivalent.",
-  "FRAN 221": "Prerequisite: FRAI202, FRAN212; ou l'\u00e9quivalent.",
-  "FRAN 222": "Prerequisite: FRAI203, ou FRAN 213 ou FRAN 215; ou l\u2019\u00e9quivalent.",
-  "FRAN 301": "Prerequisite: FRAI 203, FRAN213 ou FRAN215 ou l'\u00e9quivalent.",
-  "FRAN 302": "Prerequisite: FRAI203, FRAN213 ou FRAN215 ou l'\u00e9quivalent.",
-  "FRAN 303": "Prerequisite: FRAN302 ou l'\u00e9quivalent.",
-  "FRAN 304": "Pr\u00e9alable : FRAI204, FRAN301 ou FRAN303; ou l'\u00e9quivalent.",
-  "FRAN 305": "Prerequisite: FRAI204, FRAN301 ou FRAN303 ou l'\u00e9quivalent.",
-  "FRAN 306": "Prerequisite: FRAI204, FRAN301 ou FRAN303 ou l'\u00e9quivalent.",
-  "FRAN 315": "Prerequisite: FRAI204, FRAN221; FRAN301 ou FRAN303 ou l\u2019\u00e9quivalent.",
-  "FRAN 318": "Prerequisite: FRAN306 ou l'\u00e9quivalent.",
+  "FRAN 213": "Prerequisite: FRAI202 ou FRAN212; ou l'équivalent",
+  "FRAN 214": "Prerequisite: FRAN212 ou l'équivalent.",
+  "FRAN 215": "Prerequisite: FRAN214 ou l'équivalent.",
+  "FRAN 218": "Prerequisite: FRAI203 ou FRAN213; ou l'équivalent.",
+  "FRAN 219": "Prerequisite: FRAI203, FRAN213 ou l'équivalent.",
+  "FRAN 221": "Prerequisite: FRAI202, FRAN212; ou l'équivalent.",
+  "FRAN 222": "Prerequisite: FRAI203, ou FRAN 213 ou FRAN 215; ou l’équivalent.",
+  "FRAN 301": "Prerequisite: FRAI 203, FRAN213 ou FRAN215 ou l'équivalent.",
+  "FRAN 302": "Prerequisite: FRAI203, FRAN213 ou FRAN215 ou l'équivalent.",
+  "FRAN 303": "Prerequisite: FRAN302 ou l'équivalent.",
+  "FRAN 304": "Préalable : FRAI204, FRAN301 ou FRAN303; ou l'équivalent.",
+  "FRAN 305": "Prerequisite: FRAI204, FRAN301 ou FRAN303 ou l'équivalent.",
+  "FRAN 306": "Prerequisite: FRAI204, FRAN301 ou FRAN303 ou l'équivalent.",
+  "FRAN 315": "Prerequisite: FRAI204, FRAN221; FRAN301 ou FRAN303 ou l’équivalent.",
+  "FRAN 318": "Prerequisite: FRAN306 ou l'équivalent.",
   "FRAN 319": "Course Prerequisite: FRAN306",
-  "FRAN 320": "Prerequisite:  FRAN303 ou l'\u00e9quivalent.",
-  "FRAN 321": "Prerequisite: FRAN304 ou FRAN306; ou l\u2019\u00e9quivalent.",
-  "FTRA 200": "Prerequisite: ENGL207 et FRAN306 ou \u00e9quivalent. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 201": "Prerequisite: FTRA200. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 202": "Prerequisite: FTRA200. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 207": "Prerequisite: FTRA200. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 208": "Prerequisite: FTRA200. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 301": "Prerequisite: FTRA201. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 304": "Prerequisite: FTRA202. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 305": "Prerequisite: FTRA207. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 306": "Prerequisite: FTRA208. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 310": "Prerequisite: FTRA201 ou FTRA202. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction./ This course is reserved for students enrolled in a translation program.",
-  "FTRA 403": "Prerequisite: FTRA201. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 404": "Prerequisite: FTRA202. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 405": "Prerequisite: FTRA201. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 406": "Prerequisite: FTRA202. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 408": "Prerequisite: FTRA301 ou FTRA305; FTRA304 ou FTRA306.  Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 409": "Prerequisite: FTRA301 ou FTRA305. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 410": "Prerequisite: FTRA304 ou FTRA306. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 411": "Prerequisite: FTRA310. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 412": "Prerequisite: FTRA 301 ou FTRA304 ou FTRA305 ou FTRA306. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 414": "Prerequisite: FTRA 301 ou FTRA304 ou FTRA305 ou FTRA306. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 416": "Prerequisite: FTRA201 ou FTRA202. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 418": "Prerequisite: FTRA412 ou FTRA414. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 420": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 421": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 422": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 423": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 424": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 425": "Prerequisite: 60 cr\u00e9dits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction.This course is reserved for students enrolled in a translation program.",
-  "FTRA 492": "Prerequisite: 12 cr\u00e9dits de traduction au niveau \u00ab\u202f400\u202f\u00bb et permission du d\u00e9partement. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 552": "Prerequisite: FTRA536. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 452": "Prerequisite: FTRA416. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 455": "Prerequisite: 12 cr\u00e9dits FTRA. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 458": "Prerequisite: 12 cr\u00e9dits FTRA. Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FRAN 320": "Prerequisite:  FRAN303 ou l'équivalent.",
+  "FRAN 321": "Prerequisite: FRAN304 ou FRAN306; ou l’équivalent.",
+  "FTRA 200": "Prerequisite: ENGL207 et FRAN306 ou équivalent. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 201": "Prerequisite: FTRA200. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 202": "Prerequisite: FTRA200. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 207": "Prerequisite: FTRA200. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 208": "Prerequisite: FTRA200. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 301": "Prerequisite: FTRA201. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 304": "Prerequisite: FTRA202. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 305": "Prerequisite: FTRA207. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 306": "Prerequisite: FTRA208. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 310": "Prerequisite: FTRA201 ou FTRA202. Ce cours est réservé aux étudiants inscrits à un programme de traduction./ This course is reserved for students enrolled in a translation program.",
+  "FTRA 403": "Prerequisite: FTRA201. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 404": "Prerequisite: FTRA202. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 405": "Prerequisite: FTRA201. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 406": "Prerequisite: FTRA202. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 408": "Prerequisite: FTRA301 ou FTRA305; FTRA304 ou FTRA306.  Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 409": "Prerequisite: FTRA301 ou FTRA305. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 410": "Prerequisite: FTRA304 ou FTRA306. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 411": "Prerequisite: FTRA310. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 412": "Prerequisite: FTRA 301 ou FTRA304 ou FTRA305 ou FTRA306. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 414": "Prerequisite: FTRA 301 ou FTRA304 ou FTRA305 ou FTRA306. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 416": "Prerequisite: FTRA201 ou FTRA202. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 418": "Prerequisite: FTRA412 ou FTRA414. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 420": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 421": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 422": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 423": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 424": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 425": "Prerequisite: 60 crédits en traduction et autorisation de la coordinatrice ou du coordinateur des stages. Ce cours est réservé aux étudiants inscrits à un programme de traduction.This course is reserved for students enrolled in a translation program.",
+  "FTRA 492": "Prerequisite: 12 crédits de traduction au niveau « 400 » et permission du département. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 552": "Prerequisite: FTRA536. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 452": "Prerequisite: FTRA416. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 455": "Prerequisite: 12 crédits FTRA. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 458": "Prerequisite: 12 crédits FTRA. Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
   "FTRA 658": "Prerequisite: Must be enrolled in MA Translation.",
-  "FTRA 642": "Prerequisite: Les \u00e9tudiants doivent compl\u00e9ter 12 cr\u00e9dits \u00e0 choisir parmi les cours suivants: FTRA612, FTRA614, FTRA624, FTRA626, FTRA632, FTRA633, FTRA634 et FTRA 648.",
-  "FTRA 617": "Prerequisite: Les \u00e9tudiants doivent compl\u00e9ter 12 cr\u00e9dits \u00e0 choisir parmi les cours suivants: FTRA613, FTRA615, FTRA623 , FTRA625 , FTRA 631, FTRA633, FTRA635 et FTRA647. L\u2019autorisation de la coordinatrice ou du coordinateur des stages est requise.",
-  "FTRA 438": "Prerequisite: FTRA301 ou FTRA305 et FTRA304 ou FTRA306.  Ce cours est r\u00e9serv\u00e9 aux \u00e9tudiants inscrits \u00e0 un programme de traduction. / This course is reserved for students enrolled in a translation program.",
-  "FTRA 316": "Pr\u00e9alables : FTRA 201 ou 202, et connaissance du traitement de textes.",
+  "FTRA 642": "Prerequisite: Les étudiants doivent compléter 12 crédits à choisir parmi les cours suivants: FTRA612, FTRA614, FTRA624, FTRA626, FTRA632, FTRA633, FTRA634 et FTRA 648.",
+  "FTRA 617": "Prerequisite: Les étudiants doivent compléter 12 crédits à choisir parmi les cours suivants: FTRA613, FTRA615, FTRA623 , FTRA625 , FTRA 631, FTRA633, FTRA635 et FTRA647. L’autorisation de la coordinatrice ou du coordinateur des stages est requise.",
+  "FTRA 438": "Prerequisite: FTRA301 ou FTRA305 et FTRA304 ou FTRA306.  Ce cours est réservé aux étudiants inscrits à un programme de traduction. / This course is reserved for students enrolled in a translation program.",
+  "FTRA 316": "Préalables : FTRA 201 ou 202, et connaissance du traitement de textes.",
   "GCE 512": "GCE 511 is co-req for GCE 512",
   "GCE 513": "GCE 511 is co-req for GCE 513",
   "GCE 514": "GCE 511, 512, 513 are co-req for GCE 514",
@@ -2230,7 +2262,7 @@
   "LING 353": "Prerequisite: LING 200 or equivalent; or permission of the Department.",
   "LING 373": "Prerequisite: LING200 with a grade of C or higher.",
   "LING 380": "Prerequisite: LING373 or equivalent.",
-  "LING 415": "Prerequisite: LING 315, or equivalent, with a grade of C\u2011 or higher.",
+  "LING 415": "Prerequisite: LING 315, or equivalent, with a grade of C‑ or higher.",
   "LING 420": "Prerequisite: LING315 and LING336 and LING373",
   "LING 421": "Prerequisite: LING373 and LING315",
   "LING 425": "Prerequisite: LING373 and LING315.",
@@ -2553,7 +2585,7 @@
   "MSCA 653": "The following course must be completed previously: MSCA 657.If prerequisites are not satisfied, permission of the instructor is required",
   "MSCA 674": "Anti-Req for MSCA 674: Students who have received credit for MSCA 672 Brand Management topic, may not take this course for credit.",
   "MSCA 675": "Anti-Req for MSCA 675 - Students who have received credit for Seminar in Research in Retailing under MSCA 672 Special Topics may not take this course for credit.",
-  "MSCA 683": "Pre-req:  MSCA 602 \u2013 must complete MSCA 602 previously or concurrently",
+  "MSCA 683": "Pre-req:  MSCA 602 – must complete MSCA 602 previously or concurrently",
   "MSCA 673": "Anti-Req for MSCA 673: Students who have received credit for MSCA 672 Segmentation and Positioning Marketing topic, may not take this course for credit.",
   "MSCA 644": "Anti Requsite for MSCA 644 is MSCA 652 Meso Organizational Behaviour",
   "MSCA 646": "Anti Requisite for MSCA 646 is MSCA 652 Leadership",
@@ -3063,17 +3095,17 @@
   "SCPA 204": "Students who have taken POLI204 may not take this course for credit.",
   "SCPA 301": "Prerequisite: Completion of Stage 1.",
   "SCPA 411": "Prerequisite: Completion of 60 credits; Stages 1 and 2.",
-  "SCPA 501": "Prerequisite: the following course must be completed previously or concurrently:SCPA500./Le cours suivant doit \u00eatre compl\u00e9t\u00e9 au pr\u00e9alable ou simultan\u00e9ment:SCPA500.",
-  "SCPA 504": "Prerequisite: the following courses must be completed previously/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501",
-  "SCPA 505": "Prerequisite: the following courses must be completed previously/les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501, SCPA503",
-  "SCPA 508": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501, SCPA503, SCPA505.",
-  "SCPA 510": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501, SCPA503, SCPA5060.",
+  "SCPA 501": "Prerequisite: the following course must be completed previously or concurrently:SCPA500./Le cours suivant doit être complété au préalable ou simultanément:SCPA500.",
+  "SCPA 504": "Prerequisite: the following courses must be completed previously/Les cours suivants doivent être complétés au préalable: SCPA500, SCPA501",
+  "SCPA 505": "Prerequisite: the following courses must be completed previously/les cours suivants doivent être complétés au préalable: SCPA500, SCPA501, SCPA503",
+  "SCPA 508": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent être complétés au préalable: SCPA500, SCPA501, SCPA503, SCPA505.",
+  "SCPA 510": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent être complétés au préalable: SCPA500, SCPA501, SCPA503, SCPA5060.",
   "SCPA 511": "Prerequisite: SCPA510.",
-  "SCPA 536": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501.",
-  "SCPA 543": "Prerequisite: The following course must be completed previously/Le cours suivant doit \u00eatre compl\u00e9t\u00e9 au pr\u00e9alable SCPA500.",
+  "SCPA 536": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent être complétés au préalable: SCPA500, SCPA501.",
+  "SCPA 543": "Prerequisite: The following course must be completed previously/Le cours suivant doit être complété au préalable SCPA500.",
   "SCPA 480": "Prerequisite: Successful completion of Stages I and II.",
-  "SCPA 5060": "Prerequisite: the following courses must be completed previously or concurrently/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable ou simultan\u00e9ment: SCPA500, SCPA501, SCPA503",
-  "SCPA 507": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent \u00eatre compl\u00e9t\u00e9s au pr\u00e9alable: SCPA500, SCPA501.",
+  "SCPA 5060": "Prerequisite: the following courses must be completed previously or concurrently/Les cours suivants doivent être complétés au préalable ou simultanément: SCPA500, SCPA501, SCPA503",
+  "SCPA 507": "Prerequisite: The following courses must be completed previously/Les cours suivants doivent être complétés au préalable: SCPA500, SCPA501.",
   "SCPA 512": "Prerequisite: SCPA500.",
   "SCUL 210": "Never Taken/Not Registered: SCUL200",
   "SCUL 251": "for students Enrolled in Intermedia or Sculpture program",
@@ -3356,7 +3388,7 @@
   "URBS 440": "Prerequisites: Enrolled in Spec. in Urban Planning or Minor Black and African Diaspora Studies in the Canadian Context; completed 48 university credits.",
   "URBS 475": "Prerequisites: Enrolled in Spec. in Urban Planning; completed 48 university credits.",
   "URBS 495": "Prerequisite: Must have completed 60 university credits.",
-  "WSDB 292": "for students enrolled in a Women\u2019s Studies program or permission of the Institute.",
+  "WSDB 292": "for students enrolled in a Women’s Studies program or permission of the Institute.",
   "WSDB 380": "Prerequisite: Minimum 15 credits completed including WSDB290 and WSDB291 and WSDB292 or permission of the Institute.",
   "WSDB 381": "Prerequisite: Minimum 15 credits completed including WSDB290 and WSDB291 and WSDB292 or permission of the Institute.",
   "WSDB 383": "Prerequisite: Minimum 15 credits completed including WSDB290 and WSDB291 and WSDB292, or permission of the Institute.",
@@ -3379,5 +3411,88 @@
   "WSDB 410": "Prerequisite: 30 credits including WSDB290 and WSDB291 and WSDB292 and WSDB380; or permission of the Institute.",
   "WSDB 300": "Prerequisite: 15 credits including WSDB 290, 291, 292; or permission of the Institute.",
   "WSDB 400": "Prerequisite: 30 credits including WSDB290, WSDB291, WSDB292 and WSDB380; or permission of the Institute.",
-  "WSDB 401": "Prerequisite: WSDB290, WSDB291, WSDB292, WSDB380. Students must complete 30credits prior to enrolling, or dept. permission."
+  "WSDB 401": "Prerequisite: WSDB290, WSDB291, WSDB292, WSDB380. Students must complete 30credits prior to enrolling, or dept. permission.",
+  "INSE 201": {
+    "credits": 1.5,
+    "prerequisites": [],
+    "corequisites": []
+  },
+  "INSE 221": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "COMP 232"
+      ]
+    ],
+    "corequisites": []
+  },
+  "INSE 331": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "COMP 352"
+      ]
+    ],
+    "corequisites": []
+  },
+  "INSE 349": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "COMP 352"
+      ]
+    ],
+    "corequisites": []
+  },
+  "INSE 351": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "COMP 346"
+      ]
+    ],
+    "corequisites": []
+  },
+  "INSE 386": {
+    "credits": 3,
+    "prerequisites": [],
+    "corequisites": []
+  },
+  "INSE 413": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "INSE 201"
+      ]
+    ],
+    "corequisites": []
+  },
+  "INSE 445": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "COMP 445"
+      ]
+    ],
+    "corequisites": []
+  },
+  "CHME 200": {
+    "credits": 3,
+    "prerequisites": [],
+    "corequisites": []
+  },
+  "CHME 201": {
+    "credits": 3,
+    "prerequisites": [
+      [
+        "CHME 200"
+      ]
+    ],
+    "corequisites": []
+  },
+  "CHME 215": {
+    "credits": 3.5,
+    "prerequisites": [],
+    "corequisites": []
+  }
 }

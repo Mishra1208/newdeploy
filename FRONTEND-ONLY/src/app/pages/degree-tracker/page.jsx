@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { generateOptimalPath } from '../../../utils/degreeEngine/prereqGraph';
+import { generateOptimalPath, checkPrerequisites } from '../../../utils/degreeEngine/prereqGraph';
 import { BCompSc_Weights } from '../../../utils/degreeEngine/data/sequenceWeights';
 import computerScienceGeneralCurriculum from '../../../utils/degreeEngine/data/programs/computer-science-general.json';
 import aeroOptionA from '../../../utils/degreeEngine/data/programs/aerospace-option-a.json';
@@ -24,6 +24,8 @@ import certSciTechCurriculum from '../../../utils/degreeEngine/data/programs/cer
 import soenCurriculum from '../../../utils/degreeEngine/data/programs/soen.json';
 import courseTitles from '../../../utils/degreeEngine/data/courseTitles.json';
 import coursePrereqs from '../../../utils/degreeEngine/data/coursePrereqs.json';
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS7dsgA_3Fv72I0CcCMwPKjeGAvHTbRZwL9AtLtiB7wIhq-K2JjrRBQhsqCybsv_Rs/exec";
 
 const PROGRAMS = {
   'cs-general': {
@@ -151,23 +153,49 @@ const PROGRAMS = {
   }
 };
 
+const GENERAL_EDUCATION_EXCLUSIONS = [
+  'ANTH 315', 'PHIL 214', 'PHIL 316', 'PHIL 317', 'SOCI 212', 'SOCI 213', 'SOCI 310',
+  'BCEE 231', 'BIOL 200', 'BIOL 322', 'BTM 200', 'BTM 380', 'BTM 382', 'CART 315', 
+  'COMM 215', 'COMP 218', 'EXCI 322', 'GEOG 264', 'INTE 296', 'MATH 208', 'MATH 209', 
+  'MIAE 215', 'PHYS 235', 'PHYS 236', 'MAST 221', 'MAST 333'
+];
+
 // Build the massive General Elective list from the allowed prefixes
 const COMPLEMENTARY_PREFIXES = ['ANTH', 'FPST', 'HIST', 'PHIL', 'RELI', 'SOCI', 'THEO', 'WSDB', 'ARTE', 'ARTH', 'JHIS', 'MHIS', 'COMS', 'EDUC', 'ENGL', 'GEOG'];
 const GENERAL_LIST = Object.keys(courseTitles).filter(code => 
   COMPLEMENTARY_PREFIXES.some(prefix => code.startsWith(prefix))
 );
 
-const EXCLUSION_LIST = [
-  'BCEE 231', 'BIOL 322', 'BTM 380', 'BTM 382', 'CART 315', 'COMM 215', 
-  'EXCI 322', 'GEOG 264', 'INTE 296', 'MAST 221', 'MAST 333', 'MIAE 215', 
-  'PHYS 235', 'PHYS 236', 'SOCI 212'
+const MUTUAL_EXCLUSIONS = [
+  ['COMP 248', 'COEN 243', 'MIAE 215', 'MECH 215', 'CHME 215'],
+  ['COMP 249', 'COEN 244', 'CHME 216'],
+  ['COMP 352', 'COEN 352'],
+  ['COMP 232', 'COEN 231'],
+  ['COMP 228', 'SOEN 228', 'COEN 311'],
+  ['ENGR 371', 'COMP 233', 'INDU 323'],
+  ['ENGR 391', 'COMP 361', 'MIAE 315', 'CHME 315'],
+  ['BLDG 212', 'CIVI 212', 'MIAE 211']
 ];
 
-const checkExclusion = (course) => {
+const checkExclusion = (course, takenCourses = []) => {
   const code = course.toUpperCase().trim();
-  if (EXCLUSION_LIST.includes(code)) return "This course is explicitly on the General Electives Exclusion List.";
-  if (code.startsWith('COEN ') || code.startsWith('INTE ')) return "COEN and INTE courses cannot be taken as General Electives without special permission.";
-  if (code.startsWith('ESL ')) return "ESL courses may not be taken to fulfill the General Electives requirement.";
+  
+  // 1. Mutual Exclusions (Highest Priority)
+  for (const group of MUTUAL_EXCLUSIONS) {
+    if (group.includes(code)) {
+      const alreadyTaken = group.find(c => c !== code && takenCourses.includes(c));
+      if (alreadyTaken) return { type: 'block', message: `You cannot take ${code} because you have already completed (or planned) the equivalent course ${alreadyTaken}.` };
+    }
+  }
+
+  // 2. Hard Exclusions (General Education list)
+  if (GENERAL_EDUCATION_EXCLUSIONS.includes(code)) return { type: 'block', message: "This course is explicitly on the General Electives Exclusion List." };
+  
+  // 3. Prefix/Departmental Rules
+  if (code.startsWith('ESL ')) return { type: 'warn', message: "ESL courses may be taken if you have language deficiencies, but they DO NOT count for credit towards your degree requirements. They will appear as extra credits." };
+  if (code.startsWith('COEN ') || code.startsWith('INTE ')) return { type: 'block', message: "COEN and INTE courses cannot be taken as General Electives without special permission." };
+  if (['FRAN 211', 'FRAN 212', 'FRAN 215'].includes(code)) return { type: 'warn', message: "Note: At most 6 credits of elementary/transitional French may be taken." };
+  
   return null;
 };
 
@@ -179,6 +207,30 @@ const categoryColors = {
 };
 
 const getCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
+
+const getProgramCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
+
+const debugRender = (val, label = "") => {
+  if (typeof val === "object" && val !== null) {
+    console.error("OBJECT RENDER DETECTED:", label, val);
+    return JSON.stringify(val);
+  }
+  return val;
+};
+
+const NATURAL_SCIENCE_ELECTIVES = [
+  'BIOL 201', 'BIOL 202', 'BIOL 206', 'BIOL 261', 'BIOL 266', 
+  'CHEM 206', 'CHEM 217', 'CHEM 221', 
+  'GEOL 206', 'GEOL 208', 
+  'PHYS 206', 'PHYS 252', 'PHYS 260', 'PHYS 273', 'PHYS 284', 
+  'PHYS 367', 'PHYS 385', 'PHYS 443', 'PHYS 445'
+];
+
+const HUMANITIES_LIST = [
+  'ANTH', 'FPST', 'HIST', 'PHIL', 'RELI', 'SOCI', 'THEO', 'WSDB', 
+  'ARTE', 'ARTH', 'JHIS', 'MHIS', 'COMS 360', 'EDUC 230', 'ENCS 483',
+  'ENGL 224', 'ENGL 233', 'GEOG 220', 'INST 250', 'LING 222', 'LING 300', 'URBS 230'
+];
 
 export default function FreshDegreeTracker() {
   const [step, setStep] = useState('select-program'); // 'select-program' | 'config' | 'select-courses' | 'plan'
@@ -196,6 +248,15 @@ export default function FreshDegreeTracker() {
   const [selectedProgramId, setSelectedProgramId] = useState('cs-general');
   const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [showBugReport, setShowBugReport] = useState(false);
+  const [bugForm, setBugForm] = useState({
+    ecp: 'No',
+    program: '',
+    course: '',
+    error: '',
+    correctMethod: ''
+  });
+  const [bugStatus, setBugStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
 
   // Modal States
   const [activeElectiveSlot, setActiveElectiveSlot] = useState(null); 
@@ -213,10 +274,10 @@ export default function FreshDegreeTracker() {
 
   // Dynamically extract categories from curriculum
   const categories = useMemo(() => {
-    if (!curriculum) return {};
+    if (!curriculum || !curriculum.requirements) return {};
     return curriculum.requirements.reduce((acc, req) => {
-      if (req.courses && req.courses.length > 0) {
-        acc[req.category] = req.courses;
+      if (req.category && Array.isArray(req.courses)) {
+        acc[req.category] = req.courses.filter(c => typeof c === 'string');
       }
       return acc;
     }, {});
@@ -250,6 +311,15 @@ export default function FreshDegreeTracker() {
 
     return map;
   }, [curriculum]);
+
+  const targetCredits = useMemo(() => {
+    let base = curriculum?.totalCredits || 120;
+    if (includeMathProfile) {
+      // ECP adds 30 credits (1 year) to the degree
+      base += 30;
+    }
+    return base;
+  }, [curriculum, includeMathProfile]);
 
   const getCourseCategory = useCallback((courseId) => {
     if (!curriculum) return null;
@@ -288,9 +358,28 @@ export default function FreshDegreeTracker() {
       let ecpFoundation = [];
       if (includeMathProfile) {
         if (selectedProgram.category.includes('Engineering') || selectedProgram.category.includes('Aerospace')) {
-          ecpFoundation = ['MATH 203', 'MATH 204', 'MATH 205', 'PHYS 204', 'PHYS 205', 'CHEM 205', 'CHEM 206'];
+          ecpFoundation = [
+            'MATH 203', 'MATH 204', 'MATH 205', 
+            'PHYS 204', 'PHYS 205', 'CHEM 205',
+            'Natural Science Elective 1', 'Natural Science Elective 2',
+            'General Education Elective 1', 'General Education Elective 2'
+          ];
         } else {
-          ecpFoundation = ['MATH 203', 'MATH 204', 'MATH 205'];
+          // Computer Science ECP
+          ecpFoundation = [
+            'MATH 203', 'MATH 204', 'MATH 205',
+            'General Elective 1', 'General Elective 2', 'General Elective 3', 'General Elective 4', 'General Elective 5'
+          ];
+          
+          // Special case for CS Systems and Health
+          if (selectedProgramId === 'cs-health') {
+             ecpFoundation = [
+               'MATH 203', 'MATH 204', 'MATH 205',
+               'BIOL 201', 'CHEM 205', 'CHEM 206',
+               'PHYS 204', 'PHYS 205', 'PHYS 206',
+               'PHYS 224', 'PHYS 225', 'PHYS 226'
+             ];
+          }
         }
       }
       
@@ -300,7 +389,7 @@ export default function FreshDegreeTracker() {
       curriculum.requirements.forEach(req => {
         // 1. Core courses
         if (req.courses && req.courses.length > 0) {
-          targets = [...targets, ...req.courses];
+          targets = [...targets, ...req.courses.filter(c => typeof c === 'string')];
         }
         
         // 2. Elective slots
@@ -310,26 +399,37 @@ export default function FreshDegreeTracker() {
             const count = Math.ceil(slot.credits / creditsPerCourse);
             for (let i = 0; i < count; i++) {
               const slotName = count > 1 ? `${slot.name} ${i + 1}` : slot.name;
-              targets.push(electiveChoices[slotName] || slotName);
+              const choice = electiveChoices[slotName] || slotName;
+              if (typeof choice === 'string') {
+                targets.push(choice);
+              }
             }
           });
         }
       });
-
+      
+      // Final safety filter
+      targets = targets.filter(t => typeof t === 'string');
       const invertedElectives = {};
       Object.entries(electiveChoices).forEach(([slot, course]) => {
           invertedElectives[course] = slot;
       });
-      
       const modifiedCoursesDict = { ...curriculum.courses };
       if (includeMathProfile) {
-         modifiedCoursesDict['MATH 203'] = { credits: 3.0, ...modifiedCoursesDict['MATH 203'], prerequisites: [] };
-         modifiedCoursesDict['MATH 204'] = { credits: 3.0, ...modifiedCoursesDict['MATH 204'], prerequisites: [] };
-         modifiedCoursesDict['MATH 205'] = { credits: 3.0, ...modifiedCoursesDict['MATH 205'], prerequisites: [['MATH 203']] };
-         modifiedCoursesDict['PHYS 204'] = { credits: 3.0, ...modifiedCoursesDict['PHYS 204'], prerequisites: [['MATH 203']] };
-         modifiedCoursesDict['PHYS 205'] = { credits: 3.0, ...modifiedCoursesDict['PHYS 205'], prerequisites: [['MATH 203'], ['PHYS 204']] };
-         modifiedCoursesDict['CHEM 205'] = { credits: 3.0, ...modifiedCoursesDict['CHEM 205'], prerequisites: [] };
-         modifiedCoursesDict['CHEM 206'] = { credits: 3.0, ...modifiedCoursesDict['CHEM 206'], prerequisites: [['CHEM 205']] };
+         // Force structured progression for Foundation courses
+         const foundation = ['MATH 203', 'MATH 204', 'MATH 205', 'PHYS 204', 'PHYS 205', 'CHEM 205', 'CHEM 206'];
+         foundation.forEach(code => {
+           if (!modifiedCoursesDict[code]) modifiedCoursesDict[code] = { credits: 3.0, prerequisites: [], corequisites: [] };
+         });
+         modifiedCoursesDict['MATH 205'].prerequisites = [['MATH 203']];
+         modifiedCoursesDict['PHYS 204'].prerequisites = [['MATH 203']];
+         modifiedCoursesDict['PHYS 205'].prerequisites = [['MATH 203'], ['PHYS 204']];
+         modifiedCoursesDict['CHEM 206'].prerequisites = [['CHEM 205']];
+
+         // Natural Science Elective logic
+         ['Natural Science Elective 1', 'Natural Science Elective 2'].forEach(t => {
+            if (!modifiedCoursesDict[t]) modifiedCoursesDict[t] = { credits: 3.0, prerequisites: [['MATH 203']], corequisites: [] };
+         });
       }
       
       // Prevent advanced generic elective slots from dumping into Semester 1
@@ -338,28 +438,55 @@ export default function FreshDegreeTracker() {
           let syntheticPrereqs = [];
           const lower = t.toLowerCase();
           
+          // 1. Advanced Tech/CS Electives depend on Core Engineering or Math
           if (lower.includes('artificial intelligence') || lower.includes('computer science') || 
-              lower.includes('technical') || lower.includes('software') || 
-              lower.includes('option') || lower.includes('cybersecurity') || 
-              lower.includes('data science') || lower.includes('engineering') ||
-              lower.includes('mathematics') || lower.includes('math')) {
-              
-            if (modifiedCoursesDict['COMP 352']) syntheticPrereqs.push(['COMP 352']);
+              lower.includes('technical') || lower.includes('option') || lower.includes('software')) {
+            if (modifiedCoursesDict['ENGR 301']) syntheticPrereqs.push(['ENGR 301']);
             else if (modifiedCoursesDict['COMP 249']) syntheticPrereqs.push(['COMP 249']);
-            else if (modifiedCoursesDict['ENGR 301']) syntheticPrereqs.push(['ENGR 301']);
-            
-            // Special handling for Math electives to depend on basic math
-            if (lower.includes('math')) {
-              if (modifiedCoursesDict['MATH 205']) syntheticPrereqs.push(['MATH 205']);
-              else if (modifiedCoursesDict['MATH 204']) syntheticPrereqs.push(['MATH 204']);
-              else if (modifiedCoursesDict['ENGR 213']) syntheticPrereqs.push(['ENGR 213']);
-            }
+          }
+
+          // 2. Math electives depend on Calculus
+          if (lower.includes('math')) {
+            if (modifiedCoursesDict['MATH 205']) syntheticPrereqs.push(['MATH 205']);
+            else if (modifiedCoursesDict['ENGR 213']) syntheticPrereqs.push(['ENGR 213']);
+          }
+
+          // 3. General Education/Science Electives depend on Term 1 completion
+          if (lower.includes('general education') || lower.includes('natural science')) {
+            syntheticPrereqs.push(['MATH 203']);
           }
           
           modifiedCoursesDict[t] = {
             credits: 3.0,
-            prerequisites: syntheticPrereqs
+            prerequisites: syntheticPrereqs,
+            corequisites: []
           };
+        }
+      });
+      
+      // Inject ECP Foundation Prerequisite Rules
+      const ecpRules = {
+        'MATH 205': ['MATH 203'],
+        'PHYS 205': ['PHYS 204'],
+        'PHYS 206': ['PHYS 204'],
+        'CHEM 206': ['CHEM 205'],
+        'MATH 204': ['MATH 203'] // Often recommended to take 203 first or same time
+      };
+
+      Object.entries(ecpRules).forEach(([course, prereqs]) => {
+        if (!modifiedCoursesDict[course]) {
+          // If the course isn't in curriculum, add it with rules
+          modifiedCoursesDict[course] = {
+            credits: 3.0,
+            prerequisites: [prereqs],
+            corequisites: []
+          };
+        } else {
+          // If it is in curriculum, append these as hard prereqs
+          modifiedCoursesDict[course].prerequisites = [
+            ...(modifiedCoursesDict[course].prerequisites || []),
+            prereqs
+          ];
         }
       });
       
@@ -390,6 +517,37 @@ export default function FreshDegreeTracker() {
     );
   };
 
+  const submitBugReport = async (e) => {
+    e.preventDefault();
+    setBugStatus('submitting');
+    try {
+      const payload = {
+        ...bugForm,
+        type: 'bug-report',
+        degree: PROGRAMS[selectedProgramId]?.name || 'Unknown',
+        timestamp: new Date().toLocaleString()
+      };
+      
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      setBugStatus('success');
+      setTimeout(() => {
+        setShowBugReport(false);
+        setBugStatus('idle');
+        setBugForm({ ecp: 'No', program: '', course: '', error: '', correctMethod: '' });
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      setBugStatus('idle');
+      alert("Failed to submit bug report. Please try again.");
+    }
+  };
+
   const getTermName = (idx) => {
     const termOrder = ["Winter", "Summer", "Fall"];
     const startIndex = termOrder.indexOf(startTerm);
@@ -403,6 +561,7 @@ export default function FreshDegreeTracker() {
   };
 
   const getElectiveStyles = (course) => {
+    if (typeof course !== 'string') return { bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-900', title: 'text-slate-700' };
     if (!course.includes('Elective') && !course.includes('Group')) return null;
     if (course.includes('Math')) return { bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200 dark:border-blue-800 border-dashed', text: 'text-blue-900 dark:text-blue-300', title: 'text-blue-700 dark:text-blue-400' };
     if (course.includes('CS')) return { bg: 'bg-violet-50 dark:bg-violet-900/20', border: 'border-violet-200 dark:border-violet-800 border-dashed', text: 'text-violet-900 dark:text-violet-300', title: 'text-violet-700 dark:text-violet-400' };
@@ -412,11 +571,13 @@ export default function FreshDegreeTracker() {
   };
 
   const getCredits = (course) => {
+    if (typeof course !== 'string') return 3.0;
     if (course.includes('Elective') || course.includes('Group')) return 3.0;
     return curriculum.courses[course]?.credits || 3.0;
   };
 
   const getPrereqString = (course) => {
+    if (typeof course !== 'string') return "None";
     if (course === "ENCS 282") return "Students must pass the Engineering Writing Test (EWT), or pass ENCS 272 with a grade of C- or higher.";
     
     // Check if the current curriculum has explicitly defined structured prerequisites
@@ -429,7 +590,16 @@ export default function FreshDegreeTracker() {
     
     // Fallback to the global course prereqs dictionary from CSV
     if (coursePrereqs[course]) {
-      return coursePrereqs[course];
+      const globalInfo = coursePrereqs[course];
+      if (typeof globalInfo === 'string') return globalInfo;
+      
+      // If it's an object with prerequisites array
+      if (globalInfo.prerequisites && globalInfo.prerequisites.length > 0) {
+        return globalInfo.prerequisites.map(group => {
+          const items = Array.isArray(group) ? group : [group];
+          return items.join(" OR ");
+        }).join(" AND ");
+      }
     }
     
     return "None";
@@ -437,29 +607,47 @@ export default function FreshDegreeTracker() {
 
   const handleElectiveClick = (course) => {
     setSearchQuery('');
-    if (course.includes('Math Elective')) {
-      const mathList = curriculum.requirements.find(r => r.category.includes('Math'))?.courses || [];
-      setActiveElectiveSlot({ slot: course, type: 'MATH', list: mathList });
-    } else if (course.includes('CS Elective')) {
-      const csList = curriculum.requirements.find(r => r.category.includes('Computer Science Elective'))?.courses || [];
-      setActiveElectiveSlot({ slot: course, type: 'CS', list: csList });
-    } else if (course.includes('General Elective') || course.includes('General Education')) {
-      setActiveElectiveSlot({ slot: course, type: 'GENERAL', list: GENERAL_LIST });
-    } else if (course.includes('Elective') || course.includes('Group')) {
-        // Generic elective finder
-        const req = curriculum.requirements.find(r => course.startsWith(r.category));
+    const lowerCourse = course.toLowerCase();
+    const isElectiveSlot = lowerCourse.includes('elective') || lowerCourse.includes('group') || lowerCourse.includes('general education');
+    
+    if (isElectiveSlot) {
+      if (lowerCourse.includes('math')) {
+        const req = curriculum.requirements.find(r => r.category.toLowerCase().includes('math'));
+        const mathList = req?.electiveSlots?.[0]?.list || req?.courses || [];
+        setActiveElectiveSlot({ slot: course, type: 'MATH', list: mathList });
+      } else if (lowerCourse.includes('cs elective') || lowerCourse.includes('computer science elective')) {
+        const req = curriculum.requirements.find(r => r.category.toLowerCase().includes('computer science elective'));
+        const csList = req?.electiveSlots?.[0]?.list || req?.courses || [];
+        setActiveElectiveSlot({ slot: course, type: 'CS', list: csList });
+      } else if (lowerCourse.includes('general elective') || lowerCourse.includes('general education')) {
+        setActiveElectiveSlot({ slot: course, type: 'GENERAL', list: GENERAL_LIST });
+      } else if (lowerCourse.includes('natural science elective')) {
+        setActiveElectiveSlot({ slot: course, type: 'SCIENCE', list: NATURAL_SCIENCE_ELECTIVES });
+      } else {
+        // Generic elective finder - find requirement that matches the category prefix of the slot
+        const req = curriculum.requirements.find(r => {
+          const category = r.category.toLowerCase();
+          return lowerCourse.startsWith(category) || category.startsWith(lowerCourse.replace(/\s\d+$/, ''));
+        });
         const electiveList = req?.electiveSlots?.[0]?.list || req?.courses || [];
         setActiveElectiveSlot({ slot: course, type: 'TECHNICAL', list: electiveList });
+      }
     } else {
       setActiveCourseDetails(course);
     }
   };
 
   const selectElective = (slot, chosenCourse) => {
-    const exclusionReason = checkExclusion(chosenCourse);
-    if (exclusionReason && slot.includes('General Elective')) {
-      setErrorMsg(`Cannot select ${chosenCourse}!\n\n${exclusionReason}`);
-      return;
+    const allTaken = [...completedCourses, ...plan.flat(), ...Object.values(electiveChoices)];
+    const exclusion = checkExclusion(chosenCourse, allTaken);
+    if (exclusion) {
+      if (exclusion.type === 'block') {
+        setErrorMsg({ title: 'Action Blocked', message: exclusion.message, type: 'error' });
+        return;
+      } else {
+        // Warning - still add but notify
+        setErrorMsg({ title: 'Academic Warning', message: exclusion.message, type: 'warning' });
+      }
     }
     
     setElectiveChoices(prev => ({ ...prev, [slot]: chosenCourse }));
@@ -483,9 +671,36 @@ export default function FreshDegreeTracker() {
     const semIdx = manualAddPrompt.semesterIdx;
     const courseCode = manualInput.trim().toUpperCase();
     
-    const exclusionReason = checkExclusion(courseCode);
-    if (exclusionReason) {
-      setErrorMsg(`Cannot add ${courseCode}!\n\n${exclusionReason}`);
+    const allTaken = [...completedCourses, ...plan.flat(), ...Object.values(electiveChoices)];
+    const exclusion = checkExclusion(courseCode, allTaken);
+    let hasWarning = false;
+    if (exclusion) {
+      if (exclusion.type === 'block') {
+        setErrorMsg({ title: 'Action Blocked', message: exclusion.message, type: 'error' });
+        return;
+      } else {
+        hasWarning = true;
+        setErrorMsg({ title: 'Academic Warning', message: exclusion.message, type: 'warning' });
+      }
+    }
+
+    // NEW: Prerequisite Validation for Manual Adds
+    const completedBefore = [
+      ...completedCourses,
+      ...plan.slice(0, semIdx).flat()
+    ];
+    
+    const { isEligible, missing } = checkPrerequisites(
+      courseCode, 
+      completedBefore, 
+      null, 
+      curriculum.courses,
+      []
+    );
+
+    if (!isEligible) {
+      const missingStr = missing.map(m => Array.isArray(m) ? m.join(" OR ") : m.group.join(" OR ")).join(", ");
+      setErrorMsg({ title: 'Prerequisite Error', message: `Cannot add ${courseCode} to Semester ${semIdx + 1}!\n\nMissing Prerequisites: ${missingStr}`, type: 'error' });
       return;
     }
     
@@ -509,10 +724,31 @@ export default function FreshDegreeTracker() {
   const isChosenElective = (course) => Object.values(electiveChoices).includes(course);
   const isManualAdd = (course) => Object.values(manualAdds).flat().includes(course);
 
-  const filteredElectiveList = activeElectiveSlot?.list.filter(c => 
-    c.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    (courseTitles[c] || '').toLowerCase().includes(searchQuery.toLowerCase())
-  ) || [];
+  const filteredElectiveList = activeElectiveSlot?.list.filter(c => {
+    // Check if course is already in the plan or completed
+    if (completedCourses.includes(c)) return false;
+    if (Object.values(electiveChoices).includes(c)) return false;
+    
+    // Apply General Education Exclusions if the slot is for General Education
+    if (activeElectiveSlot.type === 'General Education') {
+       if (GENERAL_EDUCATION_EXCLUSIONS.includes(c)) return false;
+       
+       // Department check for Humanities
+       const prefix = c.split(' ')[0];
+       if (!HUMANITIES_LIST.includes(prefix) && !HUMANITIES_LIST.some(h => c.startsWith(h))) {
+          // Special cases like COMS 360 are handled by startsWith above
+          return false;
+       }
+    }
+    
+    // Apply Natural Science filter if applicable
+    if (activeElectiveSlot.type === 'Natural Science') {
+       if (!NATURAL_SCIENCE_ELECTIVES.includes(c)) return false;
+    }
+
+    return (c.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (courseTitles[c] || '').toLowerCase().includes(searchQuery.toLowerCase()));
+  }) || [];
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-black p-4 md:p-8 lg:p-12 print:p-0 print:bg-white">
@@ -694,7 +930,7 @@ export default function FreshDegreeTracker() {
                         )}
                       </div>
                       <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
-                        {prog.name}
+                        {debugRender(prog.name, "prog.name")}
                       </h3>
                       <p className="text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
                         {prog.options ? prog.options[0].data.totalCredits : prog.data.totalCredits} Credits • Undergraduate
@@ -739,11 +975,11 @@ export default function FreshDegreeTracker() {
               <div className="space-y-12">
                 {Object.entries(categories).map(([category, courses]) => (
                   <div key={category} className="space-y-6">
-                    <h3 className="text-2xl font-black text-[#912338] dark:text-blue-300 border-b border-slate-200 dark:border-white/10 pb-4 uppercase tracking-widest">{category}</h3>
+                    <h3 className="text-2xl font-black text-[#912338] dark:text-blue-300 border-b border-slate-200 dark:border-white/10 pb-4 uppercase tracking-widest">{debugRender(category, "step2.category")}</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                       {courses.map(course => (
                         <div 
-                          key={course}
+                          key={typeof course === 'string' ? course : Math.random()}
                           onClick={() => toggleCourse(course)}
                           className={`p-5 rounded-[1.5rem] border-2 cursor-pointer transition-all duration-300 ${
                             completedCourses.includes(course) 
@@ -752,7 +988,7 @@ export default function FreshDegreeTracker() {
                           }`}
                         >
                           <div className="flex justify-between items-center">
-                            <span className="font-black text-lg">{course}</span>
+                            <span className="font-black text-lg">{typeof course === 'string' ? course : "Invalid Entry"}</span>
                             {completedCourses.includes(course) && (
                               <div className="bg-emerald-500 text-white rounded-full p-1 shadow-lg shadow-emerald-500/40">
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
@@ -860,7 +1096,7 @@ export default function FreshDegreeTracker() {
                   return (
                     <div key={req.category} className="flex items-center gap-2">
                       <span className={`w-3 h-3 rounded-full shadow-inner ${catStyle.dot.replace('bg-', 'bg-').replace('/40', '')}`} />
-                      <span className="text-xs font-bold text-slate-700 dark:text-white/80 uppercase tracking-wide">{req.category}</span>
+                      <span className="text-xs font-bold text-slate-700 dark:text-white/80 uppercase tracking-wide">{debugRender(req.category, "legend.category")}</span>
                     </div>
                   );
                 })}
@@ -897,11 +1133,11 @@ export default function FreshDegreeTracker() {
                                    <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md w-fit bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 shadow-sm">
                                      Prior Credit
                                    </span>
-                                   <span className="font-black text-xl text-emerald-700">{course}</span>
+                                   <span className="font-black text-xl text-emerald-700">{typeof course === 'string' ? course : "Invalid Entry"}</span>
                                  </div>
                                  <span className="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md shadow-sm">EXEMPT</span>
                                </div>
-                               <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2">{title}</p>
+                               <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2">{debugRender(title, "priortitle")}</p>
                              </div>
                            </div>
                          )
@@ -920,7 +1156,7 @@ export default function FreshDegreeTracker() {
                           <span className="text-3xl font-black text-slate-800 dark:text-white/90">
                             {plan.flat().reduce((sum, c) => sum + getCredits(c), 0) + completedCourses.reduce((sum, c) => sum + getCredits(c), 0)}
                           </span>
-                          <span className="text-lg font-bold text-slate-400 dark:text-white/50">/ {curriculum.totalCredits || 120} Credits</span>
+                          <span className="text-lg font-bold text-slate-400 dark:text-white/50">/ {targetCredits} Credits</span>
                         </div>
                       </div>
                       <div className="text-right">
@@ -934,17 +1170,17 @@ export default function FreshDegreeTracker() {
                     <div className="w-full h-4 bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] rounded-full overflow-hidden flex">
                       <div 
                         className="h-full bg-emerald-400"
-                        style={{ width: `${Math.min(100, (completedCourses.reduce((sum, c) => sum + getCredits(c), 0) / (curriculum.totalCredits || 120)) * 100)}%` }}
+                        style={{ width: `${Math.min(100, (completedCourses.reduce((sum, c) => sum + getCredits(c), 0) / targetCredits) * 100)}%` }}
                         title="Completed Credits"
                       />
                       <div 
                         className="h-full bg-[#912338]"
-                        style={{ width: `${Math.min(100, (plan.flat().reduce((sum, c) => sum + getCredits(c), 0) / (curriculum.totalCredits || 120)) * 100)}%` }}
+                        style={{ width: `${Math.min(100, (plan.flat().reduce((sum, c) => sum + getCredits(c), 0) / targetCredits) * 100)}%` }}
                         title="Planned Credits"
                       />
                     </div>
                     
-                    {plan.flat().reduce((sum, c) => sum + getCredits(c), 0) + completedCourses.reduce((sum, c) => sum + getCredits(c), 0) < (curriculum.totalCredits || 120) && (
+                    {plan.flat().reduce((sum, c) => sum + getCredits(c), 0) + completedCourses.reduce((sum, c) => sum + getCredits(c), 0) < targetCredits && (
                       <p className="mt-3 text-xs font-bold text-amber-600 dark:text-amber-400 flex items-center gap-2">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                         Warning: You are below the required credits for graduation. Did you remove a core course?
@@ -1035,17 +1271,23 @@ export default function FreshDegreeTracker() {
                                          {category}
                                        </span>
                                      )}
-                                     <span className={`font-black text-xl ${isElectivePlaceholder ? elStyles.title : 'text-[#912338]'}`}>{course}</span>
+                                     <span className={`font-black text-xl ${isElectivePlaceholder ? elStyles.title : 'text-[#912338]'}`}>
+                                       {debugRender(course, "plancourse")}
+                                     </span>
                                    </div>
                                    <span className="text-xs font-bold bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] text-slate-500 dark:text-white/60 dark:text-white/50 px-2 py-1 rounded-md shadow-sm shrink-0">{getCredits(course)} CR</span>
                                  </div>
-                                 <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2 mb-4">{title}</p>
+                                 <p className="text-sm font-semibold opacity-80 leading-tight line-clamp-2 mb-4">
+                                   {debugRender(title, "plantitle")}
+                                 </p>
                                </div>
 
                                {!isElectivePlaceholder && (
                                  <div className="mt-auto pt-3 border-t border-black/5">
                                    <p className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-wider mb-1">Prerequisites</p>
-                                   <p className="text-xs font-medium text-slate-600 dark:text-white/70 truncate">{getPrereqString(course)}</p>
+                                   <p className="text-xs font-medium text-slate-600 dark:text-white/70 truncate">
+                                     {typeof course === 'string' ? getPrereqString(course) : "N/A"}
+                                   </p>
                                  </div>
                                )}
                              </div>
@@ -1116,11 +1358,13 @@ export default function FreshDegreeTracker() {
                         className="p-4 rounded-xl border border-slate-100 dark:border-white/[0.08] hover:border-[#912338] hover:bg-red-50 cursor-pointer transition-colors group flex items-center justify-between"
                       >
                         <div>
-                          <div className="font-bold text-lg text-slate-800 dark:text-white/90 group-hover:text-[#912338]">{c}</div>
+                          <div className="font-bold text-lg text-slate-800 dark:text-white/90 group-hover:text-[#912338]">
+                            {typeof c === 'string' ? c : "Invalid Course"}
+                          </div>
                           <div className="text-sm text-slate-500 dark:text-white/60 dark:text-white/50">{courseTitles[c] || "Description unavailable"}</div>
                         </div>
                         <div className="text-xs font-bold text-slate-400 dark:text-white/50 bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] px-2 py-1 rounded-lg">
-                          {curriculum.courses[c]?.credits || 3.0} CR
+                          {getCredits(c)} CR
                         </div>
                       </div>
                     ))}
@@ -1198,7 +1442,7 @@ export default function FreshDegreeTracker() {
             >
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h3 className="text-3xl font-black text-[#912338] mb-1">{activeCourseDetails}</h3>
+                  <h3 className="text-3xl font-black text-[#912338] mb-1">{typeof activeCourseDetails === 'string' ? activeCourseDetails : "Course Details"}</h3>
                   <p className="font-bold text-slate-500 dark:text-white/60 dark:text-white/50 leading-tight">{courseTitles[activeCourseDetails] || "Title Unavailable"}</p>
                 </div>
                 <div className="bg-slate-100 dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.04] font-bold text-slate-700 dark:text-white/80 px-3 py-1 rounded-lg">
@@ -1334,15 +1578,19 @@ export default function FreshDegreeTracker() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               onClick={e => e.stopPropagation()}
-              className="bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md w-full max-w-md rounded-[2rem] shadow-2xl p-8 border-l-8 border-red-500"
+              className={`bg-white dark:bg-white dark:bg-white/[0.03] dark:backdrop-blur-md/[0.03] backdrop-blur-md w-full max-w-md rounded-[2rem] shadow-2xl p-8 border-l-8 ${errorMsg.type === 'warning' ? 'border-amber-500' : 'border-red-500'}`}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${errorMsg.type === 'warning' ? 'bg-amber-100 text-amber-500' : 'bg-red-100 text-red-500'}`}>
+                  {errorMsg.type === 'warning' ? (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                  ) : (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  )}
                 </div>
-                <h3 className="text-2xl font-black text-slate-800 dark:text-white/90">Action Blocked</h3>
+                <h3 className="text-2xl font-black text-slate-800 dark:text-white/90">{errorMsg.title}</h3>
               </div>
-              <p className="text-slate-600 dark:text-white/70 font-medium mb-8 whitespace-pre-wrap">{errorMsg}</p>
+              <p className="text-slate-600 dark:text-white/70 font-medium mb-8 whitespace-pre-wrap">{errorMsg.message}</p>
               
               <button 
                 onClick={() => setErrorMsg(null)}
@@ -1350,6 +1598,138 @@ export default function FreshDegreeTracker() {
               >
                 Understood
               </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Bug Report Floating Button */}
+      {step === 'select-program' && (
+        <motion.button
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+              setBugForm(prev => ({ ...prev, program: PROGRAMS[selectedProgramId]?.name || '' }));
+              setShowBugReport(true);
+          }}
+          className="fixed bottom-8 left-8 z-50 bg-amber-500 text-white p-4 rounded-full shadow-2xl flex items-center gap-2 font-bold group overflow-hidden border-4 border-white dark:border-slate-800"
+        >
+          <motion.div
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          </motion.div>
+          <span className="max-w-0 group-hover:max-w-xs transition-all duration-500 whitespace-nowrap opacity-0 group-hover:opacity-100 pr-2">
+            Report a Bug
+          </span>
+        </motion.button>
+      )}
+
+      {/* Bug Report Modal */}
+      <AnimatePresence>
+        {showBugReport && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 40 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 40 }}
+              className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[2.5rem] shadow-2xl p-8 border border-white/10 relative overflow-hidden"
+            >
+              <button 
+                onClick={() => setShowBugReport(false)}
+                className="absolute top-6 right-6 p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+
+              <h2 className="text-3xl font-black mb-2 bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent">Report a Bug</h2>
+              <p className="text-slate-500 dark:text-white/60 mb-6 font-medium">Found an error? Let us know!</p>
+
+              <form onSubmit={submitBugReport} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">ECP Student?</label>
+                    <select 
+                      value={bugForm.ecp}
+                      onChange={e => setBugForm({...bugForm, ecp: e.target.value})}
+                      className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 font-bold text-slate-700 dark:text-white"
+                    >
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Program Name</label>
+                    <input 
+                      type="text"
+                      value={bugForm.program}
+                      onChange={e => setBugForm({...bugForm, program: e.target.value})}
+                      className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 font-bold text-slate-700 dark:text-white"
+                      placeholder="e.g. BCompSc General"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Course (Autocomplete)</label>
+                  <input 
+                    list="bug-courses"
+                    type="text"
+                    value={bugForm.course}
+                    onChange={e => setBugForm({...bugForm, course: e.target.value.toUpperCase()})}
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 font-bold text-slate-700 dark:text-white"
+                    placeholder="e.g. COMP 352"
+                    required
+                  />
+                  <datalist id="bug-courses">
+                    {Object.keys(courseTitles)
+                      .filter(c => c.toLowerCase().includes(bugForm.course.toLowerCase()) || courseTitles[c].toLowerCase().includes(bugForm.course.toLowerCase()))
+                      .slice(0, 100)
+                      .map(c => <option key={c} value={c}>{courseTitles[c]}</option>)}
+                  </datalist>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">What is the error?</label>
+                  <textarea 
+                    value={bugForm.error}
+                    onChange={e => setBugForm({...bugForm, error: e.target.value})}
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 font-bold text-slate-700 dark:text-white h-24"
+                    placeholder="e.g. Prerequisite is wrong"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">What is the correct method?</label>
+                  <textarea 
+                    value={bugForm.correctMethod}
+                    onChange={e => setBugForm({...bugForm, correctMethod: e.target.value})}
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 font-bold text-slate-700 dark:text-white h-24"
+                    placeholder="Describe the fix..."
+                    required
+                  />
+                </div>
+
+                <button 
+                  type="submit"
+                  disabled={bugStatus !== 'idle'}
+                  className={`w-full py-4 rounded-2xl font-black text-lg shadow-xl transition-all ${bugStatus === 'success' ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+                >
+                  {bugStatus === 'idle' && 'Submit Bug Report'}
+                  {bugStatus === 'submitting' && 'Sending Report...'}
+                  {bugStatus === 'success' && 'Successfully Reported!'}
+                </button>
+              </form>
             </motion.div>
           </motion.div>
         )}
