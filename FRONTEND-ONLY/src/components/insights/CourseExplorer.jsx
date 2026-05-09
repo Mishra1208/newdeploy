@@ -36,8 +36,8 @@ export default function CourseExplorer({ data }) {
 
     useEffect(() => {
         if (data && data.length > 0) {
-            // Get unique courses
-            const list = [...new Set(data.map(row => row.Course))].sort();
+            // Get unique courses - filter out null/undefined first
+            const list = [...new Set(data.map(row => row.Course).filter(c => typeof c === 'string'))].sort();
             setCourses(list);
             if (list.length > 0 && !selectedCourse) {
                 setSelectedCourse(list[0]);
@@ -153,7 +153,7 @@ export default function CourseExplorer({ data }) {
     const filteredCourses = query === ""
         ? courses
         : courses.filter((course) =>
-            course.toLowerCase().includes(query.toLowerCase().trim())
+            course && typeof course === 'string' && course.toLowerCase().includes(query.toLowerCase().trim())
         );
 
     const getDifficultyColor = (failRate) => {

@@ -10,7 +10,7 @@ export default function TermAnalyzer({ data }) {
 
     useEffect(() => {
         if (data) {
-            const list = [...new Set(data.map(row => row.Course))].sort();
+            const list = [...new Set(data.map(row => row.Course).filter(c => typeof c === 'string'))].sort();
             setAllCourses(list);
         }
     }, [data]);

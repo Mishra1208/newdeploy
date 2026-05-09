@@ -8,7 +8,7 @@ export default function ElectiveFinder({ data }) {
 
     useEffect(() => {
         if (data && data.length > 0) {
-            const list = [...new Set(data.map(row => row.Course))].sort();
+            const list = [...new Set(data.map(row => row.Course).filter(c => typeof c === 'string'))].sort();
             const statsList = [];
 
             for (const c of list) {
@@ -30,7 +30,7 @@ export default function ElectiveFinder({ data }) {
 
     const filteredList = rankings.filter(r => {
         if (filterLevel === 'all') return true;
-        return r.code.includes(filterLevel); // Cheap level check e.g., "COMP 200"
+        return r.code && typeof r.code === 'string' && r.code.includes(filterLevel); // Cheap level check e.g., "COMP 200"
     });
 
     return (

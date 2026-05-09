@@ -21,7 +21,9 @@ export async function getGradeData() {
                 dynamicTyping: true, // Automatically parse numbers
                 skipEmptyLines: true,
                 complete: (results) => {
-                    resolve(results.data);
+                    // Filter out empty rows or rows without a course code
+                    const cleanData = results.data.filter(row => row && row.Course);
+                    resolve(cleanData);
                 },
                 error: (err) => {
                     reject(err);
