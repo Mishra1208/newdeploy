@@ -215,6 +215,20 @@
     vertical-align: middle;
 }
 
+.proBadge {
+    font-size: 9px;
+    background: rgba(244, 63, 94, 0.15);
+    color: #f43f5e;
+    padding: 2px 6px;
+    border-radius: 100px;
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
 /* Status Badge */
 .statusBadge {
     display: inline-flex;
@@ -321,6 +335,12 @@
     transform: translateX(4px);
 }
 
+:global([data-theme="dark"]) .linkPathfinder:hover {
+    color: #d946ef !important;
+    text-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
+    transform: translateX(4px);
+}
+
 :global([data-theme="dark"]) .linkTree:hover {
     color: #3b82f6 !important;
     text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
@@ -333,9 +353,27 @@
     transform: translateX(4px);
 }
 
+:global([data-theme="dark"]) .linkSchedule:hover {
+    color: #06b6d4 !important;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+    transform: translateX(4px);
+}
+
 :global([data-theme="dark"]) .linkSeat:hover {
     color: #fbbf24 !important;
     text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkProfessor:hover {
+    color: #f97316 !important;
+    text-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+    transform: translateX(4px);
+}
+
+:global([data-theme="dark"]) .linkInsights:hover {
+    color: #10b981 !important;
+    text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
     transform: translateX(4px);
 }
 

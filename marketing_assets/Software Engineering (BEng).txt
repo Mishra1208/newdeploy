@@ -1,0 +1,128 @@
+Section 71.70.9 Degree Requirements for the BEng in Software Engineering
+Degree Requirements
+Students registered in the Software Engineering program must complete a minimum of 120 credits during four years of fulltime study. The program consists of the Engineering Core, theSoftware Engineering Core and electives.
+
+BEng in Software Engineering (120 credits)
+27.5	credits from the Engineering Core
+46.5	credits from the Software Engineering Core
+27	credits from the Computer Science Group: Software Engineering
+3	credits from the Engineering and Natural Science Group: Software Engineering
+16	credits of Software Engineering Electives
+Software Engineering Core (46.5 credits)
+46.5	
+credits:
+
+
+• SOEN 228 System Hardware (4.00)‌ • SOEN 287 Web Programming (3.00)‌ • SOEN 321 Information Systems Security (3.00)‌ • SOEN 331 Formal Methods for Software Engineering (3.00)‌ • SOEN 341 Software Process and Practices (4.00)‌ • SOEN 342 Software Requirements and Deployment (3.00)‌ • SOEN 343 Software Architecture and Design (4.00)‌ • SOEN 345 Software Testing, Verification and Quality Assurance (4.00)‌ • SOEN 357 User Interface Design (3.00)‌ • SOEN 363 Data Systems for Software Engineers (3.00)‌ • SOEN 384 Management, Measurement and Quality Control (3.00)‌‌ • SOEN 390 Software Engineering Team Design Project (3.50)‌• SOEN 490 Capstone Software Engineering Design Project (6.00)
+Note: Students may replace SOEN 490 with ENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the ENGR 490 Design Committee before the start of the fall term.
+Computer Science Group: Software Engineering (27 credits)
+• COMP 232 Mathematics for Computer Science (3.00)• COMP 248 Object‑Oriented Programming I (3.50)• COMP 249 Object‑Oriented Programming II (3.50)• COMP 335 Introduction to Theoretical Computer Science (3.00)• COMP 346 Operating Systems (4.00)• COMP 348 Principles of Programming Languages (3.00)• COMP 352 Data Structures and Algorithms (3.00)• COMP 432 Machine Learning (4.00)
+Engineering and Natural Science Group: Software Engineering (3 credits)
+3	
+credits chosen from:
+
+
+• ENGR 245 Mechanical Analysis (3.00)• MIAE 221 Materials Science (3.00)
+Software Engineering Electives (16 credits)
+Students in the Software Engineering program must complete at least 16 elective credits from the list of courses below:
+
+
+• AERO 480 Flight Control Systems (3.50)‌ • AERO 482 Avionic Navigation Systems (3.00)‌ • COEN 320 Introduction to Real‑Time Systems (3.50)‌ • COMP 333 Data Analytics (4.00)‌ • COMP 339 Combinatorics (3.00)‌ • COMP 345 Advanced Program Design with C++ (4.00)‌ • COMP 371 Computer Graphics (4.00)‌ • COMP 376 Introduction to Game Development (4.00)‌ • COMP 425 Computer Vision (4.00)‌ • COMP 426 Multicore Programming (4.00)‌ • COMP 428 Parallel Programming (4.00)‌ • COMP 433 Introduction to Deep Learning (4.00)‌ • COMP 438 Geometric Modelling and Processing (4.00)‌ • COMP 442 Compiler Design (4.00)‌ • COMP 444 System Software Design (4.00)‌ • COMP 445 Data Communication and Computer Networks (4.00)‌ • COMP 451 Database Design (4.00)‌ • COMP 465 Design and Analysis of Algorithms (3.00)‌ • COMP 472 Artificial Intelligence (4.00)‌ • COMP 473 Pattern Recognition (4.00)‌ • COMP 474 Intelligent Systems (4.00)‌ • COMP 475 Immersive Technologies (4.00)‌ • COMP 476 Advanced Game Development (4.00)‌ • COMP 477 Animation for Computer Games (4.00)‌ • COMP 478 Image Processing (4.00)‌ • COMP 479 Information Retrieval and Web Search (4.00)‌ • COMP 498 Topics in Computer Science (3.00)‌ • COMP 499 Topics in Computer Science with Lab (4.00)‌ • SOEN 298 System Hardware Lab (1.00)‌ • SOEN 344 Advanced Software Architecture and Design (3.00)‌ • SOEN 387 Web‑Based Enterprise Application Design (3.00)‌ • SOEN 422 Embedded Systems and Software (4.00)‌ • SOEN 423 Distributed Systems (4.00)‌ • SOEN 471 Big Data Analytics (4.00)‌ • SOEN 487 Web Services and Applications (4.00)‌ • SOEN 491 Software Engineering Project (1.00)‌ • SOEN 498 Topics in Software Engineering (3.00)‌ • SOEN 499 Topics in Software Engineering with Lab (4.00)‌ • ENGR 411 Special Technical Report (1.00)‌​​
+​​​​​​
+Electives are also listed in the following groups to facilitate the selection of courses in a particular area of the field:
+
+​Artificial Intelligence Group: Software Engineering‌​
+
+​Computer Games Group: Software Engineering‌​ ‌
+
+​​Data Engineering Group: Software Engineering​​
+
+​​Real‑Time, Embedded, and Avionics Software Group: Software Engineering‌​​
+
+​​Web Services and Applications Group: Software Engineering​​
+
+​​​​
+Software Engineering Elective Course Groups
+Artificial Intelligence Group: Software Engineering
+• COMP 425 Computer Vision (4.00)• COMP 433 Introduction to Deep Learning (4.00)• COMP 472 Artificial Intelligence (4.00)• COMP 473 Pattern Recognition (4.00)• COMP 474 Intelligent Systems (4.00)• COMP 479 Information Retrieval and Web Search (4.00)
+Computer Games Group: Software Engineering
+
+• COMP 345 Advanced Program Design with C++ (4.00)• COMP 371 Computer Graphics (4.00)• COMP 376 Introduction to Game Development (4.00)• COMP 438 Geometric Modelling and Processing (4.00)• COMP 475 Immersive Technologies (4.00)• COMP 476 Advanced Game Development (4.00)• COMP 477 Animation for Computer Games (4.00)
+Data Engineering Group: Software Engineering
+• COMP 333 Data Analytics (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• SOEN 471 Big Data Analytics (4.00)
+Real‑Time, Embedded, and Avionics Software Group: Software Engineering
+• AERO 480 Flight Control Systems (3.50)• AERO 482 Avionic Navigation Systems (3.00)• COEN 320 Introduction to Real‑Time Systems (3.50)• COMP 345 Advanced Program Design with C++ (4.00)• SOEN 422 Embedded Systems and Software (4.00)• SOEN 423 Distributed Systems (4.00)• COMP 444 System Software Design (4.00)
+Web Services and Applications Group: Software Engineering
+• COMP 445 Data Communication and Computer Networks (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• SOEN 387 Web‑Based Enterprise Application Design (3.00)• SOEN 487 Web Services and Applications (4.00)
+
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+
+Software Engineering Elective Course Groups
+Artificial Intelligence Group: Software Engineering
+• COMP 425 Computer Vision (4.00)• COMP 433 Introduction to Deep Learning (4.00)• COMP 472 Artificial Intelligence (4.00)• COMP 473 Pattern Recognition (4.00)• COMP 474 Intelligent Systems (4.00)• COMP 479 Information Retrieval and Web Search (4.00)
+Computer Games Group: Software Engineering
+
+• COMP 345 Advanced Program Design with C++ (4.00)• COMP 371 Computer Graphics (4.00)• COMP 376 Introduction to Game Development (4.00)• COMP 438 Geometric Modelling and Processing (4.00)• COMP 475 Immersive Technologies (4.00)• COMP 476 Advanced Game Development (4.00)• COMP 477 Animation for Computer Games (4.00)
+Data Engineering Group: Software Engineering
+• COMP 333 Data Analytics (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• SOEN 471 Big Data Analytics (4.00)
+Real‑Time, Embedded, and Avionics Software Group: Software Engineering
+• AERO 480 Flight Control Systems (3.50)• AERO 482 Avionic Navigation Systems (3.00)• COEN 320 Introduction to Real‑Time Systems (3.50)• COMP 345 Advanced Program Design with C++ (4.00)• SOEN 422 Embedded Systems and Software (4.00)• SOEN 423 Distributed Systems (4.00)• COMP 444 System Software Design (4.00)
+Web Services and Applications Group: Software Engineering
+• COMP 445 Data Communication and Computer Networks (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• SOEN 387 Web‑Based Enterprise Application Design (3.00)• SOEN 487 Web Services and Applications (4.00)
+
+
+WE HAVE PDF FOR IT 
+SOEN_General_Program.pdf
+ECP_and_MEP_SOEN.pdf

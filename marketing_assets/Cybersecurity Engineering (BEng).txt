@@ -1,0 +1,63 @@
+Section 71.100.1 Course Requirements (BEng in Cybersecurity Engineering)
+Degree Requirements
+BEng in Cybersecurity Engineering (120 credits)
+30.5	credits from theEngineering Core
+49.5	credits from theCybersecurity Engineering Core
+25	credits from theCybersecurity Engineering Complementary Core
+3	credits chosen fromEngineering and Natural Science Group: Cybersecurity Engineering
+12	
+credits chosen fromCybersecurity Engineering Electives
+
+Cybersecurity Engineering Core (49.5 credits)
+• INSE 201 Security Ethics, Laws, Standards and Compliance (1.50)‌ • INSE 221 Cryptography I (3.00)‌ • INSE 331 Database Security (3.00)‌ • INSE 349 Secure Programming and Software Design (3.00)‌ • INSE 351 Operating System Security (3.00)‌ • INSE 386 Introduction to Cybersecurity Management and Governance (3.00)‌ • INSE 387 Introduction to Artificial Intelligence and Machine Learning in Cybersecurity (3.00)‌ • INSE 390 Cybersecurity Engineering Team Design Project (3.00)‌ • INSE 401 Usability and Human Aspects of Security (3.00)‌ • INSE 412 Cybercrime and Digital Forensics (3.00)‌ • INSE 413 Security Auditing and Compliance (3.00)‌ • INSE 441 Mobile Security and Privacy (3.00)‌ • INSE 442 Reverse Engineering, Application and Malware Analysis (3.00)‌ • INSE 445 Network Security (3.00)‌ • INSE 452 Penetration Testing and Ethical Hacking (3.00)‌ • INSE 490 Capstone Cybersecurity Engineering Design Project (6.00)‌​​​​​ ​​​​​​​​
+Cybersecurity Engineering Complementary Core (25 credits)
+• COMP 232 Mathematics for Computer Science (3.00)‌ • COMP 248 Object‑Oriented Programming I (3.50)‌ • COMP 249 Object‑Oriented Programming II (3.50)‌ • COMP 346 Operating Systems (4.00)‌ • COMP 352 Data Structures and Algorithms (3.00)‌ • COMP 445 Data Communication and Computer Networks (4.00)‌ • SOEN 228 System Hardware (4.00)‌​​ ​​​​
+Engineering and Natural Science Group: Cybersecurity Engineering (3 credits)
+Students must complete 3 credits from the following:
+
+​​
+• ENGR 245 Mechanical Analysis (3.00)‌ • MIAE 221 Materials Science (3.00)‌ ​​
+Cybersecurity Engineering Electives
+Students must complete 12 credits from the following:​​​​​​​​​​​​
+• INSE 321 Cryptography II (3.00)‌ • INSE 411 Privacy: Enhancing Technologies, Analysis and Measurement (3.00)‌ • INSE 481 Blockchain Technologies and Applications (3.00)‌ • INSE 482 Industrial Control Systems and Critical Infrastructure (3.00)‌ • INSE 483 IoT and Embedded System Security (3.00)‌ • INSE 484 Quantum Computing and Security (3.00)‌ • INSE 485 Cybersecurity of Health-Care Systems and Devices (3.00)‌ • INSE 486 Advanced Cybersecurity Management and Governance (3.00)‌ • INSE 487 Advanced Topics on Artificial Intelligence and Machine Learning in Cybersecurity (3.00)‌ • INSE 488 Cloud Computing and Security (3.00)‌ • INSE 498 Topics in Cybersecurity Engineering (3.00)‌​​​​​​ ​​​​​​​​​​​​
+
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+

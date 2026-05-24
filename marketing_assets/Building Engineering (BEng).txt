@@ -1,0 +1,136 @@
+Building, Civil and Environmental Engineering
+Website
+For the complete list of faculty members, please consult the Department website:
+
+concordia.ca/ginacody/building-civil-environmental-eng.html
+
+Objectives
+Building Engineering
+Building Engineering, as a discipline, encompasses the body of knowledge which pertains to all phases in the life‑cycle of a constructed facility, namely conception, planning, design, construction, operation, and disposal.
+
+Concordia has a unique undergraduate program leading to a BEng in Building Engineering designed to meet the needs of the construction industry for engineers familiar with the overall design of built facilities.
+
+In addition to the basic engineering sciences, the program emphasizes the fundamentals of building materials, structural analysis and design, building services (acoustical, heating, lighting, air conditioning), economics, and project management. The student also has available certain electives which will be of use in the design of various phases of a building.
+
+Students who complete all but one of their 200‑ and 300‑level courses with a sufficiently high standing may apply through the Associate Dean, Student Academic Services to enter a combined program leading to the joint award of both a BEng and an MEng degree in Building Engineering. It is expected that those who aspire to leadership roles within the building industry will enter such a combined program. The combined program requires a further 12 months of full‑time study, after which graduates will not only have obtained further grounding in the basics, but will also have specialized in one of four branches: Building Science, Building Environment, Building Structures, Construction Management. For details of the graduate component, refer to the School of Graduate Studies Calendar.
+
+Civil Engineering
+Civil Engineering is concerned with the creation of systems of constructed facilities which play an important role in sound economic growth of society. It is also concerned with the development of technologies to combat pollution of air, water, and soil. Civil engineers are responsible for the design of foundations and superstructures of common structures such as buildings, bridges, dams, tunnels, wharves, as well as many unusual structures such as rocket installations, containment vessels for nuclear reactors, supports for radio telescopes, and frameworks for aircraft. In addition, they are concerned with the engineering aspects of water resources; transportation facilities; planning metropolitan areas, and conducting and managing their public facilities. In dealing with environmental problems, civil engineers perform vital functions such as monitoring and controlling air, water, and soil quality, assessing the impact of technological changes on the environment, and developing innovative waste reduction technologies.
+
+Section 71.50 Department of Building, Civil and Environmental Engineering
+Building, Civil and Environmental Engineering
+Section 71.50.1 Course Requirements (BEng in Building Engineering)
+Section 71.50.2 Course Requirements (BEng in Civil Engineering)
+ 
+ Section 71.50.1 Course Requirements (BEng in Building Engineering)
+Degree Requirements
+The program in Building Engineering consists of the ​ Engineering Core‌​, the Building Engineering Core‌, and ​Building Engineering Electives‌​ credits as shown below. The normal length of the program is 120 credits.
+
+​
+BEng in Building Engineering (120 credits)
+29	
+credits from the Engineering Core
+
+Note: Students in BEng (Bldg) must successfully complete BLDG 482 instead of ENGR 392.
+
+Note: The Engineering Core credits for students in the Building Engineering program are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202 (1.5 credits) in their program.
+
+81.5	credits from the Building Engineering Core
+9.5	credits from Building Engineering Electives
+Building Engineering Core (81.50 credits)
+
+• BCEE 231 Structured Programming and Applications for Building and Civil Engineers (3.00)• BCEE 277 Introduction to AI in Natural and Built Environment (2.50)• BCEE 342 Structural Analysis I (3.00)• BCEE 344 Structural Design of Steel and Wood Elements (3.00)• BCEE 345 Structural Design of Reinforced Concrete Elements (3.00)• BCEE 371 Surveying (3.00)• BCEE 377 Applied AI for the Built Environment (2.50)• BCEE 432 Soil Mechanics (3.50)• BCEE 451 Construction Engineering (3.00)• BLDG 212 Building Engineering Drawing and Introduction to Design (3.00)• BLDG 341 Building Engineering Systems (3.00)• BLDG 365 Building Science (3.50)• BLDG 371 Building Service Systems (3.50)• BLDG 390 Building Engineering Design Project (3.50)• BLDG 463 Building Envelope Design (3.00)• BLDG 471 HVAC System Design (4.00)• BLDG 476 Thermal Analysis of Buildings (3.00)• BLDG 490 Capstone Building Engineering Design Project (6.00)• CIVI 321 Engineering Materials (3.75)• ENGR 242 Statics (3.00)• ENGR 243 Dynamics (3.00)• ENGR 244 Mechanics of Materials (3.75)• ENGR 251 Thermodynamics I (3.00)• ENGR 311 Transform Calculus and Partial Differential Equations (3.00)• ENGR 361 Fluid Mechanics I (3.00)
+Note: BCEE 371 is a summer course to be taken before entering second year of BEng program.
+
+Note: Students may replace BLDG 490 withENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the Department and the Design Committee before the start of the fall term.
+
+Building Engineering Electives (9.5 credits)
+Students must complete a minimum of 9.5 credits from the following lists:
+
+​​Building Energy and Environment Group‌​​​ ​​
+
+​Building Structures and Construction Group‌​​​
+
+Notes:
+
+Courses are listed in groups to facilitate the selection of courses in a particular area of the field.
+
+The ​Building Energy and Environment Group‌​ is designed for students interested in careers in building energy efficiency, HVAC systems and indoor environment. The Building Structures and Construction Group‌​ is tailored for students wishing to pursue careers in building design, building structures, and construction engineering and management.
+
+​​​​​​
+​​
+Building Energy and Environment Group
+
+• BLDG 366 Acoustics and Lighting (3.50)‌ • BLDG 465 Fire and Smoke Control in Buildings (3.00)‌ • BLDG 472 Energy Management in Buildings (3.00)‌ • BLDG 473 Building Acoustics (3.00)‌ • BLDG 474 Building Illumination and Daylighting (3.00)‌ • BLDG 475 Indoor Air Quality and Ventilation (3.00)‌ • BLDG 477 Control Systems in Buildings (3.00)‌ • BLDG 479 Commissioning of HVAC Systems in Buildings (3.00)‌ • BLDG 483 Solar Building Modelling, Design and Operation (3.00)‌ • BLDG 484 Diagnostics and Rehabilitation of Building Envelope (3.00)‌ • BLDG 498 Topics in Building Engineering (3.00)‌ • ENGR 411 Special Technical Report (1.00)‌ • ENGR 412 Honours Research Project (3.00)‌
+​​
+Building Structures and Construction Group
+
+• BCEE 343 Structural Analysis II (3.00)• BCEE 455 Introduction to Structural Dynamics (3.00)• BCEE 478 Project Management for Construction (3.00)• BCEE 492 Construction Processes (3.00)• BLDG 462 Non-structural Building Materials (3.00)• BLDG 480 Building Information Modelling in Construction (3.00)• BLDG 481 Fundamentals of Facility Management (3.00)• BLDG 498 Topics in Building Engineering (3.00)• CIVI 435 Foundation Design (3.00)• CIVI 453 Design of Reinforced Concrete Structures (3.50)• CIVI 454 Design of Steel Structures (3.50)• ENGR 411 Special Technical Report (1.00)• ENGR 412 Honours Research Project (3.00)
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+
+WE HAVE PDF FORIT 
+buildingengineeringsequence20260303.pdf
+
+Course sequences for Building Engineering
+Engineering students must follow the approved course sequence for their program to ensure graduation after four years (8 terms) of study. Registering for the sections for your program means no time conflicts or problems with your courses.
+
+All students in engineering programs must complete all 200-level courses in their programs prior to commencing courses at the 400-level.
+
+Students must choose technical electives from the approved list in the Undergraduate Calendar. Topics offered in these courses change overtime to ensure your program curriculum remains relevant. Some technical electives may not be offered in a given academic year.
+
+Capstone Design Project courses (BLDG and CIVI 490) extend over two academic terms.
+
+Course sequences
+Regular September, January and Co-op

@@ -1,0 +1,53 @@
+Section 71.100.2 Course Requirements (BSc in Cybersecurity)
+Degree Requirements
+BSc in Cybersecurity (90 credits)
+22.5	
+credits from the Cybersecurity Core
+
+27	
+credits from the Cybersecurity Complementary Core
+
+12	
+credits chosen from Cybersecurity Electives
+
+9	
+credits chosen fromMathematics Electives: BSc Cybersecurity
+
+19.5	
+credits chosen fromGeneral Electives: BSc Cybersecurity
+
+Cybersecurity Core (22.5 credits)
+
+• INSE 201 Security Ethics, Laws, Standards and Compliance (1.50)• INSE 221 Cryptography I (3.00)• INSE 331 Database Security (3.00)• INSE 349 Secure Programming and Software Design (3.00)• INSE 351 Operating System Security (3.00)• INSE 386 Introduction to Cybersecurity Management and Governance (3.00)• INSE 413 Security Auditing and Compliance (3.00)• INSE 445 Network Security (3.00)
+Cybersecurity Complementary Core (27 credits)
+• COMP 228 System Hardware (3.00)‌ • COMP 232 Mathematics for Computer Science (3.00)‌ • COMP 248 Object‑Oriented Programming I (3.50)‌ • COMP 249 Object‑Oriented Programming II (3.50)‌ • COMP 346 Operating Systems (4.00)‌ • COMP 352 Data Structures and Algorithms (3.00)‌ • COMP 445 Data Communication and Computer Networks (4.00)‌ • ENCS 282 Technical Writing and Communication (3.00)‌​​ ​​​​
+Cybersecurity Electives (12 credits)
+Students must complete 12 credits from the following:​​​​​​​​​​​​​​​​
+• INSE 321 Cryptography II (3.00)‌ • INSE 387 Introduction to Artificial Intelligence and Machine Learning in Cybersecurity (3.00)‌ • INSE 401 Usability and Human Aspects of Security (3.00)‌ • INSE 411 Privacy: Enhancing Technologies, Analysis and Measurement (3.00)‌ • INSE 412 Cybercrime and Digital Forensics (3.00)‌ • INSE 441 Mobile Security and Privacy (3.00)‌ • INSE 442 Reverse Engineering, Application and Malware Analysis (3.00)‌ • INSE 452 Penetration Testing and Ethical Hacking (3.00)‌ • INSE 481 Blockchain Technologies and Applications (3.00)‌ • INSE 482 Industrial Control Systems and Critical Infrastructure (3.00)‌ • INSE 483 IoT and Embedded System Security (3.00)‌ • INSE 484 Quantum Computing and Security (3.00)‌ • INSE 485 Cybersecurity of Health-Care Systems and Devices (3.00)‌ • INSE 486 Advanced Cybersecurity Management and Governance (3.00)‌ • INSE 487 Advanced Topics on Artificial Intelligence and Machine Learning in Cybersecurity (3.00)‌ • INSE 488 Cloud Computing and Security (3.00)‌ • INSE 490 Capstone Cybersecurity Engineering Design Project (6.00)‌ • INSE 498 Topics in Cybersecurity Engineering (3.00)‌​​​​​ ​​​​​​​​​​​​​​​​
+Mathematics Electives: BSc Cybersecurity (9 credits)
+Students must complete 9 credits from the following: ​​
+• ENGR 213 Applied Ordinary Differential Equations (3.00)‌ • ENGR 233 Applied Advanced Calculus (3.00)‌ • ENGR 371 Probability and Statistics in Engineering (3.00)‌ • ENGR 391 Numerical Methods in Engineering (3.00)‌ • MAST 218 Multivariable Calculus I (3.00)‌ • MAST 219 Multivariable Calculus II (3.00)‌ • MAST 221 Applied Probability (3.00)‌ • MAST 324 Introduction to Optimization (3.00)‌ • MAST 332 Techniques in Symbolic Computation (3.00)‌ • MAST 333 Applied Statistics (3.00)‌ • MAST 334 Numerical Analysis (3.00)‌ • MATH 251 Linear Algebra I (3.00)‌ • MATH 252 Linear Algebra II (3.00)‌ • MATH 339 Combinatorics (3.00)‌ • MATH 366 Complex Analysis I (3.00)‌ • MATH 392 Elementary Number Theory and Cryptography (3.00)‌ ​​
+General Electives: BSc Cybersecurity (19.5 credits)
+Students must complete 19.5 credits from the following:
+
+Mathematics Electives: BSc Cybersecurity
+
+General Education Electives found in Section 71.110 Complementary Studies for Engineering and Computer Science Students
+
+A course outside this list qualifies as a General Elective provided that the course is explicitly listed in the Undergraduate Calendar as part of a major, minor, or specialization program, or as part of the degree requirements for a BEng program at Concordia, and provided that the course is not included in the General Electives Exclusion List below.
+
+General Electives Exclusion List: BSc Cybersecurity
+1. The following courses may not be taken to fulfill the General Electives requirement:
+
+​
+
+• BCEE 231 Structured Programming and Applications for Building and Civil Engineers (3.00)‌ • BIOL 200 Fundamentals of Human Biology (3.00)‌ • BIOL 322 Biostatistics (3.00)‌ • BTM 200 Fundamentals of Information Technology (3.00)‌ • BTM 380 Business Application Development (3.00)‌ • BTM 382 Database Management (3.00)‌ • CART 315 Digital Game Prototyping (3.00)‌ • COMM 215 Business Statistics (3.00)‌ • COMP 218 Fundamentals of Programming (3.00)‌ • EXCI 322 Statistics for Exercise Science (3.00)‌ • GEOG 264 Programming for Environmental Sciences (3.00)‌ • INTE 296 Discover Statistics (3.00)‌ • MATH 208 Fundamental Mathematics I (3.00)‌ • MATH 209 Fundamental Mathematics II (3.00)‌ • MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)‌ • PHYS 235 Object‑Oriented Programming and Applications (3.00)‌ • PHYS 236 Numerical Methods in Physics with Python (3.00)‌ • SOCI 212 Statistics I (3.00)‌​​​
+​​
+2. COEN courses or INTE courses can only be taken with permission. In general, courses offered outside the Department of Computer Science and Software Engineering that contain substantial programming or computer science content may not be taken. Such courses may qualify as a General Elective only with prior written permission on a GCS Student Request form, obtainable from the Office of Student Academic Services in the Gina Cody School of Engineering and Computer Science. ​​​​​​
+3. At most, six credits of the following courses may be taken for credit towards the General Electives requirement:
+
+​
+
+• FRAN 211 French Language: Elementary (6.00)‌ • FRAN 212 French Language: Transitional Level (6.00)‌ • FRAN 215 Langue française : niveau intermédiaire II (3.00)‌​
+​​​​​​
+4. ESL courses may not be taken to fulfill the General Electives requirement. 

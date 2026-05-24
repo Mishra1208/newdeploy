@@ -1,0 +1,97 @@
+Section 71.30.1 Course Requirements (BEng in Electrical Engineering)
+Degree Requirements
+The program in Electrical Engineering consists of the ​Engineering Core‌​, the Electrical Engineering Core‌​, and Electives. The minimum length of the program is 120 credits.
+
+​
+BEng in Electrical Engineering (120 credits)
+30.5	credits from the Engineering Core
+75.5	credits from the Electrical Engineering Core
+14	
+credits chosen from the Electrical Engineering Electives
+
+Electrical Engineering Core (75.5 credits)
+
+• COEN 212 Digital Systems Design I (3.50)• COEN 231 Introduction to Discrete Mathematics (3.00)• COEN 243 Programming Methodology I (3.50)• COEN 244 Programming Methodology II (3.00)• COEN 311 Computer Organization and Software (3.50)• COEN 313 Digital Systems Design II (3.50)• COEN 330 Applied Machine Learning (3.00)• COEN 352 Data Structures and Algorithms (3.00)• ELEC 242 Continuous‑Time Signals and Systems (3.00)• ELEC 251 Fundamentals of Applied Electromagnetics (3.00)• ELEC 311 Electronics I (3.50)• ELEC 312 Electronics II (3.50)• ELEC 321 Introduction to Semiconductor Materials and Devices (3.50)• ELEC 331 Fundamentals of Electrical Power Engineering (3.50)• ELEC 342 Discrete‑Time Signals and Systems (3.50)• ELEC 351 Electromagnetic Waves and Guiding Structures (3.50)• ELEC 366 Telecommunication Networks (3.50)• ELEC 367 Introduction to Digital Communications (3.50)• ELEC 372 Fundamentals of Control Systems (3.50)• ELEC 390 Electrical Engineering Product Design Project (3.00)• ELEC 490 Capstone Electrical Engineering Design Project (6.00)• ENGR 290 Introductory Engineering Team Design Project (3.00)
+Note: Students may replace ELEC 490 with ENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the ENGR 490 Design Committee before the start of the fall term.
+
+Electrical Engineering Electives (14 credits)
+Student must complete a minimum of 14 credits from the Electrical Engineering Electives list. Courses are listed in groups to facilitate course selection. With adequate academic justification and with permission of the Department, students may take one technical elective course from theComputer Engineering Electives.
+A. Telecommunication Networks and Signal Processing Electives: Electrical Engineering
+
+B. Microdevices, Electronics and VLSI Electives: Electrical Engineering
+
+C. Power and Renewable Energy Systems Electives: Electrical Engineering
+
+D. Controls, Robotics and Avionics Electives: Electrical Engineering
+
+E. Waves and Electromagnetics Electives: Electrical Engineering
+
+F. Computer Systems Electives: Electrical Engineering
+
+G. Biological and Biomedical Engineering Electives: Electrical Engineering
+
+H. Other Electives: Electrical Engineering
+
+Telecommunication Networks and Signal Processing Electives: Electrical Engineering
+• COEN 446 Internet of Things (3.50)• COEN 447 Software‑Defined Networking (3.00)• COEN 474 Quantum Information Processing and Coding (3.00)• ELEC 442 Advanced Signal Processing (3.00)• ELEC 447 Video Processing and Recognition (3.00)• ELEC 464 Wireless Communications (3.00)• ELEC 465 Network Security and Management (3.50)• ELEC 466 Introduction to Optical Communication Systems (3.50)• ELEC 470 Broadcast Signal Transmission (3.00)• ELEC 472 Advanced Telecommunication Networks (3.50)
+Microdevices, Electronics and VLSI Electives: Electrical Engineering
+• COEN 314 Digital Electronics (3.50)• COEN 451 VLSI Circuit Design (4.00)• ELEC 413 Mixed‑Signal VLSI for Wireline Communication Systems (4.00)• ELEC 421 Solid State Devices (3.50)• ELEC 422 Design of Integrated Circuit Components (3.50)• ELEC 423 Introduction to Analog VLSI (4.00)• ELEC 424 VLSI Process Technology (3.50)• ELEC 425 Optical Devices for High‑Speed Communications (3.50)• ELEC 441 Modern Analog Filter Design (3.50)
+Power and Renewable Energy Systems Electives: Electrical Engineering
+
+• ELEC 430 Electrical Power Equipment (3.50)• ELEC 431 Electrical Power Systems (3.50)• ELEC 432 Control of Electrical Power Conversion Systems (3.50)• ELEC 433 Power Electronics (3.50)• ELEC 434 Behaviour of Power Systems (3.50)• ELEC 435 Electromechanical Energy Conversion Systems (3.50)• ELEC 436 Protection of Power Systems (3.50)• ELEC 437 Renewable Energy Systems (3.00)• ELEC 438 Industrial Electrical Systems (3.50)• ELEC 439 Hybrid Electric Vehicle Power System Design and Control (3.00)• ELEC 440 Controlled Electric Drives (3.50)• ELEC 443 Electric Power Distribution Networks (3.00)• ELEC 446 Electrical Power Generation (3.00)
+Note: ELEC 430, ELEC 432, ELEC 434, ELEC 435, ELEC 436, ELEC 438 and ELEC 443 are usually offered in the French language.
+Controls, Robotics and Avionics Electives: Electrical Engineering
+• AERO 417 Standards, Regulations and Certification (3.00)• AERO 480 Flight Control Systems (3.50)• AERO 482 Avionic Navigation Systems (3.00)• AERO 483 Integration of Avionics Systems (3.00)• COEN 422 Foundations of Cyber‑Physical Systems (3.00)• ELEC 473 Autonomy for Mobile Robots (3.00)• ELEC 481 Linear Systems (3.50)• ELEC 482 System Optimization (3.50)• ELEC 483 Real‑Time Computer Control Systems (3.50)• ENGR 472 Robot Manipulators (3.50)
+Waves and Electromagnetics Electives: Electrical Engineering
+• ELEC 453 Microwave Engineering (3.50)• ELEC 455 Acoustics (3.00)• ELEC 456 Antennas (3.50)• ELEC 457 Design of Wireless RF Systems (3.00)• ELEC 458 Techniques in Electromagnetic Compatibility (3.00)
+Computer Systems Electives: Electrical Engineering
+• COEN 316 Computer Architecture and Design (3.50)• COEN 317 Microprocessor‑Based Systems (3.50)• COEN 320 Introduction to Real‑Time Systems (3.50)• COEN 346 Operating Systems (3.50)• COEN 413 Hardware Functional Verification (3.50)• COEN 421 Embedded Systems Design (4.00)• COEN 424 Programming on the Cloud (3.00)• COEN 448 Software Testing and Validation (3.50)• COEN 449 Neural Networks and Machine Learning (3.00)• SOEN 341 Software Process and Practices (4.00)
+Biological and Biomedical Engineering Electives: Electrical Engineering
+• COEN 432 Applied Machine Learning and Evolutionary Algorithms (3.00)• COEN 433 Biological Computing and Synthetic Biology (3.00)• COEN 434 Microfluidic Devices for Synthetic Biology (3.00)• ELEC 444 Medical Image Processing (3.00)• ELEC 445 Biological Signal Processing (3.00)
+Other Electives: Electrical Engineering
+• ELEC 498 Topics in Electrical Engineering (3.00)• ENGR 411 Special Technical Report (1.00)
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+we have pdf for it 
+ELEC_Sequence_2025-26.pdf

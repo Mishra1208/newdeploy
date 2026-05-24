@@ -1,0 +1,156 @@
+
+Aerospace Engineering
+Website
+For a complete list of faculty members, please consult the Departments’ websites:
+
+concordia.ca/ginacody/mechanical-industrial-aerospace-eng.html
+
+Program Objectives
+The Aerospace Engineering program is offered jointly by the Department of Mechanical, Industrial and Aerospace Engineering and the Department of Electrical and Computer Engineering.
+
+Aerospace Engineering is concerned with the engineering science governing flight and the design and construction of aircraft and spacecraft. This includes the mechanisms behind flight and propulsion in the atmosphere and space including aerodynamics, lift and drag as well as the design and control of aircraft such as airplanes, helicopters, unmanned aerial vehicles (UAVs) and rockets. The Aerospace Engineering curriculum comprises fundamental engineering courses followed by technical electives which allow students to obtain some specialization in a particular area of the field depending on their interests and expected future professional activity. Three options are available:
+
+Option A — Aerodynamics and Propulsion
+Option B – Aerospace Structures and Materials
+Option C — Avionics and Aerospace Systems
+
+Aerodynamics and Propulsion is strongly related to the “flying” aspect of aircraft and includes topics such as aerodynamics, gas dynamics, aerospace vehicle performance, turbo-machinery and propulsion. Aerospace Structures and Materials is related to the design and manufacture of aircraft and spacecraft and includes topics such as aircraft stress analysis, aeroelasticity and vibrations, composite materials and aircraft design. Avionics and Aerospace Systems has significant electrical and computer engineering content in order to provide the necessary background for the avionics and systems engineering required to control modern aircraft and includes topics such as avionic navigation systems, communication networks, spacecraft mission design and flight control systems.
+
+Course Requirements (BEng in Aerospace Engineering)
+Degree Requirements
+The program in Aerospace Engineering consists of the Engineering Core, the Aerospace Engineering Core, and option requirements as shown below. The minimum length of the program is 120 credits.
+
+BEng in Aerospace Engineering (120 credits)
+27	credits from the Engineering Core
+38.75	credits from the Aerospace Engineering Core
+54.25	
+credits from one of the following options
+
+Option A — Aerodynamics and Propulsion
+
+Option B – Aerospace Structures and Materials
+
+Option C — Avionics and Aerospace Systems
+
+Aerospace Engineering Core (38.75 credits)
+• AERO 201 Introduction to Flight and Aerospace Systems (4.00)• AERO 290 Introduction to Aircraft Design (3.00)• AERO 371 Modelling and Control Systems (3.50)• AERO 390 Aerospace Engineering Design Project (3.00)• AERO 417 Standards, Regulations and Certification (3.00)• AERO 490 Capstone Aerospace Engineering Design Project (6.00)• ENGR 242 Statics (3.00)• ENGR 243 Dynamics (3.00)• ENGR 244 Mechanics of Materials (3.75)• ENGR 361 Fluid Mechanics I (3.00)• MIAE 383 Applied Machine Learning in Mechanical, Industrial and Aerospace Engineering (3.50)
+Note: Students may replace AERO 490 with ENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the ENGR 490 Design Committee before the start of the fall term.
+Aerospace Engineering Option Requirements (54.25 credits)
+Students in the Aerospace Engineering program must complete at least 54.25 elective credits from within one of the following options:
+
+Option A — Aerodynamics and Propulsion
+
+Option B – Aerospace Structures and Materials
+
+Option C — Avionics and Aerospace Systems
+
+Option A — Aerodynamics and Propulsion (54.25 credits)
+50.25	compulsory credits from Option A – Aerodynamics and Propulsion Core
+4	
+credits minimum from Option A – Aerodynamics and Propulsion Electives
+
+Option A – Aerodynamics and Propulsion Core (50.25 credits)
+
+• AERO 455 Computational Fluid Dynamics for Aerospace Applications (3.75)‌ • AERO 462 Turbomachinery and Propulsion (3.00)‌ • AERO 464 Aerodynamics (3.00)‌ • AERO 465 Gas Turbine Design (3.50)‌ • AERO 481 Materials Engineering for Aerospace (3.50)‌ • ENGR 251 Thermodynamics I (3.00)‌ • ENGR 311 Transform Calculus and Partial Differential Equations (3.00)‌ • MECH 343 Theory of Machines (3.50)‌ • MECH 351 Thermodynamics II (3.50)‌ • MECH 352 Heat Transfer I (3.50)‌ • MECH 361 Fluid Mechanics II (3.50)‌ • MECH 461 Gas Dynamics (3.50)‌ • MIAE 211 Mechanical Engineering Drawing (3.50)‌ • MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)‌ • MIAE 221 Materials Science (3.00)‌​
+​​
+Option A – Aerodynamics and Propulsion Electives (4 credits)
+4	
+credits minimum chosen from the following courses:
+
+​
+
+• AERO 431 Principles of Aeroelasticity (3.50)‌ • AERO 446 Aerospace Vehicle Performance (3.00)‌ • AERO 471 Aircraft Hydro‑Mechanical and Fuel Systems (3.50)‌ • AERO 472 Aircraft Pneumatic and Electrical Power Systems (3.50)‌ • AERO 480 Flight Control Systems (3.50)‌ • AERO 482 Avionic Navigation Systems (3.00)‌ • AERO 485 Introduction to Space Systems (3.00)‌ • AERO 486 Aircraft Stress Analysis (3.00)‌ • ENGR 411 Special Technical Report (1.00)‌ • ENGR 412 Honours Research Project (3.00)‌ • INDU 372 Quality Control and Reliability (3.00)‌ • INDU 412 Human Factors Engineering (3.50)‌ • MECH 368 Electronics for Mechanical Engineers (3.50)‌ • MECH 373 Instrumentation and Measurements (3.50)‌ • MECH 375 Mechanical Vibrations (3.50)‌ • MECH 426 Stress and Failure Analysis of Machinery (3.00)‌ • MECH 451 Renewable Energy: Fundamentals and Applications (3.00)‌ • MECH 452 Heat Transfer II (3.50)‌ • MECH 453 Heating, Ventilation and Air Conditioning Systems (3.00)‌ • MECH 460 Finite Element Analysis (3.75)‌ • MECH 498 Topics in Mechanical Engineering (3.00)‌​ ​​
+Note: Students may take no more than one of the following courses:​ AERO 486‌,​ MECH 375,‌ ​MECH 426‌, ​MECH 460‌​.​
+
+Note: Students having a GPA of 3.0 or more may submit a request to take a graduate course as an elective.
+
+Note: With permission of the Department, students may take one technical elective outside of the option list above. Students must get approval from the Department before registering in the technical elective outside of the option list above.​
+
+​​​​
+Option B – Aerospace Structures and Materials (54.25 credits)
+54.25	compulsory credits from Option B – Aerospace Structures and Materials Core
+Option B – Aerospace Structures and Materials Core (54.25 credits)
+
+• AERO 253 Thermal Sciences for Aerospace Engineering (3.00)‌ • AERO 431 Principles of Aeroelasticity (3.50)‌ • AERO 481 Materials Engineering for Aerospace (3.50)‌ • AERO 486 Aircraft Stress Analysis (3.00)‌ • AERO 487 Design of Aircraft Structures (3.00)‌ • ENGR 311 Transform Calculus and Partial Differential Equations (3.00)‌ • MECH 343 Theory of Machines (3.50)‌ • MECH 373 Instrumentation and Measurements (3.50)‌ • MECH 375 Mechanical Vibrations (3.50)‌ • MECH 412 Computer‑Aided Mechanical Design (3.50)‌ • MECH 460 Finite Element Analysis (3.75)‌ • MIAE 211 Mechanical Engineering Drawing (3.50)‌ • MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)‌ • MIAE 221 Materials Science (3.00)‌ • MIAE 311 Manufacturing Processes (3.00)‌ • MIAE 312 Engineering Design and Manufacturing Processes Lab (1.00)‌ • MIAE 313 Machine Drawing and Design (3.50)‌​​
+​​​​​​
+Option C — Avionics and Aerospace Systems (54.25 credits)
+49.5	compulsory credits from the Option C — Avionics and Aerospace Systems Core
+4.75	credits minimum from the Option C — Avionics and Aerospace Systems Electives
+Note: Students having a GPA of 3.0 or more may submit a request to take a graduate course as an elective.
+Option C — Avionics and Aerospace Systems Core (49.5 credits)
+
+• AERO 253 Thermal Sciences for Aerospace Engineering (3.00)‌ • AERO 482 Avionic Navigation Systems (3.00)‌ • AERO 483 Integration of Avionics Systems (3.00)‌ • COEN 212 Digital Systems Design I (3.50)‌ • COEN 231 Introduction to Discrete Mathematics (3.00)‌ • COEN 243 Programming Methodology I (3.50)‌ • COEN 244 Programming Methodology II (3.00)‌ • COEN 311 Computer Organization and Software (3.50)‌ • COEN 352 Data Structures and Algorithms (3.00)‌ • ELEC 242 Continuous‑Time Signals and Systems (3.00)‌ • ELEC 273 Basic Circuit Analysis (3.50)‌ • ELEC 342 Discrete‑Time Signals and Systems (3.50)‌ • ELEC 481 Linear Systems (3.50)‌ • ELEC 483 Real‑Time Computer Control Systems (3.50)‌ • SOEN 341 Software Process and Practices (4.00)‌​ ​
+​​​​
+Option C — Avionics and Aerospace Systems Electives (4.75 credits)
+4.75	
+credits minimum chosen from the following courses:
+
+
+• AERO 471 Aircraft Hydro‑Mechanical and Fuel Systems (3.50)• AERO 472 Aircraft Pneumatic and Electrical Power Systems (3.50)• AERO 480 Flight Control Systems (3.50)• COEN 313 Digital Systems Design II (3.50)• COEN 317 Microprocessor‑Based Systems (3.50)• COEN 320 Introduction to Real‑Time Systems (3.50)• COEN 346 Operating Systems (3.50)• COEN 366 Communication Networks and Protocols (3.50)• COEN 413 Hardware Functional Verification (3.50)• COEN 421 Embedded Systems Design (4.00)• COEN 498 Topics in Computer Engineering (3.00)• ELEC 251 Fundamentals of Applied Electromagnetics (3.00)• ELEC 311 Electronics I (3.50)• ELEC 331 Fundamentals of Electrical Power Engineering (3.50)• ELEC 351 Electromagnetic Waves and Guiding Structures (3.50)• ELEC 367 Introduction to Digital Communications (3.50)• ELEC 433 Power Electronics (3.50)• ELEC 442 Advanced Signal Processing (3.00)• ELEC 458 Techniques in Electromagnetic Compatibility (3.00)• ELEC 464 Wireless Communications (3.00)• ELEC 482 System Optimization (3.50)• ELEC 498 Topics in Electrical Engineering (3.00)• ENGR 411 Special Technical Report (1.00)• ENGR 412 Honours Research Project (3.00)• SOEN 342 Software Requirements and Deployment (3.00)• SOEN 343 Software Architecture and Design (4.00)
+Note: Students having a GPA of 3.0 or more may submit a request to take a graduate course as an elective.
+
+Note: With permission of the Department, students may take one technical elective outside of the option list above. Students must get approval from the Department before registering in the technical elective outside of the option list above.
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+
+WE HAVE PDF FOR IT 
+Sept-Entry-AERO-A.pdf
+Jan-Entry-Aero-A.pdf
+Sept-Entry-COOP-AERO-A.pdf
+Sept-Entry-AERO-B.pdf
+Jan-Entry-AERO-B.pdf
+Sept-Entry-COOP-AERO-B.pdf
+Sept-Entry-AERO-C.pdf
+an-Entry-AERO-C.pdf
+Sept-Entry-COOP-AERO-C.pdf

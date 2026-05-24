@@ -1,0 +1,23 @@
+Structure of the Certificate
+The Certificate in Science and Technology consists of the core and elective courses as shown below. The minimum length of the certificate is 30 credits.
+
+In the event that a student is awarded an exemption from a core course, it will be necessary for the student to replace that course with another from the elective list.
+
+Certificate in Science and Technology (30 credits)
+9	
+credits of Core Courses:
+
+
+• MATH 203 Differential and Integral Calculus I (3.00)• MATH 204 Vectors and Matrices (3.00)• MATH 205 Differential and Integral Calculus II (3.00)
+21	
+credits minimum of Elective Courses chosen from:
+
+Basic Science Courses: Certificate in Science and Technology
+
+Engineering and Computer Science Courses: Certificate in Science and Technology
+
+Basic Science Courses: Certificate in Science and Technology
+• CHEM 205 General Chemistry I (3.00)• PHYS 204 Mechanics (3.00)• PHYS 205 Electricity and Magnetism (3.00)
+Engineering and Computer Science Courses: Certificate in Science and Technology
+• BCEE 231 Structured Programming and Applications for Building and Civil Engineers (3.00)• BCEE 371 Surveying (3.00)• BLDG 212 Building Engineering Drawing and Introduction to Design (3.00)• CIVI 212 Civil Engineering Drawing and Introduction to Design (3.00)• CIVI 231 Geology for Civil Engineers (3.00)• COEN 212 Digital Systems Design I (3.50)• COEN 231 Introduction to Discrete Mathematics (3.00)• COEN 243 Programming Methodology I (3.50)• COEN 244 Programming Methodology II (3.00)• COEN 311 Computer Organization and Software (3.50)• COMP 228 System Hardware (3.00)• COMP 232 Mathematics for Computer Science (3.00)• COMP 233 Probability and Statistics for Computer Science (3.00)• COMP 248 Object‑Oriented Programming I (3.50)• COMP 249 Object‑Oriented Programming II (3.50)• ELEC 242 Continuous‑Time Signals and Systems (3.00)• ELEC 251 Fundamentals of Applied Electromagnetics (3.00)• ELEC 273 Basic Circuit Analysis (3.50)• ELEC 275 Principles of Electrical Engineering (3.50)• ENCS 282 Technical Writing and Communication (3.00)• ENGR 201 Professional Practice and Responsibility (1.50)• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)• ENGR 213 Applied Ordinary Differential Equations (3.00)• ENGR 233 Applied Advanced Calculus (3.00)• ENGR 242 Statics (3.00)• ENGR 243 Dynamics (3.00)• ENGR 244 Mechanics of Materials (3.75)• ENGR 245 Mechanical Analysis (3.00)• ENGR 251 Thermodynamics I (3.00)• ENGR 301 Engineering Management Principles and Economics (3.00)• INDU 211 Introduction to Production and Manufacturing Systems (3.00)• INDU 330 Engineering Management (3.00)• MIAE 211 Mechanical Engineering Drawing (3.50)• MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)• MIAE 313 Machine Drawing and Design (3.50)• SOEN 228 System Hardware (4.00)• SOEN 287 Web Programming (3.00)
+Note: Students cannot receive credits for both BLDG 212 and CIVI 212; COMP 228 andSOEN 228; COEN 231 and COMP 232; COEN 243 and COMP 248; COEN 243 and MECH 215; COMP 248 and MIAE 215.

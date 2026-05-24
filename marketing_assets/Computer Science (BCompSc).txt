@@ -1,0 +1,114 @@
+Section 71.70.1 Curriculum for the Degree of Bachelor of/Baccalaureate in Computer Science
+Computer Science Program
+The Computer Science program emphasizes fundamentals and techniques that remain relevant and useful for many years after graduation. The program consists of a combination of core courses in computer science, elective courses in computer science and mathematics, and some free electives. The Computer Science Core provides a basic and broad study of theory, mathematical basics, programming methodology, computer architecture, data structures, operating systems, and software engineering.
+
+Elective courses are presented in groups to guide students in the selection of advanced elective courses in computer science to provide further depth in computer science and the particular application area.
+
+Section 71.70.2 Degree Requirements (BCompSc)
+Degree Requirements
+To be recommended for the degree of BCompSc, students must satisfactorily complete an approved program of at least 90 credits comprising the courses of the Computer Science Core, the Computer Science Complementary Core, Computer Science Electives, Mathematics Electives: BCompSc, and the remaining courses comprised of Minor and/or General Electives: BCompSc in accordance with the graduation requirements of Section 71.10.5 Graduation Regulations. The program also offers the BCompSc degree in the form of two joint major degrees (see Section 71.70.1 Curriculum for the Degree of Bachelor of/Baccalaureate in Computer Science).
+
+Students may not register for a 400‑level course before completing all of the 200‑level Computer Science Core courses of their program.
+
+The Gina Cody School of Engineering and Computer Science is committed to ensuring that its students possess good writing skills. Hence, every student in an undergraduate degree program is required to demonstrate competence in writing English or French prior to graduation.
+
+All students admitted to the Gina Cody School of Engineering and Computer Science must meet the writing skills requirement as outlined in Section 71.20.7 Writing Skills Requirement.
+
+If a student has satisfied the writing skills requirement prior to transferring to the Gina Cody School of Engineering and Computer Science, that student is deemed to have satisfied the writing skills requirement.
+
+Newly admitted students are strongly encouraged to meet the requirement very early in their program (fall term of first year for students starting in September or winter term of first year for students starting in January) to avoid the risk of delayed graduation should remedial work prove necessary. Students who are required to take ESL courses should meet the Faculty writing skills requirements in the term following completion of their ESL courses.
+
+BCompSc in Computer Science (90 credits)
+33	credits from the Computer Science Core
+6	credits from the Computer Science Complementary Core
+4	credits of Artificial Intelligence Electives
+14	credits of Computer Science Electives
+6	credits of Mathematics Electives: BCompSc
+27	
+credits of Minor electives or General Electives: BCompSc
+
+Note: Students who wish to complete a minor offered by any other department in the University outside the Department of Computer Science and Software Engineering are strongly encouraged to declare their minor by the end of their first year. Students must satisfy the requirements for the minor program as determined by the department that offers it.
+
+Note: Any credits beyond those required to complete a declared minor may be taken as General Electives.
+
+BCompSc Computer Science Core (33 credits)
+• COMP 228 System Hardware (3.00)• COMP 232 Mathematics for Computer Science (3.00)• COMP 233 Probability and Statistics for Computer Science (3.00)• COMP 248 Object‑Oriented Programming I (3.50)• COMP 249 Object‑Oriented Programming II (3.50)• COMP 335 Introduction to Theoretical Computer Science (3.00)• COMP 346 Operating Systems (4.00)• COMP 348 Principles of Programming Languages (3.00)• COMP 352 Data Structures and Algorithms (3.00)• COMP 354 Introduction to Software Engineering (4.00)
+BCompSc Complementary Core (6 credits)
+• ENCS 282 Technical Writing and Communication (3.00)• ENCS 393 Social and Ethical Dimensions of Information and Communication Technologies (3.00)
+Artificial Intelligence Electives (4 credits)
+4	
+credits minimum chosen from the following list:
+
+​Artificial Intelligence Group: BCompSc‌​
+
+​​
+Computer Science Electives (14 credits)
+Computer Science Electives must be chosen from the following:
+
+1) All COMP courses with numbers 325 or higher
+
+2) COMP and SOEN courses with numbers between 6000 and 6951 (maximum of eight credits, and with permission from the Department)
+
+3) Students may also choose from the courses listed below:
+
+
+• ENGR 490 Multidisciplinary Capstone Design Project (6.00)• SOEN 287 Web Programming (3.00)• SOEN 321 Information Systems Security (3.00)• SOEN 331 Formal Methods for Software Engineering (3.00)• SOEN 357 User Interface Design (3.00)• SOEN 387 Web‑Based Enterprise Application Design (3.00)• SOEN 422 Embedded Systems and Software (4.00)• SOEN 423 Distributed Systems (4.00)• SOEN 471 Big Data Analytics (4.00)• SOEN 487 Web Services and Applications (4.00)
+Elective courses are listed in the following groups to facilitate the selection of courses in a particular area of the field:
+
+Artificial Intelligence Group: BCompSc
+Computer Games Group: BCompSc
+Data Analytics Group: BCompSc
+Web Services and Applications Group: BCompSc
+
+Note: Any credits exceeding the required number of Computer Science Elective credits will accrue towards the General Elective credits.
+Mathematics Electives: BCompSc (6 credits)
+Mathematics Electives must be chosen from the following list:
+
+
+• COMP 339 Combinatorics (3.00)• COMP 361 Elementary Numerical Methods (3.00)• COMP 367 Techniques in Symbolic Computation (3.00)• ENGR 213 Applied Ordinary Differential Equations (3.00)• ENGR 233 Applied Advanced Calculus (3.00)• MAST 218 Multivariable Calculus I (3.00)• MAST 219 Multivariable Calculus II (3.00)• MAST 324 Introduction to Optimization (3.00)• MAST 332 Techniques in Symbolic Computation (3.00)• MAST 334 Numerical Analysis (3.00)• MATH 251 Linear Algebra I (3.00)• MATH 252 Linear Algebra II (3.00)• MATH 339 Combinatorics (3.00)• MATH 392 Elementary Number Theory and Cryptography (3.00)
+Note: Credits exceeding the required number of Mathematics Elective credits will accrue towards the General Elective credits.
+
+Note: Students cannot receive credit for both COMP 339 and MATH 339; COMP 361 and MAST 334; COMP 367 and MAST 332.
+
+General Electives: BCompSc (27 credits)
+General Electives must be chosen from the following lists:
+
+Computer Science Electives (see above)
+
+Mathematics Electives: BCompSc (see above)
+
+General Education Humanities and Social Sciences Electives found in Section 71.110 Complementary Studies for Engineering and Computer Science Students
+
+A course outside this list qualifies as a General Elective provided that the course is explicitly listed in the Undergraduate Calendar as part of a major, minor, or specialization program, or as part of the degree requirements for a BEng program at Concordia, and provided that the course is not included in the General Electives Exclusion List below.
+
+General Electives Exclusion List
+1. The following courses may not be taken to fulfill the General Electives requirement:
+
+
+• BCEE 231 Structured Programming and Applications for Building and Civil Engineers (3.00)• BIOL 322 Biostatistics (3.00)• BTM 380 Business Application Development (3.00)• BTM 382 Database Management (3.00)• CART 315 Digital Game Prototyping (3.00)• COMM 215 Business Statistics (3.00)• EXCI 322 Statistics for Exercise Science (3.00)• GEOG 264 Programming for Environmental Sciences (3.00)• INTE 296 Discover Statistics (3.00)• MAST 221 Applied Probability (3.00)• MAST 333 Applied Statistics (3.00)• MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)• PHYS 235 Object‑Oriented Programming and Applications (3.00)• PHYS 236 Numerical Methods in Physics with Python (3.00)• SOCI 212 Statistics I (3.00)
+2. COEN courses or INTE courses can only be taken with permission. In general, courses offered outside the Department of CSSE that contain substantial programming or computer science content may not be taken. Such courses may qualify as a General Elective only with prior written permission on a GCS Student Request form, obtainable from the Office of Student Academic Services in the Gina Cody School of Engineering and Computer Science.
+3. At most, six credits of the following courses may be taken for credit towards the General Electives requirement:
+
+
+• FRAN 211 French Language: Elementary (6.00)• FRAN 212 French Language: Transitional Level (6.00)• FRAN 215 Langue française : niveau intermédiaire II (3.00)
+4. ESL courses may not be taken to fulfill the General Electives requirement.
+Computer Science Elective Course Groups
+Elective courses are listed in groups below to facilitate the selection of courses in a particular area of the field.
+
+Artificial Intelligence Group: BCompSc
+• COMP 425 Computer Vision (4.00)• COMP 432 Machine Learning (4.00)• COMP 433 Introduction to Deep Learning (4.00)• COMP 472 Artificial Intelligence (4.00)• COMP 473 Pattern Recognition (4.00)• COMP 474 Intelligent Systems (4.00)• COMP 479 Information Retrieval and Web Search (4.00)
+Computer Games Group: BCompSc
+
+• COMP 345 Advanced Program Design with C++ (4.00)• COMP 371 Computer Graphics (4.00)• COMP 376 Introduction to Game Development (4.00)• COMP 438 Geometric Modelling and Processing (4.00)• COMP 475 Immersive Technologies (4.00)• COMP 476 Advanced Game Development (4.00)• COMP 477 Animation for Computer Games (4.00)
+Data Analytics Group: BCompSc
+
+• COMP 333 Data Analytics (4.00)• COMP 353 Databases (4.00)• COMP 432 Machine Learning (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• MAST 324 Introduction to Optimization (3.00)• SOEN 471 Big Data Analytics (4.00)
+Web Services and Applications Group: BCompSc
+
+• COMP 353 Databases (4.00)• COMP 445 Data Communication and Computer Networks (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• SOEN 287 Web Programming (3.00)• SOEN 387 Web‑Based Enterprise Application Design (3.00)• SOEN 487 Web Services and Applications (4.00)
+
+
+we have pdf for it 
+ECP_BCompSc.pdf
+and
+COMP_General_Program.pdf

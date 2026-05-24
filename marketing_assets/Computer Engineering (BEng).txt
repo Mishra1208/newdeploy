@@ -1,0 +1,108 @@
+Section 71.30.2 Course Requirements (BEng in Computer Engineering)
+Degree Requirements
+The program in Computer Engineering consists of the ​Engineering Core‌​, the Computer Engineering Core‌​, and Electives. The minimum length of the program is 120 credits.
+
+BEng in Computer Engineering (120 credits)
+27.5	credits from the Engineering Core
+73	
+credits from the Computer Engineering Core
+
+19.5	
+credits from the Computer Engineering Electives
+
+Computer Engineering Core (73 credits)
+73	
+credits:
+
+
+• COEN 212 Digital Systems Design I (3.50)• COEN 231 Introduction to Discrete Mathematics (3.00)• COEN 243 Programming Methodology I (3.50)• COEN 244 Programming Methodology II (3.00)• COEN 311 Computer Organization and Software (3.50)• COEN 313 Digital Systems Design II (3.50)• COEN 314 Digital Electronics (3.50)• COEN 316 Computer Architecture and Design (3.50)• COEN 317 Microprocessor‑Based Systems (3.50)• COEN 320 Introduction to Real‑Time Systems (3.50)• COEN 330 Applied Machine Learning (3.00)• COEN 346 Operating Systems (3.50)• COEN 352 Data Structures and Algorithms (3.00)• COEN 366 Communication Networks and Protocols (3.50)• COEN 390 Computer Engineering Product Design Project (3.00)• COEN 490 Capstone Computer Engineering Design Project (6.00)• ELEC 242 Continuous‑Time Signals and Systems (3.00)• ELEC 342 Discrete‑Time Signals and Systems (3.50)• ELEC 372 Fundamentals of Control Systems (3.50)• ENGR 290 Introductory Engineering Team Design Project (3.00)• SOEN 341 Software Process and Practices (4.00)
+Note: Students may replace COEN 490 withENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the ENGR 490 Design Committee before the start of the fall term.
+Computer Engineering Electives (19.5 credits)
+Students must complete 19.5 credits of Technical Electives from the Computer Engineering Electives list. Courses are listed in groups to facilitate course selection. With adequate academic justification and with permission of the Department, students may take one technical elective course from the  Electrical Engineering Electives.
+
+A. Hardware/Electronics/VLSI Electives: Computer Engineering‌   
+
+B. Software and System Design Electives: Computer Engineering‌   
+
+C. Biological and Biomedical Engineering Electives: Computer Engineering ‌   
+
+D. Computer Science and Programming Electives: Computer Engineering ‌   
+
+E. Telecommunication Networks and Signal Processing Electives: Computer Engineering ‌
+
+F. Controls, Robotics and Avionics Electives: Computer Engineering ‌  
+
+G. Other Electives: Computer Engineering ‌         
+
+Hardware/Electronics/VLSI Electives: Computer Engineering
+• COEN 413 Hardware Functional Verification (3.50)• COEN 451 VLSI Circuit Design (4.00)• ELEC 311 Electronics I (3.50)• ELEC 312 Electronics II (3.50)• ELEC 321 Introduction to Semiconductor Materials and Devices (3.50)• ELEC 413 Mixed‑Signal VLSI for Wireline Communication Systems (4.00)• ELEC 423 Introduction to Analog VLSI (4.00)
+Software and System Design Electives: Computer Engineering
+• COEN 421 Embedded Systems Design (4.00)• COEN 422 Foundations of Cyber‑Physical Systems (3.00)• COEN 432 Applied Machine Learning and Evolutionary Algorithms (3.00)• COEN 448 Software Testing and Validation (3.50)• COEN 449 Neural Networks and Machine Learning (3.00)• SOEN 342 Software Requirements and Deployment (3.00)• SOEN 343 Software Architecture and Design (4.00)• SOEN 344 Advanced Software Architecture and Design (3.00)• SOEN 357 User Interface Design (3.00)
+Biological and Biomedical Engineering Electives: Computer Engineering
+
+• COEN 432 Applied Machine Learning and Evolutionary Algorithms (3.00)• COEN 433 Biological Computing and Synthetic Biology (3.00)• COEN 434 Microfluidic Devices for Synthetic Biology (3.00)• ELEC 444 Medical Image Processing (3.00)• ELEC 445 Biological Signal Processing (3.00)
+Computer Science and Programming Electives: Computer Engineering
+• COEN 424 Programming on the Cloud (3.00)• COEN 432 Applied Machine Learning and Evolutionary Algorithms (3.00)• COEN 474 Quantum Information Processing and Coding (3.00)• COMP 335 Introduction to Theoretical Computer Science (3.00)• COMP 353 Databases (4.00)• COMP 371 Computer Graphics (4.00)• COMP 426 Multicore Programming (4.00)• COMP 428 Parallel Programming (4.00)• COMP 442 Compiler Design (4.00)• COMP 451 Database Design (4.00)• COMP 472 Artificial Intelligence (4.00)• COMP 474 Intelligent Systems (4.00)
+Telecommunication Networks and Signal Processing Electives: Computer Engineering
+• COEN 446 Internet of Things (3.50)• COEN 447 Software‑Defined Networking (3.00)• ELEC 367 Introduction to Digital Communications (3.50)• ELEC 442 Advanced Signal Processing (3.00)• ELEC 447 Video Processing and Recognition (3.00)• ELEC 465 Network Security and Management (3.50)• ELEC 470 Broadcast Signal Transmission (3.00)• ELEC 472 Advanced Telecommunication Networks (3.50)
+Controls, Robotics and Avionics Electives: Computer Engineering
+• AERO 417 Standards, Regulations and Certification (3.00)• AERO 480 Flight Control Systems (3.50)• AERO 482 Avionic Navigation Systems (3.00)• AERO 483 Integration of Avionics Systems (3.00)• ELEC 473 Autonomy for Mobile Robots (3.00)• ELEC 481 Linear Systems (3.50)• ELEC 482 System Optimization (3.50)• ELEC 483 Real‑Time Computer Control Systems (3.50)• ENGR 472 Robot Manipulators (3.50)
+Other Electives: Computer Engineering
+• COEN 498 Topics in Computer Engineering (3.00)• ENGR 411 Special Technical Report (1.00)
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+ 
+ we have pdf for it 
+ COEN_Sequence_2025-26.pd
+ and coen requirement

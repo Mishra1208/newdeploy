@@ -1,0 +1,98 @@
+Section 71.105.1 Course Requirements (BEng in Chemical Engineering)
+Degree Requirements
+The program in Chemical Engineering consists of the Engineering Core, the Chemical Engineering Core, and the Chemical Engineering Technical Elective Courses as shown below. The minimum length of the program is 120 credits.
+
+BEng in Chemical Engineering (120 credits)
+27	credits from the Engineering Core
+90	credits from the Chemical Engineering Core
+3	credits from theChemical Engineering Technical Elective Courses
+Chemical Engineering Core (90 credits)
+• CHEM 221 Introductory Organic Chemistry I (3.00)‌ • CHME 200 Introduction to Chemical Process Engineering (3.00)‌ • CHME 201 Innovative, Sustainable, and Safe Manufacturing in the Chemical Industry (3.00)‌ • CHME 214 Applied Linear Algebra for Chemical Engineers (3.00)‌ • CHME 215 Programming for Chemical and Materials Engineers (3.50)‌ • CHME 216 Advanced Programming for Chemical Engineers (3.50)‌ • CHME 220 Material Properties and Chemical Characterization (3.00)‌ • CHME 240 Chemical Engineering Lab I (1.50)‌ • CHME 300 Industrial and Engineering Chemistry (3.00)‌ • CHME 301 Chemical Reaction Engineering (3.00)‌ • CHME 316 Advanced Data Analysis and Machine Learning for Chemical Engineers (3.50)‌ • CHME 320 Technical and Advanced Materials (3.00)‌ • CHME 321 Chemical and Materials Product Design (3.00)‌ • CHME 330 Chemical Process Dynamics and Control (3.00)‌ • CHME 340 Chemical Engineering Lab II (1.50)‌ • CHME 351 Chemical Engineering Thermodynamics (3.00)‌ • CHME 352 Energy Conversion and Storage (3.00)‌ • CHME 360 Heat Transfer (3.00)‌ • CHME 361 Mass Transfer and Unit Operations (3.00)‌ • CHME 362 Chemical Separations Engineering (3.00)‌ • CHME 390 Design Project (3.00)‌ • CHME 415 Computational Modelling for Chemical Engineers (3.00)‌ • CHME 440 Chemical Engineering Lab III (1.50)‌ • CHME 470 Biochemical Engineering (3.00)‌ • CHME 490 Capstone Chemical Process Design (6.00)‌ • ENGR 245 Mechanical Analysis (3.00)‌ • ENGR 251 Thermodynamics I (3.00)‌ • ENGR 311 Transform Calculus and Partial Differential Equations (3.00)‌ • ENGR 361 Fluid Mechanics I (3.00)‌ • MIAE 221 Materials Science (3.00)‌
+Chemical Engineering Technical Elective Courses (3 credits)
+3	
+elective credits chosen from the Technical Elective Courses listed below. Courses are grouped in specialized tracks to facilitate the selection of this course in a particular area of the field:
+
+Advanced Process Design and Control
+
+Advanced Topics in Chemical Engineering
+
+Biochemical and Food Engineering
+
+Biomolecular Modelling and Drug Design
+
+Data Analytics for Chemical Engineers
+
+Materials Engineering
+
+Sustainable Chemical Engineering
+
+Advanced Process Design and Control
+• CHME 416 Data Engineering for Chemical Engineers (3.00)‌ • CHME 430 Advanced Chemical Engineering Process Dynamics and Control (3.00)‌ • CHME 431 Introduction to Optimization for Chemical Engineers (3.00)‌ • CHME 432 Advanced Process Safety Engineering (3.00)‌ • MECH 472 Mechatronics and Automation (3.50)‌     
+Advanced Topics in Chemical Engineering
+• CHME 460 Chemical Kinetics and Advanced Reactor Engineering (3.00)‌ • CHME 461 Advanced Chemical Engineering Thermodynamics (3.00)‌ • CHME 462 Industrial Catalysis (3.00)‌ • CHME 463 Advanced Separation Processes (3.00)‌  
+Biochemical and Food Engineering
+• BIOL 226 Biodiversity and Ecology (3.00)‌ • BIOL 261 Molecular and General Genetics (3.00)‌ • BIOL 371 Microbiology (3.00)‌ • CHEM 271 Biochemistry I (3.00)‌ • CHME 471 Colloid and Interface Chemistry (3.00)‌ • CHME 472 Food Engineering (3.00)‌ • CHME 473 Biomaterials and Biochemicals (3.00)‌  
+Biomolecular Modelling and Drug Design
+• CHEM 431 Computational Chemistry for Chemists and Biochemists (3.00)‌ • CHME 480 Molecular Modelling of Proteins (3.00)‌ • CHME 481 Multiscale Modelling of Biomaterials (3.00)‌   
+Data Analytics for Chemical Engineers
+• CHME 416 Data Engineering for Chemical Engineers (3.00)‌ • COMP 333 Data Analytics (4.00)‌ • COMP 352 Data Structures and Algorithms (3.00)‌ • COMP 433 Introduction to Deep Learning (4.00)‌ • COMP 473 Pattern Recognition (4.00)‌ • COMP 474 Intelligent Systems (4.00)‌ • COMP 479 Information Retrieval and Web Search (4.00)‌ • SOEN 363 Data Systems for Software Engineers (3.00)‌     
+Materials Engineering
+• CHEM 327 Organic Chemistry of Polymers (3.00)• CHEM 427 Polymer Chemistry and Nanotechnology (3.00)• CHEM 498 Advanced Topics in Chemistry (3.00)• CHME 420 Nanomaterials Science and Engineering (3.00)• CHME 421 Metallurgical Engineering (3.00)• CHME 422 Polymer Chemistry and Engineering (3.00)• CHME 423 Advanced Battery Materials and Technologies (3.00)• CHME 424 Advanced Characterization Techniques (3.00)• CHME 425 Hydrometallurgy (3.00)
+Note:CHEM 498 can be counted as a technical elective course and many topics may be offered.
+Sustainable Chemical Engineering
+• CHEM 498 Advanced Topics in Chemistry (3.00)• CHME 400 Sustainable Industrial and Engineering Chemistry (3.00)• CHME 401 Sustainable Process Design (3.00)• CHME 402 Sustainable Energy Conversion and Management (3.00)• CHME 403 Electrochemical Engineering (3.00)• CHME 404 Clean Energy Science and Technology (3.00)• CHME 405 Introduction to Environmental Engineering (3.00)• CHME 406 Introduction to Life Cycle Assessment (3.00)• CIVI 465 Water Pollution and Control (3.50)• CIVI 467 Air Pollution and Emission Control (3.00)• CIVI 468 Waste Management (3.00)
+Note:CHEM 498 can be counted as a technical elective course and many topics may be offered.
+
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+

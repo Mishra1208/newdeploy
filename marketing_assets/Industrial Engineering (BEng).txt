@@ -1,0 +1,90 @@
+Section 71.40.2 Course Requirements (BEng in Industrial Engineering)
+Degree Requirements
+The program in Industrial Engineering consists of the Engineering Core, the Industrial Engineering Core, and elective credits as shown below. The minimum length of the program is 120 credits.
+
+BEng in Industrial Engineering (120 credits)
+27	credits from the Engineering Core
+81	credits from the Industrial Engineering Core
+12	credits minimum of Industrial Engineering Electives
+Industrial Engineering Core (81 credits)
+81	
+credits:
+
+
+• ENGR 245 Mechanical Analysis (3.00)• ENGR 251 Thermodynamics I (3.00)• ENGR 311 Transform Calculus and Partial Differential Equations (3.00)• INDU 211 Introduction to Production and Manufacturing Systems (3.00)• INDU 311 Simulation of Industrial Systems (3.50)• INDU 320 Production Engineering (3.00)• INDU 321 Lean Manufacturing (3.00)• INDU 323 Operations Research I (3.50)• INDU 324 Operations Research II (3.50)• INDU 330 Engineering Management (3.00)• INDU 342 Logistics Network Models (3.00)• INDU 371 Stochastic Models in Industrial Engineering (3.00)• INDU 372 Quality Control and Reliability (3.00)• INDU 412 Human Factors Engineering (3.50)• INDU 421 Facilities Design and Material Handling Systems (3.50)• INDU 423 Inventory Control (3.50)• INDU 490 Capstone Industrial Engineering Design Project (6.00)• MIAE 211 Mechanical Engineering Drawing (3.50)• MIAE 215 Programming for Mechanical, Industrial and Aerospace Engineers (3.50)• MIAE 221 Materials Science (3.00)• MIAE 311 Manufacturing Processes (3.00)• MIAE 312 Engineering Design and Manufacturing Processes Lab (1.00)• MIAE 313 Machine Drawing and Design (3.50)• MIAE 380 Product Design and Development (3.00)• MIAE 383 Applied Machine Learning in Mechanical, Industrial and Aerospace Engineering (3.50)
+Note: Students may replace INDU 490 with ENGR 490 if they are interested in a multidisciplinary project that requires collaboration with students from other engineering departments. In order for students to register in ENGR 490, their projects must be approved by the ENGR 490 Design Committee before the start of the fall term.
+Industrial Engineering Electives (12 credits)
+12	
+credits minimum chosen from at least threeINDU Courses
+
+Students may take no more than one course from the Other Industrial Engineering Elective Courses list.
+
+INDU Courses
+Students must take at least three courses from the following list:
+
+
+• INDU 410 Safety Engineering (3.00)‌ • INDU 411 Computer Integrated Manufacturing (3.50)‌ • INDU 424 Introduction to Enterprise Resource Planning (3.00)‌ • INDU 431 Quantitative Methods in Health‑care Systems (3.00)‌ • INDU 441 Introduction to Six Sigma (3.00)‌ • INDU 466 Decision Models in Service Sector (3.00)‌ • INDU 475 Advanced Concepts in Quality Improvement (3.00)‌ • INDU 480 Cases in Industrial Engineering (3.00)‌ • INDU 498 Topics in Industrial Engineering (3.00)‌
+Other Industrial Engineering Elective Courses
+Students may take no more than one course from the following list:
+
+
+• BANA 478 Data Mining for Business Analytics (3.00)‌ • BTM 480 Project Management (3.00)‌ • ENGR 411 Special Technical Report (1.00)‌ • ENGR 412 Honours Research Project (3.00)‌ • MANA 300 Entrepreneurship: Launching Your Business (3.00)‌​​
+​
+Section 71.20.5 Degree Requirements
+Engineering Core (30.50 credits)
+To be recommended for the degree of BEng, students must satisfactorily complete the courses of the Engineering Core as well as those specified for their particular program in subsequent sections in accordance with the graduation requirements in Section 71.10.5 Graduation Regulations‌. ​​​​
+27.5	
+credits:
+
+
+• ELEC 275 Principles of Electrical Engineering (3.50)
+‌
+• ENCS 282 Technical Writing and Communication (3.00)
+‌
+• ENGR 201 Professional Practice and Responsibility (1.50)
+‌
+• ENGR 202 Sustainable Development and Environmental Stewardship (1.50)
+‌
+• ENGR 213 Applied Ordinary Differential Equations (3.00)
+‌
+• ENGR 233 Applied Advanced Calculus (3.00)
+‌
+• ENGR 301 Engineering Management Principles and Economics (3.00)
+‌
+• ENGR 371 Probability and Statistics in Engineering (3.00)
+‌
+• ENGR 391 Numerical Methods in Engineering (3.00)
+‌
+• ENGR 392 Impact of Technology on Society (3.00)
+‌
+​​​​
+3	credits of General Education Humanities and Social Sciences Electives‌ ​​​​
+Notes:
+
+(1) The Engineering Core credits for students in the ​BEng in Building Engineering‌ ​ are reduced from 30.5 credits to 29 credits since Building Engineering students are not required to take ENGR 202‌ ​in their program.
+
+(2) The Engineering Core credits for students in the ​BEng in Chemical Engineering‌​, ​BEng in Mechanical Engineering‌​, BEng in Industrial Engineering‌ ​ and BEng in Aerospace Engineering ‌ ​ programs are reduced from 30.5 credits to 27 credits since Chemical, Mechanical, Industrial and Aerospace Engineering students are not required to take ELEC 275‌​ in their program. Students in the BEng in Electrical Engineering‌ ​ and the BEng in Computer Engineering ‌ ​ shall replace ELEC 275‌ ​with ELEC 273‌​.
+
+(3) The Engineering Core credits for students in the ​​BEng in Computer Engineering‌​ and the ​BEng in Software Engineering‌​ ​are reduced from 30.5 credits to 27.5 credits since Computer Engineering and Software Engineering students are not required to take ​ENGR 391‌​​​ in their program.
+
+(4) Students in ​BEng in Building Engineering‌​ shall replace ENGR 392‌​ with BLDG 482‌​.
+
+(5) Students must select three credits of ​ General Education Humanities and Social Sciences Electives‌​ from one of the lists in ​Section 71.110 Complementary Studies for Engineering and Computer Science Students‌​. Students in the BEng in Industrial Engineering‌ ​ shall take ACCO 220‌​ as their General Education elective.
+
+​​​​
+Section 71.20 BEng
+Section 71.20.1 Curriculum for the Degree of BEng
+Section 71.20.2 Alternative Entry Programs
+Section 71.20.3 Accreditation by the Canadian Council of Professional Engineers
+Section 71.20.4 Membership in the Ordre des ingénieurs du Québec
+Section 71.20.5 Degree Requirements
+Section 71.20.6 General Education Elective
+Section 71.20.7 Writing Skills Requirement
+Section 71.20.8 C.Edge (Career Edge) and Accelerated Career Experience Options
+Section 71.20.9 Certificate in Science and Technology
+
+
+WE HAVE PDF FOR IT 
+September-Entry-Industrial.pdf
+January-Entry-Industrial.pdf
+September-Entry-Coop-Industrial.pdf

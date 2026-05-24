@@ -11,3 +11,8 @@ next changes.txt
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# Google Cloud credentials
+/data/conu-planner-*.json
+credentials.json
+*.key.json

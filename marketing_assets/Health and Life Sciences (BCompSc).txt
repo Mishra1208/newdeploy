@@ -1,0 +1,82 @@
+Computer Science in Health and Life Sciences
+Objectives
+The Bachelor of/Baccalaureate in Computer Science in Health and Life Sciences is offered in collaboration with the Department of Biology and shares a number of courses with the BScHonours in Systems and Information Biology and Specialization in Systems and Information Biology.
+
+The detailed description of the BCompSc program can be found in this section and the detailed description of the Biology programs can be found in Section 31.030 Department of Biology.
+
+The BCompSc in Health and Life Sciences provides students with the unique mix of interdisciplinary knowledge and skills needed to work at the boundary of computing and health and life sciences. Research and development in this field often spans biochemistry and biology as well as computing and engineering. It is essential that students gain sufficient knowledge of the theory, application and language of all the relevant fields to be able to work in interdisciplinary teams to investigate scientific and technical questions, solve problems, use and develop tools and techniques, and communicate effectively. Drawing from students with different backgrounds but with aptitudes for both biology and computing, this interdisciplinary program focuses on scholarship that extends beyond traditional boundaries and prepares the graduates to work in the diverse fields of health and life sciences.
+
+
+Section 71.75.1 Curriculum for the Degree of BCompSc in Health and Life Sciences
+Computer Science in Health and Life Sciences Program
+The BCompSc in Health and Life Sciences prepares students to explore and decipher the complexity and interdependency within biological systems; provides students with an understanding of techniques from computer science, mathematics, statistics and modelling; and develops students’ skills in efficiently generating information and knowledge by optimal use of data analytics, while maintaining a rigorous training in empirical and experimental approaches.
+
+Section 71.75.2 Degree Requirements
+The BCompSc in Health and Life Sciences constitutes a 90‑credit program that consists of courses in the following groups: Computer Science Core, Health and Life Sciences Complementary Core, Health and Life Sciences Core, Health and Life Sciences Electives, Mathematics Electives: BCompSc and General Electives: BCompSc.
+
+BCompSc in Health and Life Sciences (90 credits)
+33	credits from the Computer Science Core
+24	credits from the Health and Life Sciences Core
+6	credits from the Health and Life Sciences Complementary Core
+12	credits from Health and Life Sciences Electives
+6	credits chosen from the Mathematics Electives: BCompSc list
+9	credits of General Electives: BCompSc (see Section 71.70.2 Degree Requirements)
+Health and Life Sciences Core (24 credits)
+
+• BIOL 261 Molecular and General Genetics (3.00)• BIOL 266 Cell Biology (3.00)• BIOL 367 Molecular Biology (3.00)• BIOL 479 Computational Biology (3.00)• BIOL 481 Genome Structure (3.00)• CHEM 212 Analytical Chemistry for Biology and Environmental and Sustainability Science (3.00)• CHEM 221 Introductory Organic Chemistry I (3.00)• CHEM 271 Biochemistry I (3.00)
+Health and Life Sciences Complementary Core (6 credits)
+
+• ENCS 282 Technical Writing and Communication (3.00)• ENCS 333 Research Methods, Ethics, Law and Regulation for Computational Biology (3.00)
+Health and Life Sciences Electives (12 credits)
+12	
+credits chosen from:
+
+
+• BIOL 226 Biodiversity and Ecology (3.00)• BIOL 364 Cell Physiology (3.00)• BIOL 368 Genetics and Cell Biology Laboratory (3.00)• BIOL 422 Advanced Statistics for Biological Sciences (3.00)• BIOL 461 Advanced Genetics (3.00)• BIOL 466 Advanced Techniques in Molecular Biology (3.00)• BIOL 475 Biological Computing and Synthetic Biology (3.00)• BIOL 480 Bioinformatics (3.00)• BIOL 482 Functional Genomics (3.00)• BIOL 484 Industrial and Environmental Biotechnology (3.00)• BIOL 485 Agriculture and Agri‑Food Biotechnology (3.00)• BIOL 486 High‑throughput Instrumentation (3.00)• COEN 432 Applied Machine Learning and Evolutionary Algorithms (3.00)• COEN 433 Biological Computing and Synthetic Biology (3.00)• COEN 434 Microfluidic Devices for Synthetic Biology (3.00)• COMP 339 Combinatorics (3.00)• COMP 353 Databases (4.00)• COMP 361 Elementary Numerical Methods (3.00)• COMP 465 Design and Analysis of Algorithms (3.00)• COMP 472 Artificial Intelligence (4.00)• COMP 478 Image Processing (4.00)• COMP 479 Information Retrieval and Web Search (4.00)• COMP 493 Computational Biology Team Project (6.00)• ENGR 213 Applied Ordinary Differential Equations (3.00)• ENGR 411 Special Technical Report (1.00)• SOEN 287 Web Programming (3.00)• SOEN 387 Web‑Based Enterprise Application Design (3.00)
+Note: Electives may also be taken from amongst 300level and 400level courses in BIOL, COEN, COMP, SOEN with permission of the Department.
+
+Note: Students missing one credit of the 90 credits to graduate may take ENGR 411 Special Technical Report (1 credit).
+
+Section 71.75.3 Extended Credit Program
+Extended Credit Program: Health and Life Sciences (120 credits)
+Students admitted to an Extended Credit Program (ECP) under the provisions of Section 13.3 Admission Requirements or Section 13.8 Selection Process and Notification must successfully complete a minimum of 120 credits including:
+
+90	credits of program requirements as set out inSection 71.75.2 Degree Requirements
+9	
+credits:
+
+
+• MATH 203 Differential and Integral Calculus I (3.00)• MATH 204 Vectors and Matrices (3.00)• MATH 205 Differential and Integral Calculus II (3.00)
+12	
+credits:
+
+
+• PHYS 204 Mechanics (3.00)• PHYS 205 Electricity and Magnetism (3.00)• PHYS 206 Waves and Modern Physics (3.00)• PHYS 224 Introductory Experimental Mechanics (1.00)• PHYS 225 Introductory Experimental Electricity (1.00)• PHYS 226 Introductory Experimental Waves and Modern Physics (1.00)
+6	
+credits:
+
+
+• CHEM 205 General Chemistry I (3.00)• CHEM 206 General Chemistry II (3.00)
+3	
+credits:
+
+
+• BIOL 201 Introductory Biology (3.00)
+
+
+Mathematics Electives: BCompSc (6 credits)
+Mathematics Electives must be chosen from the following list:
+
+
+• COMP 339 Combinatorics (3.00)• COMP 361 Elementary Numerical Methods (3.00)• COMP 367 Techniques in Symbolic Computation (3.00)• ENGR 213 Applied Ordinary Differential Equations (3.00)• ENGR 233 Applied Advanced Calculus (3.00)• MAST 218 Multivariable Calculus I (3.00)• MAST 219 Multivariable Calculus II (3.00)• MAST 324 Introduction to Optimization (3.00)• MAST 332 Techniques in Symbolic Computation (3.00)• MAST 334 Numerical Analysis (3.00)• MATH 251 Linear Algebra I (3.00)• MATH 252 Linear Algebra II (3.00)• MATH 339 Combinatorics (3.00)• MATH 392 Elementary Number Theory and Cryptography (3.00)
+Note: Credits exceeding the required number of Mathematics Elective credits will accrue towards the General Elective credits.
+
+Note: Students cannot receive credit for both COMP 339 and MATH 339; COMP 361 and MAST 334; COMP 367 and MAST 332.
+
+
+BCompSc Computer Science Core (33 credits)
+• COMP 228 System Hardware (3.00)• COMP 232 Mathematics for Computer Science (3.00)• COMP 233 Probability and Statistics for Computer Science (3.00)• COMP 248 Object‑Oriented Programming I (3.50)• COMP 249 Object‑Oriented Programming II (3.50)• COMP 335 Introduction to Theoretical Computer Science (3.00)• COMP 346 Operating Systems (4.00)• COMP 348 Principles of Programming Languages (3.00)• COMP 352 Data Structures and Algorithms (3.00)• COMP 354 Introduction to Software Engineering (4.00)
+
+WE HAVE PDF FOR IT 
+Health-and-Life-Sciences.pdf
+ECP_Health_and_Life_Sciences.pdf

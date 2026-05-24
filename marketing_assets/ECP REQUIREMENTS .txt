@@ -1,0 +1,174 @@
+Mature entry and extended credit (Engineering)
+Please note that ECP and MEP students typically require an extra year in their program to complete any deficiencies in their first year of study, prior to following the regular program.
+
+See more information at: http://www.concordia.ca/academics/degrees/program-length.html. 
+
+The suggested first year schedule for an ECP/MEP student could be:
+
+First Semester:
+
+CHEM 205 (General Chemistry I)
+MATH 203 (Differential and Integral Calculus I)
+PHYS 204 (Mechanics)
+Social Science, Natural Science Elective or Humanities Elective*
+English as Second Language (ESL) (if required)
+Second Semester:
+
+MATH 204 (Vectors and Matrices)
+MATH 205 (Differential and Integral Calculus II) [requires C- or better in MATH 203]
+PHYS 205 (Electricity and Magnetism) [requires C- or better in PHYS 204]
+Social Science, Natural Science Elective or Humanities Elective*
+English as Second Language (ESL) (if required)
+ 
+
+* ECP and MEP students must also complete 6 credits of social science and humanities electives. These Social Science or Humanities electives must be chosen from the lists in the Undergraduate calendar.  Since these courses are not scheduled by the Faculty of Engineering and Computer Science, you may have course conflicts.
+
+If you have already been awarded an exemption for a course you do not need to repeat it. Should you need any assistance in selecting courses, please do not hesitate to contact your academic advisor for further assistance.
+
+After you have completed the prerequisites for your first year (MATH, PHYS, and CHEM courses), please follow the course sequence for your program.
+
+Extended Credit Program
+Students admitted to an Extended Credit Program under the provisions of ​Section 13.3 Admission Requirements‌​ or under Section 13.8 Selection Process and Notification‌ ​must successfully complete the requirements of a specific program, as set out in ​Section 71.30 Department of Electrical and Computer Engineering‌​ to Section 71.55 Aerospace Engineering‌​ and in the following, Section 71.70.9 Degree Requirements for the BEng in Software Engineering‌​ and ​Section 71.100 Concordia Institute for Information Systems Engineering‌​​​, plus the following courses:
+
+​​
+• CHEM 205 General Chemistry I (3.00)
+‌
+• MATH 203 Differential and Integral Calculus I (3.00)
+‌
+• MATH 204 Vectors and Matrices (3.00)
+‌
+• MATH 205 Differential and Integral Calculus II (3.00)
+‌
+• PHYS 204 Mechanics (3.00)
+‌
+• PHYS 205 Electricity and Magnetism (3.00)
+‌ ​​
+Six credits of Natural Science Electives‌ chosen from the list below. ​​
+Six credits chosen from General Education Humanities and Social Sciences Electives‌ . English as a Second Language (ESL) Courses‌ and courses that focus on the acquisition of a language may not be used to meet this requirement.
+
+​​
+Natural Science Electives
+• BIOL 201 Introductory Biology (3.00)
+• BIOL 202 General Biology (3.00)
+• BIOL 206 Elementary Genetics (3.00)
+• BIOL 261 Molecular and General Genetics (3.00)
+• BIOL 266 Cell Biology (3.00)
+• CHEM 206 General Chemistry II (3.00)
+• CHEM 217 Introductory Analytical Chemistry I (3.00)
+• CHEM 221 Introductory Organic Chemistry I (3.00)
+• GEOL 206 Earthquakes, Volcanoes, and Plate Tectonics (3.00)
+• GEOL 208 The Earth, Moon and the Planets (3.00)
+• PHYS 206 Waves and Modern Physics (3.00)
+• PHYS 252 Optics (3.00)
+• PHYS 260 Introductory Biophysics (3.00)
+• PHYS 273 Energy and Environment (3.00)
+• PHYS 284 Introduction to Astronomy (3.00)
+• PHYS 367 Modern Physics and Relativity (3.00)
+• PHYS 385 Astrophysics (3.00)
+• PHYS 443 Quantitative Human Systems Physiology (3.00)
+• PHYS 445 Principles of Medical Imaging (3.00)
+
+
+
+
+
+Mature entry and extended credit
+Computer Science programs
+Please note that Extended Credit Program (ECP) and Mature Entry Program (MEP) students should complete any deficiencies in their first year of study, prior to following the regular program.
+
+First year courses for Computer Science Options
+For BCompSc, BCompSc Options (i.e. Computer Applications, Computer Games, Software Systems, Web Services and Applications), Joint Majors in Data Science, Mathematics and Statistics, and Computation Arts:
+An example of a first-year schedule for an ECP/MEP student could be:
+First Semester:
+
+MATH 203
+Humanities or Social Science Course
+Elective*
+Second Semester:
+
+MATH 204
+MATH 205
+Humanities or Social Science Course
+Elective*
+*In addition to the prerequisite courses listed above, ECP/MEP students must take a minimum of:
+
+ECP Students:
+
+Information Systems: 15 elective credits chosen from outside the John Molson School of Business and the Gina Cody School of Engineering and Computer Science as part for their ECP Requirement.
+Computation Arts: 15 elective credits chosen from outside the Gina Cody School of Engineering and Computer Science and the Department of Design and Computation Arts as part of their ECP Requirement
+Mathematics and Statistics and Data Science: 15 elective credits chosen from outside the Gina Cody School of Engineering and Computer Science and the Department of Mathematics and Statistics as part for their ECP Requirement.
+All other options:15 elective credits chosen from outside of the Gina Cody School of Engineering and Computer Science as part of their ECP Requirement
+
+MEP Students:
+
+All options: 3 elective credits chosen from outside of the Gina Cody School of Engineering and Computer Science as part of their MEP Requirement
+Note:
+
+MATH 203 must be taken before MATH 205. All other courses can be taken concurrently.
+Since these courses are not scheduled by the Gina Cody School of Engineering and Computer Science, you may have course conflicts.
+First year courses for Computer Systems option
+An example of a first-year schedule for an ECP*/MEP student could be:
+
+First Semester:
+
+CHEM 205
+MATH 203
+PHYS 204
+Humanities or Social Science Course
+Second Semester:
+
+MATH 204
+MATH 205
+PHYS 205
+Humanities or Social Science Course
+*In addition to the prerequisite courses listed above, ECP students must take a minimum of:
+
+6 elective credits chosen from outside of the Gina Cody School of Engineering and Computer Science as part of their ECP Requirement
+
+NOTE:
+
+MATH 203 must be taken before MATH 205.
+PHYS 204 must be taken before PHYS 205.
+Since these courses are not scheduled by the Faculty of Engineering and Computer Science, you may have course conflicts.
+First year courses for Health and Life Sciences
+An example of a first-year schedule for an ECP/MEP student could be:
+
+First Semester:
+
+MATH 203
+BIOL 201
+CHEM 205
+PHYS 204
+PHYS 224
+Second Semester:
+
+MATH 204
+MATH 205
+CHEM 206
+PHYS 205
+PHYS 225
+PHYS 206
+PHYS 226
+NOTE:
+
+MATH 203 must be taken before MATH 205.
+PHYS 204 must be taken before PHYS 205 and PHYS 206.
+CHEM 205 must be taken before CHEM 206.
+Since these courses are not scheduled by the Faculty of Engineering and Computer Science, you may have course conflicts.
+After you have completed the credits for your first year, please follow the course sequence for your program.
+
+Programs
+Computer Science
+
+Software Engineering
+
+Course sequences
+Student Academic Services
+Undergraduate resources
+Graduate resources
+Course registration
+Changes to registration
+Readmission to the Gina Cody School
+Expectation of originality
+Academic standing
+ 

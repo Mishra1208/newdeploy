@@ -1,0 +1,64 @@
+Computation Arts and Computer Science
+Objectives
+The Gina Cody School of Engineering and Computer Science and the Faculty of Fine Arts have created a program of study which combines a comprehensive education in computer science and a complementary set of courses of equivalent value in the fine arts. This program resides in both Faculties. In the Gina Cody School of Engineering and Computer Science, it is offered under the aegis of the Bachelor of/Baccalaureate in Computer Science (BCompSc). According to their preferences and aspirations, students may apply either for a Bachelor of/Baccalaureate in Computer Science program, or a Bachelor of/Baccalaureate in Fine Arts program. The Fine Arts offering is described in Section 81.90 Department of Design and Computation Arts. The Computer Science program is described below.
+
+BCompSc Joint Major in Computation Arts and Computer Science
+Curriculum
+The BCompSc Joint Major in Computation Arts and Computer Science consists of 45 credits in Computer Science complemented by 45 credits of study in Fine Arts. It provides a foundation for the integration of the arts and computer science as hybrid digital media arts and multimedia productions.
+
+The Computation Arts core focuses on three areas of digital media: image works, sound exploration, and 3D modelling/animation. Through the integration of theory and practice, the programs aim at developing interdisciplinary cultural and technological practices, for independent arts initiatives, industry, and client‑based productions.
+
+The core courses are open‑ended and flexible to accommodate change that will run parallel to technological advancements in industry and give students a strong base in multimedia research. Design Art, Electroacoustics, Film Animation, and the Studio Electronic Arts provide the Fine Arts electives, which further supports the cross‑disciplinary nature of the program directives.
+
+This program will give graduates the conceptual abilities and technical skills they need to practise as hybrid cultural workers in the rapidly expanding field of multimedia. Students will have many more options to fine‑tune a multimedia program according to their individual needs and expectations. Courses have been restructured into three credits to facilitate computer lab access, and flexibility in course sequencing and offerings, as well as to accommodate completion of the program within a co‑op structure.
+
+Students of Computation Arts must bear the costs of annual laboratory fees.
+
+Degree Requirements
+The program consists of 45 credits in Computer Science and 45 credits in Fine Arts, as described below.
+
+Joint Major in Computation Arts and Computer Science (90 credits)
+33	credits from the Computer Science Core
+45	credits from the Computation Arts Core
+12	
+credits:
+
+
+• COMP 345 Advanced Program Design with C++ (4.00)• COMP 371 Computer Graphics (4.00)• ENCS 282 Technical Writing and Communication (3.00)• ENGR 411 Special Technical Report (1.00)
+Computation Arts Core (45 credits)
+6	
+credits:
+
+
+• FFAR 248 Keywords: Engaging Across Disciplines in the Fine Arts (3.00)‌ • FFAR 249 Keywords: Working Across Disciplines in the Fine Arts (3.00)‌
+​​
+12	
+credits:
+
+
+• CART 210 New Media Theory (3.00)‌ • CART 211 Creative Computing and Network Culture (3.00)‌ • CART 212 Digital Media Studio (3.00)‌ • CART 214 Visual Form and Communication (3.00)‌​​
+​​
+3	
+credits:
+
+
+• CART 310 Interaction Design Studio (3.00)‌
+​​
+6	credits chosen from 300-level CART courses ​​
+3	
+credits:
+
+
+• CART 470 Capstone: Prototyping (3.00)‌
+​​
+9	credits chosen from 400-level CART courses ​​
+6	credits chosen from DART courses or other Fine Arts electives ​​
+Note: the Joint Major in Computation Arts and Computer Science‌ is offered jointly with the Department of Design and Computation Arts‌. ​​
+
+
+BCompSc Computer Science Core (33 credits)
+• COMP 228 System Hardware (3.00)• COMP 232 Mathematics for Computer Science (3.00)• COMP 233 Probability and Statistics for Computer Science (3.00)• COMP 248 Object‑Oriented Programming I (3.50)• COMP 249 Object‑Oriented Programming II (3.50)• COMP 335 Introduction to Theoretical Computer Science (3.00)• COMP 346 Operating Systems (4.00)• COMP 348 Principles of Programming Languages (3.00)• COMP 352 Data Structures and Algorithms (3.00)• COMP 354 Introduction to Software Engineering (4.00)
+
+we have pdf for it 
+Computation_Arts.pdf
+ECP_Computation_Arts.pdf
