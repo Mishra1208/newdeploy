@@ -1,0 +1,38 @@
+{
+  "program": "Minor in Information Systems Audit and Risk Management",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 12,
+      "courses": [
+        "ACCO 360",
+        "ACCO 455",
+        "BTM 382",
+        "BTM 440"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 0,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "ACCO 360",
+        "ACCO 455",
+        "BTM 382",
+        "BTM 440"
+      ]
+    ]
+  }
+}

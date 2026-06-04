@@ -1,0 +1,47 @@
+{
+  "program": "Minor in Business Technology Management",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 9,
+      "courses": [
+        "BTM 382",
+        "BTM 481",
+        "BTM 496"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 3,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 3,
+          "list": [
+            "BTM 380",
+            "BTM 385",
+            "BTM 387",
+            "BTM 430",
+            "BTM 440",
+            "BTM 450",
+            "BTM 460",
+            "BTM 480",
+            "BTM 490",
+            "BTM 495"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "BTM 382",
+        "BTM 481",
+        "BTM 496"
+      ]
+    ]
+  }
+}

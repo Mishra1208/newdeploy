@@ -1,0 +1,39 @@
+{
+  "program": "Minor in Human Resource Management",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 3,
+      "courses": [
+        "MANA 362"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 9,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 9,
+          "list": [
+            "MANA 366",
+            "MANA 443",
+            "MANA 444",
+            "MANA 445",
+            "MANA 446",
+            "MANA 463"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "MANA 362"
+      ]
+    ]
+  }
+}

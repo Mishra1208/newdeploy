@@ -1,0 +1,38 @@
+{
+  "program": "Minor in Entrepreneurship",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 12,
+      "courses": [
+        "MANA 447",
+        "MANA 451",
+        "MANA 478",
+        "MANA 480"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 0,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "MANA 447",
+        "MANA 451",
+        "MANA 478",
+        "MANA 480"
+      ]
+    ]
+  }
+}

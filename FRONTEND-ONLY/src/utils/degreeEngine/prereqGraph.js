@@ -116,6 +116,17 @@ export const generateOptimalPath = (targetCourses, completedCourses, allCourses,
           if (!isA_Core && isB_Core) return 1;
         }
 
+        // Prioritize by level (200 before 300 before 400)
+        const getLevel = (id) => {
+          const match = id.match(/\d{3}/);
+          return match ? parseInt(match[0][0], 10) : 9;
+        };
+        const levelA = getLevel(a);
+        const levelB = getLevel(b);
+        if (levelA !== levelB) {
+          return levelA - levelB;
+        }
+
         return weightA - weightB;
       });
 

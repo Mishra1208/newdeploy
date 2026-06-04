@@ -1,0 +1,38 @@
+{
+  "program": "Minor in Supply Chain Operations Management",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 12,
+      "courses": [
+        "SCOM 361",
+        "SCOM 363",
+        "SCOM 372",
+        "SCOM 374"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 0,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "SCOM 361",
+        "SCOM 363",
+        "SCOM 372",
+        "SCOM 374"
+      ]
+    ]
+  }
+}

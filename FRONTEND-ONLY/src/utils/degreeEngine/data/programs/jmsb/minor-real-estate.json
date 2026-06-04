@@ -1,0 +1,40 @@
+{
+  "program": "Minor in Real Estate",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 6,
+      "courses": [
+        "FINA 450",
+        "FINA 465"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 6,
+          "list": [
+            "FINA 411",
+            "FINA 416",
+            "URBS 230",
+            "URBS 240",
+            "URBS 393"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "FINA 450",
+        "FINA 465"
+      ]
+    ]
+  }
+}

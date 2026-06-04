@@ -1,0 +1,146 @@
+{
+  "program": "Finance (BComm)",
+  "totalCredits": 90,
+  "requirements": [
+    {
+      "category": "JMSB Core 200-Level",
+      "credits": 34.5,
+      "courses": [
+        "COMM 205",
+        "COMM 211",
+        "COMM 213",
+        "COMM 214",
+        "COMM 216",
+        "COMM 217",
+        "COMM 219",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 226",
+        "COMM 227",
+        "COMM 229"
+      ]
+    },
+    {
+      "category": "JMSB Core 300 & 400-Level",
+      "credits": 13.5,
+      "courses": [
+        "COMM 305",
+        "COMM 309",
+        "COMM 316",
+        "COMM 320",
+        "COMM 401"
+      ]
+    },
+    {
+      "category": "Finance Major Core",
+      "credits": 6,
+      "courses": [
+        "FINA 385",
+        "FINA 395"
+      ]
+    },
+    {
+      "category": "Finance Electives",
+      "credits": 18,
+      "electiveSlots": [
+        {
+          "name": "Finance Elective",
+          "credits": 18,
+          "list": [
+            "FINA 402",
+            "FINA 405",
+            "FINA 408",
+            "FINA 409",
+            "FINA 410",
+            "FINA 411",
+            "FINA 412",
+            "FINA 413",
+            "FINA 415",
+            "FINA 416",
+            "FINA 420",
+            "FINA 421",
+            "FINA 455",
+            "FINA 465",
+            "FINA 470",
+            "FINA 471",
+            "FINA 481",
+            "FINA 482",
+            "FINA 495"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Non-Business Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Non-Business Elective",
+          "credits": 6,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 12,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 12,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "COMM 205",
+        "COMM 211",
+        "COMM 217",
+        "COMM 213",
+        "COMM 216",
+        "Non-Business Elective 1"
+      ],
+      [
+        "COMM 214",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 219"
+      ],
+      [
+        "COMM 226",
+        "COMM 227",
+        "COMM 305",
+        "COMM 229",
+        "Non-Business Elective 2"
+      ],
+      [
+        "COMM 309",
+        "COMM 316",
+        "Major Core 1",
+        "Major Core 2",
+        "General Elective 1"
+      ],
+      [
+        "COMM 320",
+        "Major Core 3",
+        "Major Core 4",
+        "Major Elective 1",
+        "General Elective 2"
+      ],
+      [
+        "COMM 401",
+        "Major Core 5",
+        "Major Elective 2",
+        "Major Elective 3",
+        "General Elective 3",
+        "General Elective 4"
+      ]
+    ]
+  }
+}

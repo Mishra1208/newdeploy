@@ -1,0 +1,51 @@
+{
+  "program": "Minor in Marketing",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 6,
+      "courses": [
+        "MARK 302",
+        "MARK 305"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 6,
+          "list": [
+            "MARK 444",
+            "MARK 451",
+            "MARK 452",
+            "MARK 453",
+            "MARK 454",
+            "MARK 456",
+            "MARK 457",
+            "MARK 458",
+            "MARK 460",
+            "MARK 463",
+            "MARK 465",
+            "MARK 485",
+            "MARK 486",
+            "MARK 491",
+            "MARK 492",
+            "MARK 493"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "MARK 302",
+        "MARK 305"
+      ]
+    ]
+  }
+}

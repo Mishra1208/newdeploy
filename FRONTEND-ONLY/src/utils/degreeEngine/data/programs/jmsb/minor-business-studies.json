@@ -1,0 +1,44 @@
+{
+  "program": "Minor in Business Studies",
+  "totalCredits": 30,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 21,
+      "courses": [
+        "COMM 205",
+        "COMM 211",
+        "COMM 214",
+        "COMM 217",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 9,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 9,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "COMM 205",
+        "COMM 211",
+        "COMM 214",
+        "COMM 217",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225"
+      ]
+    ]
+  }
+}

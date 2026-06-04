@@ -1,0 +1,54 @@
+{
+  "program": "Minor in Finance",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 6,
+      "courses": [
+        "FINA 385",
+        "FINA 395"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 6,
+          "list": [
+            "FINA 402",
+            "FINA 405",
+            "FINA 408",
+            "FINA 409",
+            "FINA 410",
+            "FINA 411",
+            "FINA 412",
+            "FINA 413",
+            "FINA 415",
+            "FINA 416",
+            "FINA 420",
+            "FINA 421",
+            "FINA 455",
+            "FINA 465",
+            "FINA 470",
+            "FINA 471",
+            "FINA 481",
+            "FINA 482",
+            "FINA 495"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "FINA 385",
+        "FINA 395"
+      ]
+    ]
+  }
+}

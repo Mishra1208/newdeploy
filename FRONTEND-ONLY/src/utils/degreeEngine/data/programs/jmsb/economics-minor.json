@@ -1,0 +1,34 @@
+{
+  "program": "Minor in Economics",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 6,
+      "courses": [
+        "ECON 318",
+        "ECON 319"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 6,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "ECON 318",
+        "ECON 319"
+      ]
+    ]
+  }
+}

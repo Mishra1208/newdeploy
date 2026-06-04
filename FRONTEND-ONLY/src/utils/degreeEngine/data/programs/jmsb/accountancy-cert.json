@@ -1,0 +1,57 @@
+{
+  "program": "Accountancy (Certificate)",
+  "totalCredits": 30.0,
+  "requirements": [
+    {
+      "category": "Certificate Core",
+      "credits": 30.0,
+      "courses": [
+        "ACCO 310",
+        "ACCO 320",
+        "ACCO 330",
+        "ACCO 340",
+        "ACCO 360",
+        "ACCO 420",
+        "ACCO 435",
+        "ACCO 440",
+        "ACCO 465",
+        "COMM 216",
+        "COMM 316"
+      ]
+    }
+  ],
+  "courses": {
+    "COMM 216": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "COMM 316": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ACCO 310": { "credits": 3.0, "prerequisites": [], "corequisites": [] },
+    "ACCO 320": { "credits": 3.0, "prerequisites": [["ACCO 310"]], "corequisites": [] },
+    "ACCO 330": { "credits": 3.0, "prerequisites": [], "corequisites": [] },
+    "ACCO 340": { "credits": 3.0, "prerequisites": [], "corequisites": [] },
+    "ACCO 360": { "credits": 3.0, "prerequisites": [["ACCO 310"]], "corequisites": [] },
+    "ACCO 420": { "credits": 3.0, "prerequisites": [["ACCO 320"]], "corequisites": [] },
+    "ACCO 435": { "credits": 3.0, "prerequisites": [["ACCO 320", "ACCO 330", "ACCO 340"]], "corequisites": [] },
+    "ACCO 440": { "credits": 3.0, "prerequisites": [["ACCO 340"]], "corequisites": [] },
+    "ACCO 465": { "credits": 3.0, "prerequisites": [["ACCO 320", "ACCO 360"]], "corequisites": [] }
+  },
+  "sequence": {
+    "september": [
+      [
+        "ACCO 310",
+        "ACCO 330",
+        "ACCO 340",
+        "COMM 216",
+        "COMM 316"
+      ],
+      [
+        "ACCO 320",
+        "ACCO 360",
+        "ACCO 440"
+      ],
+      [
+        "ACCO 420",
+        "ACCO 435",
+        "ACCO 465"
+      ]
+    ]
+  }
+}

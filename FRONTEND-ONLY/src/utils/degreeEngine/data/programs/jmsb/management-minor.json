@@ -1,0 +1,61 @@
+{
+  "program": "Minor in Management",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 6,
+      "courses": [
+        "MANA 341",
+        "MANA 420"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 6,
+          "list": [
+            "MANA 300",
+            "MANA 343",
+            "MANA 362",
+            "MANA 366",
+            "MANA 369",
+            "MANA 374",
+            "MANA 390",
+            "MANA 443",
+            "MANA 444",
+            "MANA 445",
+            "MANA 446",
+            "MANA 447",
+            "MANA 451",
+            "MANA 461",
+            "MANA 463",
+            "MANA 466",
+            "MANA 477",
+            "MANA 478",
+            "MANA 479",
+            "MANA 480",
+            "MANA 481",
+            "MANA 482",
+            "MANA 490",
+            "MANA 493",
+            "MANA 498",
+            "MANA 499"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "MANA 341",
+        "MANA 420"
+      ]
+    ]
+  }
+}

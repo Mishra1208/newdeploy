@@ -1,0 +1,140 @@
+{
+  "program": "Business Technology Management (BComm)",
+  "totalCredits": 90,
+  "requirements": [
+    {
+      "category": "JMSB Core 200-Level",
+      "credits": 34.5,
+      "courses": [
+        "COMM 205",
+        "COMM 211",
+        "COMM 213",
+        "COMM 214",
+        "COMM 216",
+        "COMM 217",
+        "COMM 219",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 226",
+        "COMM 227",
+        "COMM 229"
+      ]
+    },
+    {
+      "category": "JMSB Core 300 & 400-Level",
+      "credits": 13.5,
+      "courses": [
+        "COMM 305",
+        "COMM 309",
+        "COMM 316",
+        "COMM 320",
+        "COMM 401"
+      ]
+    },
+    {
+      "category": "Business Technology Management Major Core",
+      "credits": 15,
+      "courses": [
+        "BTM 380",
+        "BTM 382",
+        "BTM 385",
+        "BTM 481",
+        "BTM 496"
+      ]
+    },
+    {
+      "category": "Business Technology Management Electives",
+      "credits": 9,
+      "electiveSlots": [
+        {
+          "name": "Business Technology Management Elective",
+          "credits": 9,
+          "list": [
+            "BANA 450",
+            "BANA 478",
+            "BTM 387",
+            "BTM 430",
+            "BTM 440",
+            "BTM 450",
+            "BTM 460",
+            "BTM 480",
+            "BTM 490",
+            "BTM 495"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Non-Business Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Non-Business Elective",
+          "credits": 6,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 12,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 12,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "COMM 205",
+        "COMM 211",
+        "COMM 217",
+        "COMM 213",
+        "COMM 216",
+        "Non-Business Elective 1"
+      ],
+      [
+        "COMM 214",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 219"
+      ],
+      [
+        "COMM 226",
+        "COMM 227",
+        "COMM 305",
+        "COMM 229",
+        "Non-Business Elective 2"
+      ],
+      [
+        "COMM 309",
+        "COMM 316",
+        "Major Core 1",
+        "Major Core 2",
+        "General Elective 1"
+      ],
+      [
+        "COMM 320",
+        "Major Core 3",
+        "Major Core 4",
+        "Major Elective 1",
+        "General Elective 2"
+      ],
+      [
+        "COMM 401",
+        "Major Core 5",
+        "Major Elective 2",
+        "Major Elective 3",
+        "General Elective 3",
+        "General Elective 4"
+      ]
+    ]
+  }
+}

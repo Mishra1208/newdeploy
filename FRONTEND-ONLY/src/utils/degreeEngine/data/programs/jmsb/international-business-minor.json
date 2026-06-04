@@ -1,0 +1,41 @@
+{
+  "program": "Minor in International Business",
+  "totalCredits": 12,
+  "requirements": [
+    {
+      "category": "Minor Core",
+      "credits": 9,
+      "courses": [
+        "IBUS 462",
+        "IBUS 466",
+        "IBUS 492"
+      ]
+    },
+    {
+      "category": "Minor Electives",
+      "credits": 3,
+      "electiveSlots": [
+        {
+          "name": "Minor Elective",
+          "credits": 3,
+          "list": [
+            "IBUS 370",
+            "IBUS 465",
+            "IBUS 471",
+            "IBUS 493"
+          ]
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "IBUS 462",
+        "IBUS 466",
+        "IBUS 492"
+      ]
+    ]
+  }
+}

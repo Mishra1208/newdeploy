@@ -1,0 +1,299 @@
+Department of Accountancy Courses
+
+ACCO 220 Financial and Managerial Accounting (3 credits)
+
+ACCO 230 Introduction to Financial Accounting (3 credits)
+
+ACCO 240 Introduction to Managerial Accounting (3 credits)
+
+ACCO 310 Financial Reporting I (3 credits)
+
+ACCO 320 Financial Reporting II (3 credits)
+
+ACCO 330 Cost and Management Accounting (3 credits)
+
+ACCO 340 Income Taxation in Canada (3 credits)
+
+ACCO 350 FinTech: Impact on Accounting (3 credits)
+
+ACCO 355 Analysis of Financial Statements (3 credits)
+
+ACCO 360 Principles of Auditing (3 credits)
+
+ACCO 365 U.S. Federal Taxation (3 credits)
+
+ACCO 400 Accounting in Society (3 credits)
+
+ACCO 420 Financial Reporting III (3 credits)
+
+ACCO 425 Financial Reporting IV (3 credits)
+
+ACCO 435 Strategic Accounting Case Analysis (3 credits)
+
+ACCO 440 Advanced Taxation (3 credits)
+
+ACCO 455 Fraud Examination (3 credits)
+
+ACCO 465 Advanced Assurance Services (3 credits)
+
+ACCO 470 Special Topics in Accounting (3 credits)
+
+ACCO 496 Accounting Research Methods (3 credits)
+
+ACCO 497 Accounting Honours Seminar (3 credits)
+ 
+ 
+ Department of Supply Chain and Business Technology Management
+ 
+ Business Analytics Courses
+
+BANA 300 Principles of Business Analytics (3 credits)
+
+BANA 440 Business Analytics Programming (3 credits)
+
+BANA 450 Statistical Models for Business Analytics (3 credits)
+
+BANA 477 Predictive Modelling and Analysis (3 credits)
+
+BANA 478 Data Mining for Business Analytics (3 credits)
+
+BANA 491 Advanced Business Analytics (3 credits)
+
+BANA 492 Business Analytics Capstone (3 credits)
+
+BSTA 490 Special Topics in Business Statistics (3 credits)
+Business Technology Management Courses
+
+BTM 200 Fundamentals of Information Technology (3 credits)
+
+BTM 380 Business Application Development (3 credits)
+
+BTM 382 Database Management (3 credits)
+
+BTM 385 Artificial Intelligence in Business (3 credits)
+
+BTM 387 Digital Business Development (3 credits)
+
+BTM 430 Enterprise Resource Planning (3 credits)
+
+BTM 440 Cybersecurity for Business (3 credits)
+
+BTM 450 User Experience (3 credits)
+
+BTM 460 Data Ethics and Privacy (3 credits)
+
+BTM 480 Project Management (3 credits)
+
+BTM 481 Digital Consulting (3 credits)
+
+BTM 490 Special Topics in Business Technology Management (3 credits)
+
+BTM 495 Business Application Design and Implementation (3 credits)
+
+BTM 496 Digital Strategy, Management and Sourcing (3 credits)
+Supply Chain Operations Management Courses
+
+SCOM 361 Business Decision Modelling (3 credits)
+
+SCOM 362 Procurement and Supply Management (3 credits)
+
+SCOM 363 Service and Manufacturing Operations (3 credits)
+
+SCOM 372 Supply Chain Design (3 credits)
+
+SCOM 374 Logistics and Transportation Management (3 credits)
+
+SCOM 490 Special Topics in Supply Chain Operations Management (3 credits)
+
+SCOM 491 Supply Chain Risk Management (3 credits)
+
+SCOM 492 Supply Chain Simulation (3 credits)
+
+SCOM 498 Supply Chain Project (3 credits)
+ 
+ Department of Finance Courses
+
+FINA 200 Personal Finance (3 credits)
+
+FINA 210 Introduction to Real Estate (3 credits)
+
+FINA 230 Introduction to Financial Management (3 credits)
+
+FINA 310 Real Estate Development and Entrepreneurship (3 credits)
+
+FINA 320 Real Estate Investment (3 credits)
+
+FINA 355 Topics in Real Estate (3 credits)
+
+FINA 370 International Financial Management (3 credits)
+
+FINA 382 Management of International Financial Institutions (3 credits)
+
+FINA 385 Theory of Finance I (3 credits)
+
+FINA 395 Theory of Finance II (3 credits)
+
+FINA 402 Short‑Term Financial Management (3 credits)
+
+FINA 405 Cases in Finance (3 credits)
+
+FINA 408 Building and Testing Trading Systems Using Technical Analysis (3 credits)
+
+FINA 409 Applied Investment Analysis (3 credits)
+
+FINA 410 Investment Analysis (3 credits)
+
+FINA 411 Portfolio Management (3 credits)
+
+FINA 412 Options and Futures (3 credits)
+
+FINA 413 Advanced Topics in Derivative Markets (3 credits)
+
+FINA 415 Mergers and Acquisitions (3 credits)
+
+FINA 416 Behavioural Finance (3 credits)
+
+FINA 420 Real Estate Finance (3 credits)
+
+FINA 421 Sustainable Investments (3 credits)
+
+FINA 455 Seminar in Finance (3 credits)
+
+FINA 465 Trading in Financial Securities (3 credits)
+
+FINA 470 International Finance (3 credits)
+
+FINA 471 Multinational Financial Management (3 credits)
+
+FINA 481 Management of Financial Institutions (3 credits)
+
+FINA 482 International Banking: Operations, Policy and Strategy (3 credits)
+
+FINA 495 Honours Seminar in Finance (6 credits)
+
+International Business Courses
+
+IBUS 370 International Financial Management (3 credits)
+
+IBUS 382 Management of International Financial Institutions (3 credits)
+
+IBUS 465 International Marketing Management (3 credits)
+
+IBUS 466 Management of Multinational Corporations (3 credits)
+
+IBUS 471 Topics in International Business (3 credits)
+
+IBUS 492 Cross‑Cultural Communications and Management (3 credits)
+
+IBUS 493 International Business Law (3 credits)
+
+Department of Management Courses
+
+MANA 201 Introduction to Business and Management (3 credits)
+
+MANA 202 Human Behaviour in Organizations (3 credits)
+
+MANA 298 Business Law (3 credits)
+
+MANA 300 Entrepreneurship: Launching Your Business (3 credits)
+
+MANA 341 Organization Theory and Design (3 credits)
+
+MANA 343 Communication and Negotiation (3 credits)
+
+MANA 362 Human Resource Management (3 credits)
+
+MANA 366 Labour Relations and Collective Bargaining (3 credits)
+
+MANA 369 Business and Sustainability (3 credits)
+
+MANA 374 Sustainable Management (3 credits)
+
+MANA 390 Honours Seminar in Management I (3 credits)
+
+MANA 420 Management Research for Decision Making (3 credits)
+
+MANA 443 Compensation and Benefits Management (3 credits)
+
+MANA 444 Training and Development (3 credits)
+
+MANA 445 Health and Safety Management (3 credits)
+
+MANA 446 Workplace Planning and Staffing (3 credits)
+
+MANA 447 Leadership and Motivation (3 credits)
+
+MANA 451 Managing a Small Business (3 credits)
+
+MANA 461 Implementing Competitive Strategies (3 credits)
+
+MANA 463 Strategic Human Resource Management (3 credits)
+
+MANA 466 Management of Multinational Corporations (3 credits)
+
+MANA 477 Real Estate Law (3 credits)
+
+MANA 478 Entrepreneurial Company Law (3 credits)
+
+MANA 479 Employment Law (3 credits)
+
+MANA 480 Entrepreneurial Family Business (3 credits)
+
+MANA 481 Management Consulting (3 credits)
+
+MANA 482 Financing of Entrepreneurial Ventures (3 credits)
+
+MANA 490 Honours Seminar in Management II (3 credits)
+
+MANA 493 International Business Law (3 credits)
+
+MANA 498 Special Topics in Human Resource Management (3 credits)
+
+MANA 499 Special Topics in Management (3 credits)
+ Department of Marketing Courses
+Notes
+The Department strongly recommends that students take MARK 302 and MARK 305 before enrolling in Marketing courses at the 400 level.
+
+MARK 201 Introduction to Marketing (3 credits)
+
+MARK 301 Marketing Analysis and Decision-Making (3 credits)
+
+MARK 302 Marketing Research (3 credits)
+
+MARK 305 Consumer Behaviour (3 credits)
+
+MARK 444 Sports Marketing (3 credits)
+
+MARK 451 Service Marketing (3 credits)
+
+MARK 452 Digital Marketing (3 credits)
+
+MARK 453 Integrated Marketing Communications (3 credits)
+
+MARK 454 Personal Selling (3 credits)
+
+MARK 456 Brand Management (3 credits)
+
+MARK 457 Omni-Channel Marketing (3 credits)
+
+MARK 458 The Marketing of Food (3 credits)
+
+MARK 460 Integrated Marketing Communications Practicum (3 credits)
+
+MARK 463 Strategic Retail Management (3 credits)
+
+MARK 465 International Marketing Management (3 credits)
+
+MARK 485 Business‑to‑Business Marketing (3 credits)
+
+MARK 486 Product Strategy and Innovation (3 credits)
+
+MARK 491 Special Topics Seminar (3 credits)
+
+MARK 492 Cross‑Cultural Communications and Management (3 credits)
+
+MARK 493 Current Issues in Marketing (3 credits)
+
+MARK 495 Advanced Strategic Marketing (3 credits)
+
+ 

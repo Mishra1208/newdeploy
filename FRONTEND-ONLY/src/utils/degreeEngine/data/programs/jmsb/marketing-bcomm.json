@@ -1,0 +1,145 @@
+{
+  "program": "Marketing (BComm)",
+  "totalCredits": 90,
+  "requirements": [
+    {
+      "category": "JMSB Core 200-Level",
+      "credits": 34.5,
+      "courses": [
+        "COMM 205",
+        "COMM 211",
+        "COMM 213",
+        "COMM 214",
+        "COMM 216",
+        "COMM 217",
+        "COMM 219",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 226",
+        "COMM 227",
+        "COMM 229"
+      ]
+    },
+    {
+      "category": "JMSB Core 300 & 400-Level",
+      "credits": 13.5,
+      "courses": [
+        "COMM 305",
+        "COMM 309",
+        "COMM 316",
+        "COMM 320",
+        "COMM 401"
+      ]
+    },
+    {
+      "category": "Marketing Major Core",
+      "credits": 12,
+      "courses": [
+        "MARK 301",
+        "MARK 302",
+        "MARK 305",
+        "MARK 495"
+      ]
+    },
+    {
+      "category": "Marketing Electives",
+      "credits": 12,
+      "electiveSlots": [
+        {
+          "name": "Marketing Elective",
+          "credits": 12,
+          "list": [
+            "MARK 444",
+            "MARK 451",
+            "MARK 452",
+            "MARK 453",
+            "MARK 454",
+            "MARK 456",
+            "MARK 457",
+            "MARK 458",
+            "MARK 460",
+            "MARK 463",
+            "MARK 465",
+            "MARK 485",
+            "MARK 486",
+            "MARK 491",
+            "MARK 492",
+            "MARK 493"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Non-Business Electives",
+      "credits": 6,
+      "electiveSlots": [
+        {
+          "name": "Non-Business Elective",
+          "credits": 6,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 12,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 12,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {},
+  "sequence": {
+    "september": [
+      [
+        "COMM 205",
+        "COMM 211",
+        "COMM 217",
+        "COMM 213",
+        "COMM 216",
+        "Non-Business Elective 1"
+      ],
+      [
+        "COMM 214",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 219"
+      ],
+      [
+        "COMM 226",
+        "COMM 227",
+        "COMM 305",
+        "COMM 229",
+        "Non-Business Elective 2"
+      ],
+      [
+        "COMM 309",
+        "COMM 316",
+        "Major Core 1",
+        "Major Core 2",
+        "General Elective 1"
+      ],
+      [
+        "COMM 320",
+        "Major Core 3",
+        "Major Core 4",
+        "Major Elective 1",
+        "General Elective 2"
+      ],
+      [
+        "COMM 401",
+        "Major Core 5",
+        "Major Elective 2",
+        "Major Elective 3",
+        "General Elective 3",
+        "General Elective 4"
+      ]
+    ]
+  }
+}

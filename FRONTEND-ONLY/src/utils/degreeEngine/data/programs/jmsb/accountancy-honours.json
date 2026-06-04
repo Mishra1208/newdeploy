@@ -1,0 +1,153 @@
+{
+  "program": "Accountancy (Honours)",
+  "totalCredits": 90.0,
+  "requirements": [
+    {
+      "category": "JMSB Core 200-Level",
+      "credits": 34.5,
+      "courses": [
+        "COMM 205",
+        "COMM 211",
+        "COMM 213",
+        "COMM 214",
+        "COMM 216",
+        "COMM 217",
+        "COMM 219",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 226",
+        "COMM 227",
+        "COMM 229"
+      ]
+    },
+    {
+      "category": "JMSB Core 300 & 400-Level",
+      "credits": 13.5,
+      "courses": [
+        "COMM 305",
+        "COMM 309",
+        "COMM 316",
+        "COMM 320",
+        "COMM 401"
+      ]
+    },
+    {
+      "category": "Accountancy Honours Core",
+      "credits": 21.0,
+      "courses": [
+        "ACCO 310",
+        "ACCO 320",
+        "ACCO 330",
+        "ACCO 340",
+        "ACCO 400",
+        "ACCO 496",
+        "ACCO 497"
+      ]
+    },
+    {
+      "category": "Accountancy Electives",
+      "credits": 9.0,
+      "electiveSlots": [
+        {
+          "name": "Accountancy Elective",
+          "credits": 9.0,
+          "list": [
+            "ACCO 360",
+            "ACCO 420",
+            "ACCO 425",
+            "ACCO 435",
+            "ACCO 440",
+            "ACCO 450",
+            "ACCO 455",
+            "ACCO 465",
+            "ACCO 470"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Non-Business Electives",
+      "credits": 6.0,
+      "electiveSlots": [
+        {
+          "name": "Non-Business Elective",
+          "credits": 6.0,
+          "list": []
+        }
+      ]
+    },
+    {
+      "category": "General Electives",
+      "credits": 12.0,
+      "electiveSlots": [
+        {
+          "name": "General Elective",
+          "credits": 12.0,
+          "list": []
+        }
+      ]
+    }
+  ],
+  "courses": {
+    "COMM 213": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "COMM 216": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "COMM 219": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "COMM 316": { "credits": 1.5, "prerequisites": [], "corequisites": [] },
+    "ACCO 310": { "credits": 3.0, "prerequisites": [["COMM 305"]], "corequisites": [] },
+    "ACCO 320": { "credits": 3.0, "prerequisites": [["ACCO 310"]], "corequisites": [] },
+    "ACCO 330": { "credits": 3.0, "prerequisites": [["COMM 305"]], "corequisites": [] },
+    "ACCO 340": { "credits": 3.0, "prerequisites": [["COMM 217"]], "corequisites": [] },
+    "ACCO 400": { "credits": 3.0, "prerequisites": [["ACCO 310"], ["ACCO 320"], ["ACCO 330"], ["ACCO 340"]], "corequisites": [] },
+    "ACCO 496": { "credits": 3.0, "prerequisites": [["ACCO 310"], ["ACCO 320"], ["ACCO 330"], ["ACCO 340"]], "corequisites": [] },
+    "ACCO 497": { "credits": 3.0, "prerequisites": [["ACCO 496"]], "corequisites": [] }
+  },
+  "sequence": {
+    "september": [
+      [
+        "COMM 205",
+        "COMM 211",
+        "COMM 217",
+        "COMM 213",
+        "COMM 216",
+        "Non-Business Elective 1"
+      ],
+      [
+        "COMM 214",
+        "COMM 221",
+        "COMM 223",
+        "COMM 225",
+        "COMM 219"
+      ],
+      [
+        "COMM 226",
+        "COMM 227",
+        "COMM 305",
+        "COMM 229",
+        "Non-Business Elective 2"
+      ],
+      [
+        "COMM 309",
+        "COMM 316",
+        "ACCO 310",
+        "ACCO 330",
+        "General Elective 1"
+      ],
+      [
+        "COMM 320",
+        "ACCO 320",
+        "ACCO 340",
+        "Accountancy Elective 1",
+        "General Elective 2"
+      ],
+      [
+        "COMM 401",
+        "ACCO 400",
+        "ACCO 496",
+        "ACCO 497",
+        "Accountancy Elective 2",
+        "Accountancy Elective 3"
+      ]
+    ]
+  }
+}
