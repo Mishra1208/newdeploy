@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, query, where, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, query, where, doc, setDoc, getDoc } from "firebase/firestore";
 // We need to import the initialized app from somewhere, or initialize it here.
 // Let's create a dedicated firebase initialization file if it doesn't exist, or just initialize here for firestore.
 import { initializeApp, getApps, getApp } from "firebase/app";
@@ -75,6 +75,62 @@ export async function deleteSeatAlert(id) {
         return { success: true };
     } catch (error) {
         console.error("Error deleting seat alert:", error);
+        return { success: false };
+    }
+}
+
+/**
+ * Saves a user's degree plan to the cloud.
+ * Document ID format: {userId}_{faculty}
+ */
+export async function saveDegreePlan(userId, faculty, planData) {
+    try {
+        const docId = `${userId}_${faculty}`;
+        const planRef = doc(db, "degree_plans", docId);
+        await setDoc(planRef, {
+            ...planData,
+            userId,
+            faculty,
+            updatedAt: new Date().toISOString()
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Error saving degree plan:", error);
+        return { success: false, message: error.message };
+    }
+}
+
+/**
+ * Gets a user's degree plan from the cloud.
+ */
+export async function getDegreePlan(userId, faculty) {
+    try {
+        const docId = `${userId}_${faculty}`;
+        const planRef = doc(db, "degree_plans", docId);
+        const docSnap = await getDoc(planRef);
+        
+        if (docSnap.exists()) {
+            return docSnap.data();
+        } else {
+            return null; // No saved plan found
+        }
+    } catch (error) {
+        console.error("Error getting degree plan:", error);
+        return null;
+    }
+}
+
+/**
+ * Deletes a user's degree plan from the cloud.
+ */
+export async function deleteDegreePlan(userId, faculty) {
+    try {
+        const docId = `${userId}_${faculty}`;
+        const planRef = doc(db, "degree_plans", docId);
+        await deleteDoc(planRef);
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting degree plan:", error);
         return { success: false };
     }
 }

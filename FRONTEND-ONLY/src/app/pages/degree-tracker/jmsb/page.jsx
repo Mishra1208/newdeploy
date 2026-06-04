@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUser } from '@clerk/nextjs';
 import { generateOptimalPath, checkPrerequisites } from '../../../../utils/degreeEngine/prereqGraph';
+import { saveDegreePlan, getDegreePlan, deleteDegreePlan } from '../../../../lib/firebase/firestore';
 import courseTitles from '../../../../utils/degreeEngine/data/courseTitles.json';
 import coursePrereqs from '../../../../utils/degreeEngine/data/coursePrereqs.json';
 
@@ -132,20 +133,24 @@ export default function FreshDegreeTracker() {
     error: '',
     correctMethod: ''
   });
+
   const [bugStatus, setBugStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
   const [saveStatus, setSaveStatus] = useState('idle'); // idle, saving, success
+  const [cloudSavedPlan, setCloudSavedPlan] = useState(null);
 
   const { user, isLoaded } = useUser();
 
   // Load saved state on mount (or when user logs in)
   useEffect(() => {
-    if (isLoaded && user) {
-      const saved = localStorage.getItem(`conu_plan_jmsb_${user.id}`);
-      if (saved) {
-        // We don't auto-apply it yet to avoid confusing the user, 
-        // we just store it to show the "Resume" button.
+    async function fetchPlan() {
+      if (isLoaded && user) {
+        const saved = await getDegreePlan(user.id, 'jmsb');
+        if (saved) {
+          setCloudSavedPlan(saved);
+        }
       }
     }
+    fetchPlan();
   }, [isLoaded, user]);
 
   const saveToProfile = useCallback(async () => {
@@ -154,6 +159,7 @@ export default function FreshDegreeTracker() {
     
     const stateToSave = {
       selectedProgramId,
+      selectedMinorId,
       completedCourses,
       electiveChoices,
       delayedCourses,
@@ -165,17 +171,18 @@ export default function FreshDegreeTracker() {
       timestamp: new Date().toISOString()
     };
 
-    localStorage.setItem(`conu_plan_jmsb_${user.id}`, JSON.stringify(stateToSave));
+    await saveDegreePlan(user.id, 'jmsb', stateToSave);
+    setCloudSavedPlan(stateToSave);
     
     setTimeout(() => {
       setSaveStatus('success');
       setTimeout(() => setSaveStatus('idle'), 2000);
-    }, 8000); // Simulate network delay
-  }, [user, selectedProgramId, completedCourses, electiveChoices, delayedCourses, skippedSemesters, manualAdds, includeMathProfile, startTerm, startYear]);
+    }, 500); 
+  }, [user, selectedProgramId, selectedMinorId, completedCourses, electiveChoices, delayedCourses, skippedSemesters, manualAdds, includeMathProfile, startTerm, startYear]);
 
   const resumeSavedPlan = () => {
     if (!user) return;
-    const saved = JSON.parse(localStorage.getItem(`conu_plan_jmsb_${user.id}`));
+    const saved = cloudSavedPlan;
     if (saved) {
       setSelectedProgramId(saved.selectedProgramId);
       if (saved.selectedMinorId) setSelectedMinorId(saved.selectedMinorId);
@@ -197,10 +204,10 @@ export default function FreshDegreeTracker() {
     setShowForgetConfirm(true);
   };
 
-  const handleConfirmForget = () => {
-    localStorage.removeItem(`conu_plan_jmsb_${user.id}`);
+  const handleConfirmForget = async () => {
+    await deleteDegreePlan(user.id, 'jmsb');
+    setCloudSavedPlan(null);
     setShowForgetConfirm(false);
-    window.location.reload();
   };
 
   const programsByAlphabet = Object.values(PROGRAMS).sort((a, b) => a.name.localeCompare(b.name));
@@ -1090,7 +1097,7 @@ export default function FreshDegreeTracker() {
                 <p className="text-slate-500 dark:text-blue-200 text-lg mb-10">We've expanded our tracker! Choose your department and degree to begin.</p>
                 
                 {/* SMART RESUME DASHBOARD - PREMIUM GLASSMORPHISM */}
-                {user && localStorage.getItem(`conu_plan_jmsb_${user.id}`) && (
+                {user && cloudSavedPlan && (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -1110,7 +1117,7 @@ export default function FreshDegreeTracker() {
                       <div className="relative z-10 flex-1">
                         <div className="flex items-center gap-3 mb-6">
                           <span className="w-3 h-3 rounded-full bg-[#912338] animate-ping" />
-                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#912338] dark:text-rose-400">Secure Cloud Save Detected</span>
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#912338] dark:text-rose-400">Secure Cloud Sync Detected</span>
                         </div>
                         <h3 className="text-4xl font-black text-slate-800 dark:text-white mb-3 tracking-tighter leading-none">
                           Resume Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#912338] to-rose-600">Concordia Journey</span>
@@ -1118,28 +1125,35 @@ export default function FreshDegreeTracker() {
                         <div className="flex items-center gap-6">
                           <div className="flex flex-col">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Program</span>
-                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{PROGRAMS[JSON.parse(localStorage.getItem(`conu_plan_jmsb_${user.id}`))?.selectedProgramId]?.name || 'My Degree'}</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{PROGRAMS[cloudSavedPlan?.selectedProgramId]?.name || 'My Degree'}</span>
                           </div>
                           <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
                           <div className="flex flex-col">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Last Synced</span>
-                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{new Date(JSON.parse(localStorage.getItem(`conu_plan_jmsb_${user.id}`))?.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{new Date(cloudSavedPlan?.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 relative z-10">
-                        <div className="px-8 py-5 rounded-2xl bg-slate-900 text-white font-black text-sm uppercase tracking-[0.15em] flex items-center gap-4 shadow-2xl hover:bg-[#912338] transition-all group/btn">
-                          Launch Roadmap
-                          <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </div>
+                      <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 mt-6 md:mt-0">
+                        <button 
+                          onClick={resumeSavedPlan}
+                          className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#912338] text-white font-bold hover:bg-[#7a1d2f] hover:scale-105 hover:shadow-[0_0_30px_rgba(145,35,56,0.4)] transition-all flex items-center justify-center gap-3 whitespace-nowrap"
+                        >
+                          <span>Resume Plan</span>
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </button>
                         
                         <button 
                           onClick={forgetSavedPlan}
-                          className="p-5 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-600 transition-all border border-transparent hover:border-rose-200"
-                          title="Forget this plan"
+                          className="w-full sm:w-auto p-4 rounded-2xl bg-slate-100/50 dark:bg-white/5 text-slate-500 dark:text-white/50 hover:bg-rose-100 dark:hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 transition-colors flex items-center justify-center group"
+                          title="Forget saved plan"
                         >
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </div>
