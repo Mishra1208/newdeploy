@@ -12,14 +12,15 @@ const changelogData = [
     {
         date: "Jun 4, 2026",
         version: "v4.0",
-        title: "Degree Pathfinder & JMSB Engine",
-        description: "A completely overhauled dynamic sequencing engine that now fully supports the John Molson School of Business alongside Gina Cody programs.",
+        title: "Degree Pathfinder",
+        description: "A completely overhauled, highly intelligent sequencing engine. It dynamically adapts to your major, minor, and credit profile to generate the perfect roadmap to graduation.",
         color: "#eab308", // Premium Amber
         features: [
-            "Dynamic course sequencing supporting complex major/minor combinations",
-            "Strict prerequisite enforcement and intelligent level progression",
-            "Stunning premium UI overhaul with sleek department watermarks",
-            "Full support for Accountancy, Finance, Management, Marketing, and BTM"
+            "Smart adaptive engine that perfectly merges Major and Minor requirements into one optimal path",
+            "Strict prerequisite checking ensuring you never take a course out of order",
+            "Intelligent level progression (forces completing 200-level courses before 300-level and 400-level)",
+            "Instantly generate visual roadmaps and download them as high-quality PDFs",
+            "Currently live for the Gina Cody School of Engineering and John Molson School of Business (more faculties coming soon!)"
         ],
         link: "/pages/degree-tracker",
         linkLabel: "Try Degree Pathfinder"
