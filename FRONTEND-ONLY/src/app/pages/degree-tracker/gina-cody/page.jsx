@@ -284,7 +284,7 @@ export default function FreshDegreeTracker() {
   // Load saved state on mount (or when user logs in)
   useEffect(() => {
     if (isLoaded && user) {
-      const saved = localStorage.getItem(`conu_plan_${user.id}`);
+      const saved = localStorage.getItem(`conu_plan_ginacody_${user.id}`);
       if (saved) {
         // We don't auto-apply it yet to avoid confusing the user, 
         // we just store it to show the "Resume" button.
@@ -309,7 +309,7 @@ export default function FreshDegreeTracker() {
       timestamp: new Date().toISOString()
     };
 
-    localStorage.setItem(`conu_plan_${user.id}`, JSON.stringify(stateToSave));
+    localStorage.setItem(`conu_plan_ginacody_${user.id}`, JSON.stringify(stateToSave));
     
     setTimeout(() => {
       setSaveStatus('success');
@@ -319,7 +319,7 @@ export default function FreshDegreeTracker() {
 
   const resumeSavedPlan = () => {
     if (!user) return;
-    const saved = JSON.parse(localStorage.getItem(`conu_plan_${user.id}`));
+    const saved = JSON.parse(localStorage.getItem(`conu_plan_ginacody_${user.id}`));
     if (saved) {
       setSelectedProgramId(saved.selectedProgramId);
       setCompletedCourses(saved.completedCourses || []);
@@ -341,7 +341,7 @@ export default function FreshDegreeTracker() {
   };
 
   const handleConfirmForget = () => {
-    localStorage.removeItem(`conu_plan_${user.id}`);
+    localStorage.removeItem(`conu_plan_ginacody_${user.id}`);
     setShowForgetConfirm(false);
     window.location.reload();
   };
@@ -355,7 +355,7 @@ export default function FreshDegreeTracker() {
   const [manualInput, setManualInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const selectedProgram = PROGRAMS[selectedProgramId];
+  const selectedProgram = PROGRAMS[selectedProgramId] || PROGRAMS['cs-general'];
   const currentOption = selectedProgram.options 
     ? (selectedProgram.options.find(o => o.id === selectedOptionId) || selectedProgram.options[0])
     : null;
@@ -1131,7 +1131,7 @@ export default function FreshDegreeTracker() {
                 <p className="text-slate-500 dark:text-blue-200 text-lg mb-10">We've expanded our tracker! Choose your department and degree to begin.</p>
                 
                 {/* SMART RESUME DASHBOARD - PREMIUM GLASSMORPHISM */}
-                {user && localStorage.getItem(`conu_plan_${user.id}`) && (
+                {user && localStorage.getItem(`conu_plan_ginacody_${user.id}`) && (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -1159,12 +1159,12 @@ export default function FreshDegreeTracker() {
                         <div className="flex items-center gap-6">
                           <div className="flex flex-col">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Program</span>
-                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{PROGRAMS[JSON.parse(localStorage.getItem(`conu_plan_${user.id}`))?.selectedProgramId]?.name || 'My Degree'}</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{PROGRAMS[JSON.parse(localStorage.getItem(`conu_plan_ginacody_${user.id}`))?.selectedProgramId]?.name || 'My Degree'}</span>
                           </div>
                           <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
                           <div className="flex flex-col">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Last Synced</span>
-                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{new Date(JSON.parse(localStorage.getItem(`conu_plan_${user.id}`))?.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                            <span className="text-lg font-bold text-slate-700 dark:text-white/90">{new Date(JSON.parse(localStorage.getItem(`conu_plan_ginacody_${user.id}`))?.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                           </div>
                         </div>
                       </div>
