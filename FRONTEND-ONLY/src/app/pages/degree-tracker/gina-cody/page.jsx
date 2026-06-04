@@ -209,6 +209,24 @@ const categoryColors = {
 
 const getCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
 
+const categoryBorderColors = {
+  'Computer Science & Software': 'bg-purple-500',
+  'Aerospace, Mechanical & Industrial': 'bg-orange-500',
+  'Civil & Environmental Engineering': 'bg-emerald-500',
+  'Chemical & Materials Engineering': 'bg-rose-500',
+  'Engineering & Construction': 'bg-amber-500'
+};
+const getCategoryBorderColor = (category) => categoryBorderColors[category] || 'bg-slate-300';
+
+const categoryIcons = {
+  'Computer Science & Software': <svg className="w-32 h-32 text-purple-500/10 dark:text-purple-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
+  'Aerospace, Mechanical & Industrial': <svg className="w-32 h-32 text-orange-500/10 dark:text-orange-500/5 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+  'Civil & Environmental Engineering': <svg className="w-32 h-32 text-emerald-500/10 dark:text-emerald-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
+  'Chemical & Materials Engineering': <svg className="w-32 h-32 text-rose-500/10 dark:text-rose-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>,
+  'Engineering & Construction': <svg className="w-32 h-32 text-amber-500/10 dark:text-amber-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+};
+const getCategoryIcon = (category) => categoryIcons[category] || null;
+
 const getProgramCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
 
 const debugRender = (val, label = "") => {
@@ -1177,13 +1195,21 @@ export default function FreshDegreeTracker() {
                         setSelectedProgramId(prog.id);
                         setStep('config');
                       }}
-                      className={`group relative p-8 rounded-3xl text-left transition-all duration-300 ${
+                      className={`group relative p-8 pl-10 rounded-3xl text-left transition-all duration-300 ${
                         selectedProgramId === prog.id 
                         ? 'bg-blue-50 dark:bg-blue-600/40 border-blue-400/50 shadow-2xl shadow-blue-900/20' 
-                        : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
-                      } border`}
+                        : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/50'
+                      } border overflow-hidden`}
                     >
-                      <div className="flex justify-between items-start mb-4">
+                      {/* Left "Coat" Border Strip */}
+                      <div className={`absolute top-0 left-0 w-2 h-full ${getCategoryBorderColor(prog.category)}`} />
+
+                      {/* Right Background Icon watermark */}
+                      <div className="absolute -right-4 -bottom-4 pointer-events-none">
+                        {getCategoryIcon(prog.category)}
+                      </div>
+
+                      <div className="relative z-10 flex justify-between items-start mb-4">
                         <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${getCategoryColor(prog.category)}`}>
                           {prog.category}
                         </span>
@@ -1195,10 +1221,10 @@ export default function FreshDegreeTracker() {
                           </div>
                         )}
                       </div>
-                      <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
+                      <h3 className="relative z-10 text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
                         {debugRender(prog.name, "prog.name")}
                       </h3>
-                      <p className="text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
+                      <p className="relative z-10 text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
                         {prog.options ? prog.options[0].data.totalCredits : prog.data.totalCredits} Credits • Undergraduate
                       </p>
                     </button>

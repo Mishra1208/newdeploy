@@ -61,6 +61,26 @@ const categoryColors = {
 
 const getCategoryColor = (category) => categoryColors[category] || 'text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900/40 border-slate-500/30';
 
+const categoryBorderColors = {
+  'Accounting': 'bg-rose-500',
+  'Economics & Finance': 'bg-emerald-500',
+  'Marketing & IB': 'bg-violet-500',
+  'Tech & Supply Chain': 'bg-sky-500',
+  'Management & HR': 'bg-amber-500',
+  'Minors & Certificates': 'bg-slate-500'
+};
+const getCategoryBorderColor = (category) => categoryBorderColors[category] || 'bg-slate-300';
+
+const categoryIcons = {
+  'Accounting': <svg className="w-32 h-32 text-rose-500/10 dark:text-rose-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
+  'Economics & Finance': <svg className="w-32 h-32 text-emerald-500/10 dark:text-emerald-500/5 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>,
+  'Marketing & IB': <svg className="w-32 h-32 text-violet-500/10 dark:text-violet-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+  'Tech & Supply Chain': <svg className="w-32 h-32 text-sky-500/10 dark:text-sky-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
+  'Management & HR': <svg className="w-32 h-32 text-amber-500/10 dark:text-amber-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
+  'Minors & Certificates': <svg className="w-32 h-32 text-slate-500/10 dark:text-slate-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+};
+const getCategoryIcon = (category) => categoryIcons[category] || null;
+
 const getProgramCategoryColor = (category) => categoryColors[category] || 'text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 border-blue-500/30';
 
 const debugRender = (val, label = "") => {
@@ -1112,13 +1132,21 @@ export default function FreshDegreeTracker() {
                         setSelectedProgramId(prog.id);
                         setStep('config');
                       }}
-                      className={`group relative p-8 rounded-3xl text-left transition-all duration-300 ${
+                      className={`group relative p-8 pl-10 rounded-3xl text-left transition-all duration-300 ${
                         selectedProgramId === prog.id 
                         ? 'bg-blue-50 dark:bg-blue-600/40 border-blue-400/50 shadow-2xl shadow-blue-900/20' 
-                        : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
-                      } border`}
+                        : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/50'
+                      } border overflow-hidden`}
                     >
-                      <div className="flex justify-between items-start mb-4">
+                      {/* Left "Coat" Border Strip */}
+                      <div className={`absolute top-0 left-0 w-2 h-full ${getCategoryBorderColor(prog.category)}`} />
+
+                      {/* Right Background Icon watermark */}
+                      <div className="absolute -right-4 -bottom-4 pointer-events-none">
+                        {getCategoryIcon(prog.category)}
+                      </div>
+
+                      <div className="relative z-10 flex justify-between items-start mb-4">
                         <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${getCategoryColor(prog.category)}`}>
                           {prog.category}
                         </span>
@@ -1130,10 +1158,10 @@ export default function FreshDegreeTracker() {
                           </div>
                         )}
                       </div>
-                      <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
+                      <h3 className="relative z-10 text-2xl font-black text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors tracking-tight">
                         {debugRender(prog.name, "prog.name")}
                       </h3>
-                      <p className="text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
+                      <p className="relative z-10 text-sm font-medium text-slate-500 dark:text-gray-400 opacity-80 uppercase tracking-widest">
                         {prog.options ? prog.options[0].data.totalCredits : prog.data.totalCredits} Credits • Undergraduate
                       </p>
                     </button>
