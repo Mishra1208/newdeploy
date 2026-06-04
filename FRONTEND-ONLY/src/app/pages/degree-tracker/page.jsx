@@ -40,7 +40,7 @@ export default function FacultySelection() {
 
               {/* Right Background Icon watermark */}
               <div className="absolute -right-4 -bottom-4 pointer-events-none">
-                 <svg className="w-32 h-32 text-stone-500/10 dark:text-stone-500/5 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <svg className="w-32 h-32 text-stone-500/10 dark:text-stone-500/20 dark:drop-shadow-[0_0_15px_rgba(168,162,158,0.3)] group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                  </svg>
               </div>
@@ -78,7 +78,7 @@ export default function FacultySelection() {
 
               {/* Right Background Icon watermark */}
               <div className="absolute -right-4 -bottom-4 pointer-events-none">
-                 <svg className="w-32 h-32 text-amber-500/10 dark:text-amber-500/5 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <svg className="w-32 h-32 text-amber-500/10 dark:text-amber-500/20 dark:drop-shadow-[0_0_15px_rgba(245,158,11,0.3)] group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                  </svg>
               </div>
