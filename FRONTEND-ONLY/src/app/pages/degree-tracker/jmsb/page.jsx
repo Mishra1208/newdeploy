@@ -1125,7 +1125,9 @@ export default function FreshDegreeTracker() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {Object.values(PROGRAMS).map((prog) => (
+                  {Object.values(PROGRAMS)
+                    .filter(prog => prog.id !== 'standalone-minors')
+                    .map((prog) => (
                     <button
                       key={prog.id}
                       onClick={() => {
