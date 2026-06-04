@@ -10,6 +10,21 @@ const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable
 
 const changelogData = [
     {
+        date: "Jun 4, 2026",
+        version: "v4.0",
+        title: "Degree Pathfinder & JMSB Engine",
+        description: "A completely overhauled dynamic sequencing engine that now fully supports the John Molson School of Business alongside Gina Cody programs.",
+        color: "#eab308", // Premium Amber
+        features: [
+            "Dynamic course sequencing supporting complex major/minor combinations",
+            "Strict prerequisite enforcement and intelligent level progression",
+            "Stunning premium UI overhaul with sleek department watermarks",
+            "Full support for Accountancy, Finance, Management, Marketing, and BTM"
+        ],
+        link: "/pages/degree-tracker",
+        linkLabel: "Try Degree Pathfinder"
+    },
+    {
         date: "Apr 2, 2026",
         version: "v3.1",
         title: "Schedule Builder & Next-Gen Theme",
