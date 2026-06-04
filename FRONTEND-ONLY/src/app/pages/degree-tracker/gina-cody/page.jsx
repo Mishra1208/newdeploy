@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUser } from '@clerk/nextjs';
 import { generateOptimalPath, checkPrerequisites } from '../../../../utils/degreeEngine/prereqGraph';
@@ -987,17 +988,33 @@ export default function FreshDegreeTracker() {
           </div>
         </div>
 
-        {/* Web-Only Header */}
-        <div className="mb-16 text-center print:hidden">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#912338]/10 text-[#912338] font-bold text-xs uppercase tracking-widest mb-6">
-            {selectedProgram ? selectedProgram.name : "Degree Pathfinder"}
+        {/* Back Button & Header Container */}
+        <div className="mb-16 print:hidden">
+          {/* Back Button */}
+          <div className="flex justify-start mb-8">
+            <Link href="/pages/degree-tracker" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all shadow-sm">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+              Change Faculty
+            </Link>
           </div>
-          <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-            Degree Path <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#912338] to-red-600">Generator</span>
-          </h1>
-          <p className="text-xl text-slate-500 dark:text-white/60 dark:text-white/50 max-w-2xl mx-auto font-medium">
-            Get a perfect, prerequisite-safe, semester-by-semester plan for your Computer Science degree.
-          </p>
+
+          <div className="text-center">
+            <div className="inline-flex flex-wrap justify-center items-center gap-2 mb-6">
+              <div className="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs uppercase tracking-widest border border-slate-200 dark:border-slate-700">
+                Gina Cody School of Engineering
+              </div>
+              <div className="px-4 py-1.5 rounded-full bg-[#912338]/10 dark:bg-[#912338]/20 text-[#912338] dark:text-rose-400 font-bold text-xs uppercase tracking-widest border border-[#912338]/20">
+                {selectedProgram ? selectedProgram.name : "Degree Pathfinder"}
+              </div>
+            </div>
+            
+            <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
+              Degree Path <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#912338] to-red-600">Generator</span>
+            </h1>
+            <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
+              Get a perfect, prerequisite-safe, semester-by-semester plan for your {selectedProgram?.name || 'Engineering'} degree.
+            </p>
+          </div>
         </div>
 
         <AnimatePresence mode="wait">
